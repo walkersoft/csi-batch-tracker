@@ -69,6 +69,7 @@
     <Compile Include="Contracts\AbstractBatchNumberValidator.cs" />
     <Compile Include="Contracts\IBatchNumberValidator.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidator.cs" />
+    <Compile Include="Domain\NativeModels\DispenseOperator.cs" />
     <Compile Include="Exceptions\BatchNumberValidationException.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
