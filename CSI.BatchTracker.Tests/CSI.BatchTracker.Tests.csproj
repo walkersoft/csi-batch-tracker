@@ -48,7 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidatorTest.cs" />
-    <Compile Include="Domain\NativeModels\DispenseOperatorTest.cs" />
+    <Compile Include="Domain\NativeModels\BatchOperatorTest.cs" />
+    <Compile Include="Domain\NativeModels\InventoryBatchTest.cs" />
+    <Compile Include="Domain\NativeModels\ReceivedBatchTest.cs" />
+    <Compile Include="Domain\NativeModels\LoggedBatchTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

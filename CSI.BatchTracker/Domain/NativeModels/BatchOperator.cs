@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {
-    public class DispenseOperator
+    public class BatchOperator
     {
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
 
-        public DispenseOperator(string firstName, string lastName)
+        public BatchOperator(string firstName, string lastName)
         {
             CheckIfNameIsEmpty(firstName);
             CheckIfNameIsEmpty(lastName);

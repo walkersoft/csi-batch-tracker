@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.Domain.NativeModels
 {
     [TestFixture]
-    public class DispenseOperatorTest
+    public class BatchOperatorTest
     {
-        DispenseOperator dispenseOperator;
+        BatchOperator dispenseOperator;
 
         [Test]
         public void OperatorIsSetupCorrectly()
         {
             string firstName = "Jane";
             string lastName = "Doe";
-            dispenseOperator = new DispenseOperator(firstName, lastName);
+            dispenseOperator = new BatchOperator(firstName, lastName);
 
             Assert.AreEqual(firstName, dispenseOperator.FirstName);
             Assert.AreEqual(lastName, dispenseOperator.LastName);
@@ -31,7 +31,7 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
             string lastName = "Doe";
             string initials = "JD";
 
-            dispenseOperator = new DispenseOperator(firstName, lastName);
+            dispenseOperator = new BatchOperator(firstName, lastName);
 
             Assert.AreEqual(initials, dispenseOperator.GetInitials());
         }
@@ -39,13 +39,13 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
         [Test]
         public void ExceptionIfOperatorFirstNameIsEmpty()
         {
-            Assert.Throws<System.ArgumentException>(() => new DispenseOperator("", "Doe"));
+            Assert.Throws<System.ArgumentException>(() => new BatchOperator("", "Doe"));
         }
 
         [Test]
         public void ExceptionIfOperatorLastNameIsEmpty()
         {
-            Assert.Throws<System.ArgumentException>(() => new DispenseOperator("Jane", ""));
+            Assert.Throws<System.ArgumentException>(() => new BatchOperator("Jane", ""));
         }
     }
 }
