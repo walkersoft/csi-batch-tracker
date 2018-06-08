@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Experimental;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,30 @@ namespace CSI.BatchTracker
     /// </summary>
     public partial class MainWindow : Window
     {
+        public DataStore DataStore { get; set; }
+
         public MainWindow()
         {
+            DataStore = new DataStore();
+            SetupBatchOperators();
             InitializeComponent();
+            DataContext = DataStore;
+        }
+
+        void SetupBatchOperators()
+        {
+            ObservableCollection<BatchOperator> batchOperators = new ObservableCollection<BatchOperator>()
+            {
+                new BatchOperator("Jason", "Walker"),
+                new BatchOperator("Geoff", "Nelson")
+            };
+
+            DataStore.BatchOperators = batchOperators;
+        }
+
+        private void AddOperator(object sender, RoutedEventArgs e)
+        {
+            DataStore.BatchOperators.Add(new BatchOperator(operatorFN.Text, operatorLN.Text));
         }
     }
 }

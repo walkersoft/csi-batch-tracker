@@ -34,10 +34,16 @@
         <Label Content="Add Operator" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top"/>
         <Label Content="Last Name" HorizontalAlignment="Left" Margin="135,246,0,0" VerticalAlignment="Top"/>
         <Label Content="First Name" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="103"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="135,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103"/>
-        <Button Content="Add Operator" HorizontalAlignment="Left" Margin="252,272,0,0" VerticalAlignment="Top" Width="95"/>
-        <DataGrid HorizontalAlignment="Left" Height="100" Margin="10,310,0,0" VerticalAlignment="Top" Width="337"/>
+        <TextBox x:Name="operatorFN" HorizontalAlignment="Left" Height="23" Margin="10,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103"/>
+        <TextBox x:Name="operatorLN" HorizontalAlignment="Left" Height="23" Margin="135,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103"/>
+        <Button Content="Add Operator" HorizontalAlignment="Left" Margin="252,272,0,0" VerticalAlignment="Top" Width="95" Click="AddOperator"/>
+        <DataGrid x:Name="operatorGrid" HorizontalAlignment="Left" Height="100" Margin="10,310,0,0" VerticalAlignment="Top" Width="337"
+                  ItemsSource="{Binding Path=BatchOperators}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Width="100" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Last Name" Width="100" Binding="{Binding LastName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Separator HorizontalAlignment="Left" Height="100" Margin="279,206,0,0" VerticalAlignment="Top" Width="309" RenderTransformOrigin="0.5,0.5">
             <Separator.RenderTransform>
                 <TransformGroup>

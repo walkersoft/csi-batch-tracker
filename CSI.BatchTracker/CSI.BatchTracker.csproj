@@ -76,6 +76,7 @@
     <Compile Include="Domain\NativeModels\LoggedBatch.cs" />
     <Compile Include="Exceptions\BatchException.cs" />
     <Compile Include="Exceptions\BatchNumberValidationException.cs" />
+    <Compile Include="Experimental\DataStore.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
