@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace CSI.BatchTracker.Domain.NativeModels
 
         public InventoryBatch(string colorName, string batchNumber, DateTime inventoryDate, int quantity)
         {
+            CheckIfQuantityIsGreaterThanZero(quantity);
+            CheckIfColorNameIsEmpty(colorName);
+            CheckIfBatchNumberIsEmpty(batchNumber);
+
             ColorName = colorName;
             BatchNumber = batchNumber;
             ActivityDate = inventoryDate;
@@ -21,11 +26,13 @@ namespace CSI.BatchTracker.Domain.NativeModels
 
         public void DeductQuantity(int amount)
         {
+            CheckIfQuantityIsGreaterThanZero(amount);
             Quantity -= amount;
         }
 
         public void AddQuantity(int amount)
         {
+            CheckIfQuantityIsGreaterThanZero(amount);
             Quantity += amount;
         }
     }

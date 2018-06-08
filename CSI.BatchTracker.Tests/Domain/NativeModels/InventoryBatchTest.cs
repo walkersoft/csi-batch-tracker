@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Exceptions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,36 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
             batch.AddQuantity(1);
 
             Assert.AreEqual(expected, batch.Quantity);
+        }
+
+        [Test]
+        public void ExceptionIfTryingToAddInventoryWithQuantityLessThanOne()
+        {
+            Assert.Throws<BatchException>(() => batch.AddQuantity(0));
+        }
+
+        [Test]
+        public void ExceptionIfTryingToDeductInventoryWithQuantityLessThanOne()
+        {
+            Assert.Throws<BatchException>(() => batch.DeductQuantity(0));
+        }
+
+        [Test]
+        public void ExceptionInstantiatingWithQuantityLessThanOne()
+        {
+            Assert.Throws<BatchException>(() => new InventoryBatch(colorName, batchNumber, inventoryDate, 0));
+        }
+
+        [Test]
+        public void ExceptionIfColorNameIsEmpty()
+        {
+            Assert.Throws<BatchException>(() => new InventoryBatch("", batchNumber, inventoryDate, quantity));
+        }
+
+        [Test]
+        public void ExceptionIfBatchNumberIsEmpty()
+        {
+            Assert.Throws<BatchException>(() => new InventoryBatch(colorName, "", inventoryDate, quantity));
         }
     }
 }

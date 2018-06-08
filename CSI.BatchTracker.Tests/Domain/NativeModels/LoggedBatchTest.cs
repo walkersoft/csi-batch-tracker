@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Exceptions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,20 +12,39 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
     [TestFixture]
     public class LoggedBatchTest
     {
+        readonly string colorName = "Deep Green";
+        readonly string batchNumber = "872280503401";
+        readonly DateTime implementationDate = DateTime.Now;
+        readonly BatchOperator implementingOperator = new BatchOperator("Jane", "Doe");
+
+        LoggedBatch batch;
+
+        [SetUp]
+        public void SetUp()
+        {
+            batch = new LoggedBatch(colorName, batchNumber, implementationDate, implementingOperator);
+        }
+
         [Test]
         public void LoggedBatchIsSetupCorrectly()
-        {
-            string colorName = "Deep Green";
-            string batchNumber = "872280503401";
-            DateTime implementationDate = DateTime.Now;
-            BatchOperator implementingOperator = new BatchOperator("Jane", "Doe");
-
-            LoggedBatch batch = new LoggedBatch(colorName, batchNumber, implementationDate, implementingOperator);
+        {      
 
             Assert.AreEqual(colorName, batch.ColorName);
             Assert.AreEqual(batchNumber, batch.BatchNumber);
             Assert.AreEqual(implementationDate, batch.ActivityDate);
             Assert.AreEqual(implementingOperator, batch.ImplementingOperator);
+        }
+
+        [Test]
+        public void ExceptionIfColorNameIsEmpty()
+        {
+            Assert.Throws<BatchException>(() => new LoggedBatch("", batchNumber, implementationDate, implementingOperator));
+        }
+
+        [Test]
+        public void ExceptionIfBatchNumberIsEmpty()
+        {
+            Assert.Throws<BatchException>(() => new LoggedBatch(colorName, "", implementationDate, implementingOperator));
         }
     }
 }

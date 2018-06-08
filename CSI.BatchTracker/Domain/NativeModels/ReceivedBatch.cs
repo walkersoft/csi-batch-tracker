@@ -20,6 +20,10 @@ namespace CSI.BatchTracker.Domain.NativeModels
             BatchOperator receivingOperator
         )
         {
+            CheckIfColorNameIsEmpty(colorName);
+            CheckIfBatchNumberIsEmpty(batchNumber);
+            CheckIfQuantityIsGreaterThanZero(quantity);
+
             ColorName = colorName;
             BatchNumber = batchNumber;
             ActivityDate = receivingDate;

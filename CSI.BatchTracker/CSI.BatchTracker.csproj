@@ -74,6 +74,7 @@
     <Compile Include="Domain\NativeModels\InventoryBatch.cs" />
     <Compile Include="Domain\NativeModels\ReceivedBatch.cs" />
     <Compile Include="Domain\NativeModels\LoggedBatch.cs" />
+    <Compile Include="Exceptions\BatchException.cs" />
     <Compile Include="Exceptions\BatchNumberValidationException.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
