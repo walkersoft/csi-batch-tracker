@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSI.BatchTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="980">
     <Grid>
-        
+        <Label Content="Add Batch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="135,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="144"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="284,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="36"/>
+        <DatePicker HorizontalAlignment="Left" Margin="325,62,0,0" VerticalAlignment="Top"/>
+        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="598,63,0,0" VerticalAlignment="Top" Width="95"/>
+        <Label Content="Color Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Qty." HorizontalAlignment="Left" Margin="284,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Receiving Date" HorizontalAlignment="Left" Margin="325,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Batch Number" HorizontalAlignment="Left" Margin="135,36,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="437,62,0,0" VerticalAlignment="Top" Width="156"/>
+        <Label Content="Receiving Operator" HorizontalAlignment="Left" Margin="437,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Current Inventory" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
+        <DataGrid HorizontalAlignment="Left" Height="100" Margin="13,115,0,0" VerticalAlignment="Top" Width="414"/>
+        <Label Content="Implemented Batch Ledger" HorizontalAlignment="Left" Margin="440,173,0,0" VerticalAlignment="Top"/>
+        <DataGrid HorizontalAlignment="Left" Height="206" Margin="440,204,0,0" VerticalAlignment="Top" Width="522"/>
+        <Label Content="Implement Batch" HorizontalAlignment="Left" Margin="437,89,0,0" VerticalAlignment="Top"/>
+        <Label Content="Implementing Operator" HorizontalAlignment="Left" Margin="706,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="Date" HorizontalAlignment="Left" Margin="598,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="Batch Selection" HorizontalAlignment="Left" Margin="437,115,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="437,146,0,0" VerticalAlignment="Top" Width="156"/>
+        <DatePicker HorizontalAlignment="Left" Margin="598,146,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="706,146,0,0" VerticalAlignment="Top" Width="156"/>
+        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="867,146,0,0" VerticalAlignment="Top" Width="95"/>
+        <Label Content="Add Operator" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top"/>
+        <Label Content="Last Name" HorizontalAlignment="Left" Margin="135,246,0,0" VerticalAlignment="Top"/>
+        <Label Content="First Name" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="103"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="135,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103"/>
+        <Button Content="Add Operator" HorizontalAlignment="Left" Margin="252,272,0,0" VerticalAlignment="Top" Width="95"/>
+        <DataGrid HorizontalAlignment="Left" Height="100" Margin="10,310,0,0" VerticalAlignment="Top" Width="337"/>
+        <Separator HorizontalAlignment="Left" Height="100" Margin="279,206,0,0" VerticalAlignment="Top" Width="309" RenderTransformOrigin="0.5,0.5">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.025"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
+
     </Grid>
 </Window>
