@@ -12,6 +12,14 @@ namespace CSI.BatchTracker.Domain.NativeModels
     {
         public int Quantity { get; private set; }
 
+        public string DisplayName
+        {
+            get
+            {
+                return string.Format("{0} - {1}", ColorName, BatchNumber);
+            }
+        }
+
         public InventoryBatch(string colorName, string batchNumber, DateTime inventoryDate, int quantity)
         {
             CheckIfQuantityIsGreaterThanZero(quantity);

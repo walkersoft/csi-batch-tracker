@@ -12,7 +12,7 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
     [TestFixture]
     public class InventoryBatchTest
     {
-        readonly string colorName = "BrightRed";
+        readonly string colorName = "Bright Red";
         readonly string batchNumber = "872880403204";
         readonly DateTime inventoryDate = DateTime.Now;
         readonly int quantity = 4;
@@ -32,6 +32,13 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
             Assert.AreEqual(batchNumber, batch.BatchNumber);
             Assert.AreEqual(inventoryDate, batch.ActivityDate);
             Assert.AreEqual(quantity, batch.Quantity);
+        }
+
+        [Test]
+        public void ViewDisplayName()
+        {
+            string expected = "Bright Red - 872880403204";
+            Assert.AreEqual(expected, batch.DisplayName);
         }
 
         [Test]
