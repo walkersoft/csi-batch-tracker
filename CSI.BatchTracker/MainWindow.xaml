@@ -12,7 +12,7 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="135,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="144"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="284,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="36"/>
         <DatePicker HorizontalAlignment="Left" Margin="325,62,0,0" VerticalAlignment="Top"/>
-        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="598,63,0,0" VerticalAlignment="Top" Width="95"/>
+        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="684,62,0,0" VerticalAlignment="Top" Width="95"/>
         <Label Content="Color Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Qty." HorizontalAlignment="Left" Margin="284,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Receiving Date" HorizontalAlignment="Left" Margin="325,36,0,0" VerticalAlignment="Top"/>
@@ -48,6 +48,8 @@
                 </TransformGroup>
             </Separator.RenderTransform>
         </Separator>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="598,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="81"/>
+        <Label Content="PO Number" HorizontalAlignment="Left" Margin="598,36,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
