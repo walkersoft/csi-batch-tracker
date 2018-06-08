@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
 
             Assert.AreEqual(colorName, batch.ColorName);
             Assert.AreEqual(batchNumber, batch.BatchNumber);
-            Assert.AreEqual(date, batch.ReceivingDate);
+            Assert.AreEqual(date, batch.ActivityDate);
             Assert.AreEqual(qtyAvailable, batch.Quantity);
             Assert.AreSame(receivingOperator, batch.ReceivingOperator);
         }

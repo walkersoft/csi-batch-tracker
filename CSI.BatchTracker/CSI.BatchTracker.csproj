@@ -66,6 +66,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Contracts\AbstractBatch.cs" />
     <Compile Include="Contracts\AbstractBatchNumberValidator.cs" />
     <Compile Include="Contracts\IBatchNumberValidator.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidator.cs" />
