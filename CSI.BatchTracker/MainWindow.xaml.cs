@@ -84,5 +84,28 @@ namespace CSI.BatchTracker
         {
             DataStore.BatchOperators.Add(new BatchOperator(operatorFN.Text, operatorLN.Text));
         }
+
+        private void AddInventoriedBatch(object sender, RoutedEventArgs e)
+        {
+            DataStore.ReceivedBatches.Clear();
+            DataStore.ReceivedBatches.Add(
+                new ReceivedBatch(
+                    batchColor.SelectedValue.ToString(),
+                    batchNumber.Text, 
+                    (DateTime)recvDate.SelectedDate,
+                    int.Parse(batchQty.Text),
+                    int.Parse(poNumber.Text),
+                    DataStore.BatchOperators[batchOperator.SelectedIndex]
+                )
+            );
+
+            DataStore.CalculateInventory();
+            inventoryGrid.Items.Refresh();
+        }
+
+        private void AddBatchToLedger(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

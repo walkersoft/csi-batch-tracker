@@ -9,18 +9,18 @@
     <Grid>
         <Label Content="Add Batch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
 
-        <ComboBox HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=Colors}"/>
+        <ComboBox x:Name="batchColor" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=Colors}"/>
 
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="135,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="144"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="284,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="36"/>
-        <DatePicker HorizontalAlignment="Left" Margin="325,62,0,0" VerticalAlignment="Top"/>
-        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="684,62,0,0" VerticalAlignment="Top" Width="95"/>
+        <TextBox x:Name="batchNumber" HorizontalAlignment="Left" Height="23" Margin="135,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="144"/>
+        <TextBox x:Name="batchQty" HorizontalAlignment="Left" Height="23" Margin="284,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="36"/>
+        <DatePicker x:Name="recvDate" HorizontalAlignment="Left" Margin="325,62,0,0" VerticalAlignment="Top"/>
+        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="684,62,0,0" VerticalAlignment="Top" Width="95" Click="AddInventoriedBatch"/>
         <Label Content="Color Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Qty." HorizontalAlignment="Left" Margin="284,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Receiving Date" HorizontalAlignment="Left" Margin="325,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Batch Number" HorizontalAlignment="Left" Margin="135,36,0,0" VerticalAlignment="Top"/>
 
-        <ComboBox HorizontalAlignment="Left" Margin="437,62,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=BatchOperators}">
+        <ComboBox x:Name="batchOperator" HorizontalAlignment="Left" Margin="437,62,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=BatchOperators}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding FullName}"/>
@@ -31,7 +31,7 @@
         <Label Content="Receiving Operator" HorizontalAlignment="Left" Margin="437,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Current Inventory" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
 
-        <DataGrid HorizontalAlignment="Left" Height="100" Margin="13,115,0,0" VerticalAlignment="Top" Width="414"
+        <DataGrid x:Name="inventoryGrid" HorizontalAlignment="Left" Height="100" Margin="13,115,0,0" VerticalAlignment="Top" Width="414"
                   ItemsSource="{Binding Path=InventoryBatches}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Color Name" Binding="{Binding ColorName}"/>
@@ -65,7 +65,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="867,146,0,0" VerticalAlignment="Top" Width="95"/>
+        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="867,146,0,0" VerticalAlignment="Top" Width="95" Click="AddBatchToLedger"/>
         <Label Content="Add Operator" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top"/>
         <Label Content="Last Name" HorizontalAlignment="Left" Margin="135,246,0,0" VerticalAlignment="Top"/>
         <Label Content="First Name" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="103"/>
@@ -91,7 +91,7 @@
                 </TransformGroup>
             </Separator.RenderTransform>
         </Separator>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="598,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="81"/>
+        <TextBox x:Name="poNumber" HorizontalAlignment="Left" Height="23" Margin="598,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="81"/>
         <Label Content="PO Number" HorizontalAlignment="Left" Margin="598,36,0,0" VerticalAlignment="Top"/>
 
     </Grid>
