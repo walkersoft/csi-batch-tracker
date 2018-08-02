@@ -17,7 +17,6 @@ namespace CSI.BatchTracker.Tests.Experimental
         ObservableCollection<BatchOperator> batchOperators;
         ObservableCollection<string> colors;
         ObservableCollection<ReceivedBatch> receivedBatches;
-        ObservableCollection<InventoryBatch> inventoryBatches;
 
         [SetUp]
         public void SetUp()
@@ -96,6 +95,17 @@ namespace CSI.BatchTracker.Tests.Experimental
             }
 
             Assert.AreEqual(expectedStock, totalStock);
+        }
+
+        [Test]
+        public void InventoryBatchesMergedIntoSingleBatchNumber()
+        {
+            store.ReceivedBatches = receivedBatches;
+            store.CalculateInventory();
+
+            int expectedStock = 8;
+
+            Assert.AreEqual(expectedStock, store.InventoryBatches[0].Quantity);
         }
     }
 }
