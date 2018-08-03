@@ -17,6 +17,7 @@ namespace CSI.BatchTracker.Tests.Experimental
         ObservableCollection<BatchOperator> batchOperators;
         ObservableCollection<string> colors;
         ObservableCollection<ReceivedBatch> receivedBatches;
+        ObservableCollection<LoggedBatch> loggedBatches;
 
         [SetUp]
         public void SetUp()
@@ -51,6 +52,8 @@ namespace CSI.BatchTracker.Tests.Experimental
                 new ReceivedBatch("Bright Yellow", "872880506701", DateTime.Parse("6/7/2018"), 2, 42084, batchOperators[random.Next(0, batchOperators.Count)]),
                 new ReceivedBatch("Yellow", "872880703401", DateTime.Parse("6/7/2018"), 4, 42089, batchOperators[random.Next(0, batchOperators.Count)])
             };
+
+            loggedBatches = new ObservableCollection<LoggedBatch>();
         }
 
         [Test]
@@ -106,6 +109,18 @@ namespace CSI.BatchTracker.Tests.Experimental
             int expectedStock = 8;
 
             Assert.AreEqual(expectedStock, store.InventoryBatches[0].Quantity);
+        }
+
+        [Test]
+        public void ImplementBatchReducesInventoryAndAddsToLedger()
+        {
+            store.ReceivedBatches = receivedBatches;
+            store.CalculateInventory();
+
+            store.ImplementBatch("872881103201", DateTime.Now, batchOperators[0]);
+
+            Assert.AreEqual(1, store.LoggedBatches.Count);
+            Assert.AreEqual(7, store.InventoryBatches[0].Quantity);
         }
     }
 }
