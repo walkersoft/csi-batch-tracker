@@ -105,7 +105,19 @@ namespace CSI.BatchTracker
 
         private void AddBatchToLedger(object sender, RoutedEventArgs e)
         {
+            InventoryBatch batch = DataStore.InventoryBatches[ledgerBatchSelection.SelectedIndex];
+            LoggedBatch ledger = new LoggedBatch(
+                batch.ColorName,
+                batch.BatchNumber,
+                (DateTime)ledgerBatchDate.SelectedDate,
+                DataStore.BatchOperators[ledgerBatchOperator.SelectedIndex]
+            );
 
+            batch.DeductQuantity(1);
+            DataStore.LoggedBatches.Add(ledger);
+
+            inventoryGrid.Items.Refresh();
+            ledgerGrid.Items.Refresh();
         }
     }
 }

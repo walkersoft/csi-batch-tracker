@@ -41,13 +41,21 @@
         </DataGrid>
         
         <Label Content="Implemented Batch Ledger" HorizontalAlignment="Left" Margin="440,173,0,0" VerticalAlignment="Top"/>
-        <DataGrid HorizontalAlignment="Left" Height="206" Margin="440,204,0,0" VerticalAlignment="Top" Width="522"/>
+        <DataGrid x:Name="ledgerGrid" HorizontalAlignment="Left" Height="206" Margin="440,204,0,0" VerticalAlignment="Top" Width="522"
+                  ItemsSource="{Binding Path=LoggedBatches}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Color Name" Binding="{Binding ColorName}"/>
+                <DataGridTextColumn Header="Batch Number" Binding="{Binding BatchNumber}"/>
+                <DataGridTextColumn Header="Activity Date" Binding="{Binding ActivityDate}"/>
+                <DataGridTextColumn Header="Operator" Binding="{Binding ImplementingOperator.FullName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Implement Batch" HorizontalAlignment="Left" Margin="437,89,0,0" VerticalAlignment="Top"/>
         <Label Content="Implementing Operator" HorizontalAlignment="Left" Margin="706,115,0,0" VerticalAlignment="Top"/>
         <Label Content="Date" HorizontalAlignment="Left" Margin="598,115,0,0" VerticalAlignment="Top"/>
         <Label Content="Batch Selection" HorizontalAlignment="Left" Margin="437,115,0,0" VerticalAlignment="Top"/>
 
-        <ComboBox HorizontalAlignment="Left" Margin="437,146,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=InventoryBatches}">
+        <ComboBox x:Name="ledgerBatchSelection" HorizontalAlignment="Left" Margin="437,146,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=InventoryBatches}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding DisplayName}"/>
@@ -55,9 +63,9 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <DatePicker HorizontalAlignment="Left" Margin="598,146,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="ledgerBatchDate" HorizontalAlignment="Left" Margin="598,146,0,0" VerticalAlignment="Top"/>
 
-        <ComboBox HorizontalAlignment="Left" Margin="706,146,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=BatchOperators}">
+        <ComboBox x:Name="ledgerBatchOperator" HorizontalAlignment="Left" Margin="706,146,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=BatchOperators}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding FullName}"/>

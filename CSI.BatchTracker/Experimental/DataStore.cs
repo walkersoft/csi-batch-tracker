@@ -19,15 +19,11 @@ namespace CSI.BatchTracker.Experimental
         public DataStore()
         {
             LoggedBatches = new ObservableCollection<LoggedBatch>();
+            InventoryBatches = new ObservableCollection<InventoryBatch>();
         }
 
         public void CalculateInventory()
         {
-            if (InventoryBatches == null)
-            {
-                InventoryBatches = new ObservableCollection<InventoryBatch>();
-            }
-
             foreach (ReceivedBatch batch in ReceivedBatches)
             {
                 bool found = false;
