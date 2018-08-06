@@ -17,6 +17,11 @@ namespace CSI.BatchTracker.Domain
             BatchNumberLength = length;
         }
 
+        public DuracolorIntermixBatchNumberValidator()
+        {
+            BatchNumberLength = 12;
+        }
+
         void CheckIfLengthIsPositiveAndNotZero(int length)
         {
             if (length <= 0)

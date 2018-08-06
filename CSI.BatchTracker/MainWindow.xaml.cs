@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.NativeModels;
+﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;
 using System;
 using System.Collections.Generic;
@@ -87,20 +88,27 @@ namespace CSI.BatchTracker
 
         private void AddInventoriedBatch(object sender, RoutedEventArgs e)
         {
-            DataStore.ReceivedBatches.Clear();
-            DataStore.ReceivedBatches.Add(
-                new ReceivedBatch(
-                    batchColor.SelectedValue.ToString(),
-                    batchNumber.Text, 
-                    (DateTime)recvDate.SelectedDate,
-                    int.Parse(batchQty.Text),
-                    int.Parse(poNumber.Text),
-                    DataStore.BatchOperators[batchOperator.SelectedIndex]
-                )
-            );
+            try
+            {
+                DataStore.ReceivedBatches.Clear();
+                DataStore.ReceivedBatches.Add(
+                    new ReceivedBatch(
+                        batchColor.SelectedValue.ToString(),
+                        ValidateBatch(batchNumber.Text), 
+                        (DateTime)recvDate.SelectedDate,
+                        int.Parse(batchQty.Text),
+                        int.Parse(poNumber.Text),
+                        DataStore.BatchOperators[batchOperator.SelectedIndex]
+                    )
+                );
 
-            DataStore.CalculateInventory();
-            inventoryGrid.Items.Refresh();
+                DataStore.CalculateInventory();
+                inventoryGrid.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void AddBatchToLedger(object sender, RoutedEventArgs e)
@@ -118,6 +126,18 @@ namespace CSI.BatchTracker
 
             inventoryGrid.Items.Refresh();
             ledgerGrid.Items.Refresh();
+        }
+
+        string ValidateBatch(string batchNumber)
+        {
+            DuracolorIntermixBatchNumberValidator validator = new DuracolorIntermixBatchNumberValidator();
+
+            if (validator.Validate(batchNumber) == false)
+            {
+                throw new Exception("Batch Number is invalid");
+            }
+
+            return batchNumber;
         }
     }
 }

@@ -23,6 +23,15 @@ namespace CSI.BatchTracker.Tests.Domain
         }
 
         [Test]
+        public void DefaultBatchLengthSetup()
+        {
+            int expected = 12;
+            DuracolorIntermixBatchNumberValidator plainValidator = new DuracolorIntermixBatchNumberValidator();
+
+            Assert.AreEqual(expected, plainValidator.BatchNumberLength);
+        }
+
+        [Test]
         public void BatchNumberLengthIsSet()
         {
             Assert.AreEqual(standardLength, validator.GetBatchNumberLength());
