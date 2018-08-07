@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\DataSource\DataSourceTest.cs" />
+    <Compile Include="Domain\DataSource\EntityTest.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidatorTest.cs" />
     <Compile Include="Domain\NativeModels\BatchOperatorTest.cs" />
     <Compile Include="Domain\NativeModels\InventoryBatchTest.cs" />
