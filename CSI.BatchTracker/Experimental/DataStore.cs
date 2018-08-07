@@ -45,6 +45,8 @@ namespace CSI.BatchTracker.Experimental
                     InventoryBatches.Add(newStockBatch);
                 }
             }
+
+            ReceivedBatches.Clear();
         }
 
         public void ImplementBatch(string batchNumber, DateTime activityDate, BatchOperator implentingOperator)
