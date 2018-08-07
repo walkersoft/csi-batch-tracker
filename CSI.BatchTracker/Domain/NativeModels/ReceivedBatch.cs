@@ -15,7 +15,7 @@ namespace CSI.BatchTracker.Domain.NativeModels
         public int PONumber { get; private set; }
         public BatchOperator ReceivingOperator { get; private set; }
 
-        public ReceivedBatch(
+        public ReceivedBatch (
             string colorName, 
             string batchNumber, 
             DateTime receivingDate, 
