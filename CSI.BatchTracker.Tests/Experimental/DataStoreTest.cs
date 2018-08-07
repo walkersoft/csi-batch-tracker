@@ -57,15 +57,6 @@ namespace CSI.BatchTracker.Tests.Experimental
         }
 
         [Test]
-        public void BatchOperatorsAreSetAndEqualToThree()
-        {
-            store.BatchOperators = batchOperators;
-
-            Assert.AreSame(batchOperators, store.BatchOperators);
-            Assert.AreEqual(3, store.BatchOperators.Count);
-        }
-
-        [Test]
         public void ColorNamesAreSetupAndEqualToNine()
         {
             store.Colors = colors;

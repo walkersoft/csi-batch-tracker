@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.Domain.DataSource.Repositores;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;
 using System;
@@ -8,21 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Domain.DataSource
+namespace CSI.BatchTracker.Domain.DataSource.Repositories
 {
-    public class BatchDataRepository : IDataSource
+    public class DataSourceRepository : IDataSource
     {
         DataStore store;
 
         public ObservableCollection<InventoryBatch> InventoryRepository { get; private set; }
-        public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
+        public IRepository<Entity<BatchOperator>> OperatorRepository { get; private set; }
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
 
-        public BatchDataRepository(DataStore store)
+        public DataSourceRepository(DataStore store)
         {
             this.store = store;
             InventoryRepository = store.InventoryBatches;
-            OperatorRepository = store.BatchOperators;
+            OperatorRepository = new BatchOperatorRepository(store);
             BatchLedger = store.LoggedBatches;
         }
 
@@ -34,7 +35,7 @@ namespace CSI.BatchTracker.Domain.DataSource
 
         public void SaveOperator(BatchOperator batchOperator)
         {
-            store.BatchOperators.Add(batchOperator);
+            OperatorRepository.Save(new Entity<BatchOperator>(batchOperator));
         }
 
         public void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator)

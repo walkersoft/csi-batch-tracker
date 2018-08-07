@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.NativeModels;
+﻿using CSI.BatchTracker.Domain.DataSource;
+using CSI.BatchTracker.Domain.NativeModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ namespace CSI.BatchTracker.Experimental
 {
     public class DataStore
     {
-        public ObservableCollection<BatchOperator> BatchOperators { get; set; }
+        public Dictionary<int, Entity<BatchOperator>> BatchOperators { get; set; }
         public ObservableCollection<string> Colors { get; set; }
         public ObservableCollection<ReceivedBatch> ReceivedBatches { get; set; }
         public ObservableCollection<InventoryBatch> InventoryBatches { get; set; }
@@ -21,7 +22,7 @@ namespace CSI.BatchTracker.Experimental
             LoggedBatches = new ObservableCollection<LoggedBatch>();
             InventoryBatches = new ObservableCollection<InventoryBatch>();
             ReceivedBatches = new ObservableCollection<ReceivedBatch>();
-            BatchOperators = new ObservableCollection<BatchOperator>();
+            BatchOperators = new Dictionary<int, Entity<BatchOperator>>();
         }
 
         public void CalculateInventory()

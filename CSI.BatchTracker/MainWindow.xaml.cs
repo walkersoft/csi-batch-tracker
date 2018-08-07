@@ -1,5 +1,6 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource;
+using CSI.BatchTracker.Domain.DataSource.Repositories;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;
 using System;
@@ -26,24 +27,24 @@ namespace CSI.BatchTracker
     public partial class MainWindow : Window
     {
         public DataStore DataStore { get; set; }
-        BatchDataRepository repository;
+        public DataSourceRepository Repository { get; set; }
 
         public MainWindow()
         {
             DataStore = new DataStore();
-            repository = new BatchDataRepository(DataStore);
+            Repository = new DataSourceRepository(DataStore);
             SetupBatchOperators();
             SetupColors();
             SetupInventory();
             InitializeComponent();
-            DataContext = DataStore;
+            //DataContext = this;
         }
 
         void SetupBatchOperators()
         {
-            repository.SaveOperator(new BatchOperator("Lang", "Roubadoux"));
-            repository.SaveOperator(new BatchOperator("Nicholas", "Huron"));
-            repository.SaveOperator(new BatchOperator("Wally", "McTalian"));
+            Repository.SaveOperator(new BatchOperator("Lang", "Roubadoux"));
+            Repository.SaveOperator(new BatchOperator("Nicholas", "Huron"));
+            Repository.SaveOperator(new BatchOperator("Wally", "McTalian"));
         }
 
         void SetupColors()
@@ -59,37 +60,43 @@ namespace CSI.BatchTracker
         void SetupInventory()
         {
             Random random = new Random();
-            repository.ReceiveInventory(new ReceivedBatch("White", "872881103201", DateTime.Parse("5/21/2018"), 6, 42018, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("White", "872881103201", DateTime.Parse("5/21/2018"), 2, 42018, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Black", "872881503204", DateTime.Parse("5/21/2018"), 3, 42018, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Yellow", "872880703401", DateTime.Parse("5/25/2018"), 5, 42018, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("White", "872881501703", DateTime.Parse("6/1/2018"), 8, 42033, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Red", "872880404201", DateTime.Parse("6/1/2018"), 2, 42033, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Blue Red", "872880901304", DateTime.Parse("6/1/2018"), 4, 42033, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Bright Red", "872880101206", DateTime.Parse("6/1/2018"), 1, 42033, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Deep Blue", "872881305103", DateTime.Parse("6/7/2018"), 1, 42084, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Deep Green", "872880803205", DateTime.Parse("6/7/2018"), 3, 42084, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Bright Yellow", "872880506701", DateTime.Parse("6/7/2018"), 2, 42084, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
-            repository.ReceiveInventory(new ReceivedBatch("Yellow", "872880703401", DateTime.Parse("6/7/2018"), 4, 42089, DataStore.BatchOperators[random.Next(0, DataStore.BatchOperators.Count)]));
+            Repository.ReceiveInventory(new ReceivedBatch("White", "872881103201", DateTime.Parse("5/21/2018"), 6, 42018, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("White", "872881103201", DateTime.Parse("5/21/2018"), 2, 42018, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Black", "872881503204", DateTime.Parse("5/21/2018"), 3, 42018, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Yellow", "872880703401", DateTime.Parse("5/25/2018"), 5, 42018, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("White", "872881501703", DateTime.Parse("6/1/2018"), 8, 42033, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Red", "872880404201", DateTime.Parse("6/1/2018"), 2, 42033, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Blue Red", "872880901304", DateTime.Parse("6/1/2018"), 4, 42033, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Bright Red", "872880101206", DateTime.Parse("6/1/2018"), 1, 42033, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Deep Blue", "872881305103", DateTime.Parse("6/7/2018"), 1, 42084, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Deep Green", "872880803205", DateTime.Parse("6/7/2018"), 3, 42084, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Bright Yellow", "872880506701", DateTime.Parse("6/7/2018"), 2, 42084, GetRandomOperatorFromRepository()));
+            Repository.ReceiveInventory(new ReceivedBatch("Yellow", "872880703401", DateTime.Parse("6/7/2018"), 4, 42089, GetRandomOperatorFromRepository()));
+        }
+
+        BatchOperator GetRandomOperatorFromRepository()
+        {
+            Random random = new Random();
+            return Repository.OperatorRepository.Items[random.Next(0, Repository.OperatorRepository.Items.Count)].NativeModel;
         }
 
         private void AddOperator(object sender, RoutedEventArgs e)
         {
-            repository.SaveOperator(new BatchOperator(operatorFN.Text, operatorLN.Text));
+            Repository.SaveOperator(new BatchOperator(operatorFN.Text, operatorLN.Text));
         }
 
         private void AddInventoriedBatch(object sender, RoutedEventArgs e)
         {
             try
             {
-                repository.ReceiveInventory(
+                Repository.ReceiveInventory(
                     new ReceivedBatch(
                         batchColor.SelectedValue.ToString(),
-                        ValidateBatch(batchNumber.Text), 
+                        ValidateBatch(batchNumber.Text),
                         (DateTime)recvDate.SelectedDate,
                         int.Parse(batchQty.Text),
                         int.Parse(poNumber.Text),
-                        DataStore.BatchOperators[batchOperator.SelectedIndex]
+                        Repository.OperatorRepository.Items[batchOperator.SelectedIndex].NativeModel
                     )
                 );
 
@@ -105,10 +112,10 @@ namespace CSI.BatchTracker
         {
             InventoryBatch batch = DataStore.InventoryBatches[ledgerBatchSelection.SelectedIndex];
 
-            repository.ImplementBatch(
+            Repository.ImplementBatch(
                 batch.BatchNumber, 
-                (DateTime)ledgerBatchDate.SelectedDate, 
-                DataStore.BatchOperators[ledgerBatchOperator.SelectedIndex]
+                (DateTime)ledgerBatchDate.SelectedDate,
+                Repository.OperatorRepository.Items[ledgerBatchOperator.SelectedIndex].NativeModel
             );
 
             inventoryGrid.Items.Refresh();

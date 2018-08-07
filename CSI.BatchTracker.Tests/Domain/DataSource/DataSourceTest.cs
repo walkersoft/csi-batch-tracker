@@ -4,6 +4,7 @@ using CSI.BatchTracker.Contracts;
 using CSI.BatchTracker.Domain.DataSource;
 using NUnit.Framework;
 using CSI.BatchTracker.Experimental;
+using CSI.BatchTracker.Domain.DataSource.Repositories;
 
 namespace CSI.BatchTracker.Tests.Domain
 {
@@ -15,7 +16,7 @@ namespace CSI.BatchTracker.Tests.Domain
         [SetUp]
         public void SetUp()
         {
-            data = new BatchDataRepository(new DataStore());
+            data = new DataSourceRepository(new DataStore());
         }
 
         [Test]
@@ -39,8 +40,8 @@ namespace CSI.BatchTracker.Tests.Domain
 
             data.SaveOperator(batchOperator);
 
-            Assert.AreEqual(expectedCount, data.OperatorRepository.Count);
-            Assert.AreSame(batchOperator, data.OperatorRepository[0]);
+            Assert.AreEqual(expectedCount, data.OperatorRepository.Items.Count);
+            Assert.AreSame(batchOperator, data.OperatorRepository.Items[0].NativeModel);
         }
 
         [Test]
