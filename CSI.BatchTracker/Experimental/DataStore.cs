@@ -20,6 +20,8 @@ namespace CSI.BatchTracker.Experimental
         {
             LoggedBatches = new ObservableCollection<LoggedBatch>();
             InventoryBatches = new ObservableCollection<InventoryBatch>();
+            ReceivedBatches = new ObservableCollection<ReceivedBatch>();
+            BatchOperators = new ObservableCollection<BatchOperator>();
         }
 
         public void CalculateInventory()

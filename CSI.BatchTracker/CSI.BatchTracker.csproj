@@ -69,6 +69,8 @@
     <Compile Include="Contracts\AbstractBatch.cs" />
     <Compile Include="Contracts\AbstractBatchNumberValidator.cs" />
     <Compile Include="Contracts\IBatchNumberValidator.cs" />
+    <Compile Include="Contracts\IDataSource.cs" />
+    <Compile Include="Domain\DataSource\BatchDataRepository.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidator.cs" />
     <Compile Include="Domain\NativeModels\BatchOperator.cs" />
     <Compile Include="Domain\NativeModels\InventoryBatch.cs" />
