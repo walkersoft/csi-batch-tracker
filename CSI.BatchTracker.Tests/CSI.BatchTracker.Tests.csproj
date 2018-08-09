@@ -53,7 +53,6 @@
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidatorTest.cs" />
     <Compile Include="Domain\NativeModels\BatchOperatorTest.cs" />
     <Compile Include="Domain\NativeModels\InventoryBatchTest.cs" />
-    <Compile Include="Domain\NativeModels\ReceivableBatchTest.cs" />
     <Compile Include="Domain\NativeModels\ReceivedBatchTest.cs" />
     <Compile Include="Domain\NativeModels\LoggedBatchTest.cs" />
     <Compile Include="Experimental\DataStoreTest.cs" />
