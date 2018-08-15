@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.Domain.DataSource
 {
     [TestFixture]
-    class EntityTest
+    class BatchOperatorEntityTest
     {
         Entity<BatchOperator> entity;
 

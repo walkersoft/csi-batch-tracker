@@ -70,6 +70,7 @@
     <Compile Include="Contracts\AbstractBatchNumberValidator.cs" />
     <Compile Include="Contracts\IBatchNumberValidator.cs" />
     <Compile Include="Contracts\IDataSource.cs" />
+    <Compile Include="Contracts\IEntity.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Domain\DataSource\Repositories\DataSourceRepository.cs" />
     <Compile Include="Domain\DataSource\Repositories\BatchOperatorRepository.cs" />

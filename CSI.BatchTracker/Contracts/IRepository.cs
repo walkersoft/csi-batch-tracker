@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Contracts
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : IEntity
     {
         ObservableCollection<T> Items { get; }
 

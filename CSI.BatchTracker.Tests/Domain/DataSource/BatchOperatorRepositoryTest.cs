@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.Domain.DataSource
 {
     [TestFixture]
-    class RepositoryTest
+    class BatchOperatorRepositoryTest
     {
         IRepository<Entity<BatchOperator>> repository;
 

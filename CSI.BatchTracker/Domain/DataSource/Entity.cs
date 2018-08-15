@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSI.BatchTracker.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Domain.DataSource
 {
-    public class Entity<T> where T : class
+    public class Entity<T> : IEntity where T : class
     {
         public int SystemId { get; private set; }
         public T NativeModel { get; set; }
