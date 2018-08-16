@@ -14,5 +14,8 @@ namespace CSI.BatchTracker.Contracts
 
         void Save(T entity);
         List<T> FindById(int id);
+        List<T> FindAll();
+        List<T> FindAll(int limit);
+        void Delete(int id);
     }
 }

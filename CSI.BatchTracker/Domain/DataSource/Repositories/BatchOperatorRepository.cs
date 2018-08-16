@@ -27,8 +27,13 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositores
             {
                 int index = store.BatchOperators.Count + 1;
                 store.BatchOperators.Add(index, entity);
-                Items.Add(entity);
             }
+            else
+            {
+                store.BatchOperators.Add(entity.SystemId, entity);
+            }
+
+            Items.Add(entity);
         }
 
         public List<Entity<BatchOperator>> FindById(int id)
@@ -38,12 +43,34 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositores
             if (store.BatchOperators.ContainsKey(id))
             {
                 results.Add(store.BatchOperators[id]);
+                Items.Clear();
+                Items.Add(store.BatchOperators[id]);
             }
 
-            Items.Clear();
-            Items.Add(store.BatchOperators[id]);
+            return results;
+        }
+
+        public List<Entity<BatchOperator>> FindAll()
+        {
+            return store.BatchOperators.Values.ToList();
+        }
+
+        public List<Entity<BatchOperator>> FindAll(int limit)
+        {
+            List<Entity<BatchOperator>> results = new List<Entity<BatchOperator>>();
+            List<Entity<BatchOperator>> records = FindAll();
+            
+            for (int i = 0; i < limit; ++i)
+            {
+                results.Add(records[i]);
+            }
 
             return results;
+        }
+
+        public void Delete(int id)
+        {
+            store.BatchOperators.Remove(id);
         }
     }
 }

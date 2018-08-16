@@ -35,5 +35,72 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             Assert.AreEqual(expectedQty, repository.Items.Count);
             Assert.AreSame(batchOperator, found[0].NativeModel);
         }
+
+        [Test]
+        public void GetAllOperatorEntites()
+        {
+            int expectedQty = 3;
+            LoadThreeOperatorsIntoRepository();
+
+            Assert.AreEqual(expectedQty, repository.FindAll().Count);
+        }
+
+        [Test]
+        public void EmptyResultsGivenIfIdDoesNotExistInStore()
+        {
+            int expectedQty = 0;
+            Assert.AreEqual(expectedQty, repository.FindById(1).Count);
+        }
+
+        [Test]
+        public void FindSetAmountOfEntities()
+        {
+            int expectedQty = 2;
+            LoadThreeOperatorsIntoRepository();
+            Assert.AreEqual(expectedQty, repository.FindAll(2).Count);
+        }
+
+        [Test]
+        public void DeleteBatchOperatorEntityById()
+        {
+            int expectedQty = 2;
+            int targetId = 1;
+            LoadThreeOperatorsIntoRepository();
+
+            repository.Delete(targetId);
+
+            Assert.AreEqual(expectedQty, repository.FindAll().Count);
+        }
+
+        [Test]
+        public void NoChangeInRepositoryWhenDeletingNonExistantId()
+        {
+            int expectedQty = 3;
+            int targetId = 0;
+            LoadThreeOperatorsIntoRepository();
+
+            Assert.AreEqual(expectedQty, repository.FindAll().Count);
+
+            repository.Delete(targetId);
+
+            Assert.AreEqual(expectedQty, repository.FindAll().Count);
+        }
+
+        List<BatchOperator> LoadThreeOperatorsIntoRepository()
+        {
+            List<BatchOperator> operators = new List<BatchOperator>()
+            {
+                new BatchOperator("Jane", "Doe"),
+                new BatchOperator("Jane", "Doe"),
+                new BatchOperator("Jane", "Doe")
+            };
+
+            for (int i = 0; i < operators.Count; ++i)
+            {
+                repository.Save(new Entity<BatchOperator>(i + 1, operators[i]));
+            }
+
+            return operators;
+        }
     }
 }
