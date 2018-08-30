@@ -10,22 +10,29 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.Domain.DataSource
 {
     [TestFixture]
-    class InventoryBatchEntityTest
+    class LoggedBatchEntityTest
     {
-        Entity<InventoryBatch> entity;
-        readonly InventoryBatch batch = new InventoryBatch("Yellow", "872881501202", DateTime.Now, 1);
+        Entity<LoggedBatch> entity;
+        BatchOperator batchOperator = new BatchOperator("Jane", "Doe");
+        LoggedBatch batch;
+
+        [SetUp]
+        public void SetUp()
+        {
+            batch = new LoggedBatch("Yellow", "872881203201", DateTime.Now, batchOperator);
+        }
 
         [Test]
         public void SameNativeModelIsAvailable()
         {
-            entity = new Entity<InventoryBatch>(batch);
+            entity = new Entity<LoggedBatch>(batch);
             Assert.AreSame(batch, entity.NativeModel);
         }
 
         [Test]
         public void SystemIdIsZeroForNewEntity()
         {
-            entity = new Entity<InventoryBatch>(batch);
+            entity = new Entity<LoggedBatch>(batch);
             Assert.AreEqual(0, entity.SystemId);
         }
 
@@ -33,7 +40,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         public void CreateEntityWithExistingId()
         {
             int systemId = 4;
-            entity = new Entity<InventoryBatch>(systemId, batch);
+            entity = new Entity<LoggedBatch>(systemId, batch);
             Assert.AreEqual(systemId, entity.SystemId);
         }
     }
