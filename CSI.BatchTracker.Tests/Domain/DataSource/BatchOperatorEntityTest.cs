@@ -13,20 +13,19 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
     class BatchOperatorEntityTest
     {
         Entity<BatchOperator> entity;
+        readonly BatchOperator batchOperator = new BatchOperator("Jane", "Doe");
 
         [Test]
         public void SameNativeModelIsAvailable()
         {
-            BatchOperator batchOperator = new BatchOperator("Jane", "Doe");
             entity = new Entity<BatchOperator>(batchOperator);
-
             Assert.AreSame(batchOperator, entity.NativeModel);
         }
 
         [Test]
         public void SystemIdIsZeroForNewEntity()
         {
-            entity = new Entity<BatchOperator>(new BatchOperator("Jane", "Doe"));
+            entity = new Entity<BatchOperator>(batchOperator);
             Assert.AreEqual(0, entity.SystemId);
         }
 
@@ -34,7 +33,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         public void CreateEntityWithExistingId()
         {
             int systemId = 4;
-            entity = new Entity<BatchOperator>(systemId, new BatchOperator("Jane", "Doe"));
+            entity = new Entity<BatchOperator>(systemId, batchOperator);
         }
     }
 }
