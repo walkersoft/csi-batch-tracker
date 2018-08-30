@@ -50,6 +50,7 @@
     <Compile Include="Domain\DataSource\DataSourceTest.cs" />
     <Compile Include="Domain\DataSource\BatchOperatorEntityTest.cs" />
     <Compile Include="Domain\DataSource\BatchOperatorRepositoryTest.cs" />
+    <Compile Include="Domain\DataSource\InventoryBatchEntityTest.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidatorTest.cs" />
     <Compile Include="Domain\NativeModels\BatchOperatorTest.cs" />
     <Compile Include="Domain\NativeModels\InventoryBatchTest.cs" />
