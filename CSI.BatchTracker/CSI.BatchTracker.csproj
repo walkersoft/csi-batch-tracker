@@ -75,6 +75,7 @@
     <Compile Include="Domain\DataSource\Repositories\DataSourceRepository.cs" />
     <Compile Include="Domain\DataSource\Repositories\BatchOperatorRepository.cs" />
     <Compile Include="Domain\DataSource\Entity.cs" />
+    <Compile Include="Domain\DataSource\Repositories\InventoryBatchRepository.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidator.cs" />
     <Compile Include="Domain\NativeModels\BatchOperator.cs" />
     <Compile Include="Domain\NativeModels\InventoryBatch.cs" />
