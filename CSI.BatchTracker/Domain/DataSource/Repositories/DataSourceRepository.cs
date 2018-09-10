@@ -15,14 +15,14 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
     {
         DataStore store;
 
-        public ObservableCollection<InventoryBatch> InventoryRepository { get; private set; }
+        public IRepository<Entity<InventoryBatch>> InventoryRepository { get; private set; }
         public IRepository<Entity<BatchOperator>> OperatorRepository { get; private set; }
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
 
         public DataSourceRepository(DataStore store)
         {
             this.store = store;
-            InventoryRepository = store.InventoryBatches;
+            InventoryRepository = new InventoryBatchRepository(store);
             OperatorRepository = new BatchOperatorRepository(store);
             BatchLedger = store.LoggedBatches;
         }
@@ -74,7 +74,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         {
             if (batch.Quantity == 0)
             {
-                InventoryRepository.Remove(batch);
+                //find all current, match with batch number, and then delete.
             }
         }
     }

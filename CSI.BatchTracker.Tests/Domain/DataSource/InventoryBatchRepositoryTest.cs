@@ -22,5 +22,24 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             repository = new InventoryBatchRepository(new DataStore());
         }
+
+        [Test]
+        public void SaveNewEntityInStore()
+        {
+            int expectedQty = 1;
+            InventoryBatch batch = NewInventoryBatch();
+            Entity<InventoryBatch> entity = new Entity<InventoryBatch>(batch);
+
+            repository.Save(entity);
+            List<Entity<InventoryBatch>> list = repository.FindById(1);
+
+            Assert.AreEqual(expectedQty, list.Count);
+            Assert.AreSame(batch, list[0].NativeModel);
+        }
+
+        InventoryBatch NewInventoryBatch()
+        {
+            return new InventoryBatch("Yellow", "872882301205", DateTime.Now, 1);
+        }
     }
 }
