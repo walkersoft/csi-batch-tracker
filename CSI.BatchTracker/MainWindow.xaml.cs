@@ -110,7 +110,7 @@ namespace CSI.BatchTracker
 
         private void AddBatchToLedger(object sender, RoutedEventArgs e)
         {
-            InventoryBatch batch = DataStore.InventoryBatches[ledgerBatchSelection.SelectedIndex];
+            InventoryBatch batch = DataStore.InventoryBatches[ledgerBatchSelection.SelectedIndex].NativeModel;
 
             Repository.ImplementBatch(
                 batch.BatchNumber, 

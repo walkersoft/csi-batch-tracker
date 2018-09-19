@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.NativeModels;
+﻿using CSI.BatchTracker.Domain.DataSource;
+using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;
 using NUnit.Framework;
 using System;
@@ -83,9 +84,9 @@ namespace CSI.BatchTracker.Tests.Experimental
             int totalStock = 0;
             int expectedStock = 41;
 
-            foreach (InventoryBatch batch in store.InventoryBatches)
+            foreach (Entity<InventoryBatch> batch in store.InventoryBatches.Values)
             {
-                totalStock += batch.Quantity;
+                totalStock += batch.NativeModel.Quantity;
             }
 
             Assert.AreEqual(expectedStock, totalStock);
@@ -99,7 +100,7 @@ namespace CSI.BatchTracker.Tests.Experimental
 
             int expectedStock = 8;
 
-            Assert.AreEqual(expectedStock, store.InventoryBatches[0].Quantity);
+            Assert.AreEqual(expectedStock, store.InventoryBatches[0].NativeModel.Quantity);
         }
 
         [Test]
@@ -111,7 +112,7 @@ namespace CSI.BatchTracker.Tests.Experimental
             store.ImplementBatch("872881103201", DateTime.Now, batchOperators[0]);
 
             Assert.AreEqual(1, store.LoggedBatches.Count);
-            Assert.AreEqual(7, store.InventoryBatches[0].Quantity);
+            Assert.AreEqual(7, store.InventoryBatches[0].NativeModel.Quantity);
         }
     }
 }

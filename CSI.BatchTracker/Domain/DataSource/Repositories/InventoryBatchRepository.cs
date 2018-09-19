@@ -23,12 +23,22 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            if (store.InventoryBatches.ContainsKey(id))
+            {
+                store.InventoryBatches.Remove(id);
+            }
         }
 
         public List<Entity<InventoryBatch>> FindAll()
         {
-            throw new NotImplementedException();
+            List<Entity<InventoryBatch>> batches = new List<Entity<InventoryBatch>>();
+
+            for (int i = 1; i <= store.InventoryBatches.Count; i++)
+            {
+                batches.Add(store.InventoryBatches[i]);
+            }
+
+            return batches;
         }
 
         public List<Entity<InventoryBatch>> FindAll(int limit)

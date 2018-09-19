@@ -40,14 +40,16 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
 
         public void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator)
         {
-            for (int i = 0; i < InventoryRepository.Count; ++i)
+            List<Entity<InventoryBatch>> inventoryBatches = InventoryRepository.FindAll();
+
+            for (int i = 0; i < inventoryBatches.Count; ++i)
             {
-                InventoryBatch batch = InventoryRepository[i];
+                InventoryBatch batch = inventoryBatches[i].NativeModel;
 
                 if (batch.BatchNumber == batchNumber)
                 {
                     LogBatchToLedger(batch, implementationDate, batchOperator);
-                    DeductInventory(batch);
+                    DeductInventory(inventoryBatches[i]);
                 }
             }
         }
@@ -64,17 +66,17 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
             BatchLedger.Add(logged);
         }
 
-        void DeductInventory(InventoryBatch batch)
+        void DeductInventory(Entity<InventoryBatch> entity)
         {
-            batch.DeductQuantity(1);
-            RemoveBatchFromInventoryIfDepleted(batch);
+            entity.NativeModel.DeductQuantity(1);
+            RemoveBatchFromInventoryIfDepleted(entity);
         }
 
-        void RemoveBatchFromInventoryIfDepleted(InventoryBatch batch)
+        void RemoveBatchFromInventoryIfDepleted(Entity<InventoryBatch> entity)
         {
-            if (batch.Quantity == 0)
+            if (entity.NativeModel.Quantity == 0)
             {
-                //find all current, match with batch number, and then delete.
+                InventoryRepository.Delete(entity.SystemId);
             }
         }
     }

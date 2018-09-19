@@ -28,8 +28,8 @@ namespace CSI.BatchTracker.Tests.Domain
 
             data.ReceiveInventory(batch);
 
-            Assert.AreEqual(expectedCount, data.InventoryRepository.Count);
-            Assert.AreEqual(expectedQty, data.InventoryRepository[0].Quantity);
+            Assert.AreEqual(expectedCount, data.InventoryRepository.FindAll().Count);
+            Assert.AreEqual(expectedQty, data.InventoryRepository.FindAll()[0].NativeModel.Quantity);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace CSI.BatchTracker.Tests.Domain
             data.ReceiveInventory(received);
             data.ImplementBatch("872871701203", DateTime.Now, GetJaneDoeOperator());
 
-            Assert.AreEqual(expectedInventoryStock, data.InventoryRepository[0].Quantity); //want this to be InventoryRepository.GetStockStatus(string batchNumber)
+            Assert.AreEqual(expectedInventoryStock, data.InventoryRepository.FindAll()[0].NativeModel.Quantity); //want this to be InventoryRepository.GetStockStatus(string batchNumber)
             Assert.AreEqual(expectedLedgerCount, data.BatchLedger.Count);
         }
 
@@ -73,7 +73,7 @@ namespace CSI.BatchTracker.Tests.Domain
             data.ImplementBatch("872871701203", DateTime.Now, GetJaneDoeOperator());
             data.ImplementBatch("872871701203", DateTime.Now, GetJaneDoeOperator());
 
-            Assert.AreEqual(expectedStock, data.InventoryRepository.Count);
+            Assert.AreEqual(expectedStock, data.InventoryRepository.FindAll().Count);
             Assert.AreEqual(expectedLedgerCount, data.BatchLedger.Count);
         }
 
@@ -86,7 +86,7 @@ namespace CSI.BatchTracker.Tests.Domain
             data.ReceiveInventory(GetReceiveableBlackBaseBatch());
             data.ImplementBatch("872882501302", DateTime.Now, GetJaneDoeOperator());
 
-            Assert.AreEqual(expectedStock, data.InventoryRepository[1].Quantity);
+            Assert.AreEqual(expectedStock, data.InventoryRepository.FindAll()[1].NativeModel.Quantity);
         }
 
         ReceivedBatch GetReceiveableWhiteBaseBatch()

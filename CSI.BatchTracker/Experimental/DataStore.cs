@@ -51,7 +51,7 @@ namespace CSI.BatchTracker.Experimental
                 {
                     InventoryBatch newStockBatch = new InventoryBatch(batch.ColorName, batch.BatchNumber, batch.ActivityDate, batch.Quantity);
                     int nextId = InventoryBatches.Count + 1; //this is not accurate, but for prototyping will be okay.
-                    InventoryBatches.Add(nextId, new Entity<InventoryBatch>(newStockBatch));
+                    InventoryBatches.Add(nextId, new Entity<InventoryBatch>(nextId, newStockBatch));
                 }
             }
 
