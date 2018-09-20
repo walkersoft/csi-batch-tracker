@@ -72,6 +72,10 @@
     <Compile Include="Contracts\IDataSource.cs" />
     <Compile Include="Contracts\IEntity.cs" />
     <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="DataSource\ITransaction.cs" />
+    <Compile Include="DataSource\MemoryDataSource\MemoryStore.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\AddBatchOperatorTransaction.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\MemoryDataSourceTransaction.cs" />
     <Compile Include="Domain\DataSource\Repositories\DataSourceRepository.cs" />
     <Compile Include="Domain\DataSource\Repositories\BatchOperatorRepository.cs" />
     <Compile Include="Domain\DataSource\Entity.cs" />
