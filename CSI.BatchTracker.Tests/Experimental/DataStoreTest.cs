@@ -100,7 +100,7 @@ namespace CSI.BatchTracker.Tests.Experimental
 
             int expectedStock = 8;
 
-            Assert.AreEqual(expectedStock, store.InventoryBatches[0].NativeModel.Quantity);
+            Assert.AreEqual(expectedStock, store.InventoryBatches[1].NativeModel.Quantity);
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace CSI.BatchTracker.Tests.Experimental
             store.ImplementBatch("872881103201", DateTime.Now, batchOperators[0]);
 
             Assert.AreEqual(1, store.LoggedBatches.Count);
-            Assert.AreEqual(7, store.InventoryBatches[0].NativeModel.Quantity);
+            Assert.AreEqual(7, store.InventoryBatches[1].NativeModel.Quantity);
         }
     }
 }
