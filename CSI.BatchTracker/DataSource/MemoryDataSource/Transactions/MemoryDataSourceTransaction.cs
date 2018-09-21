@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSI.BatchTracker.Contracts;
 
 namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions
 {
@@ -14,6 +15,13 @@ namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions
         {
             get { return canExecute; }
             protected set { canExecute = value; }
+        }
+
+        public List<IEntity> Results { get; protected set; }
+
+        public MemoryDataSourceTransaction()
+        {
+            Results = new List<IEntity>();
         }
 
         public abstract void Execute();

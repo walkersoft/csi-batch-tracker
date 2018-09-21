@@ -1,6 +1,7 @@
 ﻿using CSI.BatchTracker.DataSource;
 using CSI.BatchTracker.DataSource.MemoryDataSource;
 using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions;
+using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.BatchOperators;
 using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.NativeModels;
 using NUnit.Framework;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
+namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions.BatchOperators
 {
     [TestFixture]
     class AddBatchOperatorTransactionTest

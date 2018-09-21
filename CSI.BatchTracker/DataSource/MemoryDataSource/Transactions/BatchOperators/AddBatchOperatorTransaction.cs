@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions
+namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.BatchOperators
 {
     public sealed class AddBatchOperatorTransaction : MemoryDataSourceTransaction
     {
