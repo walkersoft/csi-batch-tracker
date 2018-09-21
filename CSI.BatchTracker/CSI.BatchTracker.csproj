@@ -76,6 +76,7 @@
     <Compile Include="DataSource\MemoryDataSource\MemoryStore.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\AddBatchOperatorTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\FindBatchOperatorTransaction.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\UpdateBatchOperatorTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\MemoryDataSourceTransaction.cs" />
     <Compile Include="Domain\DataSource\Repositories\DataSourceRepository.cs" />
     <Compile Include="Domain\DataSource\Repositories\BatchOperatorRepository.cs" />

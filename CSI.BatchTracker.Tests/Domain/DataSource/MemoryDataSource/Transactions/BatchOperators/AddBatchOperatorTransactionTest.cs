@@ -16,7 +16,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
     [TestFixture]
     class AddBatchOperatorTransactionTest
     {
-        ITransaction transaction;
+        ITransaction adder;
         MemoryStore store;
         BatchOperator batchOperator;
         Entity<BatchOperator> entity;
@@ -27,14 +27,14 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
             batchOperator = new BatchOperator("Jane", "Doe");
             entity = new Entity<BatchOperator>(batchOperator);
             store = new MemoryStore();
-            transaction = new AddBatchOperatorTransaction(entity, store);
+            adder = new AddBatchOperatorTransaction(entity, store);
         }
 
         [Test]
         public void AddingBatchOperatorResultsInNewRecordEntity()
         {
             int expectedCount = 1;            
-            transaction.Execute();
+            adder.Execute();
 
             Assert.AreEqual(expectedCount, store.BatchOperators.Count);         
         }
@@ -43,7 +43,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
         public void AddingBatchOperatorProvidesNewSystemId()
         {
             int expectedSystemId = 1;
-            transaction.Execute();
+            adder.Execute();
 
             Assert.True(store.BatchOperators.ContainsKey(expectedSystemId));
         }
@@ -53,8 +53,8 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
         {
             int expectedSystemId = 2;
 
-            transaction.Execute();
-            transaction.Execute();
+            adder.Execute();
+            adder.Execute();
 
             Assert.True(store.BatchOperators.ContainsKey(expectedSystemId));
         }
@@ -65,10 +65,10 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
             int expectedSystemId = 3;
             int removedSystemId = 2;
 
-            transaction.Execute();
-            transaction.Execute();
+            adder.Execute();
+            adder.Execute();
             store.BatchOperators.Remove(removedSystemId);
-            transaction.Execute();
+            adder.Execute();
 
             Assert.True(store.BatchOperators.ContainsKey(expectedSystemId));
         }
