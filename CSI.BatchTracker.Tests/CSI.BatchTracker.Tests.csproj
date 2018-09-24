@@ -56,6 +56,7 @@
     <Compile Include="Domain\DataSource\MemoryDataSource\Transactions\BatchOperators\AddBatchOperatorTransactionTest.cs" />
     <Compile Include="Domain\DataSource\MemoryDataSource\Transactions\BatchOperators\FindBatchOperatorTransactionTest.cs" />
     <Compile Include="Domain\DataSource\MemoryDataSource\Transactions\BatchOperators\UpdateBatchOperatorTransactionTest.cs" />
+    <Compile Include="Domain\DataSource\MemoryDataSource\Transactions\InventoryManagement\AddReceivedBatchToInventoryTransactionTest.cs" />
     <Compile Include="Domain\DataSource\ReceivedBatchEntityTest.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidatorTest.cs" />
     <Compile Include="Domain\NativeModels\BatchOperatorTest.cs" />

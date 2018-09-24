@@ -11,10 +11,12 @@ namespace CSI.BatchTracker.DataSource.MemoryDataSource
     public sealed class MemoryStore
     {
         public Dictionary<int, Entity<BatchOperator>> BatchOperators { get; private set; }
+        public Dictionary<int, Entity<InventoryBatch>> CurrentInventory { get; private set; }
 
         public MemoryStore()
         {
             BatchOperators = new Dictionary<int, Entity<BatchOperator>>();
+            CurrentInventory = new Dictionary<int, Entity<InventoryBatch>>();
         }
     }
 }
