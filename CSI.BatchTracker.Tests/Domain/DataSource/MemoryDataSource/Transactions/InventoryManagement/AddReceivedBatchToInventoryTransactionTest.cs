@@ -39,5 +39,24 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
 
             Assert.AreEqual(expectedCount, store.CurrentInventory.Count);
         }
+
+        [Test]
+        public void AddingExistingBatchMergesInventory()
+        {
+            int expectedCount = 1;
+            int expectedQty = 10;
+            entity = new Entity<InventoryBatch>(receiveableBatch);
+
+            adder = new AddReceivedBatchToInventoryTransaction(entity, store);
+            adder.Execute();
+
+            int lastId = adder.LastSystemId;
+
+            adder = new AddReceivedBatchToInventoryTransaction(entity, store);
+            adder.Execute();
+
+            Assert.AreEqual(expectedCount, store.CurrentInventory.Count);
+            Assert.AreEqual(expectedQty, store.CurrentInventory[lastId].NativeModel.Quantity);
+        }
     }
 }
