@@ -15,22 +15,33 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
     class AddBatchToImplementedBatchLedgerTransactionTest
     {
         MemoryStore store;
-        Entity<LoggedBatch> entity;
-        LoggedBatch batch;
+        LoggedBatch loggedBatch;
+        InventoryBatch inventoryBatch;
         BatchOperator batchOperator;
         AddBatchToImplementedBatchLedgerTransaction adder;
-
+        AddReceivedBatchToInventoryTransaction receiver;
         [Test]
-        public void AddImplementedBatchToLedger()
+        public void ImplementingBatchRemovesBatchFromLiveInventory()
         {
+            int expectedQty = 4;
             int expectedCount = 1;
+            store = new MemoryStore();
             batchOperator = new BatchOperator("Jane", "Doe");
-            batch = new LoggedBatch("White", "872881103201", DateTime.Now, batchOperator);
-            entity = new Entity<LoggedBatch>(batch);
-            adder = new AddBatchToImplementedBatchLedgerTransaction(entity, store);
+            inventoryBatch = new InventoryBatch("White", "8728811303201", DateTime.Now, 5);
+            receiver = new AddReceivedBatchToInventoryTransaction(new Entity<InventoryBatch>(inventoryBatch), store);
+            receiver.Execute();
 
+            loggedBatch = new LoggedBatch(
+                inventoryBatch.ColorName,
+                inventoryBatch.BatchNumber,
+                DateTime.Now,
+                batchOperator
+            );
+
+            adder = new AddBatchToImplementedBatchLedgerTransaction(new Entity<LoggedBatch>(loggedBatch), store);
             adder.Execute();
 
+            Assert.AreEqual(expectedQty, store.CurrentInventory[receiver.LastSystemId].NativeModel.Quantity);
             Assert.AreEqual(expectedCount, store.ImplementedBatchLedger.Count);
         }
     }
