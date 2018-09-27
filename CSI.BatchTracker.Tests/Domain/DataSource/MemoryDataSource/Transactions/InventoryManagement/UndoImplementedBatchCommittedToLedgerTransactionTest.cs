@@ -15,8 +15,6 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions
     class UndoImplementedBatchCommittedToLedgerTransactionTest
     {
         MemoryStore store;
-        LoggedBatch loggedBatch;
-        InventoryBatch inventoryBatch;
         Entity<LoggedBatch> loggedEntity;
         Entity<InventoryBatch> inventoryEntity;
         UndoImplementedBatchCommittedToLedgerTransaction undo;
