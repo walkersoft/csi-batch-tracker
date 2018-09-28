@@ -22,7 +22,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
         [Test]
         public void EditingBatchInCurrentInventoryChangesNativeModel()
         {
-            MemoryStore store = new MemoryStore();
+            store = new MemoryStore();
             adder = new AddReceivedBatchToInventoryTransaction(GetOriginalInventoryEntity(), store);
             adder.Execute();
 
