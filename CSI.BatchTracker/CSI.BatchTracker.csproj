@@ -80,6 +80,7 @@
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\AddBatchToImplementedBatchLedgerTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\AddReceivedBatchToInventoryTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\AddReceivedBatchToReceivingLedgerTransaction.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInCurrentInventoryTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInReceivingLedgerTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\UndoImplementedBatchCommittedToLedgerTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\MemoryDataSourceTransaction.cs" />
