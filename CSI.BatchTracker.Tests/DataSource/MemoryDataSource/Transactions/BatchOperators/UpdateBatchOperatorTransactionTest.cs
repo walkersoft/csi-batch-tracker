@@ -5,7 +5,7 @@ using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.NativeModels;
 using NUnit.Framework;
 
-namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions.BatchOperators
+namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.BatchOperators
 {
     [TestFixture]
     class UpdateBatchOperatorTransactionTest

@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Tests.Domain.DataSource.MemoryDataSource.Transactions.BatchOperators
+namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.BatchOperators
 {
     [TestFixture]
     class FindBatchOperatorTransactionTest
