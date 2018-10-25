@@ -85,6 +85,8 @@
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\UndoImplementedBatchCommittedToLedgerTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\MemoryDataSourceTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindBatchOperatorByIdTransaction.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListBatchOperatorsTransaction.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListCurrentInventoryTransaction.cs" />
     <Compile Include="Domain\DataSource\Repositories\DataSourceRepository.cs" />
     <Compile Include="Domain\DataSource\Repositories\BatchOperatorRepository.cs" />
     <Compile Include="Domain\DataSource\Entity.cs" />

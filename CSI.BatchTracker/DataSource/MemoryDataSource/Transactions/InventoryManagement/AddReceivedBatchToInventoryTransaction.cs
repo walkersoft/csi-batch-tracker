@@ -18,7 +18,7 @@ namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryMan
         {
             this.entity = entity;
             this.store = store;
-            LastSystemId = 0;
+            LastSystemId = store.CurrentInventory.Count;
         }
         
         public override void Execute()
@@ -29,17 +29,14 @@ namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryMan
                 return;
             }
            
-            foreach (KeyValuePair<int, Entity<InventoryBatch>> currentInventory in store.CurrentInventory)
+            if (BatchExistsInInventory(entity))
             {
-                if (BatchExistsInInventory(currentInventory.Value))
-                {
-                    MergeWithCurrentBatchEntry(currentInventory.Key);
-                }
-                else
-                {
-                    CreateNewBatchEntry();
-                }
-            }            
+                MergeWithCurrentBatchEntry(entity);
+            }
+            else
+            {
+                CreateNewBatchEntry();
+            }
         }
 
         bool InventoryStoreIsEmpty()
@@ -49,7 +46,15 @@ namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryMan
 
         bool BatchExistsInInventory(Entity<InventoryBatch> existing)
         {
-            return entity.NativeModel.BatchNumber == existing.NativeModel.BatchNumber;
+            foreach (KeyValuePair<int, Entity<InventoryBatch>> currentInventory in store.CurrentInventory)
+            {
+                if (currentInventory.Value.NativeModel.BatchNumber == existing.NativeModel.BatchNumber)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         void CreateNewBatchEntry()
@@ -59,9 +64,15 @@ namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryMan
             store.CurrentInventory.Add(LastSystemId, newEntity);
         }
 
-        void MergeWithCurrentBatchEntry(int systemId)
+        void MergeWithCurrentBatchEntry(Entity<InventoryBatch> batch)
         {
-            store.CurrentInventory[systemId].NativeModel.AddQuantity(entity.NativeModel.Quantity);
+            foreach (KeyValuePair<int, Entity<InventoryBatch>> currentInventory in store.CurrentInventory)
+            {
+                if (currentInventory.Value.NativeModel.BatchNumber == batch.NativeModel.BatchNumber)
+                {
+                    currentInventory.Value.NativeModel.AddQuantity(batch.NativeModel.Quantity);
+                }
+            }
         }
     }
 }
