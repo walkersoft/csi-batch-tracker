@@ -87,6 +87,7 @@
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindBatchOperatorByIdTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListBatchOperatorsTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListCurrentInventoryTransaction.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListReceivingLedgerTransaction.cs" />
     <Compile Include="Domain\DataSource\Repositories\DataSourceRepository.cs" />
     <Compile Include="Domain\DataSource\Repositories\BatchOperatorRepository.cs" />
     <Compile Include="Domain\DataSource\Entity.cs" />
