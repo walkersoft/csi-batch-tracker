@@ -18,7 +18,7 @@ namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryMan
         {
             this.entity = entity;
             this.store = store;
-            LastSystemId = 0;
+            LastSystemId = store.ReceivingLedger.Count;
         }
 
         public override void Execute()
