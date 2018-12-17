@@ -19,7 +19,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
     {
         DataStore store;
         MemoryStore memoryStore;
-        List<BatchOperator> operatorRepository;
+        ObservableCollection<BatchOperator> operatorRepository;
 
         public IRepository<Entity<InventoryBatch>> InventoryRepository { get; private set; }
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
@@ -32,30 +32,35 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
             BatchLedger = store.LoggedBatches;
         }
 
-        public List<BatchOperator> OperatorRepository
+        public ObservableCollection<BatchOperator> OperatorRepository
         {
             get
             {
                 if (operatorRepository == null)
                 {
-                    operatorRepository = new List<BatchOperator>();
+                    operatorRepository = new ObservableCollection<BatchOperator>();
                 }
 
-                ITransaction finder = new ListBatchOperatorsTransaction(memoryStore);
-                finder.Execute();
-
-                operatorRepository.Clear();
-
-                foreach(Entity<BatchOperator> batchOperator in finder.Results)
-                {
-                    operatorRepository.Add(batchOperator.NativeModel);
-                }
+                UpdateOperatorRepository();
 
                 return operatorRepository;
             }
             set
             {
                 operatorRepository = value;
+            }
+        }
+
+        void UpdateOperatorRepository()
+        {
+            ITransaction finder = new ListBatchOperatorsTransaction(memoryStore);
+            finder.Execute();
+
+            operatorRepository.Clear();
+
+            foreach (Entity<BatchOperator> batchOperator in finder.Results)
+            {
+                operatorRepository.Add(batchOperator.NativeModel);
             }
         }
 
@@ -69,7 +74,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         {
             ITransaction adder = new AddBatchOperatorTransaction(new Entity<BatchOperator>(batchOperator), memoryStore);
             adder.Execute();
-            //OperatorRepository.Save(new Entity<BatchOperator>(batchOperator));
+            UpdateOperatorRepository();
         }
 
         public void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator)

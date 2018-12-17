@@ -12,7 +12,7 @@ namespace CSI.BatchTracker.Contracts
     public interface IDataSource
     {
         IRepository<Entity<InventoryBatch>> InventoryRepository { get; }
-        List<BatchOperator> OperatorRepository { get; }
+        ObservableCollection<BatchOperator> OperatorRepository { get; }
         ObservableCollection<LoggedBatch> BatchLedger { get; }
 
         void ReceiveInventory(ReceivedBatch batch);
