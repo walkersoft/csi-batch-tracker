@@ -33,7 +33,7 @@
         <Label Content="Current Inventory" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
 
         <DataGrid x:Name="inventoryGrid" HorizontalAlignment="Left" Height="100" Margin="13,115,0,0" VerticalAlignment="Top" Width="414"
-                  ItemsSource="{Binding Path=DataStore.InventoryBatches}" AutoGenerateColumns="False">
+                  ItemsSource="{Binding Path=Repository.InventoryRepository}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Color Name" Binding="{Binding ColorName}"/>
                 <DataGridTextColumn Header="Batch Number" Binding="{Binding BatchNumber}"/>

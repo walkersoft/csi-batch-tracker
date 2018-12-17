@@ -2,6 +2,7 @@
 using CSI.BatchTracker.DataSource;
 using CSI.BatchTracker.DataSource.MemoryDataSource;
 using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.BatchOperators;
+using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryManagement;
 using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.RecordAquisition;
 using CSI.BatchTracker.Domain.DataSource.Repositores;
 using CSI.BatchTracker.Domain.NativeModels;
@@ -20,15 +21,16 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         DataStore store;
         MemoryStore memoryStore;
         ObservableCollection<BatchOperator> operatorRepository;
+        ObservableCollection<InventoryBatch> inventoryRepository;
 
-        public IRepository<Entity<InventoryBatch>> InventoryRepository { get; private set; }
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
 
         public DataSourceRepository(DataStore store, MemoryStore memoryStore)
         {
             this.store = store;
             this.memoryStore = memoryStore;
-            InventoryRepository = new InventoryBatchRepository(store);
+            operatorRepository = new ObservableCollection<BatchOperator>();
+            inventoryRepository = new ObservableCollection<InventoryBatch>();
             BatchLedger = store.LoggedBatches;
         }
 
@@ -36,16 +38,10 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         {
             get
             {
-                if (operatorRepository == null)
-                {
-                    operatorRepository = new ObservableCollection<BatchOperator>();
-                }
-
                 UpdateOperatorRepository();
-
                 return operatorRepository;
             }
-            set
+            private set
             {
                 operatorRepository = value;
             }
@@ -66,8 +62,65 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
 
         public void ReceiveInventory(ReceivedBatch batch)
         {
-            store.ReceivedBatches.Add(batch);
-            store.CalculateInventory();
+            /* Receiving is:
+             * - Adding batch to the receiving ledger.
+             * - Add batch to active inventory.
+             *     - Update existing inventory item [OR]
+             *     - Create new inventory batch and add inventory item
+             */
+
+            Entity<ReceivedBatch> entity = new Entity<ReceivedBatch>(batch);
+            UpdateReceivingLedger(entity);
+            UpdateActiveIventoryFromReceivedBatch(entity);
+
+            //store.ReceivedBatches.Add(batch);
+            //store.CalculateInventory();
+        }
+
+        void UpdateReceivingLedger(Entity<ReceivedBatch> entity)
+        {
+            ITransaction adder = new AddReceivedBatchToReceivingLedgerTransaction(entity, memoryStore);
+            adder.Execute();
+        }
+
+        void UpdateActiveIventoryFromReceivedBatch(Entity<ReceivedBatch> receivedEntity)
+        {
+            InventoryBatch batch = new InventoryBatch(
+                receivedEntity.NativeModel.ColorName,
+                receivedEntity.NativeModel.BatchNumber,
+                receivedEntity.NativeModel.ActivityDate,
+                receivedEntity.NativeModel.Quantity
+            );
+
+            Entity<InventoryBatch> entity = new Entity<InventoryBatch>(batch);
+            ITransaction adder = new AddReceivedBatchToInventoryTransaction(entity, memoryStore);
+            adder.Execute();
+        }
+
+        public ObservableCollection<InventoryBatch> InventoryRepository
+        {
+            get
+            {
+                UpdateInventoryRepository();
+                return inventoryRepository;
+            }
+            private set
+            {
+                inventoryRepository = value;
+            }
+        }
+
+        void UpdateInventoryRepository()
+        {
+            ITransaction finder = new ListCurrentInventoryTransaction(memoryStore);
+            finder.Execute();
+
+            inventoryRepository.Clear();
+
+            foreach (Entity<InventoryBatch> entity in finder.Results)
+            {
+                inventoryRepository.Add(entity.NativeModel);
+            }
         }
 
         public void SaveOperator(BatchOperator batchOperator)
@@ -78,8 +131,8 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         }
 
         public void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator)
-        {
-            List<Entity<InventoryBatch>> inventoryBatches = InventoryRepository.FindAll();
+        {/*
+            List<Entity<InventoryBatch>> inventoryBatches 
 
             for (int i = 0; i < inventoryBatches.Count; ++i)
             {
@@ -90,7 +143,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
                     LogBatchToLedger(batch, implementationDate, batchOperator);
                     DeductInventory(inventoryBatches[i]);
                 }
-            }
+            }*/
         }
 
         void LogBatchToLedger(InventoryBatch batch, DateTime implementationDate, BatchOperator batchOperator)
@@ -115,7 +168,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         {
             if (entity.NativeModel.Quantity == 0)
             {
-                InventoryRepository.Delete(entity.SystemId);
+                //InventoryRepository.Delete(entity.SystemId);
             }
         }
     }
