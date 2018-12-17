@@ -18,7 +18,7 @@ namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.BatchOperato
         {
             this.entity = entity;
             this.store = store;
-            LastSystemId = 0;
+            LastSystemId = store.BatchOperators.Count;
         }
 
         public override void Execute()

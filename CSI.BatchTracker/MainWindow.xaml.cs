@@ -1,4 +1,7 @@
-﻿using CSI.BatchTracker.Domain;
+﻿using CSI.BatchTracker.DataSource;
+using CSI.BatchTracker.DataSource.MemoryDataSource;
+using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.BatchOperators;
+using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.DataSource.Repositories;
 using CSI.BatchTracker.Domain.NativeModels;
@@ -29,22 +32,39 @@ namespace CSI.BatchTracker
         public DataStore DataStore { get; set; }
         public DataSourceRepository Repository { get; set; }
 
+        MemoryStore Store { get; set; }
+
         public MainWindow()
         {
+            Store = new MemoryStore();
+
             DataStore = new DataStore();
-            Repository = new DataSourceRepository(DataStore);
+            Repository = new DataSourceRepository(DataStore, Store);
             SetupBatchOperators();
             SetupColors();
             SetupInventory();
             InitializeComponent();
-            //DataContext = this;
+            DataContext = this;
         }
 
         void SetupBatchOperators()
         {
-            Repository.SaveOperator(new BatchOperator("Lang", "Roubadoux"));
-            Repository.SaveOperator(new BatchOperator("Nicholas", "Huron"));
-            Repository.SaveOperator(new BatchOperator("Wally", "McTalian"));
+            List<BatchOperator> batchOperators = new List<BatchOperator>
+            {
+                new BatchOperator("Lang", "Roubadoux"),
+                new BatchOperator("Nicholas", "Huron"),
+                new BatchOperator("Wally", "McTalian")
+            };
+
+            foreach (BatchOperator batchOperator in batchOperators)
+            {
+                Entity<BatchOperator> entity;
+                ITransaction adder;
+
+                entity = new Entity<BatchOperator>(batchOperator);
+                adder = new AddBatchOperatorTransaction(entity, Store);
+                adder.Execute();
+            }
         }
 
         void SetupColors()
@@ -77,7 +97,10 @@ namespace CSI.BatchTracker
         BatchOperator GetRandomOperatorFromRepository()
         {
             Random random = new Random();
-            return Repository.OperatorRepository.Items[random.Next(0, Repository.OperatorRepository.Items.Count)].NativeModel;
+            int index = random.Next(1, Store.BatchOperators.Count + 1);
+            Entity<BatchOperator> entity = Store.BatchOperators[index];
+
+            return entity.NativeModel;
         }
 
         private void AddOperator(object sender, RoutedEventArgs e)
@@ -96,7 +119,8 @@ namespace CSI.BatchTracker
                         (DateTime)recvDate.SelectedDate,
                         int.Parse(batchQty.Text),
                         int.Parse(poNumber.Text),
-                        Repository.OperatorRepository.Items[batchOperator.SelectedIndex].NativeModel
+                        Store.BatchOperators[batchOperator.SelectedIndex].NativeModel
+                        //Repository.OperatorRepository.Items[batchOperator.SelectedIndex].NativeModel
                     )
                 );
 
@@ -115,7 +139,7 @@ namespace CSI.BatchTracker
             Repository.ImplementBatch(
                 batch.BatchNumber, 
                 (DateTime)ledgerBatchDate.SelectedDate,
-                Repository.OperatorRepository.Items[ledgerBatchOperator.SelectedIndex].NativeModel
+                Store.BatchOperators[batchOperator.SelectedIndex].NativeModel
             );
 
             inventoryGrid.Items.Refresh();

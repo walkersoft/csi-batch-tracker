@@ -21,10 +21,10 @@
         <Label Content="Receiving Date" HorizontalAlignment="Left" Margin="325,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Batch Number" HorizontalAlignment="Left" Margin="135,36,0,0" VerticalAlignment="Top"/>
 
-        <ComboBox x:Name="batchOperator" HorizontalAlignment="Left" Margin="437,62,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Repository.OperatorRepository.Items}">
+        <ComboBox x:Name="batchOperator" HorizontalAlignment="Left" Margin="437,62,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Repository.OperatorRepository}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding NativeModel.FullName}"/>
+                    <TextBlock Text="{Binding FullName}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
@@ -66,10 +66,10 @@
 
         <DatePicker x:Name="ledgerBatchDate" HorizontalAlignment="Left" Margin="598,146,0,0" VerticalAlignment="Top"/>
 
-        <ComboBox x:Name="ledgerBatchOperator" HorizontalAlignment="Left" Margin="706,146,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=Repository.OperatorRepository.Items}">
+        <ComboBox x:Name="ledgerBatchOperator" HorizontalAlignment="Left" Margin="706,146,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=Repository.OperatorRepository}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding NativeModel.FullName}"/>
+                    <TextBlock Text="{Binding FullName}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
@@ -83,10 +83,10 @@
         <Button Content="Add Operator" HorizontalAlignment="Left" Margin="252,272,0,0" VerticalAlignment="Top" Width="95" Click="AddOperator"/>
         
         <DataGrid x:Name="operatorGrid" HorizontalAlignment="Left" Height="100" Margin="10,310,0,0" VerticalAlignment="Top" Width="337"
-                  DataContext="{Binding Path=Repository}" ItemsSource="{Binding Path=OperatorRepository.Items}" AutoGenerateColumns="False">
+                  DataContext="{Binding Path=Repository}" ItemsSource="{Binding Path=OperatorRepository}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Width="100" Binding="{Binding NativeModel.FirstName}"/>
-                <DataGridTextColumn Header="Last Name" Width="100" Binding="{Binding NativeModel.LastName}"/>
+                <DataGridTextColumn Header="First Name" Width="100" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Last Name" Width="100" Binding="{Binding LastName}"/>
             </DataGrid.Columns>
         </DataGrid>
         
