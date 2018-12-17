@@ -84,6 +84,7 @@
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInReceivingLedgerTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\UndoImplementedBatchCommittedToLedgerTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\MemoryDataSourceTransaction.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindBatchInImplementedLedgerTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindBatchOperatorByIdTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindInventoryBatchByIdTransaction.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListBatchOperatorsTransaction.cs" />

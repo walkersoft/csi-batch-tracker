@@ -50,6 +50,7 @@
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\AddReceivedBatchToReceivingLedgerTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInCurrentInventoryTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInReceivingLedgerTransactionTest.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindBatchInImplementedLedgerTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindBatchOperatorByIdTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindInventoryBatchByIdTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListBatchOperatorsTransactionTest.cs" />
