@@ -23,6 +23,9 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         ObservableCollection<BatchOperator> operatorRepository;
         ObservableCollection<InventoryBatch> inventoryRepository;
 
+        public Dictionary<int, int> BatchOperatorIdMappings { get; private set; }
+        public Dictionary<int, int> CurrentInventoryIdMappings { get; private set; }
+
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
 
         public DataSourceRepository(DataStore store, MemoryStore memoryStore)
@@ -31,6 +34,8 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
             this.memoryStore = memoryStore;
             operatorRepository = new ObservableCollection<BatchOperator>();
             inventoryRepository = new ObservableCollection<InventoryBatch>();
+            BatchOperatorIdMappings = new Dictionary<int, int>();
+            CurrentInventoryIdMappings = new Dictionary<int, int>();
             BatchLedger = store.LoggedBatches;
         }
 
@@ -53,10 +58,14 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
             finder.Execute();
 
             operatorRepository.Clear();
+            BatchOperatorIdMappings.Clear();
+            int i = 0;
 
             foreach (Entity<BatchOperator> batchOperator in finder.Results)
             {
                 operatorRepository.Add(batchOperator.NativeModel);
+                BatchOperatorIdMappings.Add(i, batchOperator.SystemId);
+                i++;
             }
         }
 
@@ -106,10 +115,14 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
             finder.Execute();
 
             inventoryRepository.Clear();
+            CurrentInventoryIdMappings.Clear();
+            int i = 0;
 
             foreach (Entity<InventoryBatch> entity in finder.Results)
             {
                 inventoryRepository.Add(entity.NativeModel);
+                CurrentInventoryIdMappings.Add(i, entity.SystemId);
+                i++;
             }
         }
 

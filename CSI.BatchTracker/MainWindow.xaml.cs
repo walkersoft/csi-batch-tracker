@@ -120,7 +120,6 @@ namespace CSI.BatchTracker
                         int.Parse(batchQty.Text),
                         int.Parse(poNumber.Text),
                         Store.BatchOperators[batchOperator.SelectedIndex].NativeModel
-                        //Repository.OperatorRepository.Items[batchOperator.SelectedIndex].NativeModel
                     )
                 );
 
@@ -134,12 +133,14 @@ namespace CSI.BatchTracker
 
         private void AddBatchToLedger(object sender, RoutedEventArgs e)
         {
-            InventoryBatch batch = DataStore.InventoryBatches[ledgerBatchSelection.SelectedIndex].NativeModel;
+            int targetBatch = Repository.CurrentInventoryIdMappings[ledgerBatchSelection.SelectedIndex];
+            int targetOperator = Repository.BatchOperatorIdMappings[ledgerBatchOperator.SelectedIndex];
+            InventoryBatch batch = Store.CurrentInventory[targetBatch].NativeModel;
 
             Repository.ImplementBatch(
                 batch.BatchNumber, 
                 (DateTime)ledgerBatchDate.SelectedDate,
-                Store.BatchOperators[batchOperator.SelectedIndex].NativeModel
+                Store.BatchOperators[targetOperator].NativeModel
             );
 
             inventoryGrid.Items.Refresh();
