@@ -58,6 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\BatchOperatorViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\OperatorManagementWindowView.xaml.cs">
       <DependentUpon>OperatorManagementWindowView.xaml</DependentUpon>
     </Compile>

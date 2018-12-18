@@ -6,6 +6,8 @@ using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.DataSource.Repositories;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;
+using CSI.BatchTracker.ViewModels;
+using CSI.BatchTracker.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
