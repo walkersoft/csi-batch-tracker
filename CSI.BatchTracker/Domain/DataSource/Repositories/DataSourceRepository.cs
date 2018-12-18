@@ -62,19 +62,9 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
 
         public void ReceiveInventory(ReceivedBatch batch)
         {
-            /* Receiving is:
-             * - Adding batch to the receiving ledger.
-             * - Add batch to active inventory.
-             *     - Update existing inventory item [OR]
-             *     - Create new inventory batch and add inventory item
-             */
-
             Entity<ReceivedBatch> entity = new Entity<ReceivedBatch>(batch);
             UpdateReceivingLedger(entity);
             UpdateActiveIventoryFromReceivedBatch(entity);
-
-            //store.ReceivedBatches.Add(batch);
-            //store.CalculateInventory();
         }
 
         void UpdateReceivingLedger(Entity<ReceivedBatch> entity)
@@ -131,8 +121,11 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         }
 
         public void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator)
-        {/*
-            List<Entity<InventoryBatch>> inventoryBatches 
+        {
+            ITransaction finder = new ListCurrentInventoryTransaction(memoryStore);
+            finder.Execute();
+
+            List<Entity<InventoryBatch>> inventoryBatches = BuildInventoryList(finder.Results);
 
             for (int i = 0; i < inventoryBatches.Count; ++i)
             {
@@ -143,7 +136,19 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
                     LogBatchToLedger(batch, implementationDate, batchOperator);
                     DeductInventory(inventoryBatches[i]);
                 }
-            }*/
+            }            
+        }
+
+        List<Entity<InventoryBatch>> BuildInventoryList(List<IEntity> entityList)
+        {
+            List<Entity<InventoryBatch>> inventoryList = new List<Entity<InventoryBatch>>();
+
+            foreach (Entity<InventoryBatch> entity in entityList)
+            {
+                inventoryList.Add(entity);
+            }
+
+            return inventoryList;
         }
 
         void LogBatchToLedger(InventoryBatch batch, DateTime implementationDate, BatchOperator batchOperator)
@@ -168,7 +173,8 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         {
             if (entity.NativeModel.Quantity == 0)
             {
-                //InventoryRepository.Delete(entity.SystemId);
+                UpdateInventoryRepository();
+                memoryStore.CurrentInventory.Remove(entity.SystemId);
             }
         }
     }
