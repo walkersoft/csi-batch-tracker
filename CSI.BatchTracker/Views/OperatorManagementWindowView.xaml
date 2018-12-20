@@ -20,33 +20,41 @@
             <StackPanel Orientation="Vertical" Margin="0,0,10,0">
                 <Label Content="First Name"/>
                 <TextBox
-                    Width="100" Text="{Binding BatchOperator.FirstName}"/>
+                    Width="100" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="0,0,10,0">
                 <Label Content="Last Name"/>
                 <TextBox 
-                    Width="100" Text="{Binding BatchOperator.LastName}"/>
+                    Width="100" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
-                <Button Content="Save" Width="60"/>
+                <Button Content="Save" Width="60" Command="{Binding SaveBatchOperator}"/>
             </StackPanel>
         </StackPanel>
 
         <Label Content="Current Batch Operators" />
-        
-        <DataGrid Width="280" 
-                  Height="250" 
+        <DataGrid ItemsSource="{Binding DataSource.OperatorRepository}"
+                  Width="280" 
+                  Height="150" 
                   HorizontalAlignment="Left" 
                   AutoGenerateColumns="False"
-                  GridLinesVisibility="Horizontal"
+                  GridLinesVisibility="None"
                   CanUserSortColumns="False"
                   Margin="0,0,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name"/>
-                <DataGridTextColumn Header="Last Name"/>
-            </DataGrid.Columns>            
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+            </DataGrid.Columns>
+
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                </Style>
+            </DataGrid.Resources>
         </DataGrid>
-        
+
         <Button Content="Delete Selected" Width="120" HorizontalAlignment="Left"/>
         
     </StackPanel>

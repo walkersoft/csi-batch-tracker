@@ -35,6 +35,7 @@ namespace CSI.BatchTracker
         public DataSourceRepository Repository { get; set; }
 
         MemoryStore Store { get; set; }
+        BatchOperatorViewModel batchOperatorViewModel;
 
         public MainWindow()
         {
@@ -47,6 +48,11 @@ namespace CSI.BatchTracker
             SetupInventory();
             InitializeComponent();
             DataContext = this;
+
+            batchOperatorViewModel = new BatchOperatorViewModel(Repository);
+            OperatorManagementWindowView window = new OperatorManagementWindowView(batchOperatorViewModel);
+
+            window.ShowDialog();
         }
 
         void SetupBatchOperators()

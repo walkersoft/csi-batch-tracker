@@ -1,25 +1,29 @@
-﻿using CSI.BatchTracker.Domain.NativeModels;
+﻿using CSI.BatchTracker.Commands;
+using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.NativeModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CSI.BatchTracker.ViewModels
 {
     public sealed class BatchOperatorViewModel : ViewModelBase
     {
-        public BatchOperator BatchOperator { get; }
+        public BatchOperator BatchOperator { get; set; }
+        public IDataSource DataSource { get; private set; }
+        BatchOperatorValidator validator;
 
-        public BatchOperatorViewModel()
+        public BatchOperatorViewModel(IDataSource dataSource)
         {
-            BatchOperator = new BatchOperator("Jason", "Walker");
-        }
-
-        public BatchOperatorViewModel(BatchOperator batchOperator)
-        {
-            BatchOperator = batchOperator;
+            BatchOperator = new BatchOperator("", "");
+            SaveBatchOperator = new SaveBatchOperatorCommand(this);
+            validator = new BatchOperatorValidator();
+            DataSource = dataSource;
         }
 
         public string FirstName
@@ -40,6 +44,26 @@ namespace CSI.BatchTracker.ViewModels
                 BatchOperator.LastName = value;
                 NotifyPropertyChanged("LastName");
             }
+        }
+
+        public ICommand SaveBatchOperator { get; private set; }
+
+        public bool BatchOperatorIsValid()
+        {
+            return validator.Validate(BatchOperator);
+        }
+
+        public void PersistBatchOperator()
+        {
+            BatchOperator batchOperator = new BatchOperator(BatchOperator.FirstName, BatchOperator.LastName);
+            DataSource.SaveOperator(batchOperator);
+            ResetBatchOperator();
+        }
+
+        void ResetBatchOperator()
+        {            
+            FirstName = "";
+            LastName = "";
         }
     }
 }
