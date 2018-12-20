@@ -38,18 +38,6 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
         }
 
         [Test]
-        public void ExceptionIfOperatorFirstNameIsEmpty()
-        {
-            Assert.Throws<System.ArgumentException>(() => new BatchOperator("", "Doe"));
-        }
-
-        [Test]
-        public void ExceptionIfOperatorLastNameIsEmpty()
-        {
-            Assert.Throws<System.ArgumentException>(() => new BatchOperator("Jane", ""));
-        }
-
-        [Test]
         public void FullNameInProperty()
         {
             string expected = "Jane Doe";

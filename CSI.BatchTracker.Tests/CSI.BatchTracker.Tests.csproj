@@ -57,6 +57,7 @@
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListCurrentInventoryTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListImplementedBatchTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListReceivingLedgerTransactionTest.cs" />
+    <Compile Include="Domain\BatchOperatorValidatorTest.cs" />
     <Compile Include="Domain\DataSource\DataSourceTest.cs" />
     <Compile Include="Domain\DataSource\BatchOperatorEntityTest.cs" />
     <Compile Include="Domain\DataSource\BatchOperatorRepositoryTest.cs" />

@@ -8,33 +8,8 @@ namespace CSI.BatchTracker.Domain.NativeModels
 {
     public class BatchOperator
     {
-        private string firstName;
-        private string lastName;
-
-        public string FirstName
-        {
-            get
-            {
-                return firstName;
-            }
-            set
-            {
-                CheckIfNameIsEmpty(value);
-                firstName = value;
-            }
-        }
-        public string LastName
-        {
-            get
-            {
-                return lastName;
-            }
-            set
-            {
-                CheckIfNameIsEmpty(value);
-                lastName = value;
-            }
-        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public string FullName
         {
@@ -48,14 +23,6 @@ namespace CSI.BatchTracker.Domain.NativeModels
         {
             FirstName = firstName;
             LastName = lastName;
-        }
-
-        void CheckIfNameIsEmpty(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("Dispense Operator name field(s) cannot be empty.");
-            }
         }
 
         public string GetInitials()
