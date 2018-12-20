@@ -33,27 +33,13 @@
         </StackPanel>
 
         <Label Content="Current Batch Operators" />
-        <DataGrid ItemsSource="{Binding DataSource.OperatorRepository}"
-                  Width="280" 
-                  Height="150" 
-                  HorizontalAlignment="Left" 
-                  AutoGenerateColumns="False"
-                  GridLinesVisibility="None"
-                  CanUserSortColumns="False"
-                  Margin="0,0,0,10">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
-            </DataGrid.Columns>
-
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                </Style>
-            </DataGrid.Resources>
-        </DataGrid>
+        <ListBox ItemsSource="{Binding DataSource.OperatorRepository}" 
+                 DisplayMemberPath="FullName"
+                 Width="280" 
+                 Height="150" 
+                 HorizontalAlignment="Left" 
+                 Margin="0,0,0,10">            
+        </ListBox>
 
         <Button Content="Delete Selected" Width="120" HorizontalAlignment="Left"/>
         
