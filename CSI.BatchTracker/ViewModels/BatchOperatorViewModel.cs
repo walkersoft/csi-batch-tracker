@@ -4,6 +4,7 @@ using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.NativeModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace CSI.BatchTracker.ViewModels
     {
         public BatchOperator BatchOperator { get; set; }
         public IDataSource DataSource { get; private set; }
+        public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
         BatchOperatorValidator validator;
 
         public BatchOperatorViewModel(IDataSource dataSource)
@@ -24,6 +26,7 @@ namespace CSI.BatchTracker.ViewModels
             SaveBatchOperator = new SaveBatchOperatorCommand(this);
             validator = new BatchOperatorValidator();
             DataSource = dataSource;
+            OperatorRepository = DataSource.OperatorRepository;
         }
 
         public string FirstName

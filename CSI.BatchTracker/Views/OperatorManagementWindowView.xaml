@@ -33,7 +33,7 @@
         </StackPanel>
 
         <Label Content="Current Batch Operators" />
-        <ListBox ItemsSource="{Binding DataSource.OperatorRepository}" 
+        <ListBox ItemsSource="{Binding OperatorRepository}" 
                  DisplayMemberPath="FullName"
                  Width="280" 
                  Height="150" 
