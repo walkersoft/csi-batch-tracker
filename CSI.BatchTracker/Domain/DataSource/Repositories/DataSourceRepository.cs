@@ -133,6 +133,14 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
             UpdateOperatorRepository();
         }
 
+        public void UpdateOperator(int id, BatchOperator batchOperator)
+        {
+            Entity<BatchOperator> entity = new Entity<BatchOperator>(id, batchOperator);
+            ITransaction updater = new UpdateBatchOperatorTransaction(entity, memoryStore);
+            updater.Execute();
+            UpdateOperatorRepository();
+        }
+
         public void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator)
         {
             ITransaction finder = new ListCurrentInventoryTransaction(memoryStore);
