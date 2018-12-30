@@ -1,30 +1,29 @@
 ﻿using CSI.BatchTracker.ViewModels;
-using System;
+using System; 
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace CSI.BatchTracker.Commands
+namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public sealed class SaveBatchOperatorCommand : CommandBase
+    public sealed class BatchOperatorListBoxChangedCommand : CommandBase
     {
         BatchOperatorViewModel viewModel;
 
-        public SaveBatchOperatorCommand(BatchOperatorViewModel viewModel)
+        public BatchOperatorListBoxChangedCommand(BatchOperatorViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
 
         public override bool CanExecute(object parameter)
         {
-            return viewModel.BatchOperatorIsValid();
+            return true;
         }
 
         public override void Execute(object parameter)
         {
-            viewModel.PersistBatchOperator();
+            viewModel.MatchComboBoxOperatorWithListBoxOperator();
         }
     }
 }

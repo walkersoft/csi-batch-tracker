@@ -6,25 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace CSI.BatchTracker.Commands
+namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public sealed class BatchOperatorComboBoxChangedCommand : CommandBase
+    public sealed class SaveBatchOperatorCommand : CommandBase
     {
         BatchOperatorViewModel viewModel;
 
-        public BatchOperatorComboBoxChangedCommand(BatchOperatorViewModel viewModel)
+        public SaveBatchOperatorCommand(BatchOperatorViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
 
         public override bool CanExecute(object parameter)
         {
-            return viewModel.SelectedBatchOperatorFromComboBoxIndex > -1;
+            return viewModel.BatchOperatorIsValid();
         }
 
         public override void Execute(object parameter)
         {
-            viewModel.PopulateBatchOperatorOrReset();
+            viewModel.PersistBatchOperator();
         }
     }
 }

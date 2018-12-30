@@ -1,4 +1,4 @@
-﻿using CSI.BatchTracker.Commands;
+﻿using CSI.BatchTracker.ViewModels.Commands;
 using CSI.BatchTracker.Contracts;
 using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.NativeModels;

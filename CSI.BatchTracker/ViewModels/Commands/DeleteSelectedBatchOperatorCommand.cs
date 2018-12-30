@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Commands
+namespace CSI.BatchTracker.ViewModels.Commands
 {
     public sealed class DeleteSelectedBatchOperatorCommand : CommandBase
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace CSI.BatchTracker.Commands
+namespace CSI.BatchTracker.ViewModels.Commands
 {
     public abstract class CommandBase : ICommand
     {
