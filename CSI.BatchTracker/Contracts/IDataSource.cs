@@ -19,6 +19,7 @@ namespace CSI.BatchTracker.Contracts
 
         void ReceiveInventory(ReceivedBatch batch);
         void SaveOperator(BatchOperator batchOperator);
+        void DeleteBatchOperatorAtId(int id);
         BatchOperator FindBatchOperatorById(int id);
         void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator);
     }

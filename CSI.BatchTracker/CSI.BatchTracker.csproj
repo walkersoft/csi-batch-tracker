@@ -65,6 +65,7 @@
     <Compile Include="Commands\BatchOperatorComboBoxChangedCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\BatchOperatorListBoxChangedCommand.cs" />
+    <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransaction.cs" />
     <Compile Include="Domain\BatchOperatorValidator.cs" />
     <Compile Include="Commands\SaveBatchOperatorCommand.cs" />
     <Compile Include="ViewModels\BatchOperatorViewModel.cs" />

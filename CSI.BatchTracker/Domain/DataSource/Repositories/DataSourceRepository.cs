@@ -199,5 +199,11 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
 
             return entity.NativeModel;
         }
+
+        public void DeleteBatchOperatorAtId(int id)
+        {
+            ITransaction remover = new DeleteBatchOperatorAtIdTransaction(id, memoryStore);
+            remover.Execute();
+        }
     }
 }

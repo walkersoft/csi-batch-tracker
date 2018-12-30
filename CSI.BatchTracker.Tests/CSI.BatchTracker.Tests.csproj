@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\AddReceivedBatchToReceivingLedgerTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInCurrentInventoryTransactionTest.cs" />
     <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInReceivingLedgerTransactionTest.cs" />
