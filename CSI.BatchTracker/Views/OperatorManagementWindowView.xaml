@@ -43,7 +43,7 @@
         </StackPanel>
 
         <Label Content="Current Batch Operators" />
-        <ListBox SelectedIndex="{Binding SelectedBatchOperatorFromListBoxIndex, Mode=TwoWay}" 
+        <ListBox SelectedIndex="{Binding SelectedBatchOperatorFromListBoxIndex}" 
                  ItemsSource="{Binding OperatorRepository}" 
                  DisplayMemberPath="FullName"
                  Width="280" 
