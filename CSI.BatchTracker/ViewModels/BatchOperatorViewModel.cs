@@ -16,6 +16,7 @@ namespace CSI.BatchTracker.ViewModels
     public sealed class BatchOperatorViewModel : ViewModelBase
     {
         public ICommand SaveBatchOperator { get; private set; }
+        public ICommand DeleteSelectedBatchOperator { get; private set; }
         public ICommand BatchOperatorComboBoxChanged { get; private set; }
         public ICommand BatchOperatorListBoxChanged { get; private set; }
 
@@ -82,23 +83,24 @@ namespace CSI.BatchTracker.ViewModels
         {
             DataSource = dataSource;
             OperatorRepository = DataSource.OperatorRepository;
-
-            UpdateActiveBatchOperator(new BatchOperator("", ""));
+            SelectedBatchOperatorFromListBoxIndex = 0;
             validator = new BatchOperatorValidator();
-            SelectedBatchOperatorFromComboBoxIndex = -1;
+
+            ResetBatchOperator();
 
             SaveBatchOperator = new SaveBatchOperatorCommand(this);
+            DeleteSelectedBatchOperator = new DeleteSelectedBatchOperatorCommand(this);
             BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
             BatchOperatorListBoxChanged = new BatchOperatorListBoxChangedCommand(this);
         }
 
         void UpdateActiveBatchOperator(BatchOperator batchOperator)
         {
-            BatchOperator.FirstName = batchOperator.FirstName;
-            BatchOperator.LastName = batchOperator.LastName;
+            FirstName = batchOperator.FirstName;
+            LastName = batchOperator.LastName;
         }
 
-        public void GenerateOperatorSelectionItemsSource()
+        void GenerateOperatorSelectionItemsSource()
         {
             operatorNames = new ObservableCollection<string>
             {
@@ -121,13 +123,18 @@ namespace CSI.BatchTracker.ViewModels
             BatchOperator batchOperator = new BatchOperator(BatchOperator.FirstName, BatchOperator.LastName);
             DataSource.SaveOperator(batchOperator);
             ResetBatchOperator();
+            SelectedBatchOperatorFromComboBoxIndex = -1;
             NotifyPropertyChanged("OperatorNames");
         }
 
         void ResetBatchOperator()
-        {
+        { 
+            if (BatchOperator == null)
+            {
+                BatchOperator = new BatchOperator("", "");
+            }
+
             UpdateActiveBatchOperator(new BatchOperator("", ""));
-            SelectedBatchOperatorFromComboBoxIndex = -1;
         }
 
         public void PopulateBatchOperatorOrReset()
@@ -147,6 +154,25 @@ namespace CSI.BatchTracker.ViewModels
         {
             SelectedBatchOperatorFromComboBoxIndex = SelectedBatchOperatorFromListBoxIndex + 1;
             PopulateBatchOperatorOrReset();
+        }
+
+        public bool BatchOperatorIsRemoveable()
+        {
+            return SelectedBatchOperatorFromListBoxIndex >= 0;
+            /* TODO: In the future, this needs to be updated to actually query the data source to ensure
+             * the batch operator isn't assigned to other entries, otherwise they'll become orphaned.
+             * Not enough of the persistence is fleshed out enough to actually do it as of this writing.
+             */ 
+        }
+
+        public void RemoveSelectedBatchOperator()
+        {
+            int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromListBoxIndex];
+            DataSource.DeleteBatchOperatorAtId(targetId);
+            ResetBatchOperator();
+            SelectedBatchOperatorFromComboBoxIndex = -1;
+            NotifyPropertyChanged("OperatorNames");
+            NotifyPropertyChanged("OperatorRepository");
         }
     }
 }

@@ -29,13 +29,21 @@
         <StackPanel Orientation="Horizontal" Width="Auto">
             <StackPanel Orientation="Vertical" Margin="0,0,10,0">
                 <Label Content="First Name"/>
-                <TextBox
-                    Width="100" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Width="100" 
+                         Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding SaveBatchOperator}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="0,0,10,0">
                 <Label Content="Last Name"/>
-                <TextBox 
-                    Width="100" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Width="100" 
+                         Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding SaveBatchOperator}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
             </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
                 <Button Content="Save" Width="60" Command="{Binding SaveBatchOperator}"/>
@@ -52,12 +60,17 @@
                  Margin="0,0,0,10">
             <input:Interaction.Triggers>
                 <input:EventTrigger EventName="SelectionChanged">
-                    <input:InvokeCommandAction Command="{Binding BatchOperatorListBoxChanged}" />
+                    <input:InvokeCommandAction Command="{Binding BatchOperatorListBoxChanged}"/>
+                </input:EventTrigger>
+                <input:EventTrigger EventName="GotFocus">
+                    <input:InvokeCommandAction Command="{Binding BatchOperatorListBoxChanged}"/>
                 </input:EventTrigger>
             </input:Interaction.Triggers>
         </ListBox>
 
-        <Button Content="Delete Selected" Width="120" HorizontalAlignment="Left"/>
-        
+        <Button Content="Delete Selected" 
+                Width="120" 
+                HorizontalAlignment="Left"
+                Command="{Binding DeleteSelectedBatchOperator}"/>        
     </StackPanel>
 </Window>
