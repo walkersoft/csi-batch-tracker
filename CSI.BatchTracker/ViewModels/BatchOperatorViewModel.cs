@@ -17,7 +17,8 @@ namespace CSI.BatchTracker.ViewModels
     {
         public ICommand SaveBatchOperator { get; private set; }
         public ICommand BatchOperatorComboBoxChanged { get; private set; }
-        public ICommand SelectedBatchOperatorInListChanged { get; private set; }
+        public ICommand BatchOperatorListBoxChanged { get; private set; }
+
         public IDataSource DataSource { get; private set; }
 
         public BatchOperator BatchOperator { get; set; }
@@ -40,12 +41,18 @@ namespace CSI.BatchTracker.ViewModels
         public BatchOperatorViewModel(IDataSource dataSource)
         {
             BatchOperator = new BatchOperator("", "");
-            SaveBatchOperator = new SaveBatchOperatorCommand(this);
-            BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
+            InstantiateCommands();
             validator = new BatchOperatorValidator();
             DataSource = dataSource;
             SelectedBatchOperatorFromComboBoxIndex = -1;
             OperatorRepository = DataSource.OperatorRepository;
+        }
+
+        void InstantiateCommands()
+        {
+            SaveBatchOperator = new SaveBatchOperatorCommand(this);
+            BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
+            BatchOperatorListBoxChanged = new BatchOperatorListBoxChangedCommand(this);
         }
 
         public void GenerateOperatorSelectionItemsSource()
@@ -117,6 +124,13 @@ namespace CSI.BatchTracker.ViewModels
                 int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromComboBoxIndex - 1];
                 UpdateBatchOperator(DataSource.FindBatchOperatorById(targetId));
             }
+        }
+
+        public void MatchComboBoxOperatorWithListBoxOperator()
+        {
+            SelectedBatchOperatorFromComboBoxIndex = SelectedBatchOperatorFromListBoxIndex + 1;
+            PopulateBatchOperatorOrCreateNew();
+            NotifyPropertyChanged("SelectedBatchOperatorFromComboBoxIndex");
         }
     }
 }

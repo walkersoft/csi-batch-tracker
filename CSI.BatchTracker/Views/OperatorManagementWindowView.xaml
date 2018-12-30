@@ -52,7 +52,7 @@
                  Margin="0,0,0,10">
             <input:Interaction.Triggers>
                 <input:EventTrigger EventName="SelectionChanged">
-                    <input:InvokeCommandAction Command="{Binding SelectedBatchOperatorInListChanged}" />
+                    <input:InvokeCommandAction Command="{Binding BatchOperatorListBoxChanged}" />
                 </input:EventTrigger>
             </input:Interaction.Triggers>
         </ListBox>
