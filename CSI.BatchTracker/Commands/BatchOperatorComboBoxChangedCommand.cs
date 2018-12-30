@@ -19,7 +19,7 @@ namespace CSI.BatchTracker.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return viewModel.UserSelectedComboBoxIndex > -1;
+            return viewModel.SelectedBatchOperatorFromComboBoxIndex > -1;
         }
 
         public override void Execute(object parameter)

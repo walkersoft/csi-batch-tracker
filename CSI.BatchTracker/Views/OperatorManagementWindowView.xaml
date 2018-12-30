@@ -15,7 +15,7 @@
             <ComboBox Width="175" 
                       VerticalContentAlignment="Center"
                       ItemsSource="{Binding OperatorNames}"
-                      SelectedIndex="{Binding UserSelectedComboBoxIndex, Mode=TwoWay}">
+                      SelectedIndex="{Binding SelectedBatchOperatorFromComboBoxIndex}">
                 <input:Interaction.Triggers>
                     <input:EventTrigger EventName="SelectionChanged">
                         <input:InvokeCommandAction Command="{Binding BatchOperatorComboBoxChanged}" />
@@ -30,12 +30,12 @@
             <StackPanel Orientation="Vertical" Margin="0,0,10,0">
                 <Label Content="First Name"/>
                 <TextBox
-                    Width="100" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Width="100" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="0,0,10,0">
                 <Label Content="Last Name"/>
                 <TextBox 
-                    Width="100" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Width="100" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
                 <Button Content="Save" Width="60" Command="{Binding SaveBatchOperator}"/>
@@ -43,12 +43,18 @@
         </StackPanel>
 
         <Label Content="Current Batch Operators" />
-        <ListBox ItemsSource="{Binding OperatorRepository}" 
+        <ListBox SelectedIndex="{Binding SelectedBatchOperatorFromListBoxIndex, Mode=TwoWay}" 
+                 ItemsSource="{Binding OperatorRepository}" 
                  DisplayMemberPath="FullName"
                  Width="280" 
                  Height="150" 
                  HorizontalAlignment="Left" 
-                 Margin="0,0,0,10">            
+                 Margin="0,0,0,10">
+            <input:Interaction.Triggers>
+                <input:EventTrigger EventName="SelectionChanged">
+                    <input:InvokeCommandAction Command="{Binding SelectedBatchOperatorInListChanged}" />
+                </input:EventTrigger>
+            </input:Interaction.Triggers>
         </ListBox>
 
         <Button Content="Delete Selected" Width="120" HorizontalAlignment="Left"/>

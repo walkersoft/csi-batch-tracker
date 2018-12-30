@@ -17,10 +17,12 @@ namespace CSI.BatchTracker.ViewModels
     {
         public ICommand SaveBatchOperator { get; private set; }
         public ICommand BatchOperatorComboBoxChanged { get; private set; }
+        public ICommand SelectedBatchOperatorInListChanged { get; private set; }
         public IDataSource DataSource { get; private set; }
 
         public BatchOperator BatchOperator { get; set; }
-        public int UserSelectedComboBoxIndex { get; set; }
+        public int SelectedBatchOperatorFromComboBoxIndex { get; set; }
+        public int SelectedBatchOperatorFromListBoxIndex { get; set; }
         public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
 
         public ObservableCollection<string> OperatorNames
@@ -42,7 +44,7 @@ namespace CSI.BatchTracker.ViewModels
             BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
             validator = new BatchOperatorValidator();
             DataSource = dataSource;
-            UserSelectedComboBoxIndex = -1;
+            SelectedBatchOperatorFromComboBoxIndex = -1;
             OperatorRepository = DataSource.OperatorRepository;
         }
 
@@ -106,13 +108,13 @@ namespace CSI.BatchTracker.ViewModels
 
         public void PopulateBatchOperatorOrCreateNew()
         {
-            if (UserSelectedComboBoxIndex == 0)
+            if (SelectedBatchOperatorFromComboBoxIndex == 0)
             {
                 ResetBatchOperator();
             }
             else
             {
-                int targetId = DataSource.BatchOperatorIdMappings[UserSelectedComboBoxIndex - 1];
+                int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromComboBoxIndex - 1];
                 UpdateBatchOperator(DataSource.FindBatchOperatorById(targetId));
             }
         }
