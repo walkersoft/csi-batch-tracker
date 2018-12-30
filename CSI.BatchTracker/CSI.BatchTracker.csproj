@@ -71,8 +71,8 @@
     <Compile Include="ViewModels\Commands\SaveBatchOperatorCommand.cs" />
     <Compile Include="ViewModels\BatchOperatorViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\OperatorManagementWindowView.xaml.cs">
-      <DependentUpon>OperatorManagementWindowView.xaml</DependentUpon>
+    <Compile Include="Views\BatchOperatorManagementWindow.xaml.cs">
+      <DependentUpon>BatchOperatorManagementWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -124,7 +124,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\OperatorManagementWindowView.xaml">
+    <Page Include="Views\BatchOperatorManagementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

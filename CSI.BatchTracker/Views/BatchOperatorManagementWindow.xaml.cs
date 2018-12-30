@@ -18,9 +18,9 @@ namespace CSI.BatchTracker.Views
     /// <summary>
     /// Interaction logic for OperatorManagementWindowView.xaml
     /// </summary>
-    public partial class OperatorManagementWindowView : Window
+    public partial class BatchOperatorManagementWindow : Window
     {
-        public OperatorManagementWindowView(BatchOperatorViewModel viewModel)
+        public BatchOperatorManagementWindow(BatchOperatorViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

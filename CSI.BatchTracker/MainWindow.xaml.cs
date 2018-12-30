@@ -50,7 +50,7 @@ namespace CSI.BatchTracker
             DataContext = this;
 
             batchOperatorViewModel = new BatchOperatorViewModel(Repository);
-            OperatorManagementWindowView window = new OperatorManagementWindowView(batchOperatorViewModel);
+            BatchOperatorManagementWindow window = new BatchOperatorManagementWindow(batchOperatorViewModel);
 
             window.ShowDialog();
         }
