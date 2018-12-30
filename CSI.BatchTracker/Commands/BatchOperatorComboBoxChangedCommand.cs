@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.Commands
 
         public override void Execute(object parameter)
         {
-            viewModel.PopulateBatchOperatorOrCreateNew();
+            viewModel.PopulateBatchOperatorOrReset();
         }
     }
 }

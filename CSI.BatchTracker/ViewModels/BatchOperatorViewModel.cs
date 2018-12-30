@@ -25,27 +25,8 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
 
         BatchOperatorValidator validator;
+
         ObservableCollection<string> operatorNames;
-        int batchOperatorComboBoxIndex;
-        int batchOperatorListBoxIndex;
-
-        public BatchOperatorViewModel(IDataSource dataSource)
-        {
-            BatchOperator = new BatchOperator("", "");
-            InstantiateCommands();
-            validator = new BatchOperatorValidator();
-            DataSource = dataSource;
-            SelectedBatchOperatorFromComboBoxIndex = -1;
-            OperatorRepository = DataSource.OperatorRepository;
-        }
-
-        void InstantiateCommands()
-        {
-            SaveBatchOperator = new SaveBatchOperatorCommand(this);
-            BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
-            BatchOperatorListBoxChanged = new BatchOperatorListBoxChangedCommand(this);
-        }
-
         public ObservableCollection<string> OperatorNames
         {
             get
@@ -55,16 +36,25 @@ namespace CSI.BatchTracker.ViewModels
             }
         }
 
-        public void GenerateOperatorSelectionItemsSource()
+        int batchOperatorComboBoxIndex;
+        public int SelectedBatchOperatorFromComboBoxIndex
         {
-            operatorNames = new ObservableCollection<string>
+            get { return batchOperatorComboBoxIndex; }
+            set
             {
-                "<Create New...>"
-            };
+                batchOperatorComboBoxIndex = value;
+                NotifyPropertyChanged("SelectedBatchOperatorFromComboBoxIndex");
+            }
+        }
 
-            foreach (BatchOperator batchOperator in DataSource.OperatorRepository)
+        int batchOperatorListBoxIndex;
+        public int SelectedBatchOperatorFromListBoxIndex
+        {
+            get { return batchOperatorListBoxIndex; }
+            set
             {
-                operatorNames.Add(batchOperator.FullName);
+                batchOperatorListBoxIndex = value;
+                NotifyPropertyChanged("SelectedBatchOperatorFromListBoxIndex");
             }
         }
 
@@ -88,6 +78,39 @@ namespace CSI.BatchTracker.ViewModels
             }
         }
 
+        public BatchOperatorViewModel(IDataSource dataSource)
+        {
+            DataSource = dataSource;
+            OperatorRepository = DataSource.OperatorRepository;
+
+            UpdateActiveBatchOperator(new BatchOperator("", ""));
+            validator = new BatchOperatorValidator();
+            SelectedBatchOperatorFromComboBoxIndex = -1;
+
+            SaveBatchOperator = new SaveBatchOperatorCommand(this);
+            BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
+            BatchOperatorListBoxChanged = new BatchOperatorListBoxChangedCommand(this);
+        }
+
+        void UpdateActiveBatchOperator(BatchOperator batchOperator)
+        {
+            BatchOperator.FirstName = batchOperator.FirstName;
+            BatchOperator.LastName = batchOperator.LastName;
+        }
+
+        public void GenerateOperatorSelectionItemsSource()
+        {
+            operatorNames = new ObservableCollection<string>
+            {
+                "<Create New...>"
+            };
+
+            foreach (BatchOperator batchOperator in DataSource.OperatorRepository)
+            {
+                operatorNames.Add(batchOperator.FullName);
+            }
+        }
+
         public bool BatchOperatorIsValid()
         {
             return validator.Validate(BatchOperator);
@@ -103,54 +126,27 @@ namespace CSI.BatchTracker.ViewModels
 
         void ResetBatchOperator()
         {
-            UpdateBatchOperator(new BatchOperator("", ""));
+            UpdateActiveBatchOperator(new BatchOperator("", ""));
             SelectedBatchOperatorFromComboBoxIndex = -1;
         }
 
-        void UpdateBatchOperator(BatchOperator batchOperator)
+        public void PopulateBatchOperatorOrReset()
         {
-            BatchOperator = batchOperator;
-            NotifyPropertyChanged("FirstName");
-            NotifyPropertyChanged("LastName");
-        }
-
-        public int SelectedBatchOperatorFromComboBoxIndex
-        {
-            get { return batchOperatorComboBoxIndex; }
-            set
-            {
-                batchOperatorComboBoxIndex = value;
-                NotifyPropertyChanged("SelectedBatchOperatorFromComboBoxIndex");
-            }
-        }
-
-        public int SelectedBatchOperatorFromListBoxIndex
-        {
-            get { return batchOperatorListBoxIndex; }
-            set
-            {
-                batchOperatorListBoxIndex = value;
-                NotifyPropertyChanged("SelectedBatchOperatorFromListBoxIndex");
-            }
-        }
-
-        public void PopulateBatchOperatorOrCreateNew()
-        {
-            if (SelectedBatchOperatorFromComboBoxIndex == 0)
-            {
-                ResetBatchOperator();
-            }
-            else
+            if (SelectedBatchOperatorFromComboBoxIndex > 0)
             {
                 int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromComboBoxIndex - 1];
-                UpdateBatchOperator(DataSource.FindBatchOperatorById(targetId));
+                UpdateActiveBatchOperator(DataSource.FindBatchOperatorById(targetId));
+            }
+            else
+            { 
+                ResetBatchOperator();
             }
         }
 
         public void MatchComboBoxOperatorWithListBoxOperator()
         {
             SelectedBatchOperatorFromComboBoxIndex = SelectedBatchOperatorFromListBoxIndex + 1;
-            PopulateBatchOperatorOrCreateNew();
+            PopulateBatchOperatorOrReset();
         }
     }
 }
