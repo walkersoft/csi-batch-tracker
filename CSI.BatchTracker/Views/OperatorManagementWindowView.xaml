@@ -15,7 +15,7 @@
             <ComboBox Width="175" 
                       VerticalContentAlignment="Center"
                       ItemsSource="{Binding OperatorNames}"
-                      SelectedIndex="{Binding UserSelectedComboBoxIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      SelectedIndex="{Binding UserSelectedComboBoxIndex, Mode=TwoWay}">
                 <input:Interaction.Triggers>
                     <input:EventTrigger EventName="SelectionChanged">
                         <input:InvokeCommandAction Command="{Binding BatchOperatorComboBoxChanged}" />
