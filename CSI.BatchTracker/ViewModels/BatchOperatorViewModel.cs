@@ -86,9 +86,6 @@ namespace CSI.BatchTracker.ViewModels
             SelectedBatchOperatorFromListBoxIndex = 0;
             validator = new BatchOperatorValidator();
             BatchOperator = new BatchOperator("", "");
-
-            ResetBatchOperator();
-
             SaveBatchOperator = new SaveBatchOperatorCommand(this);
             DeleteSelectedBatchOperator = new DeleteSelectedBatchOperatorCommand(this);
             BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
