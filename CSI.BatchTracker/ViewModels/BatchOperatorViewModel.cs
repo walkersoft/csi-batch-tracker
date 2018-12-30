@@ -85,6 +85,7 @@ namespace CSI.BatchTracker.ViewModels
             OperatorRepository = DataSource.OperatorRepository;
             SelectedBatchOperatorFromListBoxIndex = 0;
             validator = new BatchOperatorValidator();
+            BatchOperator = new BatchOperator("", "");
 
             ResetBatchOperator();
 
@@ -138,12 +139,7 @@ namespace CSI.BatchTracker.ViewModels
         }
 
         void ResetBatchOperator()
-        { 
-            if (BatchOperator == null)
-            {
-                BatchOperator = new BatchOperator("", "");
-            }
-
+        {
             UpdateActiveBatchOperator(new BatchOperator("", ""));
         }
 
