@@ -8,23 +8,23 @@ using System.Windows.Input;
 
 namespace CSI.BatchTracker.Commands
 {
-    public sealed class SaveBatchOperatorCommand : CommandBase
+    public sealed class BatchOperatorComboBoxChangedCommand : CommandBase
     {
         BatchOperatorViewModel viewModel;
 
-        public SaveBatchOperatorCommand(BatchOperatorViewModel viewModel)
+        public BatchOperatorComboBoxChangedCommand(BatchOperatorViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
 
         public override bool CanExecute(object parameter)
         {
-            return viewModel.BatchOperatorIsValid();
+            return viewModel.UserSelectedComboBoxIndex > -1;
         }
 
         public override void Execute(object parameter)
         {
-            viewModel.PersistBatchOperator();
+            viewModel.PopulateBatchOperatorOrCreateNew();
         }
     }
 }

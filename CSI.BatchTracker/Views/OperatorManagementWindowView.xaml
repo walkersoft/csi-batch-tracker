@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
         Title="Operator Management" 
@@ -11,7 +12,16 @@
     <StackPanel Orientation="Vertical" Margin="10" Width="Auto">
         <StackPanel Orientation="Horizontal">
             <Label Content="Select Operator:"/>
-            <ComboBox Width="175"/>
+            <ComboBox Width="175" 
+                      VerticalContentAlignment="Center"
+                      ItemsSource="{Binding OperatorNames}"
+                      SelectedIndex="{Binding UserSelectedComboBoxIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <input:Interaction.Triggers>
+                    <input:EventTrigger EventName="SelectionChanged">
+                        <input:InvokeCommandAction Command="{Binding BatchOperatorComboBoxChanged}" />
+                    </input:EventTrigger>
+                </input:Interaction.Triggers>
+            </ComboBox>
         </StackPanel>
         
         <Separator Width="Auto" Margin="0,10,0,5"/>

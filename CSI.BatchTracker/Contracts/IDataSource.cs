@@ -15,8 +15,11 @@ namespace CSI.BatchTracker.Contracts
         ObservableCollection<BatchOperator> OperatorRepository { get; }
         ObservableCollection<LoggedBatch> BatchLedger { get; }
 
+        Dictionary<int, int> BatchOperatorIdMappings { get; }
+
         void ReceiveInventory(ReceivedBatch batch);
         void SaveOperator(BatchOperator batchOperator);
+        BatchOperator FindBatchOperatorById(int id);
         void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator);
     }
 }

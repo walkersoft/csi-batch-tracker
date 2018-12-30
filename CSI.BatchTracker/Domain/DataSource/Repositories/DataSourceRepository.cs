@@ -23,8 +23,8 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         ObservableCollection<BatchOperator> operatorRepository;
         ObservableCollection<InventoryBatch> inventoryRepository;
 
-        public Dictionary<int, int> BatchOperatorIdMappings { get; private set; }
         public Dictionary<int, int> CurrentInventoryIdMappings { get; private set; }
+        public Dictionary<int, int> BatchOperatorIdMappings { get; private set; }
 
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
 
@@ -189,6 +189,15 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
                 UpdateInventoryRepository();
                 memoryStore.CurrentInventory.Remove(entity.SystemId);
             }
+        }
+
+        public BatchOperator FindBatchOperatorById(int id)
+        {
+            ITransaction finder = new FindBatchOperatorByIdTransaction(id, memoryStore);
+            finder.Execute();
+            Entity<BatchOperator> entity = (Entity<BatchOperator>)finder.Results[0];
+
+            return entity.NativeModel;
         }
     }
 }
