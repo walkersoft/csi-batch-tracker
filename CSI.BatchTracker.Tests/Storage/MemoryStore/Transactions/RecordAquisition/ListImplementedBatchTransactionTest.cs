@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.RecordAquisition
+namespace CSI.BatchTracker.Tests.Storage.MemoryStore.Transactions.RecordAquisition
 {
     [TestFixture]
     class ListImplementedBatchTransactionTest

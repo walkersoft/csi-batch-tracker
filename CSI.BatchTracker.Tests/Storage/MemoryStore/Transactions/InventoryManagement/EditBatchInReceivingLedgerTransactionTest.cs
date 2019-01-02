@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.InventoryManagement
+namespace CSI.BatchTracker.Tests.Storage.MemoryStore.Transactions.InventoryManagement
 {
     [TestFixture]
     class EditBatchInReceivingLedgerTransactionTest

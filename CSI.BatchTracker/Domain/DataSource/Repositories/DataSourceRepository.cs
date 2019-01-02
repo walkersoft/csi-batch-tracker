@@ -1,7 +1,6 @@
 ﻿using CSI.BatchTracker.Contracts;
 using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage;
-using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators;
 using CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement;

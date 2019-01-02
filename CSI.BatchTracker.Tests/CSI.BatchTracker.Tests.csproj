@@ -47,17 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\AddReceivedBatchToReceivingLedgerTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInCurrentInventoryTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\EditBatchInReceivingLedgerTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindBatchInImplementedLedgerTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindBatchOperatorByIdTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\FindInventoryBatchByIdTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListBatchOperatorsTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListCurrentInventoryTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListImplementedBatchTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\RecordAquisition\ListReceivingLedgerTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddReceivedBatchToReceivingLedgerTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\EditBatchInCurrentInventoryTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\EditBatchInReceivingLedgerTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchInImplementedLedgerTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchOperatorByIdTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindInventoryBatchByIdTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListBatchOperatorsTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListCurrentInventoryTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListImplementedBatchTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListReceivingLedgerTransactionTest.cs" />
     <Compile Include="Domain\BatchOperatorValidatorTest.cs" />
     <Compile Include="Domain\DataSource\DataSourceTest.cs" />
     <Compile Include="Domain\DataSource\BatchOperatorEntityTest.cs" />
@@ -65,12 +65,12 @@
     <Compile Include="Domain\DataSource\InventoryBatchEntityTest.cs" />
     <Compile Include="Domain\DataSource\InventoryBatchRepositoryTest.cs" />
     <Compile Include="Domain\DataSource\LoggedBatchEntityTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\AddBatchOperatorTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\FindBatchOperatorTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\BatchOperators\UpdateBatchOperatorTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\AddBatchToImplementedBatchLedgerTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\AddReceivedBatchToInventoryTransactionTest.cs" />
-    <Compile Include="DataSource\MemoryDataSource\Transactions\InventoryManagement\UndoImplementedBatchCommittedToLedgerTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\AddBatchOperatorTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\FindBatchOperatorTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\UpdateBatchOperatorTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddBatchToImplementedBatchLedgerTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddReceivedBatchToInventoryTransactionTest.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\UndoImplementedBatchCommittedToLedgerTransactionTest.cs" />
     <Compile Include="Domain\DataSource\ReceivedBatchEntityTest.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidatorTest.cs" />
     <Compile Include="Domain\NativeModels\BatchOperatorTest.cs" />
