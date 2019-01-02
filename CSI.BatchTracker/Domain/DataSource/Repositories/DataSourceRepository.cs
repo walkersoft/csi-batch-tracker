@@ -5,7 +5,6 @@ using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators;
 using CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement;
 using CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition;
-using CSI.BatchTracker.Domain.DataSource.Repositores;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;
 using System;
