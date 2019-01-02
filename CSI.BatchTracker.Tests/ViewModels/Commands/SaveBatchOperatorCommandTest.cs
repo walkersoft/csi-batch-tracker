@@ -1,7 +1,7 @@
 ﻿using CSI.BatchTracker.DataSource.Contracts;
 using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage.MemoryStore;
-using CSI.BatchTracker.Domain.DataSource.Repositories;
+using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Experimental;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Domain.DataSource.Repositories
+namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 {
     public class DataSourceRepository : IDataSource
     {

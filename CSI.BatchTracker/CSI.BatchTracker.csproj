@@ -106,7 +106,7 @@
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListCurrentInventoryTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListImplementedBatchTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListReceivingLedgerTransaction.cs" />
-    <Compile Include="Domain\DataSource\Repositories\DataSourceRepository.cs" />
+    <Compile Include="Domain\DataSource\MemorySource\MemoryDataSource.cs" />
     <Compile Include="Domain\DataSource\Entity.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidator.cs" />
     <Compile Include="Domain\NativeModels\BatchOperator.cs" />
