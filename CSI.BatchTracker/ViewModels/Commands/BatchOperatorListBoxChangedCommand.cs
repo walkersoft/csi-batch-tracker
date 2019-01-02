@@ -18,7 +18,7 @@ namespace CSI.BatchTracker.ViewModels.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return true;
+            return viewModel.SelectedBatchOperatorFromListBoxIndex > -1;
         }
 
         public override void Execute(object parameter)

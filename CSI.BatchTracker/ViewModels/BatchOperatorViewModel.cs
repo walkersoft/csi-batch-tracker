@@ -118,7 +118,7 @@ namespace CSI.BatchTracker.ViewModels
 
         public void PersistBatchOperator()
         {
-            BatchOperator batchOperator = new BatchOperator(BatchOperator.FirstName, BatchOperator.LastName);
+            BatchOperator batchOperator = new BatchOperator(FirstName, LastName);
 
             if (SelectedBatchOperatorFromComboBoxIndex > 0)
             {

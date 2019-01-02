@@ -212,6 +212,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
         {
             ITransaction remover = new DeleteBatchOperatorAtIdTransaction(id, memoryStore);
             remover.Execute();
+            UpdateOperatorRepository();
         }
     }
 }

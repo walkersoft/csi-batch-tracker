@@ -79,6 +79,11 @@
     <Compile Include="Domain\NativeModels\LoggedBatchTest.cs" />
     <Compile Include="Experimental\DataStoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BatchOperatorViewModelTest.cs" />
+    <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\SaveBatchOperatorCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\DeleteSelectedBatchOperatorCommandTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
