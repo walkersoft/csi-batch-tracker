@@ -1,19 +1,14 @@
 ﻿using CSI.BatchTracker.DataSource.Contracts;
-using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Storage;
-using CSI.BatchTracker.Storage.MemoryStore;
-using CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators;
-using CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement;
-using CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;
+using CSI.BatchTracker.Storage.Contracts;
+using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CSI.BatchTracker.Domain.DataSource.Contracts;
 
 namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 {

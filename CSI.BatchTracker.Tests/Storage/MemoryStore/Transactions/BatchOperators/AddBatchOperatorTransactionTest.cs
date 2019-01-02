@@ -1,16 +1,9 @@
-﻿using CSI.BatchTracker.Storage;
+﻿using CSI.BatchTracker.Domain.DataSource;
+using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage.MemoryStore;
-using CSI.BatchTracker.Storage.MemoryStore.Transactions;
 using CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators;
-using CSI.BatchTracker.Domain.DataSource;
-using CSI.BatchTracker.Domain.NativeModels;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Tests.Storage.MemoryStore.Transactions.BatchOperators
 {

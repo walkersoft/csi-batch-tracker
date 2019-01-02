@@ -1,11 +1,4 @@
-﻿using CSI.BatchTracker.DataSource.Contracts;
-using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {

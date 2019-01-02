@@ -1,12 +1,4 @@
-﻿using CSI.BatchTracker.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace CSI.BatchTracker.ViewModels.Commands
+﻿namespace CSI.BatchTracker.ViewModels.Commands
 {
     public sealed class SaveBatchOperatorCommand : CommandBase
     {

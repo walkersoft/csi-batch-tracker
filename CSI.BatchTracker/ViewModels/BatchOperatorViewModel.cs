@@ -1,15 +1,8 @@
-﻿using CSI.BatchTracker.ViewModels.Commands;
-using CSI.BatchTracker.DataSource.Contracts;
-using CSI.BatchTracker.Storage.Contracts;
+﻿using CSI.BatchTracker.DataSource.Contracts;
 using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.NativeModels;
-using System;
-using System.Collections.Generic;
+using CSI.BatchTracker.ViewModels.Commands;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CSI.BatchTracker.ViewModels

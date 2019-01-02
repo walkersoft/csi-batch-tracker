@@ -1,12 +1,10 @@
-﻿using System;
-using CSI.BatchTracker.Domain.NativeModels;
-using CSI.BatchTracker.DataSource.Contracts;
-using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Domain.DataSource;
-using NUnit.Framework;
-using CSI.BatchTracker.Experimental;
+﻿using CSI.BatchTracker.DataSource.Contracts;
 using CSI.BatchTracker.Domain.DataSource.MemorySource;
+using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Experimental;
 using CSI.BatchTracker.Storage.MemoryStore;
+using NUnit.Framework;
+using System;
 
 namespace CSI.BatchTracker.Tests.Domain
 {

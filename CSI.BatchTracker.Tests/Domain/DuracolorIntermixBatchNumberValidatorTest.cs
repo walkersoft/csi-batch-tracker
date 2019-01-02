@@ -1,14 +1,7 @@
-﻿using NUnit.Framework;
-using CSI.BatchTracker.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CSI.BatchTracker.DataSource.Contracts;
-using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Exceptions;
+﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.Contracts;
+using CSI.BatchTracker.Exceptions;
+using NUnit.Framework;
 
 namespace CSI.BatchTracker.Tests.Domain
 {

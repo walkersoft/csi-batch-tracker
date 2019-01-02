@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators
+﻿namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators
 {
     public sealed class DeleteBatchOperatorAtIdTransaction : MemoryDataSourceTransaction
     {

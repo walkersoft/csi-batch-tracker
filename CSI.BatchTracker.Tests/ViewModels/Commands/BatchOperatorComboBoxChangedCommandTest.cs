@@ -1,16 +1,10 @@
 ﻿using CSI.BatchTracker.DataSource.Contracts;
-using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Experimental;
+using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CSI.BatchTracker.Tests.ViewModels.Commands

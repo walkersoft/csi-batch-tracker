@@ -1,13 +1,6 @@
-﻿using CSI.BatchTracker.DataSource.Contracts;
-using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Domain.Contracts;
+﻿using CSI.BatchTracker.Domain.Contracts;
 using CSI.BatchTracker.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Domain
 {
