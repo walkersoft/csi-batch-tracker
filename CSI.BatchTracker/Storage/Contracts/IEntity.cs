@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.DataSource.Contracts
+namespace CSI.BatchTracker.Storage.Contracts
 {
     public interface IEntity
     {

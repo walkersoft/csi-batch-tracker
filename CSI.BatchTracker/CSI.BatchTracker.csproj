@@ -86,7 +86,7 @@
     <Compile Include="Domain\Contracts\AbstractBatchNumberValidator.cs" />
     <Compile Include="Domain\Contracts\IBatchNumberValidator.cs" />
     <Compile Include="Domain\DataSource\Contracts\IDataSource.cs" />
-    <Compile Include="Domain\DataSource\Contracts\IEntity.cs" />
+    <Compile Include="Storage\Contracts\IEntity.cs" />
     <Compile Include="Storage\Contracts\ITransaction.cs" />
     <Compile Include="Storage\MemoryStore\MemoryStore.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\AddBatchOperatorTransaction.cs" />
