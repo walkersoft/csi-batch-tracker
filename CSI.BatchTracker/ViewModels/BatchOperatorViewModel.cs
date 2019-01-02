@@ -28,6 +28,19 @@ namespace CSI.BatchTracker.ViewModels
 
         BatchOperatorValidator validator;
 
+        public BatchOperatorViewModel(IDataSource dataSource)
+        {
+            DataSource = dataSource;
+            OperatorRepository = DataSource.OperatorRepository;
+            SelectedBatchOperatorFromListBoxIndex = 0;
+            validator = new BatchOperatorValidator();
+            BatchOperator = new BatchOperator("", "");
+            SaveBatchOperator = new SaveBatchOperatorCommand(this);
+            DeleteSelectedBatchOperator = new DeleteSelectedBatchOperatorCommand(this);
+            BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
+            BatchOperatorListBoxChanged = new BatchOperatorListBoxChangedCommand(this);
+        }
+
         ObservableCollection<string> operatorNames;
         public ObservableCollection<string> OperatorNames
         {
@@ -78,19 +91,6 @@ namespace CSI.BatchTracker.ViewModels
                 BatchOperator.LastName = value;
                 NotifyPropertyChanged("LastName");
             }
-        }
-
-        public BatchOperatorViewModel(IDataSource dataSource)
-        {
-            DataSource = dataSource;
-            OperatorRepository = DataSource.OperatorRepository;
-            SelectedBatchOperatorFromListBoxIndex = 0;
-            validator = new BatchOperatorValidator();
-            BatchOperator = new BatchOperator("", "");
-            SaveBatchOperator = new SaveBatchOperatorCommand(this);
-            DeleteSelectedBatchOperator = new DeleteSelectedBatchOperatorCommand(this);
-            BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
-            BatchOperatorListBoxChanged = new BatchOperatorListBoxChangedCommand(this);
         }
 
         void UpdateActiveBatchOperator(BatchOperator batchOperator)
