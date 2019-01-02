@@ -8,10 +8,10 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators
 {
     public sealed class DeleteBatchOperatorAtIdTransaction : MemoryDataSourceTransaction
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         int targetId;
 
-        public DeleteBatchOperatorAtIdTransaction(int targetId, MemoryStore store)
+        public DeleteBatchOperatorAtIdTransaction(int targetId, MemoryStoreContext store)
         {
             this.targetId = targetId;
             this.store = store;

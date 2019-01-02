@@ -11,10 +11,10 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators
     public sealed class AddBatchOperatorTransaction : MemoryDataSourceTransaction
     {
         Entity<BatchOperator> entity;
-        MemoryStore store;
+        MemoryStoreContext store;
         public int LastSystemId { get; private set; }
 
-        public AddBatchOperatorTransaction(Entity<BatchOperator> entity, MemoryStore store)
+        public AddBatchOperatorTransaction(Entity<BatchOperator> entity, MemoryStoreContext store)
         {
             this.entity = entity;
             this.store = store;

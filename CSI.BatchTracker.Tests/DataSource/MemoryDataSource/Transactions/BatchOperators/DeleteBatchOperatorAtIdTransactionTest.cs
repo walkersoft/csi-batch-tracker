@@ -16,12 +16,12 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.BatchO
     [TestFixture]
     class DeleteBatchOperatorAtIdTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
 
         [SetUp]
         public void SetUp()
         {
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
         }
 
         [Test]

@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
     [TestFixture]
     class UndoImplementedBatchCommittedToLedgerTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         Entity<LoggedBatch> loggedEntity;
         Entity<InventoryBatch> inventoryEntity;
         UndoImplementedBatchCommittedToLedgerTransaction undo;
@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
         [SetUp]
         public void SetUp()
         {
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
         }
 
         [Test]

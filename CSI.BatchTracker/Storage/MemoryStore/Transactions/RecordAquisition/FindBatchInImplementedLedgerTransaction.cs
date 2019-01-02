@@ -10,10 +10,10 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 {
     public sealed class FindBatchInImplementedLedgerTransaction : MemoryDataSourceTransaction
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         string batchNumber;
 
-        public FindBatchInImplementedLedgerTransaction(string batchNumber, MemoryStore store)
+        public FindBatchInImplementedLedgerTransaction(string batchNumber, MemoryStoreContext store)
         {
             this.batchNumber = batchNumber;
             this.store = store;

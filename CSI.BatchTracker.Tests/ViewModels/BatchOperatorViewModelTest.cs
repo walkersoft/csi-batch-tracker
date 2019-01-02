@@ -19,7 +19,7 @@ namespace CSI.BatchTracker.Tests.ViewModels
         [SetUp]
         public void SetUp()
         {
-            viewModel = new BatchOperatorViewModel(new DataSourceRepository(new DataStore(), new MemoryStore()));
+            viewModel = new BatchOperatorViewModel(new DataSourceRepository(new DataStore(), new MemoryStoreContext()));
         }
         [Test]
         public void BatchOperatorNamesForComboBoxHasAtLeastOneItem()

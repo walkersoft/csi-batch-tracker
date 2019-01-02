@@ -10,9 +10,9 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 {
     public sealed class ListImplementedBatchTransaction : MemoryDataSourceTransaction
     {
-        MemoryStore store;
+        MemoryStoreContext store;
 
-        public ListImplementedBatchTransaction(MemoryStore store)
+        public ListImplementedBatchTransaction(MemoryStoreContext store)
         {
             this.store = store;
         }

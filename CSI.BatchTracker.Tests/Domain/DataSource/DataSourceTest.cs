@@ -18,7 +18,7 @@ namespace CSI.BatchTracker.Tests.Domain
         [SetUp]
         public void SetUp()
         {
-            data = new DataSourceRepository(new DataStore(), new MemoryStore());
+            data = new DataSourceRepository(new DataStore(), new MemoryStoreContext());
         }
 
         [Test]

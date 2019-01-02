@@ -9,9 +9,9 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
     public sealed class FindInventoryBatchByIdTransaction : MemoryDataSourceTransaction
     {
         int TargetId { get; set; }
-        MemoryStore store;
+        MemoryStoreContext store;
 
-        public FindInventoryBatchByIdTransaction(int targetId, MemoryStore store)
+        public FindInventoryBatchByIdTransaction(int targetId, MemoryStoreContext store)
         {
             TargetId = targetId;
             this.store = store;

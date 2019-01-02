@@ -18,7 +18,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.BatchO
     class AddBatchOperatorTransactionTest
     {
         ITransaction adder;
-        MemoryStore store;
+        MemoryStoreContext store;
         BatchOperator batchOperator;
         Entity<BatchOperator> entity;
 
@@ -27,7 +27,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.BatchO
         {
             batchOperator = new BatchOperator("Jane", "Doe");
             entity = new Entity<BatchOperator>(batchOperator);
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             adder = new AddBatchOperatorTransaction(entity, store);
         }
 

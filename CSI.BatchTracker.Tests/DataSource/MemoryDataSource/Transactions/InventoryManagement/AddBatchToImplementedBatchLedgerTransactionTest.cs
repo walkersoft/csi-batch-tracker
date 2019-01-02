@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
     [TestFixture]
     class AddBatchToImplementedBatchLedgerTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         LoggedBatch loggedBatch;
         InventoryBatch inventoryBatch;
         BatchOperator batchOperator;
@@ -25,7 +25,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
         {
             int expectedQty = 4;
             int expectedCount = 1;
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             batchOperator = new BatchOperator("Jane", "Doe");
             inventoryBatch = new InventoryBatch("White", "8728811303201", DateTime.Now, 5);
             receiver = new AddReceivedBatchToInventoryTransaction(new Entity<InventoryBatch>(inventoryBatch), store);

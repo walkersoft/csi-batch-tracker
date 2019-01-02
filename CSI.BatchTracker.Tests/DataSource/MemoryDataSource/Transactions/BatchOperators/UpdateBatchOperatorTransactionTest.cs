@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.BatchO
         [Test]
         public void UpdateExistingBatchOperatorEntityWithNewNativeModel()
         {
-            MemoryStore store = new MemoryStore();
+            MemoryStoreContext store = new MemoryStoreContext();
             BatchOperator before = new BatchOperator("Jane", "Doe");
             Entity<BatchOperator> entity = new Entity<BatchOperator>(before);
 

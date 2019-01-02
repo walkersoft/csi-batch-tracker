@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
     [TestFixture]
     class AddReceivedBatchToInventoryTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         Entity<InventoryBatch> entity;
         InventoryBatch receiveableBatch;
         BatchOperator batchOperator;
@@ -23,7 +23,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
         [SetUp]
         public void SetUp()
         {
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             batchOperator = new BatchOperator("Jane", "Doe");
             receiveableBatch = new InventoryBatch("White", "872881502902", DateTime.Now, 5);
         }

@@ -17,13 +17,13 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Record
     [TestFixture]
     class ListReceivingLedgerTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
 
         [Test]
         public void ListAllReceivedBatchesInReceivingLedger()
         {
             int expectedCount = 5;
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             ITransaction finder = new ListReceivingLedgerTransaction(store);
 
             PopulateDataSourceWithFiveLedgerTransactions();

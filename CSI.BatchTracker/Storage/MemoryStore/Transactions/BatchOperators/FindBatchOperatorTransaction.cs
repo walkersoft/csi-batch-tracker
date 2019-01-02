@@ -11,9 +11,9 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators
     public sealed class FindBatchOperatorTransaction : MemoryDataSourceTransaction
     {
         Entity<BatchOperator> entity;
-        MemoryStore store;
+        MemoryStoreContext store;
 
-        public FindBatchOperatorTransaction(Entity<BatchOperator> entity, MemoryStore store)
+        public FindBatchOperatorTransaction(Entity<BatchOperator> entity, MemoryStoreContext store)
         {
             this.entity = entity;
             this.store = store;

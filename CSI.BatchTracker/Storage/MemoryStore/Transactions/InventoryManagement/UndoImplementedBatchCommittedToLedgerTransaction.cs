@@ -10,12 +10,12 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 {
     public class UndoImplementedBatchCommittedToLedgerTransaction : MemoryDataSourceTransaction
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         Entity<LoggedBatch> loggedEntity;
         Entity<InventoryBatch> inventoryEntity;
         AddReceivedBatchToInventoryTransaction inventoryAdder;
 
-        public UndoImplementedBatchCommittedToLedgerTransaction(Entity<LoggedBatch> entity, MemoryStore store)
+        public UndoImplementedBatchCommittedToLedgerTransaction(Entity<LoggedBatch> entity, MemoryStoreContext store)
         {
             this.loggedEntity = entity;
             this.store = store;

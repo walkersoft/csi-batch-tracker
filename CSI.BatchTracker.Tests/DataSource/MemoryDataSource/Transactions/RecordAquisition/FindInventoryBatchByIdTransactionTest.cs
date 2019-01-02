@@ -17,13 +17,13 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Record
     [TestFixture]
     class FindInventoryBatchByIdTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
 
         [Test]
         public void FindEntityInInventory()
         {
             int targetId = 3;
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             ITransaction finder = new FindInventoryBatchByIdTransaction(targetId, store);
 
             PutThreeBatchesInInventory();

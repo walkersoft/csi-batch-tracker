@@ -11,9 +11,9 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators
     public sealed class UpdateBatchOperatorTransaction : MemoryDataSourceTransaction
     {
         Entity<BatchOperator> entity;
-        MemoryStore store;
+        MemoryStoreContext store;
 
-        public UpdateBatchOperatorTransaction(Entity<BatchOperator> entity, MemoryStore store)
+        public UpdateBatchOperatorTransaction(Entity<BatchOperator> entity, MemoryStoreContext store)
         {
             this.entity = entity;
             this.store = store;

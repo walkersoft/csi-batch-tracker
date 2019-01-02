@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
     [TestFixture]
     class AddReceivedBatchToReceivingLedgerTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         Entity<ReceivedBatch> entity;
         AddReceivedBatchToReceivingLedgerTransaction adder;
 
@@ -23,7 +23,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
         {
             int expectedCount = 1;
             int expectedSystemId = 1;
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             ReceivedBatch received = new ReceivedBatch("White", "872881201308", DateTime.Now, 5, 22392, new BatchOperator("Jane", "Doe"));
             entity = new Entity<ReceivedBatch>(received);
 

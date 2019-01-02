@@ -10,9 +10,9 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 {
     public sealed class ListReceivingLedgerTransaction : MemoryDataSourceTransaction
     {
-        MemoryStore store;
+        MemoryStoreContext store;
 
-        public ListReceivingLedgerTransaction(MemoryStore store)
+        public ListReceivingLedgerTransaction(MemoryStoreContext store)
         {
             this.store = store;
         }

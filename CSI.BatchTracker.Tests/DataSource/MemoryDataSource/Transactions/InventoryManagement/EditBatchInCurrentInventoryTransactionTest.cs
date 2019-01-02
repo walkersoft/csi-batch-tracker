@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
     [TestFixture]
     class EditBatchInCurrentInventoryTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         Entity<InventoryBatch> entity;
         AddReceivedBatchToInventoryTransaction adder;
         EditBatchInCurrentInventoryTransaction updater;
@@ -22,7 +22,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
         [Test]
         public void EditingBatchInCurrentInventoryChangesNativeModel()
         {
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             adder = new AddReceivedBatchToInventoryTransaction(GetOriginalInventoryEntity(), store);
             adder.Execute();
 

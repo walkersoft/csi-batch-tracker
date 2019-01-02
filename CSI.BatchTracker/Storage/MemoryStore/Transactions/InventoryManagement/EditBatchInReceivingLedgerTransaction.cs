@@ -10,10 +10,10 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 {
     public sealed class EditBatchInReceivingLedgerTransaction : MemoryDataSourceTransaction
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         Entity<ReceivedBatch> entity;
 
-        public EditBatchInReceivingLedgerTransaction(Entity<ReceivedBatch> entity, MemoryStore store)
+        public EditBatchInReceivingLedgerTransaction(Entity<ReceivedBatch> entity, MemoryStoreContext store)
         {
             this.entity = entity;
             this.store = store;

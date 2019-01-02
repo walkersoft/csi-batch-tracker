@@ -11,10 +11,10 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
     public sealed class AddBatchToImplementedBatchLedgerTransaction : MemoryDataSourceTransaction
     {
         Entity<LoggedBatch> entity;
-        MemoryStore store;
+        MemoryStoreContext store;
         public int LastSystemId { get; private set; }
 
-        public AddBatchToImplementedBatchLedgerTransaction(Entity<LoggedBatch> entity, MemoryStore store)
+        public AddBatchToImplementedBatchLedgerTransaction(Entity<LoggedBatch> entity, MemoryStoreContext store)
         {
             this.entity = entity;
             this.store = store;

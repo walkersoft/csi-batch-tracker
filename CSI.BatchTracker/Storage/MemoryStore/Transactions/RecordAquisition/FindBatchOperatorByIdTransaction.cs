@@ -9,9 +9,9 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
     public sealed class FindBatchOperatorByIdTransaction : MemoryDataSourceTransaction
     {
         int TargetId { get; set; }
-        MemoryStore store;
+        MemoryStoreContext store;
 
-        public FindBatchOperatorByIdTransaction(int targetId, MemoryStore store)
+        public FindBatchOperatorByIdTransaction(int targetId, MemoryStoreContext store)
         {
             TargetId = targetId;
             this.store = store;

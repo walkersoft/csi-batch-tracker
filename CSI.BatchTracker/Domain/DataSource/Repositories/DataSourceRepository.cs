@@ -21,7 +21,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
     public class DataSourceRepository : IDataSource
     {
         DataStore store;
-        MemoryStore memoryStore;
+        MemoryStoreContext memoryStore;
         ObservableCollection<BatchOperator> operatorRepository;
         ObservableCollection<InventoryBatch> inventoryRepository;
 
@@ -30,7 +30,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Repositories
 
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
 
-        public DataSourceRepository(DataStore store, MemoryStore memoryStore)
+        public DataSourceRepository(DataStore store, MemoryStoreContext memoryStore)
         {
             this.store = store;
             this.memoryStore = memoryStore;

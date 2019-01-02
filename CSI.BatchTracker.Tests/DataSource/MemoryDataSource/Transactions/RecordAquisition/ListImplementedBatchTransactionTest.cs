@@ -17,13 +17,13 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Record
     [TestFixture]
     class ListImplementedBatchTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
 
         [Test]
         public void ListImplementedBatchesInRepository()
         {
             int expectedQty = 5;
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
 
             AddFiveBatchesToImplementationLedger();
             ITransaction finder = new ListImplementedBatchTransaction(store);

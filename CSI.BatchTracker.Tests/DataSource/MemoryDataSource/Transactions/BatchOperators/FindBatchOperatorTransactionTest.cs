@@ -21,12 +21,12 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.BatchO
         ITransaction finder;
         BatchOperator batchOperator;
         Entity<BatchOperator> entity;
-        MemoryStore store;
+        MemoryStoreContext store;
 
         [SetUp]
         public void SetUp()
         {
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             batchOperator = new BatchOperator("Jane", "Doe");
             entity = new Entity<BatchOperator>(batchOperator);
         }

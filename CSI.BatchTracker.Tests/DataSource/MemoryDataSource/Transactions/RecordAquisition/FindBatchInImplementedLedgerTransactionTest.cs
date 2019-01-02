@@ -17,14 +17,14 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Record
     [TestFixture]
     class FindBatchInImplementedLedgerTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
 
         [Test]
         public void FindBatchInImplementedLedgerByBatchNumber()
         {
             int expectedQty = 5;
             string batchNumber = "872881201202";
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
 
             AddFiveBatchesToImplementationLedger();
             ITransaction finder = new FindBatchInImplementedLedgerTransaction(batchNumber, store);

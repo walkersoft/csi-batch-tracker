@@ -17,12 +17,12 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Record
     [TestFixture]
     class ListCurrentInventoryTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
 
         [SetUp]
         public void SetUp()
         {
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
         }
 
         [Test]

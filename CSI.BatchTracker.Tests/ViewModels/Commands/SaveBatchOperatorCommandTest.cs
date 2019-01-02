@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         [SetUp]
         public void SetUp()
         {
-            IDataSource dataSource = new DataSourceRepository(new DataStore(), new MemoryStore());
+            IDataSource dataSource = new DataSourceRepository(new DataStore(), new MemoryStoreContext());
             viewModel = new BatchOperatorViewModel(dataSource);
             command = new SaveBatchOperatorCommand(viewModel);
         }

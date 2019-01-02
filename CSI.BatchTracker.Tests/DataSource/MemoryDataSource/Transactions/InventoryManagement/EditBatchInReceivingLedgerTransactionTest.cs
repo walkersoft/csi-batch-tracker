@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
     [TestFixture]
     class EditBatchInReceivingLedgerTransactionTest
     {
-        MemoryStore store;
+        MemoryStoreContext store;
         Entity<ReceivedBatch> entity;
         AddReceivedBatchToReceivingLedgerTransaction adder;
         EditBatchInReceivingLedgerTransaction updater;
@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.Tests.DataSource.MemoryDataSource.Transactions.Invent
         [Test]
         public void EditingBatchInLedgerChangesNativeModelInfo()
         {
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             entity = GetOriginallyReceivedBatchEntity();
 
             adder = new AddReceivedBatchToReceivingLedgerTransaction(entity, store);

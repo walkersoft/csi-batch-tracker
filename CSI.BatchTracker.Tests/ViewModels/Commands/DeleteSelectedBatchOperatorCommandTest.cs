@@ -25,12 +25,12 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
     {
         ICommand command;
         BatchOperatorViewModel viewModel;
-        MemoryStore store;
+        MemoryStoreContext store;
 
         [SetUp]
         public void SetUp()
         {
-            store = new MemoryStore();
+            store = new MemoryStoreContext();
             IDataSource dataSource = new DataSourceRepository(new DataStore(), store);
             viewModel = new BatchOperatorViewModel(dataSource);
             command = new DeleteSelectedBatchOperatorCommand(viewModel);
