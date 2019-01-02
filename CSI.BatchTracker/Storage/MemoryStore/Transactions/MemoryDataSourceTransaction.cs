@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CSI.BatchTracker.Contracts;
 
-namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions
+namespace CSI.BatchTracker.Storage.MemoryStore.Transactions
 {
     abstract public class MemoryDataSourceTransaction : ITransaction
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryManagement
+namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 {
     public sealed class AddReceivedBatchToReceivingLedgerTransaction : MemoryDataSourceTransaction
     {

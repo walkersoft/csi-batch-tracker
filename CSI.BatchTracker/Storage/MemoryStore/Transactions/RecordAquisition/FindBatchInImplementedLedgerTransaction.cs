@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.RecordAquisition
+namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 {
     public sealed class FindBatchInImplementedLedgerTransaction : MemoryDataSourceTransaction
     {

@@ -1,4 +1,4 @@
-﻿using CSI.BatchTracker.DataSource.MemoryDataSource;
+﻿using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Domain.DataSource.Repositories;
 using CSI.BatchTracker.Experimental;
 using CSI.BatchTracker.ViewModels;

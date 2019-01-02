@@ -1,7 +1,7 @@
-﻿using CSI.BatchTracker.DataSource;
-using CSI.BatchTracker.DataSource.MemoryDataSource;
-using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions;
-using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.BatchOperators;
+﻿using CSI.BatchTracker.Storage;
+using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators;
 using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.NativeModels;
 using NUnit.Framework;

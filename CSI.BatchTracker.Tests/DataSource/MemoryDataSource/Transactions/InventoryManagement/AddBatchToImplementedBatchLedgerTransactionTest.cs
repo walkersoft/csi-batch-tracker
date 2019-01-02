@@ -1,5 +1,5 @@
-﻿using CSI.BatchTracker.DataSource.MemoryDataSource;
-using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryManagement;
+﻿using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement;
 using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.NativeModels;
 using NUnit.Framework;

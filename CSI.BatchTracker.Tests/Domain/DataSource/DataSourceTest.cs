@@ -5,7 +5,7 @@ using CSI.BatchTracker.Domain.DataSource;
 using NUnit.Framework;
 using CSI.BatchTracker.Experimental;
 using CSI.BatchTracker.Domain.DataSource.Repositories;
-using CSI.BatchTracker.DataSource.MemoryDataSource;
+using CSI.BatchTracker.Storage.MemoryStore;
 
 namespace CSI.BatchTracker.Tests.Domain
 {

@@ -1,9 +1,9 @@
 ﻿using CSI.BatchTracker.Contracts;
-using CSI.BatchTracker.DataSource;
-using CSI.BatchTracker.DataSource.MemoryDataSource;
-using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.BatchOperators;
-using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.InventoryManagement;
-using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.RecordAquisition;
+using CSI.BatchTracker.Storage;
+using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition;
 using CSI.BatchTracker.Domain.DataSource.Repositores;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.DataSource.MemoryDataSource
+namespace CSI.BatchTracker.Storage.MemoryStore
 {
     public sealed class MemoryStore
     {

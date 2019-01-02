@@ -1,6 +1,6 @@
-﻿using CSI.BatchTracker.DataSource;
-using CSI.BatchTracker.DataSource.MemoryDataSource;
-using CSI.BatchTracker.DataSource.MemoryDataSource.Transactions.BatchOperators;
+﻿using CSI.BatchTracker.Storage;
+using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Storage.MemoryStore.Transactions.BatchOperators;
 using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.DataSource.Repositories;
