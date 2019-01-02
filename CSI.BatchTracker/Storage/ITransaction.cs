@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Storage
+namespace CSI.BatchTracker.Storage.Contracts
 {
     public interface ITransaction
     {
