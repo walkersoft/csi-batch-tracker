@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.Storage.Contracts;
 
 namespace CSI.BatchTracker.Storage.MemoryStore.Transactions
 {

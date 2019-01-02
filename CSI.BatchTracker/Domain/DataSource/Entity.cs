@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.Storage.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
