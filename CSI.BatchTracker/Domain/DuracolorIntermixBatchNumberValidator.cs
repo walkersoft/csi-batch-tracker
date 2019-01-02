@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.Domain.Contracts;
 using CSI.BatchTracker.Exceptions;
 using System;
 using System.Collections.Generic;

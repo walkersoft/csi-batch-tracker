@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CSI.BatchTracker.Contracts;
 using CSI.BatchTracker.Exceptions;
+using CSI.BatchTracker.Domain.Contracts;
 
 namespace CSI.BatchTracker.Tests.Domain
 {

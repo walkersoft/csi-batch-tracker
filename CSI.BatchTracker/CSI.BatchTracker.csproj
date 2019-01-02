@@ -83,8 +83,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Domain\NativeModels\AbstractBatch.cs" />
-    <Compile Include="Contracts\AbstractBatchNumberValidator.cs" />
-    <Compile Include="Contracts\IBatchNumberValidator.cs" />
+    <Compile Include="Domain\Contracts\AbstractBatchNumberValidator.cs" />
+    <Compile Include="Domain\Contracts\IBatchNumberValidator.cs" />
     <Compile Include="Contracts\IDataSource.cs" />
     <Compile Include="Contracts\IEntity.cs" />
     <Compile Include="Contracts\IRepository.cs" />

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Contracts
+namespace CSI.BatchTracker.Domain.Contracts
 {
     public interface IBatchNumberValidator
     {
