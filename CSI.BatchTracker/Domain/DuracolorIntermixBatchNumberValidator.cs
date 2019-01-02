@@ -1,4 +1,4 @@
-﻿using CSI.BatchTracker.Contracts;
+﻿using CSI.BatchTracker.DataSource.Contracts;
 using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Domain.Contracts;
 using CSI.BatchTracker.Exceptions;

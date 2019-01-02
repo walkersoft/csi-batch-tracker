@@ -1,5 +1,5 @@
 ﻿using CSI.BatchTracker.ViewModels.Commands;
-using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.DataSource.Contracts;
 using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.NativeModels;

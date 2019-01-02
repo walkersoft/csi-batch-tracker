@@ -1,6 +1,6 @@
 ﻿using System;
 using CSI.BatchTracker.Domain.NativeModels;
-using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.DataSource.Contracts;
 using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Domain.DataSource;
 using NUnit.Framework;

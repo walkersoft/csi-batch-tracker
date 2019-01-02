@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CSI.BatchTracker.Contracts;
+using CSI.BatchTracker.DataSource.Contracts;
 using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Exceptions;
 using CSI.BatchTracker.Domain.Contracts;
