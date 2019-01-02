@@ -62,6 +62,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Domain\DataSource\Contracts\IBatchOperatorSource.cs" />
+    <Compile Include="Domain\DataSource\MemorySource\MemoryBatchOperatorSource.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommand.cs" />
     <Compile Include="ViewModels\Commands\CommandBase.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommand.cs" />
@@ -88,7 +90,7 @@
     <Compile Include="Domain\DataSource\Contracts\IDataSource.cs" />
     <Compile Include="Storage\Contracts\IEntity.cs" />
     <Compile Include="Storage\Contracts\ITransaction.cs" />
-    <Compile Include="Storage\MemoryStore\MemoryStore.cs" />
+    <Compile Include="Storage\MemoryStore\MemoryStoreContext.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\AddBatchOperatorTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\FindBatchOperatorTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\UpdateBatchOperatorTransaction.cs" />

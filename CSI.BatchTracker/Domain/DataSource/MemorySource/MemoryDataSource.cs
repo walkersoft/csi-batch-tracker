@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 
 namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 {
@@ -23,8 +24,9 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         ObservableCollection<BatchOperator> operatorRepository;
         ObservableCollection<InventoryBatch> inventoryRepository;
 
+        IBatchOperatorSource batchOperatorSource;
+
         public Dictionary<int, int> CurrentInventoryIdMappings { get; private set; }
-        public Dictionary<int, int> BatchOperatorIdMappings { get; private set; }
 
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
 
@@ -32,42 +34,14 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         {
             this.store = store;
             this.memoryStore = memoryStore;
-            operatorRepository = new ObservableCollection<BatchOperator>();
+            batchOperatorSource = new MemoryBatchOperatorSource(this.memoryStore);
             inventoryRepository = new ObservableCollection<InventoryBatch>();
-            BatchOperatorIdMappings = new Dictionary<int, int>();
             CurrentInventoryIdMappings = new Dictionary<int, int>();
             BatchLedger = store.LoggedBatches;
         }
 
-        public ObservableCollection<BatchOperator> OperatorRepository
-        {
-            get
-            {
-                UpdateOperatorRepository();
-                return operatorRepository;
-            }
-            private set
-            {
-                operatorRepository = value;
-            }
-        }
-
-        void UpdateOperatorRepository()
-        {
-            ITransaction finder = new ListBatchOperatorsTransaction(memoryStore);
-            finder.Execute();
-
-            operatorRepository.Clear();
-            BatchOperatorIdMappings.Clear();
-            int i = 0;
-
-            foreach (Entity<BatchOperator> batchOperator in finder.Results)
-            {
-                operatorRepository.Add(batchOperator.NativeModel);
-                BatchOperatorIdMappings.Add(i, batchOperator.SystemId);
-                i++;
-            }
-        }
+        public ObservableCollection<BatchOperator> OperatorRepository { get { return batchOperatorSource.OperatorRepository; } }
+        public Dictionary<int, int> BatchOperatorIdMappings { get { return batchOperatorSource.BatchOperatorIdMappings; } }
 
         public void ReceiveInventory(ReceivedBatch batch)
         {
@@ -124,21 +98,6 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 CurrentInventoryIdMappings.Add(i, entity.SystemId);
                 i++;
             }
-        }
-
-        public void SaveOperator(BatchOperator batchOperator)
-        {
-            ITransaction adder = new AddBatchOperatorTransaction(new Entity<BatchOperator>(batchOperator), memoryStore);
-            adder.Execute();
-            UpdateOperatorRepository();
-        }
-
-        public void UpdateOperator(int id, BatchOperator batchOperator)
-        {
-            Entity<BatchOperator> entity = new Entity<BatchOperator>(id, batchOperator);
-            ITransaction updater = new UpdateBatchOperatorTransaction(entity, memoryStore);
-            updater.Execute();
-            UpdateOperatorRepository();
         }
 
         public void ImplementBatch(string batchNumber, DateTime implementationDate, BatchOperator batchOperator)
@@ -199,20 +158,24 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             }
         }
 
-        public BatchOperator FindBatchOperatorById(int id)
+        public void SaveOperator(BatchOperator batchOperator)
         {
-            ITransaction finder = new FindBatchOperatorByIdTransaction(id, memoryStore);
-            finder.Execute();
-            Entity<BatchOperator> entity = (Entity<BatchOperator>)finder.Results[0];
+            batchOperatorSource.SaveOperator(batchOperator);
+        }
 
-            return entity.NativeModel;
+        public void UpdateOperator(int id, BatchOperator batchOperator)
+        {
+            batchOperatorSource.UpdateOperator(id, batchOperator);
         }
 
         public void DeleteBatchOperatorAtId(int id)
         {
-            ITransaction remover = new DeleteBatchOperatorAtIdTransaction(id, memoryStore);
-            remover.Execute();
-            UpdateOperatorRepository();
+            batchOperatorSource.DeleteBatchOperatorAtId(id);
+        }
+
+        public BatchOperator FindBatchOperatorById(int id)
+        {
+            return batchOperatorSource.FindBatchOperatorById(id);
         }
     }
 }
