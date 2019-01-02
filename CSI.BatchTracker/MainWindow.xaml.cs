@@ -33,7 +33,7 @@ namespace CSI.BatchTracker
     public partial class MainWindow : Window
     {
         public DataStore DataStore { get; set; }
-        public DataSourceRepository Repository { get; set; }
+        public MemoryDataSource Repository { get; set; }
 
         MemoryStoreContext Store { get; set; }
         BatchOperatorViewModel batchOperatorViewModel;
@@ -43,7 +43,7 @@ namespace CSI.BatchTracker
             Store = new MemoryStoreContext();
 
             DataStore = new DataStore();
-            Repository = new DataSourceRepository(DataStore, Store);
+            Repository = new MemoryDataSource(DataStore, Store);
             SetupBatchOperators();
             SetupColors();
             SetupInventory();

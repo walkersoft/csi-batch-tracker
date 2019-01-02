@@ -17,7 +17,7 @@ using CSI.BatchTracker.Domain.DataSource.Contracts;
 
 namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 {
-    public class DataSourceRepository : IDataSource
+    public class MemoryDataSource : IDataSource
     {
         DataStore store;
         MemoryStoreContext memoryStore;
@@ -30,7 +30,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
 
-        public DataSourceRepository(DataStore store, MemoryStoreContext memoryStore)
+        public MemoryDataSource(DataStore store, MemoryStoreContext memoryStore)
         {
             this.store = store;
             this.memoryStore = memoryStore;

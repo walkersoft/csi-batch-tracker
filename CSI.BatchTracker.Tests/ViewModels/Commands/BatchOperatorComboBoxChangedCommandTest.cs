@@ -25,7 +25,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         public void SetUp()
         {
             MemoryStoreContext store = new MemoryStoreContext();
-            IDataSource dataSource = new DataSourceRepository(new DataStore(), store);
+            IDataSource dataSource = new MemoryDataSource(new DataStore(), store);
             viewModel = new BatchOperatorViewModel(dataSource);
             command = new BatchOperatorComboBoxChangedCommand(viewModel);
         }
