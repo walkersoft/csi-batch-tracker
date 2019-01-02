@@ -21,7 +21,6 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
     {
         DataStore store;
         MemoryStoreContext memoryStore;
-        ObservableCollection<BatchOperator> operatorRepository;
         ObservableCollection<InventoryBatch> inventoryRepository;
 
         IBatchOperatorSource batchOperatorSource;
