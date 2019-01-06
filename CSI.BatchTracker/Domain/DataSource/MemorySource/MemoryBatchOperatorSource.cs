@@ -51,7 +51,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             UpdateOperatorRepository();
         }
 
-        public BatchOperator FindBatchOperatorById(int id)
+        public BatchOperator FindBatchOperator(int id)
         {
             ITransaction finder = new FindBatchOperatorByIdTransaction(id, memoryStore);
             finder.Execute();
@@ -60,7 +60,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             return entity.NativeModel;
         }
 
-        public void DeleteBatchOperatorAtId(int id)
+        public void DeleteBatchOperator(int id)
         {
             ITransaction remover = new DeleteBatchOperatorAtIdTransaction(id, memoryStore);
             remover.Execute();

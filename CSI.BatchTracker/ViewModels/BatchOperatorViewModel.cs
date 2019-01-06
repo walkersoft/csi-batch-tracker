@@ -139,7 +139,7 @@ namespace CSI.BatchTracker.ViewModels
             if (SelectedBatchOperatorFromComboBoxIndex > 0)
             {
                 int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromComboBoxIndex - 1];
-                UpdateActiveBatchOperator(DataSource.FindBatchOperatorById(targetId));
+                UpdateActiveBatchOperator(DataSource.FindBatchOperator(targetId));
             }
             else
             { 
@@ -165,7 +165,7 @@ namespace CSI.BatchTracker.ViewModels
         public void RemoveSelectedBatchOperator()
         {
             int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromListBoxIndex];
-            DataSource.DeleteBatchOperatorAtId(targetId);
+            DataSource.DeleteBatchOperator(targetId);
             ResetBatchOperator();
             SelectedBatchOperatorFromComboBoxIndex = -1;
             NotifyPropertyChanged("OperatorNames");

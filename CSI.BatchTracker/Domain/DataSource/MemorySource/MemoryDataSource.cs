@@ -162,14 +162,14 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             batchOperatorSource.UpdateOperator(id, batchOperator);
         }
 
-        public void DeleteBatchOperatorAtId(int id)
+        public void DeleteBatchOperator(int id)
         {
-            batchOperatorSource.DeleteBatchOperatorAtId(id);
+            batchOperatorSource.DeleteBatchOperator(id);
         }
 
-        public BatchOperator FindBatchOperatorById(int id)
+        public BatchOperator FindBatchOperator(int id)
         {
-            return batchOperatorSource.FindBatchOperatorById(id);
+            return batchOperatorSource.FindBatchOperator(id);
         }
     }
 }
