@@ -171,5 +171,10 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         {
             return batchOperatorSource.FindBatchOperator(id);
         }
+
+        public void FindAllBatchOperators()
+        {
+            batchOperatorSource.FindAllBatchOperators();
+        }
     }
 }

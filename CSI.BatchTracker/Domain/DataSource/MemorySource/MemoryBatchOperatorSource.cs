@@ -83,5 +83,10 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 i++;
             }
         }
+
+        public void FindAllBatchOperators()
+        {
+            UpdateOperatorRepository();
+        }
     }
 }

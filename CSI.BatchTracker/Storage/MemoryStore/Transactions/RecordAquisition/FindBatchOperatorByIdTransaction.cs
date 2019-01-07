@@ -1,4 +1,7 @@
-﻿namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
+﻿using CSI.BatchTracker.Domain.DataSource;
+using CSI.BatchTracker.Domain.NativeModels;
+
+namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 {
     public sealed class FindBatchOperatorByIdTransaction : MemoryDataSourceTransaction
     {
@@ -14,11 +17,7 @@
         public override void Execute()
         {
             Results.Clear();
-
-            if (store.BatchOperators.ContainsKey(TargetId))
-            {
-                Results.Add(store.BatchOperators[TargetId]);
-            }
+            Results.Add(store.BatchOperators[TargetId]);
         }
     }
 }

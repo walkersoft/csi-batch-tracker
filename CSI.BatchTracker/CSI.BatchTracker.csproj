@@ -92,7 +92,6 @@
     <Compile Include="Storage\Contracts\ITransaction.cs" />
     <Compile Include="Storage\MemoryStore\MemoryStoreContext.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\AddBatchOperatorTransaction.cs" />
-    <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\FindBatchOperatorTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\UpdateBatchOperatorTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddBatchToImplementedBatchLedgerTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddReceivedBatchToInventoryTransaction.cs" />
