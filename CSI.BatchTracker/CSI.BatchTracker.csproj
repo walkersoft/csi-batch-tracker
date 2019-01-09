@@ -76,6 +76,9 @@
     <Compile Include="Views\BatchOperatorManagementWindow.xaml.cs">
       <DependentUpon>BatchOperatorManagementWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BatchReceivingManagementWindow.xaml.cs">
+      <DependentUpon>BatchReceivingManagementWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,6 +125,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\BatchOperatorManagementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BatchReceivingManagementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
