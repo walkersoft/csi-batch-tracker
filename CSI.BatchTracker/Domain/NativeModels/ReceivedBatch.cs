@@ -6,9 +6,9 @@ namespace CSI.BatchTracker.Domain.NativeModels
 {
     public class ReceivedBatch : AbstractBatch
     {
-        public int Quantity { get; private set; }
-        public int PONumber { get; private set; }
-        public BatchOperator ReceivingOperator { get; private set; }
+        public int Quantity { get; set; }
+        public int PONumber { get; set; }
+        public BatchOperator ReceivingOperator { get; set; }
 
         public ReceivedBatch (
             string colorName, 
@@ -19,6 +19,7 @@ namespace CSI.BatchTracker.Domain.NativeModels
             BatchOperator receivingOperator
         )
         {
+            // TODO: Move all of these to various validation classes.
             CheckIfColorNameIsEmpty(colorName);
             CheckIfBatchNumberIsEmpty(batchNumber);
             CheckIfQuantityIsGreaterThanZero(quantity);
@@ -32,6 +33,7 @@ namespace CSI.BatchTracker.Domain.NativeModels
             ReceivingOperator = receivingOperator;
         }
 
+        // TODO: Abstract to validation class.
         void CheckIfPONumberIsAtLeastFiveDigits(int poNumber)
         {
             Match regex = Regex.Match(poNumber.ToString(), @"^[0-9]{5,}$");

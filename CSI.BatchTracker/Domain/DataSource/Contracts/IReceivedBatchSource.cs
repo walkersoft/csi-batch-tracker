@@ -14,5 +14,10 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
         Dictionary<int, int> ReceivedBatchIdMappings { get; }
 
         void SaveReceivedBatch(ReceivedBatch receivedBatch);
+        void UpdateReceivedBatch(int id, ReceivedBatch batch);
+        void DeleteReceivedBatch(int id);
+        ReceivedBatch FindReceivedBatchById(int id);
+        ObservableCollection<ReceivedBatch> FindReceivedBatchesByPONumber(int poNumber);
+        ObservableCollection<ReceivedBatch> FindReceivedBatchesByDate(DateTime date);
     }
 }

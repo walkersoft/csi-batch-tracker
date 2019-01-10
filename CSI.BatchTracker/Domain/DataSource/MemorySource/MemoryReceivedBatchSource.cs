@@ -63,5 +63,36 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 i++;
             }
         }
+
+        public ReceivedBatch FindReceivedBatchById(int id)
+        {
+            ITransaction finder = new FindBatchInReceivingLedgerByIdTransaction(id, memoryStore);
+            finder.Execute();
+            Entity<ReceivedBatch> entity = (Entity<ReceivedBatch>)finder.Results[0];
+
+            return entity.NativeModel;
+        }
+
+        public void UpdateReceivedBatch(int id, ReceivedBatch batch)
+        {
+            Entity<ReceivedBatch> entity = new Entity<ReceivedBatch>(id, batch);
+            ITransaction updater = new EditBatchInReceivingLedgerTransaction(entity, memoryStore);
+            updater.Execute();
+        }
+
+        public void DeleteReceivedBatch(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ObservableCollection<ReceivedBatch> FindReceivedBatchesByPONumber(int poNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ObservableCollection<ReceivedBatch> FindReceivedBatchesByDate(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
