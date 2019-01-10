@@ -63,7 +63,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Domain\DataSource\Contracts\IBatchOperatorSource.cs" />
+    <Compile Include="Domain\DataSource\Contracts\IReceivedBatchSource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryBatchOperatorSource.cs" />
+    <Compile Include="Domain\DataSource\MemorySource\MemoryReceivedBatchSource.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommand.cs" />
     <Compile Include="ViewModels\Commands\CommandBase.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommand.cs" />

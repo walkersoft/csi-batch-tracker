@@ -48,7 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\DataSource\BatchOperatorSourceBehaviorTest.cs" />
+    <Compile Include="Domain\DataSource\ReceivedBatchSourceBehaviorTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryBatchOperatorStoreTest.cs" />
+    <Compile Include="Storage\MemoryStore\MemoryReceivedBatchStoreTest.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddReceivedBatchToReceivingLedgerTransactionTest.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\EditBatchInCurrentInventoryTransactionTest.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\EditBatchInReceivingLedgerTransactionTest.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Experimental\DataStoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelpers\NativeModels\BatchOperatorTestHelper.cs" />
+    <Compile Include="TestHelpers\NativeModels\ReceivedBatchTestHelper.cs" />
     <Compile Include="ViewModels\BatchOperatorViewModelTest.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommandTest.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommandTest.cs" />
