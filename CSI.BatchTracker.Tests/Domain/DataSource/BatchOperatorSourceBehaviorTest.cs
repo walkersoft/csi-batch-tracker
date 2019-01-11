@@ -68,10 +68,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
 
             int validId = dataSource.BatchOperatorIdMappings[targetCollectionId];
             dataSource.UpdateOperator(validId + 1, helper.GetJohnDoeOperator());
-            BatchOperator found = dataSource.FindBatchOperator(validId);
 
-            Assert.AreEqual(batchOperator.FirstName, found.FirstName);
-            Assert.AreEqual(batchOperator.LastName, found.LastName);
             Assert.AreEqual(originalSize, dataSource.OperatorRepository.Count);
         }
 
