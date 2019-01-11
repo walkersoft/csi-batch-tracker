@@ -56,7 +56,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         }
 
         [Test]
-        public void UpdatingBatchOperatorAtIdResultsInNewBatchOperatorInfoWhenLookedUp()
+        public void UpdatingReceivedBatchAtIdResultsInNewBatchOperatorInfoWhenLookedUp()
         {
             int targetCollectionId = 0;
             ReceivedBatch original = helper.GetUniqueBatch1();
@@ -69,6 +69,21 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             ReceivedBatch found = dataSource.FindReceivedBatchById(targetId);
 
             AssertSameReceivedBatchData(updated, found);
+        }
+
+        [Test]
+        public void UpdatingReceivedBatchAtIdThatDoesNotExistResultsInNoChanges()
+        {
+            int targetCollectionId = 0;
+            ReceivedBatch batch = helper.GetUniqueBatch1();
+            dataSource.SaveReceivedBatch(batch);
+            int originalSize = dataSource.ReceivedBatchRepository.Count;
+
+            int targetId = dataSource.ReceivedBatchIdMappings[targetCollectionId];
+            ReceivedBatch updated = helper.GetUniqueBatch2();
+            dataSource.UpdateReceivedBatch(targetId + 1, updated);
+
+            Assert.AreEqual(originalSize, dataSource.ReceivedBatchRepository.Count);
         }
     }
 }

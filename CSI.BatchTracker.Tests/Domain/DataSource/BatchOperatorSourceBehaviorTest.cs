@@ -77,7 +77,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int targetCollectionId = 0;
             int beforeDeleteCount = 1;
-            int afterDeleteCount = 0;
+            int afterDeleteCount = beforeDeleteCount - 1;
             dataSource.SaveOperator(helper.GetJaneDoeOperator());
             Assert.AreEqual(beforeDeleteCount, dataSource.OperatorRepository.Count);
 
