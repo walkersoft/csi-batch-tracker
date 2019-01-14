@@ -39,5 +39,19 @@ namespace CSI.BatchTracker.Tests.TestHelpers.NativeModels
              */
             return new ReceivedBatch("Black", "872890101103", DateTime.Now, 5, 55555, helper.GetJaneDoeOperator());
         }
+
+        public ReceivedBatch GetBatchWithSpecificPO(int poNumber)
+        {
+            ReceivedBatch batch = GetUniqueBatch1();
+            batch.PONumber = poNumber;
+            return batch;
+        }
+
+        public ReceivedBatch GetBatchWithSpecificDate(DateTime dateCriteria)
+        {
+            ReceivedBatch batch = GetUniqueBatch2();
+            batch.ActivityDate = dateCriteria;
+            return batch;
+        }
     }
 }

@@ -5,9 +5,9 @@ namespace CSI.BatchTracker.Domain.NativeModels
 {
     abstract public class AbstractBatch
     {
-        public string ColorName { get; protected set; }
-        public string BatchNumber { get; protected set; }
-        public DateTime ActivityDate { get; protected set; }
+        public string ColorName { get; set; }
+        public string BatchNumber { get; set; }
+        public DateTime ActivityDate { get; set; }
 
         protected void CheckIfQuantityIsGreaterThanZero(int amount)
         {

@@ -51,12 +51,16 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         {
             ITransaction finder = new ListReceivingLedgerTransaction(memoryStore);
             finder.Execute();
+            PopulateRepositoryAndMappingsFromTransactionResults(finder);            
+        }
 
+        void PopulateRepositoryAndMappingsFromTransactionResults(ITransaction transaction)
+        {
             receivedBatchRepository.Clear();
             ReceivedBatchIdMappings.Clear();
             int i = 0;
 
-            foreach (Entity<ReceivedBatch> received in finder.Results)
+            foreach (Entity<ReceivedBatch> received in transaction.Results)
             {
                 receivedBatchRepository.Add(received.NativeModel);
                 ReceivedBatchIdMappings.Add(i, received.SystemId);
@@ -82,17 +86,28 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
         public void DeleteReceivedBatch(int id)
         {
-            throw new NotImplementedException();
+            ITransaction remover = new DeleteReceivedBatchAtIdTransaction(id, memoryStore);
+            remover.Execute();
+            UpdateReceivedBatchRepository();
         }
 
-        public ObservableCollection<ReceivedBatch> FindReceivedBatchesByPONumber(int poNumber)
+        public void FindReceivedBatchesByPONumber(int poNumber)
         {
-            throw new NotImplementedException();
+            ITransaction finder = new FindBatchesInReceivingLedgerByPONumberTransaction(poNumber, memoryStore);
+            finder.Execute();
+            PopulateRepositoryAndMappingsFromTransactionResults(finder);
         }
 
-        public ObservableCollection<ReceivedBatch> FindReceivedBatchesByDate(DateTime date)
+        public void FindReceivedBatchesByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            ITransaction finder = new FindBatchesInReceivingLedgerByDateTransaction(date, memoryStore);
+            finder.Execute();
+            PopulateRepositoryAndMappingsFromTransactionResults(finder);
+        }
+
+        public void FindAllReceivedBatches()
+        {
+            UpdateReceivedBatchRepository();
         }
     }
 }
