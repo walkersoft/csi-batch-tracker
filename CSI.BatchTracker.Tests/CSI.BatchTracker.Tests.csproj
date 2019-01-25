@@ -80,6 +80,7 @@
     <Compile Include="TestHelpers\NativeModels\BatchOperatorTestHelper.cs" />
     <Compile Include="TestHelpers\NativeModels\ReceivedBatchTestHelper.cs" />
     <Compile Include="ViewModels\BatchOperatorViewModelTest.cs" />
+    <Compile Include="ViewModels\Commands\AddReceivedBatchToReceivingSessionLedgerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommandTest.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommandTest.cs" />
     <Compile Include="ViewModels\Commands\SaveBatchOperatorCommandTest.cs" />

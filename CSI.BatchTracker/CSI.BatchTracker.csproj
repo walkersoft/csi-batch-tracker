@@ -70,6 +70,7 @@
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByDateTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByPONumberTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchInReceivingLedgerByIdTransaction.cs" />
+    <Compile Include="ViewModels\Commands\AddReceivedBatchToReceivingSessionLedgerCommand.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommand.cs" />
     <Compile Include="ViewModels\Commands\CommandBase.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommand.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Domain\BatchOperatorValidator.cs" />
     <Compile Include="ViewModels\Commands\SaveBatchOperatorCommand.cs" />
     <Compile Include="ViewModels\BatchOperatorViewModel.cs" />
+    <Compile Include="ViewModels\ReceivingManagementViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\BatchOperatorManagementWindow.xaml.cs">
       <DependentUpon>BatchOperatorManagementWindow.xaml</DependentUpon>
