@@ -65,7 +65,15 @@ namespace CSI.BatchTracker.ViewModels
                 );
 
                 SessionLedger.Add(batch);
+                ResetLineItemData();
             }            
+        }
+
+        void ResetLineItemData()
+        {
+            ColorSelectionComboBoxIndex = -1;
+            BatchNumber = string.Empty;
+            Quantity = string.Empty;
         }
 
         string ColorName

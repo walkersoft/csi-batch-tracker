@@ -40,7 +40,6 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
 
         void SetupValidReceivedBatchInViewModel()
         {
-            operatorSource.SaveOperator(operatorHelper.GetJaneDoeOperator());
             viewModel.PONumber = "11111";
             viewModel.ReceivingDate = DateTime.Now;
             viewModel.ReceivingOperatorComboBoxIndex = 0;
@@ -98,7 +97,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         public void UnableToAddReceivedBatchToSessionLedgerIfBatchNumberIsNotValid()
         {
             SetupValidReceivedBatchInViewModel();
-            viewModel.BatchNumber = "";
+            viewModel.BatchNumber = string.Empty;
 
             Assert.False(command.CanExecute(null));
         }
@@ -116,7 +115,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         public void UnableToAddReceivedBatchToSessionLedgerIfQuantityIsNotValid()
         {
             SetupValidReceivedBatchInViewModel();
-            viewModel.Quantity = "";
+            viewModel.Quantity = string.Empty;
 
             Assert.False(command.CanExecute(null));
         }
@@ -135,9 +134,49 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         {
             int expectedCount = 1;
             SetupValidReceivedBatchInViewModel();
+            InjectTwoOperatorsIntoRepository();
             command.Execute(null);
 
             Assert.AreEqual(expectedCount, viewModel.SessionLedger.Count);
+        }
+
+        void InjectTwoOperatorsIntoRepository()
+        {
+            operatorSource.SaveOperator(operatorHelper.GetJaneDoeOperator());
+            operatorSource.SaveOperator(operatorHelper.GetJohnDoeOperator());
+        }
+
+        [Test]
+        public void LineItemDataIsResetAfterAddingBatchToSessionLedger()
+        {
+            int expectedColorIndex = -1;
+            string expectedBatchNumber = string.Empty;
+            string expectedQuantity = string.Empty;
+
+            SetupValidReceivedBatchInViewModel();
+            InjectTwoOperatorsIntoRepository();
+            viewModel.ColorSelectionComboBoxIndex = 1;
+            command.Execute(null);
+
+            Assert.AreEqual(expectedColorIndex, viewModel.ColorSelectionComboBoxIndex);
+            Assert.AreEqual(expectedBatchNumber, viewModel.BatchNumber);
+            Assert.AreEqual(expectedQuantity, viewModel.Quantity);
+        }
+
+        [Test]
+        public void HeaderDataRemainsTheSameAfterAddingBatchToSessionLedger()
+        {
+            SetupValidReceivedBatchInViewModel();
+            InjectTwoOperatorsIntoRepository();
+            string expectedPoNumber = viewModel.PONumber;
+            DateTime expectedDate = viewModel.ReceivingDate;
+            int expectedOperatorIndex = viewModel.ReceivingOperatorComboBoxIndex;
+
+            command.Execute(null);
+
+            Assert.AreEqual(expectedPoNumber, viewModel.PONumber);
+            Assert.AreEqual(expectedDate, viewModel.ReceivingDate);
+            Assert.AreEqual(expectedOperatorIndex, viewModel.ReceivingOperatorComboBoxIndex);
         }
     }
 }
