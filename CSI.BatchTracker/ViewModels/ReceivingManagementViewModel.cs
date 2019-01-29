@@ -16,6 +16,8 @@ namespace CSI.BatchTracker.ViewModels
         public DateTime ReceivingDate { get; set; }
         public int ReceivingOperatorComboBoxIndex { get; set; }
         public int ColorSelectionComboBoxIndex { get; set; }
+
+        public int SessionLedgerSelectedItem { get; set; }
         public string BatchNumber { get; set; }
 
         int poNumber;
@@ -36,6 +38,7 @@ namespace CSI.BatchTracker.ViewModels
             this.colorList = colorList;
             this.operatorSource = operatorSource;
             SessionLedger = new ObservableCollection<ReceivedBatch>();
+            SessionLedgerSelectedItem = -1;
         }
 
         public bool ReceivedBatchIsValidForSessionLedger()
@@ -91,6 +94,17 @@ namespace CSI.BatchTracker.ViewModels
                 int targetId = operatorSource.BatchOperatorIdMappings[ReceivingOperatorComboBoxIndex];
                 return operatorSource.FindBatchOperator(targetId);
             }
+        }
+
+        public bool SessionLedgerSelectedItemCanBeRemoved()
+        {
+            return SessionLedger.Count > 0
+                && SessionLedgerSelectedItem > -1;
+        }
+
+        public void RemoveSelectedEntryFromSessionLedger()
+        {
+            SessionLedger.RemoveAt(SessionLedgerSelectedItem);
         }
     }
 }

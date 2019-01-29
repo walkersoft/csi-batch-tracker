@@ -84,6 +84,8 @@
     <Compile Include="ViewModels\Commands\AddReceivedBatchToReceivingSessionLedgerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommandTest.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\ReceivingManagementViewModelCommandTestingBase.cs" />
+    <Compile Include="ViewModels\Commands\RemoveReceivableBatchFromSessionLedgerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\SaveBatchOperatorCommandTest.cs" />
     <Compile Include="ViewModels\Commands\DeleteSelectedBatchOperatorCommandTest.cs" />
   </ItemGroup>

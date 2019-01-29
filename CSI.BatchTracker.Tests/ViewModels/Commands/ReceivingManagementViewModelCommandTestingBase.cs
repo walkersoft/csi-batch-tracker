@@ -1,0 +1,53 @@
+﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.Contracts;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
+using CSI.BatchTracker.Domain.DataSource.MemorySource;
+using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
+using CSI.BatchTracker.ViewModels;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace CSI.BatchTracker.Tests.ViewModels.Commands
+{
+    [TestFixture]
+    class ReceivingManagementViewModelCommandTestingBase
+    {
+        protected ICommand command;
+        protected IBatchNumberValidator validator;
+        protected IColorList colorList;
+        protected IBatchOperatorSource operatorSource;
+        protected ReceivingManagementViewModel viewModel;
+        protected BatchOperatorTestHelper operatorHelper;
+
+        [SetUp]
+        public virtual void SetUp()
+        {
+            validator = new DuracolorIntermixBatchNumberValidator();
+            colorList = new DuracolorIntermixColorList();
+            operatorSource = new MemoryBatchOperatorSource(new MemoryStoreContext());
+            operatorHelper = new BatchOperatorTestHelper();
+        }
+
+        protected void SetupValidReceivedBatchInViewModel()
+        {
+            viewModel.PONumber = "11111";
+            viewModel.ReceivingDate = DateTime.Now;
+            viewModel.ReceivingOperatorComboBoxIndex = 0;
+            viewModel.ColorSelectionComboBoxIndex = 0;
+            viewModel.BatchNumber = "872880501302";
+            viewModel.Quantity = "1";
+        }
+
+        protected void InjectTwoOperatorsIntoRepository()
+        {
+            operatorSource.SaveOperator(operatorHelper.GetJaneDoeOperator());
+            operatorSource.SaveOperator(operatorHelper.GetJohnDoeOperator());
+        }
+    }
+}

@@ -79,6 +79,7 @@
     <Compile Include="ViewModels\Commands\DeleteSelectedBatchOperatorCommand.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransaction.cs" />
     <Compile Include="Domain\BatchOperatorValidator.cs" />
+    <Compile Include="ViewModels\Commands\RemoveReceivableBatchFromSessionLedgerCommand.cs" />
     <Compile Include="ViewModels\Commands\SaveBatchOperatorCommand.cs" />
     <Compile Include="ViewModels\BatchOperatorViewModel.cs" />
     <Compile Include="ViewModels\ReceivingManagementViewModel.cs" />

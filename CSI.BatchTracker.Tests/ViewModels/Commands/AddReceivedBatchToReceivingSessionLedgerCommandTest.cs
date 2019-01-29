@@ -13,20 +13,13 @@ using System.Windows.Input;
 namespace CSI.BatchTracker.Tests.ViewModels.Commands
 {
     [TestFixture]
-    class AddReceivedBatchToReceivingSessionLedgerCommandTest
+    class AddReceivedBatchToReceivingSessionLedgerCommandTest : ReceivingManagementViewModelCommandTestingBase
     {
-        ICommand command;
-        ReceivingManagementViewModel viewModel;
-        IBatchOperatorSource operatorSource;
-        BatchOperatorTestHelper operatorHelper;
-
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            IBatchNumberValidator validator = new DuracolorIntermixBatchNumberValidator();
-            IColorList colorList = new DuracolorIntermixColorList();
+            base.SetUp();
             operatorHelper = new BatchOperatorTestHelper();
-            operatorSource = new MemoryBatchOperatorSource(new MemoryStoreContext());
             viewModel = new ReceivingManagementViewModel(validator, colorList, operatorSource);
             command = new AddReceivedBatchToReceivingSessionLedgerCommand(viewModel);
         }
@@ -36,16 +29,6 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         {
             SetupValidReceivedBatchInViewModel();
             Assert.True(command.CanExecute(null));
-        }
-
-        void SetupValidReceivedBatchInViewModel()
-        {
-            viewModel.PONumber = "11111";
-            viewModel.ReceivingDate = DateTime.Now;
-            viewModel.ReceivingOperatorComboBoxIndex = 0;
-            viewModel.ColorSelectionComboBoxIndex = 0;
-            viewModel.BatchNumber = "872880501302";
-            viewModel.Quantity = "1";
         }
 
         [Test]
@@ -138,12 +121,6 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
             command.Execute(null);
 
             Assert.AreEqual(expectedCount, viewModel.SessionLedger.Count);
-        }
-
-        void InjectTwoOperatorsIntoRepository()
-        {
-            operatorSource.SaveOperator(operatorHelper.GetJaneDoeOperator());
-            operatorSource.SaveOperator(operatorHelper.GetJohnDoeOperator());
         }
 
         [Test]
