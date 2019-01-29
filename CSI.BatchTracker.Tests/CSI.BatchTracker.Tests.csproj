@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\DuracolorIntermixColorListTest.cs" />
     <Compile Include="Domain\DataSource\BatchOperatorSourceBehaviorTest.cs" />
     <Compile Include="Domain\DataSource\ReceivedBatchSourceBehaviorTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryBatchOperatorStoreTest.cs" />

@@ -1,5 +1,9 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.Contracts;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
+using CSI.BatchTracker.Domain.DataSource.MemorySource;
+using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
@@ -13,12 +17,17 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
     {
         ICommand command;
         ReceivingManagementViewModel viewModel;
+        IBatchOperatorSource operatorSource;
+        BatchOperatorTestHelper operatorHelper;
 
         [SetUp]
         public void SetUp()
         {
             IBatchNumberValidator validator = new DuracolorIntermixBatchNumberValidator();
-            viewModel = new ReceivingManagementViewModel(validator);
+            IColorList colorList = new DuracolorIntermixColorList();
+            operatorHelper = new BatchOperatorTestHelper();
+            operatorSource = new MemoryBatchOperatorSource(new MemoryStoreContext());
+            viewModel = new ReceivingManagementViewModel(validator, colorList, operatorSource);
             command = new AddReceivedBatchToReceivingSessionLedgerCommand(viewModel);
         }
 
@@ -31,6 +40,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
 
         void SetupValidReceivedBatchInViewModel()
         {
+            operatorSource.SaveOperator(operatorHelper.GetJaneDoeOperator());
             viewModel.PONumber = "11111";
             viewModel.ReceivingDate = DateTime.Now;
             viewModel.ReceivingOperatorComboBoxIndex = 0;
@@ -118,6 +128,16 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
             viewModel.Quantity = "foo";
 
             Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
+        public void ValidReceivedBatchWillBeAddedToSessionLedgerWhenCommandExecutes()
+        {
+            int expectedCount = 1;
+            SetupValidReceivedBatchInViewModel();
+            command.Execute(null);
+
+            Assert.AreEqual(expectedCount, viewModel.SessionLedger.Count);
         }
     }
 }

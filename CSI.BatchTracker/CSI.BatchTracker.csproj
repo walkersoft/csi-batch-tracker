@@ -62,10 +62,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Domain\Contracts\IColorList.cs" />
     <Compile Include="Domain\DataSource\Contracts\IBatchOperatorSource.cs" />
     <Compile Include="Domain\DataSource\Contracts\IReceivedBatchSource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryBatchOperatorSource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryReceivedBatchSource.cs" />
+    <Compile Include="Domain\DuracolorIntermixColorList.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteReceivedBatchAtIdTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByDateTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByPONumberTransaction.cs" />
