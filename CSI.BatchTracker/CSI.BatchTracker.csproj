@@ -76,6 +76,7 @@
     <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommand.cs" />
     <Compile Include="ViewModels\Commands\CommandBase.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommand.cs" />
+    <Compile Include="ViewModels\Commands\CommitReceivingSessionLedgerToDataSourceCommand.cs" />
     <Compile Include="ViewModels\Commands\DeleteSelectedBatchOperatorCommand.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransaction.cs" />
     <Compile Include="Domain\BatchOperatorValidator.cs" />

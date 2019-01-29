@@ -5,6 +5,7 @@ using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.ViewModels;
+using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,12 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         {
             operatorSource.SaveOperator(operatorHelper.GetJaneDoeOperator());
             operatorSource.SaveOperator(operatorHelper.GetJohnDoeOperator());
+        }
+
+        protected void AddReceivedBatchToSessionLedger()
+        {
+            ICommand addEntry = new AddReceivedBatchToReceivingSessionLedgerCommand(viewModel);
+            addEntry.Execute(null);
         }
     }
 }

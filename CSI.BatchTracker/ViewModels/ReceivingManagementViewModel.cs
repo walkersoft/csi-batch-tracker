@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain;
+﻿using CSI.BatchTracker.DataSource.Contracts;
+using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.Contracts;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
@@ -28,6 +29,7 @@ namespace CSI.BatchTracker.ViewModels
 
         public ReceivedBatch ReceivedBatch { get; private set; }
         public ObservableCollection<ReceivedBatch> SessionLedger { get; private set; }
+        public IDataSource DataSource { get; private set; }
         IBatchNumberValidator batchNumberValidator;
         IColorList colorList;
         IBatchOperatorSource operatorSource;
