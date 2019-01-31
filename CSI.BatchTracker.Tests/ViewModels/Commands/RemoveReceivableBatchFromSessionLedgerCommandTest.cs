@@ -26,7 +26,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         {
             base.SetUp();
             helper = new ReceivedBatchTestHelper();
-            viewModel = new ReceivingManagementViewModel(validator, colorList, operatorSource);
+            viewModel = new ReceivingManagementViewModel(validator, colorList, receivingSource, operatorSource);
             command = new RemoveReceivableBatchFromSessionLedgerCommand(viewModel);
         }
 

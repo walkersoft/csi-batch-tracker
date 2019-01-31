@@ -22,7 +22,7 @@ namespace CSI.BatchTracker.ViewModels.Commands
 
         public override void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            viewModel.CommitSessionLedgerToDataSource();
         }
     }
 }

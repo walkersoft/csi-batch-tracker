@@ -29,16 +29,25 @@ namespace CSI.BatchTracker.ViewModels
 
         public ReceivedBatch ReceivedBatch { get; private set; }
         public ObservableCollection<ReceivedBatch> SessionLedger { get; private set; }
-        public IDataSource DataSource { get; private set; }
+        public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
+        public ObservableCollection<BatchOperator> BatchOperatorRepository { get; private set; }
         IBatchNumberValidator batchNumberValidator;
         IColorList colorList;
         IBatchOperatorSource operatorSource;
+        IReceivedBatchSource receivingSource;
 
-        public ReceivingManagementViewModel(IBatchNumberValidator validator, IColorList colorList, IBatchOperatorSource operatorSource)
+        public ReceivingManagementViewModel(
+            IBatchNumberValidator validator, 
+            IColorList colorList, 
+            IReceivedBatchSource receivingSource,
+            IBatchOperatorSource operatorSource)
         {
+            this.receivingSource = receivingSource;
+            this.operatorSource = operatorSource;
+            ReceivedBatchRepository = this.receivingSource.ReceivedBatchRepository;
+            BatchOperatorRepository = this.operatorSource.OperatorRepository;
             batchNumberValidator = validator;
             this.colorList = colorList;
-            this.operatorSource = operatorSource;
             SessionLedger = new ObservableCollection<ReceivedBatch>();
             SessionLedgerSelectedItem = -1;
         }
@@ -107,6 +116,14 @@ namespace CSI.BatchTracker.ViewModels
         public void RemoveSelectedEntryFromSessionLedger()
         {
             SessionLedger.RemoveAt(SessionLedgerSelectedItem);
+        }
+
+        public void CommitSessionLedgerToDataSource()
+        {
+            foreach (ReceivedBatch batch in SessionLedger)
+            {
+                receivingSource.SaveReceivedBatch(batch);
+            }
         }
     }
 }

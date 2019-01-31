@@ -23,6 +23,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         protected IBatchNumberValidator validator;
         protected IColorList colorList;
         protected IBatchOperatorSource operatorSource;
+        protected IReceivedBatchSource receivingSource;
         protected ReceivingManagementViewModel viewModel;
         protected BatchOperatorTestHelper operatorHelper;
 
@@ -32,6 +33,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
             validator = new DuracolorIntermixBatchNumberValidator();
             colorList = new DuracolorIntermixColorList();
             operatorSource = new MemoryBatchOperatorSource(new MemoryStoreContext());
+            receivingSource = new MemoryReceivedBatchSource(new MemoryStoreContext());
             operatorHelper = new BatchOperatorTestHelper();
         }
 
@@ -53,8 +55,8 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
 
         protected void AddReceivedBatchToSessionLedger()
         {
-            ICommand addEntry = new AddReceivedBatchToReceivingSessionLedgerCommand(viewModel);
-            addEntry.Execute(null);
+            ICommand command = new AddReceivedBatchToReceivingSessionLedgerCommand(viewModel);
+            command.Execute(null);
         }
     }
 }

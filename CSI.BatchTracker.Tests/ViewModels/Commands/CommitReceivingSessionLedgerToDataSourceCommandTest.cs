@@ -17,7 +17,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         public override void SetUp()
         {
             base.SetUp();
-            viewModel = new ReceivingManagementViewModel(validator, colorList, operatorSource);
+            viewModel = new ReceivingManagementViewModel(validator, colorList, receivingSource, operatorSource);
             command = new CommitReceivingSessionLedgerToDataSourceCommand(viewModel);
         }
 
@@ -47,7 +47,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
 
             command.Execute(null);
 
-            ///Assert.AreEqual(expectedCount, viewModel.DataSource.ReceivingLedger.Count);
+            Assert.AreEqual(expectedCount, viewModel.ReceivedBatchRepository.Count);
         }
     }
 }

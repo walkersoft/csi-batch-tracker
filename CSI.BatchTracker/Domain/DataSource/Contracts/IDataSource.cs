@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace CSI.BatchTracker.DataSource.Contracts
 {
-    public interface IDataSource : IBatchOperatorSource
+    public interface IDataSource : IBatchOperatorSource, IReceivedBatchSource
     {
         ObservableCollection<InventoryBatch> InventoryRepository { get; }
         ObservableCollection<LoggedBatch> BatchLedger { get; }

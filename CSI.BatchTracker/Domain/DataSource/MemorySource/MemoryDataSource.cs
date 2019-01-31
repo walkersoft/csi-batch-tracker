@@ -17,12 +17,15 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         DataStore store;
         MemoryStoreContext memoryStore;
         ObservableCollection<InventoryBatch> inventoryRepository;
+        ObservableCollection<ReceivedBatch> receivedBatchRepository;
 
         IBatchOperatorSource batchOperatorSource;
+        IReceivedBatchSource receivedBatchSource;
 
         public Dictionary<int, int> CurrentInventoryIdMappings { get; private set; }
 
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
+        public ObservableCollection<ReceivedBatch> ReceivingLedger { get; private set; }
 
         public MemoryDataSource(DataStore store, MemoryStoreContext memoryStore)
         {
@@ -30,12 +33,16 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             this.memoryStore = memoryStore;
             batchOperatorSource = new MemoryBatchOperatorSource(this.memoryStore);
             inventoryRepository = new ObservableCollection<InventoryBatch>();
+            receivedBatchSource = new MemoryReceivedBatchSource(this.memoryStore);
+            receivedBatchRepository = new ObservableCollection<ReceivedBatch>();
             CurrentInventoryIdMappings = new Dictionary<int, int>();
             BatchLedger = store.LoggedBatches;
         }
 
         public ObservableCollection<BatchOperator> OperatorRepository { get { return batchOperatorSource.OperatorRepository; } }
         public Dictionary<int, int> BatchOperatorIdMappings { get { return batchOperatorSource.BatchOperatorIdMappings; } }
+        public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get { return receivedBatchSource.ReceivedBatchRepository; } }
+        public Dictionary<int, int> ReceivedBatchIdMappings { get { return receivedBatchSource.ReceivedBatchIdMappings; } }
 
         public void ReceiveInventory(ReceivedBatch batch)
         {
@@ -175,6 +182,41 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         public void FindAllBatchOperators()
         {
             batchOperatorSource.FindAllBatchOperators();
+        }
+
+        public void SaveReceivedBatch(ReceivedBatch receivedBatch)
+        {
+            receivedBatchSource.SaveReceivedBatch(receivedBatch);
+        }
+
+        public void UpdateReceivedBatch(int id, ReceivedBatch batch)
+        {
+            receivedBatchSource.UpdateReceivedBatch(id, batch);
+        }
+
+        public void DeleteReceivedBatch(int id)
+        {
+            receivedBatchSource.DeleteReceivedBatch(id);
+        }
+
+        public ReceivedBatch FindReceivedBatchById(int id)
+        {
+            return receivedBatchSource.FindReceivedBatchById(id);
+        }
+
+        public void FindReceivedBatchesByPONumber(int poNumber)
+        {
+            receivedBatchSource.FindReceivedBatchesByPONumber(poNumber);
+        }
+
+        public void FindReceivedBatchesByDate(DateTime date)
+        {
+            receivedBatchSource.FindReceivedBatchesByDate(date);
+        }
+
+        public void FindAllReceivedBatches()
+        {
+            receivedBatchSource.FindAllReceivedBatches();
         }
     }
 }
