@@ -124,6 +124,16 @@ namespace CSI.BatchTracker.ViewModels
             {
                 receivingSource.SaveReceivedBatch(batch);
             }
+
+            ResetAllData();
+        }
+
+        void ResetAllData()
+        {
+            ReceivingDate = DateTime.MinValue;
+            PONumber = string.Empty;
+            ReceivingOperatorComboBoxIndex = -1;
+            ResetLineItemData();
         }
     }
 }

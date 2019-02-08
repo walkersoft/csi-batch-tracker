@@ -49,5 +49,26 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
 
             Assert.AreEqual(expectedCount, viewModel.ReceivedBatchRepository.Count);
         }
+
+        [Test]
+        public void ReceivingDataIsClearedAfterCommitingSessionLedgerToDataSource()
+        {
+            DateTime expectedDate = DateTime.MinValue;
+            int expectedOperatorComboBoxIndex = -1;
+            int expectedColorComboBoxIndex = -1;
+
+            SetupValidReceivedBatchInViewModel();
+            InjectTwoOperatorsIntoRepository();
+            AddReceivedBatchToSessionLedger();
+
+            command.Execute(null);
+
+            Assert.True(string.IsNullOrEmpty(viewModel.PONumber));
+            Assert.True(string.IsNullOrEmpty(viewModel.BatchNumber));
+            Assert.True(string.IsNullOrEmpty(viewModel.Quantity));
+            Assert.AreEqual(DateTime.MinValue, viewModel.ReceivingDate);
+            Assert.AreEqual(expectedOperatorComboBoxIndex, viewModel.ReceivingOperatorComboBoxIndex);
+            Assert.AreEqual(expectedColorComboBoxIndex, viewModel.ColorSelectionComboBoxIndex);
+        }
     }
 }

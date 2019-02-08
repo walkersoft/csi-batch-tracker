@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
         Title="Receiving Management"
@@ -11,15 +12,18 @@
 
         <Label Content="Receiving Header Data" FontWeight="Bold"/>
         
-        <WrapPanel>
+        <WrapPanel Margin="0,0,0,5">
             <StackPanel Orientation="Vertical">                
                 <Label Content="PO Number"/>
-                <TextBox Width="100"/>
+                <TextBox Width="100"
+                         Margin="0,0,5,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Receiving Date"/>
-                <DatePicker Width="100" VerticalContentAlignment="Center"/>
+                <DatePicker Width="100" 
+                            VerticalContentAlignment="Center"
+                            Margin="0,0,5,0"/>
             </StackPanel>
 
             <StackPanel>
@@ -37,7 +41,9 @@
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Color"/>
-                <ComboBox Width="140" VerticalContentAlignment="Center"/>
+                <ComboBox Width="140" 
+                          VerticalContentAlignment="Center"
+                          Margin="0,0,5,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical">
@@ -55,7 +61,11 @@
 
         <StackPanel Orientation="Vertical">
             <Label Content="Session Ledger" FontWeight="Bold"/>
-            <DataGrid Width="400" Height="200" HorizontalAlignment="Left" AutoGenerateColumns="False">
+            <DataGrid Width="400" 
+                      Height="200" 
+                      Margin="0,0,0,5"
+                      HorizontalAlignment="Left" 
+                      AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120"/>
                     <DataGridTextColumn Header="Batch Number" Width="150"/>
@@ -63,7 +73,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <WrapPanel>
-                <Button Width="120" Content="Remove Selected"/>
+                <Button Width="120" Margin="0,0,5,0" Content="Remove Selected"/>
                 <Button Width="120" Content="Commit Changes"/>
             </WrapPanel>
         </StackPanel>
