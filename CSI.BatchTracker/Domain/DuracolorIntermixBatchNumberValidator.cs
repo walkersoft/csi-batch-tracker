@@ -27,6 +27,11 @@ namespace CSI.BatchTracker.Domain
 
         public override bool Validate(string batchNumber)
         {
+            if (string.IsNullOrEmpty(batchNumber))
+            {
+                return false;
+            }
+
             Match match = Regex.Match(batchNumber, BuildRegexString());
             return match.Success;
         }

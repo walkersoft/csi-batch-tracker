@@ -1,5 +1,6 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Experimental;
@@ -23,8 +24,12 @@ namespace CSI.BatchTracker
         public DataStore DataStore { get; set; }
         public MemoryDataSource Repository { get; set; }
 
+        IReceivedBatchSource receivingSource;
+        IBatchOperatorSource operatorSource;
+
         MemoryStoreContext Store { get; set; }
         BatchOperatorViewModel batchOperatorViewModel;
+        ReceivingManagementViewModel receivingManagmentViewModel;
 
         public MainWindow()
         {
@@ -37,11 +42,30 @@ namespace CSI.BatchTracker
             SetupInventory();
             InitializeComponent();
             DataContext = this;
+            MemoryStoreContext context = new MemoryStoreContext();
+
+            receivingSource = new MemoryReceivedBatchSource(context);
+            operatorSource = new MemoryBatchOperatorSource(context);
+
+            AddBatchOperatorsToRepo(operatorSource);
 
             batchOperatorViewModel = new BatchOperatorViewModel(Repository);
-            BatchOperatorManagementWindow window = new BatchOperatorManagementWindow(batchOperatorViewModel);
+            receivingManagmentViewModel = new ReceivingManagementViewModel(
+                new DuracolorIntermixBatchNumberValidator(),
+                new DuracolorIntermixColorList(),
+                receivingSource,
+                operatorSource
+            );
+            //BatchOperatorManagementWindow window = new BatchOperatorManagementWindow(batchOperatorViewModel);
+            BatchReceivingManagementWindow window = new BatchReceivingManagementWindow(receivingManagmentViewModel);
 
             window.ShowDialog();
+        }
+
+        void AddBatchOperatorsToRepo(IBatchOperatorSource source)
+        {
+            source.SaveOperator(new BatchOperator("Jane", "Doe"));
+            source.SaveOperator(new BatchOperator("John", "Roe"));
         }
 
         void SetupBatchOperators()

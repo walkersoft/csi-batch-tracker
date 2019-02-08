@@ -33,6 +33,8 @@ namespace CSI.BatchTracker.Domain.NativeModels
             ReceivingOperator = receivingOperator;
         }
 
+        public ReceivedBatch() { }
+
         // TODO: Abstract to validation class.
         void CheckIfPONumberIsAtLeastFiveDigits(int poNumber)
         {

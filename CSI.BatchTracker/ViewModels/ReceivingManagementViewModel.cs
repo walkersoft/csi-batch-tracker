@@ -122,10 +122,13 @@ namespace CSI.BatchTracker.ViewModels
             this.operatorSource = operatorSource;
             ReceivedBatchRepository = this.receivingSource.ReceivedBatchRepository;
             BatchOperatorRepository = this.operatorSource.OperatorRepository;
+            operatorSource.FindAllBatchOperators();
             batchNumberValidator = validator;
             this.colorList = colorList;
             SessionLedger = new ObservableCollection<ReceivedBatch>();
             SessionLedgerSelectedIndex = -1;
+            ReceivedBatch = new ReceivedBatch();
+            ReceivingDate = DateTime.Today;
 
             AddBatchToSessionLedgerCommand = new AddReceivedBatchToReceivingSessionLedgerCommand(this);
             RemoveSelectedItemFromSessionLedgerCommand = new RemoveReceivableBatchFromSessionLedgerCommand(this);
