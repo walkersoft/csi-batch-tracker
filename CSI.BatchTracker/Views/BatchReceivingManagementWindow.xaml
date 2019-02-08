@@ -16,19 +16,25 @@
             <StackPanel Orientation="Vertical">                
                 <Label Content="PO Number"/>
                 <TextBox Width="100"
-                         Margin="0,0,5,0"/>
+                         Margin="0,0,5,0"
+                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Receiving Date"/>
                 <DatePicker Width="100" 
                             VerticalContentAlignment="Center"
-                            Margin="0,0,5,0"/>
+                            Margin="0,0,5,0"
+                            SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel>
                 <Label Content="Receiving Operator"/>
-                <ComboBox Width="175" VerticalContentAlignment="Center"/>
+                <ComboBox Width="175" 
+                          VerticalContentAlignment="Center"
+                          ItemsSource="{Binding BatchOperatorRepository, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="FullName"
+                          SelectedIndex="{Binding ReceivingOperatorComboBoxIndex}"/>
             </StackPanel>
             
         </WrapPanel>
@@ -43,20 +49,27 @@
                 <Label Content="Color"/>
                 <ComboBox Width="140" 
                           VerticalContentAlignment="Center"
-                          Margin="0,0,5,0"/>
+                          Margin="0,0,5,0"
+                          ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedIndex="{Binding ColorSelectionComboBoxIndex}"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Batch Number"/>
-                <TextBox Width="150"/>
+                <TextBox Width="150"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel>
                 <Label Content="Quantity"/>
-                <TextBox Width="40"/>
+                <TextBox Width="40"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>            
 
-            <Button Width="75" Height="Auto" VerticalAlignment="Bottom" Content=""/>
+            <Button Width="75" Height="Auto" VerticalAlignment="Bottom" Content="Add Batch"
+                    Command="{Binding AddBatchToSessionLedgerCommand}"/>
         </WrapPanel>
 
         <StackPanel Orientation="Vertical">
@@ -65,7 +78,9 @@
                       Height="200" 
                       Margin="0,0,0,5"
                       HorizontalAlignment="Left" 
-                      AutoGenerateColumns="False">
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding SessionLedger}"
+                      SelectedIndex="{Binding SessionLedgerSelectedIndex}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120"/>
                     <DataGridTextColumn Header="Batch Number" Width="150"/>
@@ -73,8 +88,13 @@
                 </DataGrid.Columns>
             </DataGrid>
             <WrapPanel>
-                <Button Width="120" Margin="0,0,5,0" Content="Remove Selected"/>
-                <Button Width="120" Content="Commit Changes"/>
+                <Button Width="120" 
+                        Margin="0,0,5,0" 
+                        Content="Remove Selected"
+                        Command="{Binding RemoveSelectedItemFromSessionLedgerCommand}"/>
+                <Button Width="120" 
+                        Content="Commit Changes"
+                        Command="{Binding CommitSessionLedgerToReceivingLedgerCommand}"/>
             </WrapPanel>
         </StackPanel>
     </StackPanel>

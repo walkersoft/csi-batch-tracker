@@ -55,7 +55,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         public void AbleToExecuteIfEntryIsInSessionLedgerAndEntryIsSelected()
         {
             AddItemToSessionLedger();
-            viewModel.SessionLedgerSelectedItem = 0;
+            viewModel.SessionLedgerSelectedIndex = 0;
             Assert.True(command.CanExecute(null));
         }
 
@@ -68,7 +68,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
 
             Assert.AreEqual(expectedCountBefore, viewModel.SessionLedger.Count);
 
-            viewModel.SessionLedgerSelectedItem = 0;
+            viewModel.SessionLedgerSelectedIndex = 0;
             command.Execute(null);
 
             Assert.AreEqual(expectedCountAfter, viewModel.SessionLedger.Count);

@@ -3,17 +3,22 @@ using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.Contracts;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CSI.BatchTracker.ViewModels
 {
     public class ReceivingManagementViewModel : ViewModelBase
     {
+        public ICommand AddBatchToSessionLedgerCommand { get; private set; }
+        public ICommand RemoveSelectedItemFromSessionLedgerCommand { get; private set; }
+        public ICommand CommitSessionLedgerToReceivingLedgerCommand { get; private set; }
         public ReceivedBatch ReceivedBatch { get; private set; }
 
         public DateTime ReceivingDate
@@ -92,7 +97,12 @@ namespace CSI.BatchTracker.ViewModels
             }
         }
 
-        public int SessionLedgerSelectedItem { get; set; }
+        public ObservableCollection<string> Colors
+        {
+            get { return colorList.Colors; }
+        }
+
+        public int SessionLedgerSelectedIndex { get; set; }
         public ObservableCollection<ReceivedBatch> SessionLedger { get; private set; }
         public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
         public ObservableCollection<BatchOperator> BatchOperatorRepository { get; private set; }
@@ -115,7 +125,11 @@ namespace CSI.BatchTracker.ViewModels
             batchNumberValidator = validator;
             this.colorList = colorList;
             SessionLedger = new ObservableCollection<ReceivedBatch>();
-            SessionLedgerSelectedItem = -1;
+            SessionLedgerSelectedIndex = -1;
+
+            AddBatchToSessionLedgerCommand = new AddReceivedBatchToReceivingSessionLedgerCommand(this);
+            RemoveSelectedItemFromSessionLedgerCommand = new RemoveReceivableBatchFromSessionLedgerCommand(this);
+            CommitSessionLedgerToReceivingLedgerCommand = new CommitReceivingSessionLedgerToDataSourceCommand(this);
         }
 
         public bool ReceivedBatchIsValidForSessionLedger()
@@ -176,12 +190,12 @@ namespace CSI.BatchTracker.ViewModels
         public bool SessionLedgerSelectedItemCanBeRemoved()
         {
             return SessionLedger.Count > 0
-                && SessionLedgerSelectedItem > -1;
+                && SessionLedgerSelectedIndex > -1;
         }
 
         public void RemoveSelectedEntryFromSessionLedger()
         {
-            SessionLedger.RemoveAt(SessionLedgerSelectedItem);
+            SessionLedger.RemoveAt(SessionLedgerSelectedIndex);
         }
 
         public void CommitSessionLedgerToDataSource()
