@@ -12,25 +12,91 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.ViewModels
 {
-    public class ReceivingManagementViewModel
-    {        
-        public DateTime ReceivingDate { get; set; }
-        public int ReceivingOperatorComboBoxIndex { get; set; }
-        public int ColorSelectionComboBoxIndex { get; set; }
+    public class ReceivingManagementViewModel : ViewModelBase
+    {
+        public ReceivedBatch ReceivedBatch { get; private set; }
 
-        public int SessionLedgerSelectedItem { get; set; }
-        public string BatchNumber { get; set; }
+        public DateTime ReceivingDate
+        {
+            get { return ReceivedBatch.ActivityDate; }
+            set
+            {
+                ReceivedBatch.ActivityDate = value;
+                NotifyPropertyChanged("ReceivingDate");
+            }
+        }
 
         int poNumber;
-        public string PONumber { get; set; }
+        string poNumberAsString;
+        public string PONumber
+        {
+            get { return poNumberAsString; }
+            set
+            {
+                if (int.TryParse(value, out poNumber))
+                {
+                    ReceivedBatch.PONumber = poNumber;
+                }
+
+                poNumberAsString = value;
+                NotifyPropertyChanged("PONumber");
+            }
+        }
+
+        public string BatchNumber
+        {
+            get { return ReceivedBatch.BatchNumber; }
+            set
+            {
+                ReceivedBatch.BatchNumber = value;
+                NotifyPropertyChanged("BatchNumber");
+            }
+        }
 
         int quantity;
-        public string Quantity { get; set; }
+        string quantityAsString;
+        public string Quantity
+        {
+            get { return quantityAsString; }
+            set
+            {
+                if(int.TryParse(value, out quantity))
+                {
+                    ReceivedBatch.Quantity = quantity;
+                }
 
-        public ReceivedBatch ReceivedBatch { get; private set; }
+                quantityAsString = value;
+                NotifyPropertyChanged("Quantity");
+            }
+        }
+
+        int receivingOperatorComboBoxIndex;
+        public int ReceivingOperatorComboBoxIndex
+        {
+            get { return receivingOperatorComboBoxIndex; }
+            set
+            {
+                receivingOperatorComboBoxIndex = value;
+                NotifyPropertyChanged("ReceivingOperatorComboBoxIndex");
+            }
+        }
+
+        int colorSelectionComboBoxIndex;
+        public int ColorSelectionComboBoxIndex
+        {
+            get { return colorSelectionComboBoxIndex; }
+            set
+            {
+                colorSelectionComboBoxIndex = value;
+                NotifyPropertyChanged("ColorSelectionComboBoxIndex");
+            }
+        }
+
+        public int SessionLedgerSelectedItem { get; set; }
         public ObservableCollection<ReceivedBatch> SessionLedger { get; private set; }
         public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
         public ObservableCollection<BatchOperator> BatchOperatorRepository { get; private set; }
+
         IBatchNumberValidator batchNumberValidator;
         IColorList colorList;
         IBatchOperatorSource operatorSource;
