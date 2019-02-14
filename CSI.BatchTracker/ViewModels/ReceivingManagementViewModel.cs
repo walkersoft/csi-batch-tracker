@@ -121,11 +121,13 @@ namespace CSI.BatchTracker.ViewModels
         {
             this.receivingSource = receivingSource;
             this.operatorSource = operatorSource;
+            this.colorList = colorList;
+            batchNumberValidator = validator;
+
+            this.operatorSource.FindAllBatchOperators();
+
             ReceivedBatchRepository = this.receivingSource.ReceivedBatchRepository;
             BatchOperatorRepository = this.operatorSource.OperatorRepository;
-            operatorSource.FindAllBatchOperators();
-            batchNumberValidator = validator;
-            this.colorList = colorList;
             SessionLedger = new ObservableCollection<ReceivedBatch>();
             SessionLedgerSelectedIndex = -1;
             ReceivedBatch = new ReceivedBatch();

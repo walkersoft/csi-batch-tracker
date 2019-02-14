@@ -89,6 +89,7 @@
     <Compile Include="ViewModels\Commands\RemoveReceivableBatchFromSessionLedgerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\SaveBatchOperatorCommandTest.cs" />
     <Compile Include="ViewModels\Commands\DeleteSelectedBatchOperatorCommandTest.cs" />
+    <Compile Include="ViewModels\ReceivingManagementViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
