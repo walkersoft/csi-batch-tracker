@@ -102,6 +102,7 @@ namespace CSI.BatchTracker.ViewModels
             get { return colorList.Colors; }
         }
 
+        public bool ColorListFocusState { get; set; }
         public int SessionLedgerSelectedIndex { get; set; }
         public ObservableCollection<ReceivedBatch> SessionLedger { get; private set; }
         public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
@@ -168,7 +169,7 @@ namespace CSI.BatchTracker.ViewModels
 
         void ResetLineItemData()
         {
-            ColorSelectionComboBoxIndex = -1;
+            ColorSelectionComboBoxIndex = 0;
             BatchNumber = string.Empty;
             Quantity = string.Empty;
         }
@@ -203,6 +204,8 @@ namespace CSI.BatchTracker.ViewModels
 
         public void CommitSessionLedgerToDataSource()
         {
+            EnsureSameReceivingOperatorOnAllBatches();
+
             foreach (ReceivedBatch batch in SessionLedger)
             {
                 receivingSource.SaveReceivedBatch(batch);
@@ -211,10 +214,20 @@ namespace CSI.BatchTracker.ViewModels
             ResetAllData();
         }
 
+        void EnsureSameReceivingOperatorOnAllBatches()
+        {
+            foreach (ReceivedBatch batch in SessionLedger)
+            {
+                batch.ReceivingOperator = ReceivingOperator;
+            }
+        }
+
         void ResetAllData()
         {
-            ReceivingDate = DateTime.MinValue;
+            ReceivingDate = DateTime.Today;
             PONumber = string.Empty;
+            SessionLedger.Clear();
+            SessionLedgerSelectedIndex = -1;
             ReceivingOperatorComboBoxIndex = -1;
             ResetLineItemData();
         }

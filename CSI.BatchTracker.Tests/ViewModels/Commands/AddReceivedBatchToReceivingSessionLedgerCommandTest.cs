@@ -126,7 +126,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         [Test]
         public void LineItemDataIsResetAfterAddingBatchToSessionLedger()
         {
-            int expectedColorIndex = -1;
+            int expectedColorIndex = 0;
             string expectedBatchNumber = string.Empty;
             string expectedQuantity = string.Empty;
 
