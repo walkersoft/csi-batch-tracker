@@ -1,7 +1,4 @@
-﻿using CSI.BatchTracker.Domain.DataSource;
-using CSI.BatchTracker.Domain.NativeModels;
-
-namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
+﻿namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 {
     public sealed class FindBatchOperatorByIdTransaction : MemoryDataSourceTransaction
     {

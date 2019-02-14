@@ -1,14 +1,8 @@
-﻿using CSI.BatchTracker.Domain;
-using CSI.BatchTracker.Domain.Contracts;
-using CSI.BatchTracker.Domain.DataSource.Contracts;
-using CSI.BatchTracker.Domain.DataSource.MemorySource;
-using CSI.BatchTracker.Storage.MemoryStore;
-using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
+﻿using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System;
-using System.Windows.Input;
 
 namespace CSI.BatchTracker.Tests.ViewModels.Commands
 {
