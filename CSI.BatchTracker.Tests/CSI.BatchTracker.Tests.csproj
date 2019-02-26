@@ -47,9 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\DataSource\ActiveInventorySourceBehaviorTest.cs" />
     <Compile Include="Domain\DuracolorIntermixColorListTest.cs" />
     <Compile Include="Domain\DataSource\BatchOperatorSourceBehaviorTest.cs" />
     <Compile Include="Domain\DataSource\ReceivedBatchSourceBehaviorTest.cs" />
+    <Compile Include="Storage\MemoryStore\MemoryActiveInventorySourceTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryBatchOperatorStoreTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryReceivedBatchStoreTest.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddReceivedBatchToReceivingLedgerTransactionTest.cs" />

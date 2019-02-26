@@ -63,8 +63,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Domain\Contracts\IColorList.cs" />
+    <Compile Include="Domain\DataSource\Contracts\IActiveInventorySource.cs" />
     <Compile Include="Domain\DataSource\Contracts\IBatchOperatorSource.cs" />
     <Compile Include="Domain\DataSource\Contracts\IReceivedBatchSource.cs" />
+    <Compile Include="Domain\DataSource\MemorySource\MemoryActiveInventorySource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryBatchOperatorSource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryReceivedBatchSource.cs" />
     <Compile Include="Domain\DuracolorIntermixColorList.cs" />
