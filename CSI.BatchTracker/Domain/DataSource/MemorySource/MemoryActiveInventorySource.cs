@@ -72,5 +72,18 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
             return batch;
         }
+
+        public void DeductBatchFromInventory(string batchNumber)
+        {
+            InventoryBatch batch = FindInventoryBatchByBatchNumber(batchNumber);
+            batch.DeductQuantity(1);
+
+            int mappedId = CurrentInventoryBatchNumberToIdMappings[batchNumber];
+            Entity<InventoryBatch> entity = new Entity<InventoryBatch>(mappedId, batch);
+
+            ITransaction updater = new EditBatchInCurrentInventoryTransaction(entity, memoryStore);
+            updater.Execute();
+            UpdateActiveInventory();
+        }
     }
 }

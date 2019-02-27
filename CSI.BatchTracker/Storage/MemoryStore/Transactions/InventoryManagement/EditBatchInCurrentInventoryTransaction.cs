@@ -1,5 +1,6 @@
 ﻿using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Storage.Contracts;
 
 namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 {
@@ -19,7 +20,14 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
             if (store.CurrentInventory.ContainsKey(entity.SystemId))
             {
                 store.CurrentInventory[entity.SystemId] = entity;
+                DeleteIfDepleted();
             }
+        }
+
+        void DeleteIfDepleted()
+        {
+            ITransaction deleter = new DeleteDepletedInventoryBatchAtId(entity, store);
+            deleter.Execute();
         }
     }
 }

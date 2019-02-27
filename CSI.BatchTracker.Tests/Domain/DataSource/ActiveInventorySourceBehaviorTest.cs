@@ -82,5 +82,35 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
 
             Assert.AreEqual(expectedQty, found.Quantity);
         }
+
+        [Test]
+        public void DeductImplementedBatchFromActiveInventory()
+        {
+            int expectedQty = 1;
+            ReceivedBatch batch = SetupReceivedBatch();
+            batch.Quantity = 2;
+
+            dataSource.AddReceivedBatchToInventory(batch);
+            dataSource.DeductBatchFromInventory(batch.BatchNumber);
+
+            InventoryBatch found = dataSource.FindInventoryBatchByBatchNumber(batch.BatchNumber);
+
+            Assert.AreEqual(expectedQty, found.Quantity);
+        }
+
+        [Test]
+        public void DepletedBatchGetsRemovedFromActiveInventory()
+        {
+            int expectedCountBefore = 1;
+            int expectedCountAfter = 0;
+            ReceivedBatch batch = SetupReceivedBatch();
+            batch.Quantity = 1;
+
+            dataSource.AddReceivedBatchToInventory(batch);
+            Assert.AreEqual(expectedCountBefore, dataSource.CurrentInventory.Count);
+
+            dataSource.DeductBatchFromInventory(batch.BatchNumber);
+            Assert.AreEqual(expectedCountAfter, dataSource.CurrentInventory.Count);
+        }
     }
 }
