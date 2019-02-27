@@ -13,6 +13,6 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
         void AddReceivedBatchToInventory(ReceivedBatch batch);
         InventoryBatch FindInventoryBatchByBatchNumber(string batchNumber);
         ObservableCollection<InventoryBatch> CurrentInventory { get; }
-        Dictionary<int, string> CurrentInventoryBatchNumberMappings { get; }
+        Dictionary<string, int> CurrentInventoryBatchNumberToIdMappings { get; }
     }
 }

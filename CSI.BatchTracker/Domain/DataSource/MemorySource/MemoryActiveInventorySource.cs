@@ -16,7 +16,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
     public class MemoryActiveInventorySource : IActiveInventorySource
     {
         public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
-        public Dictionary<int, string> CurrentInventoryBatchNumberMappings { get; private set; }
+        public Dictionary<string, int> CurrentInventoryBatchNumberToIdMappings { get; private set; }
 
         MemoryStoreContext memoryStore;
 
@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         {
             this.memoryStore = memoryStore;
             CurrentInventory = new ObservableCollection<InventoryBatch>();
-            CurrentInventoryBatchNumberMappings = new Dictionary<int, string>();
+            CurrentInventoryBatchNumberToIdMappings = new Dictionary<string, int>();
         }
 
         public void AddReceivedBatchToInventory(ReceivedBatch batch)
@@ -36,32 +36,41 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 batch.Quantity
             );
 
-            SubmitToActiveInventory(inventoryBatch);
-        }
-
-        void SubmitToActiveInventory(InventoryBatch batch)
-        {
-            
-        }
-
-        public InventoryBatch FindInventoryBatchByBatchNumber(string batchNumber)
-        {
+            Entity<InventoryBatch> entity = new Entity<InventoryBatch>(inventoryBatch);
+            ITransaction adder = new AddReceivedBatchToInventoryTransaction(entity, memoryStore);
+            adder.Execute();
             UpdateActiveInventory();
         }
 
-        public void UpdateActiveInventory()
+        void UpdateActiveInventory()
         {
             ITransaction finder = new ListCurrentInventoryTransaction(memoryStore);
             finder.Execute();
 
             CurrentInventory.Clear();
-            CurrentInventoryBatchNumberMappings.Clear();
+            CurrentInventoryBatchNumberToIdMappings.Clear();
 
             foreach (KeyValuePair<int, Entity<InventoryBatch>> entity in memoryStore.CurrentInventory)
             {
                 CurrentInventory.Add(entity.Value.NativeModel);
-                CurrentInventoryBatchNumberMappings.Add(entity.Value.SystemId, entity.Value.NativeModel.BatchNumber);
+                CurrentInventoryBatchNumberToIdMappings.Add(entity.Value.NativeModel.BatchNumber, entity.Value.SystemId);
             }
+        }
+
+        public InventoryBatch FindInventoryBatchByBatchNumber(string batchNumber)
+        {
+            UpdateActiveInventory();
+            InventoryBatch batch = new InventoryBatch();
+
+            foreach (InventoryBatch inventoryBatch in CurrentInventory)
+            {
+                if (inventoryBatch.BatchNumber == batchNumber)
+                {
+                    batch = inventoryBatch;
+                }
+            }
+
+            return batch;
         }
     }
 }

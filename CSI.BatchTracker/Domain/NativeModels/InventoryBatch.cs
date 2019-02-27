@@ -14,6 +14,8 @@ namespace CSI.BatchTracker.Domain.NativeModels
             }
         }
 
+        public InventoryBatch() { }
+
         public InventoryBatch(string colorName, string batchNumber, DateTime inventoryDate, int quantity)
         {
             CheckIfQuantityIsGreaterThanZero(quantity);
