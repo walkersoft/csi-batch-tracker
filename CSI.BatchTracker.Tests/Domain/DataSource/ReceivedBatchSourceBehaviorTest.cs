@@ -9,6 +9,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
     abstract class ReceivedBatchSourceBehaviorTest
     {
         protected IReceivedBatchSource dataSource;
+        protected IActiveInventorySource inventorySource;
         ReceivedBatchTestHelper helper;
 
         [SetUp]
@@ -26,6 +27,18 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
 
             ReceivedBatch stored = dataSource.ReceivedBatchRepository[targetCollectionId];
             AssertSameReceivedBatchData(batch, stored);
+        }
+
+        [Test]
+        public void SavingReceivedBatchAlsoUpdatesActiveInventoryWithNewRecord()
+        {
+            ReceivedBatch batch = helper.GetUniqueBatch1();
+            string batchNumber = batch.BatchNumber;
+            dataSource.SaveReceivedBatch(batch);
+
+            InventoryBatch stored = inventorySource.FindInventoryBatchByBatchNumber(batchNumber);
+
+            Assert.AreEqual(batchNumber, stored.BatchNumber);
         }
 
         void AssertSameReceivedBatchData(ReceivedBatch expected, ReceivedBatch actual)

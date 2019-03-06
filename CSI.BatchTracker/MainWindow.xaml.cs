@@ -12,6 +12,7 @@ using CSI.BatchTracker.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 
 namespace CSI.BatchTracker
@@ -19,17 +20,27 @@ namespace CSI.BatchTracker
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public DataStore DataStore { get; set; }
         public MemoryDataSource Repository { get; set; }
+        public IActiveInventorySource InventorySource { get { return inventorySource; } set { inventorySource = value; } }
+        public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
 
         IReceivedBatchSource receivingSource;
         IBatchOperatorSource operatorSource;
+        IActiveInventorySource inventorySource;
 
         MemoryStoreContext Store { get; set; }
         BatchOperatorViewModel batchOperatorViewModel;
         ReceivingManagementViewModel receivingManagmentViewModel;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public MainWindow()
         {
@@ -39,13 +50,15 @@ namespace CSI.BatchTracker
             Repository = new MemoryDataSource(DataStore, Store);
             SetupBatchOperators();
             SetupColors();
-            SetupInventory();
+            //SetupInventory();
             InitializeComponent();
             DataContext = this;
             MemoryStoreContext context = new MemoryStoreContext();
-
-            receivingSource = new MemoryReceivedBatchSource(context);
+            
             operatorSource = new MemoryBatchOperatorSource(context);
+            inventorySource = new MemoryActiveInventorySource(context);
+            receivingSource = new MemoryReceivedBatchSource(context, inventorySource);
+            CurrentInventory = inventorySource.CurrentInventory;
 
             AddBatchOperatorsToRepo(operatorSource);
 
@@ -54,12 +67,16 @@ namespace CSI.BatchTracker
                 new DuracolorIntermixBatchNumberValidator(),
                 new DuracolorIntermixColorList(),
                 receivingSource,
-                operatorSource
+                operatorSource,
+                inventorySource
             );
             //BatchOperatorManagementWindow window = new BatchOperatorManagementWindow(batchOperatorViewModel);
+            inventorySource.AddReceivedBatchToInventory(new ReceivedBatch("Yellow", "872880703401", DateTime.Parse("6/7/2018"), 4, 42089, GetRandomOperatorFromRepository()));
             BatchReceivingManagementWindow window = new BatchReceivingManagementWindow(receivingManagmentViewModel);
 
             window.ShowDialog();
+            NotifyPropertyChanged("CurrentInventory");
+            
         }
 
         void AddBatchOperatorsToRepo(IBatchOperatorSource source)

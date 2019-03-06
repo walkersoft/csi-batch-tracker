@@ -20,6 +20,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         protected IColorList colorList;
         protected IBatchOperatorSource operatorSource;
         protected IReceivedBatchSource receivingSource;
+        protected IActiveInventorySource inventorySource;
         protected ReceivingManagementViewModel viewModel;
         protected BatchOperatorTestHelper operatorHelper;
 
@@ -28,8 +29,10 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         {
             validator = new DuracolorIntermixBatchNumberValidator();
             colorList = new DuracolorIntermixColorList();
-            operatorSource = new MemoryBatchOperatorSource(new MemoryStoreContext());
-            receivingSource = new MemoryReceivedBatchSource(new MemoryStoreContext());
+            MemoryStoreContext context = new MemoryStoreContext();
+            operatorSource = new MemoryBatchOperatorSource(context);
+            inventorySource = new MemoryActiveInventorySource(context);
+            receivingSource = new MemoryReceivedBatchSource(context, inventorySource);
             operatorHelper = new BatchOperatorTestHelper();
         }
 

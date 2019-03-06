@@ -15,10 +15,12 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         public Dictionary<int, int> ReceivedBatchIdMappings { get; private set; }
 
         MemoryStoreContext memoryStore;
+        IActiveInventorySource inventorySource;
 
-        public MemoryReceivedBatchSource(MemoryStoreContext memoryStore)
+        public MemoryReceivedBatchSource(MemoryStoreContext memoryStore, IActiveInventorySource inventorySource)
         {
             this.memoryStore = memoryStore;
+            this.inventorySource = inventorySource;
             ReceivedBatchIdMappings = new Dictionary<int, int>();
             ReceivedBatchRepository = new ObservableCollection<ReceivedBatch>();
         }
@@ -42,6 +44,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             ITransaction adder = new AddReceivedBatchToReceivingLedgerTransaction(entity, memoryStore);
             adder.Execute();
             UpdateReceivedBatchRepository();
+            inventorySource.AddReceivedBatchToInventory(receivedBatch);
         }
 
         void UpdateReceivedBatchRepository()

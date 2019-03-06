@@ -106,15 +106,18 @@ namespace CSI.BatchTracker.ViewModels
         IColorList colorList;
         IBatchOperatorSource operatorSource;
         IReceivedBatchSource receivingSource;
+        IActiveInventorySource inventorySource;
 
         public ReceivingManagementViewModel(
             IBatchNumberValidator validator, 
             IColorList colorList, 
             IReceivedBatchSource receivingSource,
-            IBatchOperatorSource operatorSource)
+            IBatchOperatorSource operatorSource,
+            IActiveInventorySource inventorySource)
         {
             this.receivingSource = receivingSource;
             this.operatorSource = operatorSource;
+            this.inventorySource = inventorySource;
             this.colorList = colorList;
             batchNumberValidator = validator;
 

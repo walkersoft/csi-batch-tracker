@@ -13,7 +13,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         public override void SetUp()
         {
             base.SetUp();
-            viewModel = new ReceivingManagementViewModel(validator, colorList, receivingSource, operatorSource);
+            viewModel = new ReceivingManagementViewModel(validator, colorList, receivingSource, operatorSource, inventorySource);
             command = new CommitReceivingSessionLedgerToDataSourceCommand(viewModel);
         }
 

@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         {
             base.SetUp();
             operatorHelper = new BatchOperatorTestHelper();
-            viewModel = new ReceivingManagementViewModel(validator, colorList, receivingSource, operatorSource);
+            viewModel = new ReceivingManagementViewModel(validator, colorList, receivingSource, operatorSource, inventorySource);
             command = new AddReceivedBatchToReceivingSessionLedgerCommand(viewModel);
         }
 

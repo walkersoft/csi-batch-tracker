@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
@@ -15,11 +16,13 @@ namespace CSI.BatchTracker.Tests.ViewModels
         public void SetUp()
         {
             MemoryStoreContext context = new MemoryStoreContext();
+            IActiveInventorySource inventorySource = new MemoryActiveInventorySource(context);
             viewModel = new ReceivingManagementViewModel(
                 new DuracolorIntermixBatchNumberValidator(),
                 new DuracolorIntermixColorList(),
-                new MemoryReceivedBatchSource(context),
-                new MemoryBatchOperatorSource(context)
+                new MemoryReceivedBatchSource(context, inventorySource),
+                new MemoryBatchOperatorSource(context),
+                new MemoryActiveInventorySource(context)
             );
         }
 

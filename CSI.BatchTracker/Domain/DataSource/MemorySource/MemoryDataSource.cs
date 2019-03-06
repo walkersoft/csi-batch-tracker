@@ -21,11 +21,13 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
         IBatchOperatorSource batchOperatorSource;
         IReceivedBatchSource receivedBatchSource;
+        IActiveInventorySource inventorySource;
 
         public Dictionary<int, int> CurrentInventoryIdMappings { get; private set; }
 
         public ObservableCollection<LoggedBatch> BatchLedger { get; private set; }
         public ObservableCollection<ReceivedBatch> ReceivingLedger { get; private set; }
+        public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
 
         public MemoryDataSource(DataStore store, MemoryStoreContext memoryStore)
         {
@@ -33,10 +35,12 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             this.memoryStore = memoryStore;
             batchOperatorSource = new MemoryBatchOperatorSource(this.memoryStore);
             inventoryRepository = new ObservableCollection<InventoryBatch>();
-            receivedBatchSource = new MemoryReceivedBatchSource(this.memoryStore);
+            inventorySource = new MemoryActiveInventorySource(this.memoryStore);
+            receivedBatchSource = new MemoryReceivedBatchSource(this.memoryStore, inventorySource);
             receivedBatchRepository = new ObservableCollection<ReceivedBatch>();
             CurrentInventoryIdMappings = new Dictionary<int, int>();
             BatchLedger = store.LoggedBatches;
+            CurrentInventory = inventorySource.CurrentInventory;
         }
 
         public ObservableCollection<BatchOperator> OperatorRepository { get { return batchOperatorSource.OperatorRepository; } }
