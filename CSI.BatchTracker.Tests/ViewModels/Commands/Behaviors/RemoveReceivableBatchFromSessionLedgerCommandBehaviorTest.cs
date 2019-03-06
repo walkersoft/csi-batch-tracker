@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
+using CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
@@ -7,7 +8,7 @@ using System.Windows.Input;
 namespace CSI.BatchTracker.Tests.ViewModels.Commands
 {
     [TestFixture]
-    class RemoveReceivableBatchFromSessionLedgerCommandTest : ReceivingManagementViewModelCommandTestingBase
+    abstract class RemoveReceivableBatchFromSessionLedgerCommandBehaviorTest : ReceivingManagementViewModelCommandTestingBase
     {        
         ReceivedBatchTestHelper helper;
 

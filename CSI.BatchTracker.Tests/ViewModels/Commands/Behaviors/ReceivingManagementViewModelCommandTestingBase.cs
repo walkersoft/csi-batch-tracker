@@ -1,8 +1,6 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.Contracts;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
-using CSI.BatchTracker.Domain.DataSource.MemorySource;
-using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
@@ -10,10 +8,10 @@ using NUnit.Framework;
 using System;
 using System.Windows.Input;
 
-namespace CSI.BatchTracker.Tests.ViewModels.Commands
+namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    class ReceivingManagementViewModelCommandTestingBase
+    abstract class ReceivingManagementViewModelCommandTestingBase
     {
         protected ICommand command;
         protected IBatchNumberValidator validator;
@@ -29,10 +27,6 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         {
             validator = new DuracolorIntermixBatchNumberValidator();
             colorList = new DuracolorIntermixColorList();
-            MemoryStoreContext context = new MemoryStoreContext();
-            operatorSource = new MemoryBatchOperatorSource(context);
-            inventorySource = new MemoryActiveInventorySource(context);
-            receivingSource = new MemoryReceivedBatchSource(context, inventorySource);
             operatorHelper = new BatchOperatorTestHelper();
         }
 

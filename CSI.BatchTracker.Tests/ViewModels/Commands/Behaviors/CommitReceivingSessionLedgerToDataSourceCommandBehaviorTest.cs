@@ -4,10 +4,10 @@ using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System;
 
-namespace CSI.BatchTracker.Tests.ViewModels.Commands
+namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    class CommitReceivingSessionLedgerToDataSourceCommandTest : ReceivingManagementViewModelCommandTestingBase
+    abstract class CommitReceivingSessionLedgerToDataSourceCommandBehaviorTest : ReceivingManagementViewModelCommandTestingBase
     {
         [SetUp]
         public override void SetUp()

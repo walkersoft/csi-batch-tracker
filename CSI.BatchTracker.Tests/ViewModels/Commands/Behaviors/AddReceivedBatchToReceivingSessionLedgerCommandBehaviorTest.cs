@@ -1,19 +1,17 @@
-﻿using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
-using CSI.BatchTracker.ViewModels;
+﻿using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System;
 
-namespace CSI.BatchTracker.Tests.ViewModels.Commands
+namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    class AddReceivedBatchToReceivingSessionLedgerCommandTest : ReceivingManagementViewModelCommandTestingBase
+    abstract class AddReceivedBatchToReceivingSessionLedgerCommandBehaviorTest : ReceivingManagementViewModelCommandTestingBase
     {
         [SetUp]
         public override void SetUp()
         {
             base.SetUp();
-            operatorHelper = new BatchOperatorTestHelper();
             viewModel = new ReceivingManagementViewModel(validator, colorList, receivingSource, operatorSource, inventorySource);
             command = new AddReceivedBatchToReceivingSessionLedgerCommand(viewModel);
         }

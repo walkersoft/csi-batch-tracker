@@ -68,14 +68,17 @@
     <Compile Include="TestHelpers\NativeModels\BatchOperatorTestHelper.cs" />
     <Compile Include="TestHelpers\NativeModels\ReceivedBatchTestHelper.cs" />
     <Compile Include="ViewModels\BatchOperatorViewModelTest.cs" />
-    <Compile Include="ViewModels\Commands\AddReceivedBatchToReceivingSessionLedgerCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\AddReceivedBatchToReceivingSessionLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorComboBoxChangedCommandTest.cs" />
     <Compile Include="ViewModels\Commands\BatchOperatorListBoxChangedCommandTest.cs" />
-    <Compile Include="ViewModels\Commands\CommitReceivingSessionLedgerToDataSourceCommandTest.cs" />
-    <Compile Include="ViewModels\Commands\ReceivingManagementViewModelCommandTestingBase.cs" />
-    <Compile Include="ViewModels\Commands\RemoveReceivableBatchFromSessionLedgerCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\CommitReceivingSessionLedgerToDataSourceCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\ReceivingManagementViewModelCommandTestingBase.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\RemoveReceivableBatchFromSessionLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\SaveBatchOperatorCommandTest.cs" />
     <Compile Include="ViewModels\Commands\DeleteSelectedBatchOperatorCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\AddReceivedBatchToReceivingSessionLedgerCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\CommitReceivingSessionLedgerToDataSourceCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\RemoveReceivableBatchFromSessionLedgerCommandTest.cs" />
     <Compile Include="ViewModels\ReceivingManagementViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
