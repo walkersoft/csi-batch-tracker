@@ -29,6 +29,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int systemId = 4;
             entity = new Entity<BatchOperator>(systemId, batchOperator);
+            Assert.AreEqual(systemId, entity.SystemId);
         }
     }
 }
