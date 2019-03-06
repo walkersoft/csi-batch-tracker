@@ -4,11 +4,11 @@ using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using NUnit.Framework;
 using System;
 
-namespace CSI.BatchTracker.Tests.Domain.DataSource
+namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 {
     abstract class ReceivedBatchSourceBehaviorTest
     {
-        protected IReceivedBatchSource dataSource;
+        protected IReceivedBatchSource receivedBatchSource;
         protected IActiveInventorySource inventorySource;
         ReceivedBatchTestHelper helper;
 
@@ -23,9 +23,9 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int targetCollectionId = 0;
             ReceivedBatch batch = helper.GetUniqueBatch1();
-            dataSource.SaveReceivedBatch(batch);
+            receivedBatchSource.SaveReceivedBatch(batch);
 
-            ReceivedBatch stored = dataSource.ReceivedBatchRepository[targetCollectionId];
+            ReceivedBatch stored = receivedBatchSource.ReceivedBatchRepository[targetCollectionId];
             AssertSameReceivedBatchData(batch, stored);
         }
 
@@ -34,7 +34,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             ReceivedBatch batch = helper.GetUniqueBatch1();
             string batchNumber = batch.BatchNumber;
-            dataSource.SaveReceivedBatch(batch);
+            receivedBatchSource.SaveReceivedBatch(batch);
 
             InventoryBatch stored = inventorySource.FindInventoryBatchByBatchNumber(batchNumber);
 
@@ -56,10 +56,10 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int targetCollectionId = 0;
             ReceivedBatch batch = helper.GetUniqueBatch1();
-            dataSource.SaveReceivedBatch(batch);
+            receivedBatchSource.SaveReceivedBatch(batch);
 
-            int targetId = dataSource.ReceivedBatchIdMappings[targetCollectionId];
-            ReceivedBatch found = dataSource.FindReceivedBatchById(targetId);
+            int targetId = receivedBatchSource.ReceivedBatchIdMappings[targetCollectionId];
+            ReceivedBatch found = receivedBatchSource.FindReceivedBatchById(targetId);
 
             AssertSameReceivedBatchData(batch, found);
         }
@@ -69,13 +69,13 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int targetCollectionId = 0;
             ReceivedBatch original = helper.GetUniqueBatch1();
-            dataSource.SaveReceivedBatch(original);
+            receivedBatchSource.SaveReceivedBatch(original);
 
-            int targetId = dataSource.ReceivedBatchIdMappings[targetCollectionId];
+            int targetId = receivedBatchSource.ReceivedBatchIdMappings[targetCollectionId];
             ReceivedBatch updated = helper.GetUniqueBatch2();
-            dataSource.UpdateReceivedBatch(targetId, updated);
+            receivedBatchSource.UpdateReceivedBatch(targetId, updated);
 
-            ReceivedBatch found = dataSource.FindReceivedBatchById(targetId);
+            ReceivedBatch found = receivedBatchSource.FindReceivedBatchById(targetId);
 
             AssertSameReceivedBatchData(updated, found);
         }
@@ -85,14 +85,14 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int targetCollectionId = 0;
             ReceivedBatch batch = helper.GetUniqueBatch1();
-            dataSource.SaveReceivedBatch(batch);
-            int originalSize = dataSource.ReceivedBatchRepository.Count;
+            receivedBatchSource.SaveReceivedBatch(batch);
+            int originalSize = receivedBatchSource.ReceivedBatchRepository.Count;
 
-            int targetId = dataSource.ReceivedBatchIdMappings[targetCollectionId];
+            int targetId = receivedBatchSource.ReceivedBatchIdMappings[targetCollectionId];
             ReceivedBatch updated = helper.GetUniqueBatch2();
-            dataSource.UpdateReceivedBatch(targetId + 1, updated);
+            receivedBatchSource.UpdateReceivedBatch(targetId + 1, updated);
 
-            Assert.AreEqual(originalSize, dataSource.ReceivedBatchRepository.Count);
+            Assert.AreEqual(originalSize, receivedBatchSource.ReceivedBatchRepository.Count);
         }
 
         [Test]
@@ -101,13 +101,13 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             int targetCollectionId = 0;
             int beforeDeleteCount = 1;
             int afterDeleteCount = beforeDeleteCount - 1;
-            dataSource.SaveReceivedBatch(helper.GetUniqueBatch1());
-            Assert.AreEqual(beforeDeleteCount, dataSource.ReceivedBatchRepository.Count);
+            receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch1());
+            Assert.AreEqual(beforeDeleteCount, receivedBatchSource.ReceivedBatchRepository.Count);
 
-            int targetId = dataSource.ReceivedBatchIdMappings[targetCollectionId];
-            dataSource.DeleteReceivedBatch(targetId);
+            int targetId = receivedBatchSource.ReceivedBatchIdMappings[targetCollectionId];
+            receivedBatchSource.DeleteReceivedBatch(targetId);
 
-            Assert.AreEqual(afterDeleteCount, dataSource.ReceivedBatchRepository.Count);
+            Assert.AreEqual(afterDeleteCount, receivedBatchSource.ReceivedBatchRepository.Count);
         }
 
         [Test]
@@ -115,21 +115,21 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int expectedCount = 1;
             int invalidId = 100;
-            dataSource.SaveReceivedBatch(helper.GetUniqueBatch1());
+            receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch1());
 
-            dataSource.DeleteReceivedBatch(invalidId);
+            receivedBatchSource.DeleteReceivedBatch(invalidId);
 
-            Assert.AreEqual(expectedCount, dataSource.ReceivedBatchRepository.Count);
+            Assert.AreEqual(expectedCount, receivedBatchSource.ReceivedBatchRepository.Count);
         }
 
         [Test]
         public void ListingReceivedBatchesResultsInRepositoryAndMappingsOfTheSameSize()
         {
-            dataSource.SaveReceivedBatch(helper.GetUniqueBatch1());
-            dataSource.SaveReceivedBatch(helper.GetUniqueBatch2());
-            dataSource.FindAllReceivedBatches();
+            receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch1());
+            receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch2());
+            receivedBatchSource.FindAllReceivedBatches();
 
-            Assert.AreEqual(dataSource.ReceivedBatchRepository.Count, dataSource.ReceivedBatchIdMappings.Count);
+            Assert.AreEqual(receivedBatchSource.ReceivedBatchRepository.Count, receivedBatchSource.ReceivedBatchIdMappings.Count);
         }
 
         [Test]
@@ -137,13 +137,13 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int expectedCount = 2;
             int poNumberCriteria = 11111;
-            dataSource.SaveReceivedBatch(helper.GetUniqueBatch1());
-            dataSource.SaveReceivedBatch(helper.GetBatchWithSpecificPO(poNumberCriteria));
-            dataSource.SaveReceivedBatch(helper.GetBatchWithSpecificPO(poNumberCriteria));
+            receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch1());
+            receivedBatchSource.SaveReceivedBatch(helper.GetBatchWithSpecificPO(poNumberCriteria));
+            receivedBatchSource.SaveReceivedBatch(helper.GetBatchWithSpecificPO(poNumberCriteria));
 
-            dataSource.FindReceivedBatchesByPONumber(poNumberCriteria);
+            receivedBatchSource.FindReceivedBatchesByPONumber(poNumberCriteria);
 
-            Assert.AreEqual(expectedCount, dataSource.ReceivedBatchRepository.Count);
+            Assert.AreEqual(expectedCount, receivedBatchSource.ReceivedBatchRepository.Count);
         }
 
         [Test]
@@ -151,13 +151,13 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
         {
             int expectedCount = 2;
             DateTime dateCriteria = DateTime.Now.AddDays(1);
-            dataSource.SaveReceivedBatch(helper.GetUniqueBatch1());
-            dataSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria));
-            dataSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria));
+            receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch1());
+            receivedBatchSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria));
+            receivedBatchSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria));
 
-            dataSource.FindReceivedBatchesByDate(dateCriteria);
+            receivedBatchSource.FindReceivedBatchesByDate(dateCriteria);
 
-            Assert.AreEqual(expectedCount, dataSource.ReceivedBatchRepository.Count);
+            Assert.AreEqual(expectedCount, receivedBatchSource.ReceivedBatchRepository.Count);
         }
 
         [Test]
@@ -168,13 +168,13 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             DateTime dateCriteria1 = dateCriteria.AddHours(6);
             DateTime dateCriteria2 = dateCriteria.AddHours(10);
             DateTime dateCriteria3 = dateCriteria.AddDays(1);
-            dataSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria1));
-            dataSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria2));
-            dataSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria3));
+            receivedBatchSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria1));
+            receivedBatchSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria2));
+            receivedBatchSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria3));
 
-            dataSource.FindReceivedBatchesByDate(dateCriteria);
+            receivedBatchSource.FindReceivedBatchesByDate(dateCriteria);
 
-            Assert.AreEqual(expectedCount, dataSource.ReceivedBatchRepository.Count);
+            Assert.AreEqual(expectedCount, receivedBatchSource.ReceivedBatchRepository.Count);
         }
     }
 }

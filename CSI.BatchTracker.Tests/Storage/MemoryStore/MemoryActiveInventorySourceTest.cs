@@ -1,6 +1,6 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Storage.MemoryStore;
-using CSI.BatchTracker.Tests.Domain.DataSource;
+using CSI.BatchTracker.Tests.Domain.DataSource.Behaviors;
 using NUnit.Framework;
 
 namespace CSI.BatchTracker.Tests.Storage.MemoryStore
@@ -11,7 +11,7 @@ namespace CSI.BatchTracker.Tests.Storage.MemoryStore
         [SetUp]
         public override void SetUp()
         {
-            dataSource = new MemoryActiveInventorySource(new MemoryStoreContext());
+            inventorySource = new MemoryActiveInventorySource(new MemoryStoreContext());
             base.SetUp();
         }
     }

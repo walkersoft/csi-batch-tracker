@@ -4,12 +4,12 @@ using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using NUnit.Framework;
 using System;
 
-namespace CSI.BatchTracker.Tests.Domain.DataSource
+namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 {
     [TestFixture]
     abstract class ActiveInventorySourceBehaviorTest
     {
-        protected IActiveInventorySource dataSource;
+        protected IActiveInventorySource inventorySource;
         BatchOperatorTestHelper operatorHelper;
 
         [SetUp]
@@ -30,9 +30,9 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             int expectedCount = 1;
             ReceivedBatch batch = SetupReceivedBatch();
 
-            dataSource.AddReceivedBatchToInventory(batch);
+            inventorySource.AddReceivedBatchToInventory(batch);
 
-            Assert.AreEqual(expectedCount, dataSource.CurrentInventory.Count);
+            Assert.AreEqual(expectedCount, inventorySource.CurrentInventory.Count);
         }
 
         [Test]
@@ -42,12 +42,12 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             ReceivedBatch batch = SetupReceivedBatch();
 
             batch.BatchNumber = "872891203202";
-            dataSource.AddReceivedBatchToInventory(batch);
+            inventorySource.AddReceivedBatchToInventory(batch);
 
             batch.BatchNumber = "872890802305";
-            dataSource.AddReceivedBatchToInventory(batch);
+            inventorySource.AddReceivedBatchToInventory(batch);
 
-            Assert.AreEqual(expectedCount, dataSource.CurrentInventory.Count);
+            Assert.AreEqual(expectedCount, inventorySource.CurrentInventory.Count);
         }
 
         [Test]
@@ -56,10 +56,10 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             int expectedCount = 1;
             ReceivedBatch batch = SetupReceivedBatch();
 
-            dataSource.AddReceivedBatchToInventory(batch);
-            dataSource.AddReceivedBatchToInventory(batch);
+            inventorySource.AddReceivedBatchToInventory(batch);
+            inventorySource.AddReceivedBatchToInventory(batch);
 
-            Assert.AreEqual(expectedCount, dataSource.CurrentInventory.Count);
+            Assert.AreEqual(expectedCount, inventorySource.CurrentInventory.Count);
         }
 
         [Test]
@@ -69,12 +69,12 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             ReceivedBatch batch = SetupReceivedBatch();
 
             batch.Quantity = 3;
-            dataSource.AddReceivedBatchToInventory(batch);
+            inventorySource.AddReceivedBatchToInventory(batch);
 
             batch.Quantity = 2;
-            dataSource.AddReceivedBatchToInventory(batch);
+            inventorySource.AddReceivedBatchToInventory(batch);
 
-            InventoryBatch found = dataSource.FindInventoryBatchByBatchNumber(batch.BatchNumber);
+            InventoryBatch found = inventorySource.FindInventoryBatchByBatchNumber(batch.BatchNumber);
 
             Assert.AreEqual(expectedQty, found.Quantity);
         }
@@ -86,10 +86,10 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             ReceivedBatch batch = SetupReceivedBatch();
             batch.Quantity = 2;
 
-            dataSource.AddReceivedBatchToInventory(batch);
-            dataSource.DeductBatchFromInventory(batch.BatchNumber);
+            inventorySource.AddReceivedBatchToInventory(batch);
+            inventorySource.DeductBatchFromInventory(batch.BatchNumber);
 
-            InventoryBatch found = dataSource.FindInventoryBatchByBatchNumber(batch.BatchNumber);
+            InventoryBatch found = inventorySource.FindInventoryBatchByBatchNumber(batch.BatchNumber);
 
             Assert.AreEqual(expectedQty, found.Quantity);
         }
@@ -102,11 +102,11 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             ReceivedBatch batch = SetupReceivedBatch();
             batch.Quantity = 1;
 
-            dataSource.AddReceivedBatchToInventory(batch);
-            Assert.AreEqual(expectedCountBefore, dataSource.CurrentInventory.Count);
+            inventorySource.AddReceivedBatchToInventory(batch);
+            Assert.AreEqual(expectedCountBefore, inventorySource.CurrentInventory.Count);
 
-            dataSource.DeductBatchFromInventory(batch.BatchNumber);
-            Assert.AreEqual(expectedCountAfter, dataSource.CurrentInventory.Count);
+            inventorySource.DeductBatchFromInventory(batch.BatchNumber);
+            Assert.AreEqual(expectedCountAfter, inventorySource.CurrentInventory.Count);
         }
 
         [Test]
@@ -116,9 +116,9 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
             ReceivedBatch targetBatch = SetupReceivedBatch();
             targetBatch.BatchNumber = "872894501202";
 
-            dataSource.AddReceivedBatchToInventory(paddingBatch);
-            dataSource.AddReceivedBatchToInventory(targetBatch);
-            InventoryBatch found = dataSource.FindInventoryBatchByBatchNumber(targetBatch.BatchNumber);
+            inventorySource.AddReceivedBatchToInventory(paddingBatch);
+            inventorySource.AddReceivedBatchToInventory(targetBatch);
+            InventoryBatch found = inventorySource.FindInventoryBatchByBatchNumber(targetBatch.BatchNumber);
 
             Assert.AreEqual(targetBatch.BatchNumber, found.BatchNumber);
         }
