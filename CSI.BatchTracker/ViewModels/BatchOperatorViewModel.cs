@@ -1,5 +1,5 @@
-﻿using CSI.BatchTracker.DataSource.Contracts;
-using CSI.BatchTracker.Domain;
+﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using System.Collections.ObjectModel;
@@ -13,18 +13,17 @@ namespace CSI.BatchTracker.ViewModels
         public ICommand DeleteSelectedBatchOperator { get; private set; }
         public ICommand BatchOperatorComboBoxChanged { get; private set; }
         public ICommand BatchOperatorListBoxChanged { get; private set; }
-
-        public IDataSource DataSource { get; private set; }
+        IBatchOperatorSource operatorSource;
 
         public BatchOperator BatchOperator { get; set; }
         public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
 
         BatchOperatorValidator validator;
 
-        public BatchOperatorViewModel(IDataSource dataSource)
+        public BatchOperatorViewModel(IBatchOperatorSource operatorSource)
         {
-            DataSource = dataSource;
-            OperatorRepository = DataSource.OperatorRepository;
+            this.operatorSource = operatorSource;
+            OperatorRepository = operatorSource.OperatorRepository;
             SelectedBatchOperatorFromListBoxIndex = 0;
             validator = new BatchOperatorValidator();
             BatchOperator = new BatchOperator("", "");
@@ -99,7 +98,7 @@ namespace CSI.BatchTracker.ViewModels
                 "<Create New...>"
             };
 
-            foreach (BatchOperator batchOperator in DataSource.OperatorRepository)
+            foreach (BatchOperator batchOperator in operatorSource.OperatorRepository)
             {
                 operatorNames.Add(batchOperator.FullName);
             }
@@ -116,12 +115,12 @@ namespace CSI.BatchTracker.ViewModels
 
             if (SelectedBatchOperatorFromComboBoxIndex > 0)
             {
-                int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromComboBoxIndex - 1];
-                DataSource.UpdateOperator(targetId, batchOperator);
+                int targetId = operatorSource.BatchOperatorIdMappings[SelectedBatchOperatorFromComboBoxIndex - 1];
+                operatorSource.UpdateOperator(targetId, batchOperator);
             }
             else
             {
-                DataSource.SaveOperator(batchOperator);
+                operatorSource.SaveOperator(batchOperator);
             }
 
             ResetBatchOperator();
@@ -138,8 +137,8 @@ namespace CSI.BatchTracker.ViewModels
         {
             if (SelectedBatchOperatorFromComboBoxIndex > 0)
             {
-                int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromComboBoxIndex - 1];
-                UpdateActiveBatchOperator(DataSource.FindBatchOperator(targetId));
+                int targetId = operatorSource.BatchOperatorIdMappings[SelectedBatchOperatorFromComboBoxIndex - 1];
+                UpdateActiveBatchOperator(operatorSource.FindBatchOperator(targetId));
             }
             else
             { 
@@ -164,8 +163,8 @@ namespace CSI.BatchTracker.ViewModels
 
         public void RemoveSelectedBatchOperator()
         {
-            int targetId = DataSource.BatchOperatorIdMappings[SelectedBatchOperatorFromListBoxIndex];
-            DataSource.DeleteBatchOperator(targetId);
+            int targetId = operatorSource.BatchOperatorIdMappings[SelectedBatchOperatorFromListBoxIndex];
+            operatorSource.DeleteBatchOperator(targetId);
             ResetBatchOperator();
             SelectedBatchOperatorFromComboBoxIndex = -1;
             NotifyPropertyChanged("OperatorNames");

@@ -1,6 +1,5 @@
-﻿using CSI.BatchTracker.DataSource.Contracts;
+﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.DataSource.MemorySource;
-using CSI.BatchTracker.Experimental;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
@@ -19,8 +18,8 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
         public void SetUp()
         {
             MemoryStoreContext store = new MemoryStoreContext();
-            IDataSource dataSource = new MemoryDataSource(new DataStore(), store);
-            viewModel = new BatchOperatorViewModel(dataSource);
+            IBatchOperatorSource operatorSource = new MemoryBatchOperatorSource(store);
+            viewModel = new BatchOperatorViewModel(operatorSource);
             command = new BatchOperatorComboBoxChangedCommand(viewModel);
         }
 

@@ -3,10 +3,6 @@ using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Tests.Domain.DataSource
 {
@@ -111,6 +107,20 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource
 
             dataSource.DeductBatchFromInventory(batch.BatchNumber);
             Assert.AreEqual(expectedCountAfter, dataSource.CurrentInventory.Count);
+        }
+
+        [Test]
+        public void FindSpecificBatchFromMultipleBatchesInActiveInventory()
+        {
+            ReceivedBatch paddingBatch = SetupReceivedBatch();
+            ReceivedBatch targetBatch = SetupReceivedBatch();
+            targetBatch.BatchNumber = "872894501202";
+
+            dataSource.AddReceivedBatchToInventory(paddingBatch);
+            dataSource.AddReceivedBatchToInventory(targetBatch);
+            InventoryBatch found = dataSource.FindInventoryBatchByBatchNumber(targetBatch.BatchNumber);
+
+            Assert.AreEqual(targetBatch.BatchNumber, found.BatchNumber);
         }
     }
 }

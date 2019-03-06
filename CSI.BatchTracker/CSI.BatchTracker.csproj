@@ -105,7 +105,6 @@
     <Compile Include="Domain\NativeModels\AbstractBatch.cs" />
     <Compile Include="Domain\Contracts\AbstractBatchNumberValidator.cs" />
     <Compile Include="Domain\Contracts\IBatchNumberValidator.cs" />
-    <Compile Include="Domain\DataSource\Contracts\IDataSource.cs" />
     <Compile Include="Storage\Contracts\IEntity.cs" />
     <Compile Include="Storage\Contracts\ITransaction.cs" />
     <Compile Include="Storage\MemoryStore\MemoryStoreContext.cs" />
@@ -125,7 +124,6 @@
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListCurrentInventoryTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListImplementedBatchTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListReceivingLedgerTransaction.cs" />
-    <Compile Include="Domain\DataSource\MemorySource\MemoryDataSource.cs" />
     <Compile Include="Domain\DataSource\Entity.cs" />
     <Compile Include="Domain\DuracolorIntermixBatchNumberValidator.cs" />
     <Compile Include="Domain\NativeModels\BatchOperator.cs" />
@@ -134,7 +132,6 @@
     <Compile Include="Domain\NativeModels\LoggedBatch.cs" />
     <Compile Include="Exceptions\BatchException.cs" />
     <Compile Include="Exceptions\BatchNumberValidationException.cs" />
-    <Compile Include="Experimental\DataStore.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

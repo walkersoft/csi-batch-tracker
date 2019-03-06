@@ -1,5 +1,4 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.MemorySource;
-using CSI.BatchTracker.Experimental;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
 using NUnit.Framework;
@@ -14,7 +13,7 @@ namespace CSI.BatchTracker.Tests.ViewModels
         [SetUp]
         public void SetUp()
         {
-            viewModel = new BatchOperatorViewModel(new MemoryDataSource(new DataStore(), new MemoryStoreContext()));
+            viewModel = new BatchOperatorViewModel(new MemoryBatchOperatorSource(new MemoryStoreContext()));
         }
         [Test]
         public void BatchOperatorNamesForComboBoxHasAtLeastOneItem()
