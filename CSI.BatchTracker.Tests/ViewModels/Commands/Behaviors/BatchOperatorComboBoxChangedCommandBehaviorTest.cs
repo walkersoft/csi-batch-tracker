@@ -6,20 +6,15 @@ using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System.Windows.Input;
 
-namespace CSI.BatchTracker.Tests.ViewModels.Commands
+namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    class BatchOperatorComboBoxChangedCommandTest
+    abstract class BatchOperatorComboBoxChangedCommandBehaviorTest : BatchOperatorViewModelCommandTestingBase
     {
-        ICommand command;
-        BatchOperatorViewModel viewModel;
-        
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            MemoryStoreContext store = new MemoryStoreContext();
-            IBatchOperatorSource operatorSource = new MemoryBatchOperatorSource(store);
-            viewModel = new BatchOperatorViewModel(operatorSource);
+            base.SetUp();
             command = new BatchOperatorComboBoxChangedCommand(viewModel);
         }
 

@@ -6,21 +6,15 @@ using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System.Windows.Input;
 
-namespace CSI.BatchTracker.Tests.ViewModels.Commands
+namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    class DeleteSelectedBatchOperatorCommandTest
+    abstract class DeleteSelectedBatchOperatorCommandBehaviorTest : BatchOperatorViewModelCommandTestingBase
     {
-        ICommand command;
-        BatchOperatorViewModel viewModel;
-        MemoryStoreContext store;
-
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            store = new MemoryStoreContext();
-            IBatchOperatorSource operatorSource = new MemoryBatchOperatorSource(store);
-            viewModel = new BatchOperatorViewModel(operatorSource);
+            base.SetUp();
             command = new DeleteSelectedBatchOperatorCommand(viewModel);
         }
 

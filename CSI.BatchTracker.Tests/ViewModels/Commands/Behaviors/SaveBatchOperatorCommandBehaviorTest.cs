@@ -6,19 +6,15 @@ using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System.Windows.Input;
 
-namespace CSI.BatchTracker.Tests.ViewModels.Commands
+namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    class SaveBatchOperatorCommandTest
+    abstract class SaveBatchOperatorCommandBehaviorTest : BatchOperatorViewModelCommandTestingBase
     {
-        ICommand command;
-        BatchOperatorViewModel viewModel;
-
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            IBatchOperatorSource operatorSource = new MemoryBatchOperatorSource(new MemoryStoreContext());
-            viewModel = new BatchOperatorViewModel(operatorSource);
+            base.SetUp();
             command = new SaveBatchOperatorCommand(viewModel);
         }
 
@@ -70,6 +66,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
             viewModel.FirstName = expectedFirstName;
             viewModel.LastName = expectedLastName;
             command.Execute(null);
+
             Assert.AreEqual(expectedCount, viewModel.OperatorRepository.Count);
             Assert.AreEqual(expectedFirstName, viewModel.OperatorRepository[0].FirstName);
             Assert.AreEqual(expectedLastName, viewModel.OperatorRepository[0].LastName);
