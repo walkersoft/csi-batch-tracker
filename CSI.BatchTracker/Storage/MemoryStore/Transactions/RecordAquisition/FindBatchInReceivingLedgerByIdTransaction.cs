@@ -3,20 +3,17 @@
     public class FindBatchInReceivingLedgerByIdTransaction : MemoryDataSourceTransaction
     {
         MemoryStoreContext memoryStore;
-        int id;
+        int systemId;
 
-        public FindBatchInReceivingLedgerByIdTransaction(int id, MemoryStoreContext memoryStore)
+        public FindBatchInReceivingLedgerByIdTransaction(int systemId, MemoryStoreContext memoryStore)
         {
-            this.id = id;
+            this.systemId = systemId;
             this.memoryStore = memoryStore;
         }
 
         public override void Execute()
         {
-            if (memoryStore.ReceivingLedger.ContainsKey(id))
-            {
-                Results.Add(memoryStore.ReceivingLedger[id]);
-            }
+            Results.Add(memoryStore.ReceivingLedger[systemId]);
         }
     }
 }

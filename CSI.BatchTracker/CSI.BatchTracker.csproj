@@ -65,9 +65,11 @@
     <Compile Include="Domain\Contracts\IColorList.cs" />
     <Compile Include="Domain\DataSource\Contracts\IActiveInventorySource.cs" />
     <Compile Include="Domain\DataSource\Contracts\IBatchOperatorSource.cs" />
+    <Compile Include="Domain\DataSource\Contracts\IImplementedBatchSource.cs" />
     <Compile Include="Domain\DataSource\Contracts\IReceivedBatchSource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryActiveInventorySource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryBatchOperatorSource.cs" />
+    <Compile Include="Domain\DataSource\MemorySource\MemoryImplementedBatchSource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryReceivedBatchSource.cs" />
     <Compile Include="Domain\DuracolorIntermixColorList.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteDepletedInventoryBatchAtId.cs" />
@@ -110,7 +112,7 @@
     <Compile Include="Storage\MemoryStore\MemoryStoreContext.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\AddBatchOperatorTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\UpdateBatchOperatorTransaction.cs" />
-    <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddBatchToImplementedBatchLedgerTransaction.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\TransferInventoryBatchToImplementedBatchLedgerTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddReceivedBatchToInventoryTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\AddReceivedBatchToReceivingLedgerTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\EditBatchInCurrentInventoryTransaction.cs" />
@@ -119,7 +121,6 @@
     <Compile Include="Storage\MemoryStore\Transactions\MemoryDataSourceTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchInImplementedLedgerTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchOperatorByIdTransaction.cs" />
-    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindInventoryBatchByIdTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListBatchOperatorsTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListCurrentInventoryTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\ListImplementedBatchTransaction.cs" />

@@ -17,11 +17,8 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 
         public override void Execute()
         {
-            if (store.CurrentInventory.ContainsKey(entity.SystemId))
-            {
-                store.CurrentInventory[entity.SystemId] = entity;
-                DeleteIfDepleted();
-            }
+            store.CurrentInventory[entity.SystemId] = entity;
+            DeleteIfDepleted();
         }
 
         void DeleteIfDepleted()

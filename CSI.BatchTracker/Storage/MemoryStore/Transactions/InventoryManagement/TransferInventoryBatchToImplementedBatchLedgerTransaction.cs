@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 {
-    public sealed class AddBatchToImplementedBatchLedgerTransaction : MemoryDataSourceTransaction
+    public sealed class TransferInventoryBatchToImplementedBatchLedgerTransaction : MemoryDataSourceTransaction
     {
         Entity<LoggedBatch> entity;
         MemoryStoreContext store;
         public int LastSystemId { get; private set; }
 
-        public AddBatchToImplementedBatchLedgerTransaction(Entity<LoggedBatch> entity, MemoryStoreContext store)
+        public TransferInventoryBatchToImplementedBatchLedgerTransaction(Entity<LoggedBatch> entity, MemoryStoreContext store)
         {
             this.entity = entity;
             this.store = store;
@@ -19,15 +19,10 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
         public override void Execute()
         {
             Entity<InventoryBatch> inventoryBatch = GetExistingInventoryBatch(entity);
-
-            if (inventoryBatch != null)
-            {
-                LastSystemId++;
-                entity = new Entity<LoggedBatch>(LastSystemId, entity.NativeModel);
-                store.ImplementedBatchLedger.Add(LastSystemId, entity);
-                inventoryBatch.NativeModel.DeductQuantity(1);
-            }
-            
+            LastSystemId++;
+            entity = new Entity<LoggedBatch>(LastSystemId, entity.NativeModel);
+            store.ImplementedBatchLedger.Add(LastSystemId, entity);
+            inventoryBatch.NativeModel.DeductQuantity(1);
         }
 
         Entity<InventoryBatch> GetExistingInventoryBatch(Entity<LoggedBatch> implemented)

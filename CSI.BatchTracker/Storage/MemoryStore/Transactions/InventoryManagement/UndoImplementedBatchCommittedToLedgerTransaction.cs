@@ -18,12 +18,9 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 
         public override void Execute()
         {
-            if (store.ImplementedBatchLedger.ContainsKey(loggedEntity.SystemId))
-            {
-                inventoryEntity = RetainLoggedEntityAsInventoryEntity();
-                store.ImplementedBatchLedger.Remove(loggedEntity.SystemId);
-                RecommitToInventory();
-            }
+            inventoryEntity = RetainLoggedEntityAsInventoryEntity();
+            store.ImplementedBatchLedger.Remove(loggedEntity.SystemId);
+            RecommitToInventory();
         }
 
         Entity<InventoryBatch> RetainLoggedEntityAsInventoryEntity()

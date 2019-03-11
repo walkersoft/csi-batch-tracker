@@ -1,17 +1,13 @@
-﻿using CSI.BatchTracker.Domain.DataSource;
-using CSI.BatchTracker.Domain.NativeModels;
-using System.Collections.Generic;
-
-namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
+﻿namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 {
     public sealed class FindBatchInImplementedLedgerTransaction : MemoryDataSourceTransaction
     {
         MemoryStoreContext store;
-        string batchNumber;
+        int systemId;
 
-        public FindBatchInImplementedLedgerTransaction(string batchNumber, MemoryStoreContext store)
+        public FindBatchInImplementedLedgerTransaction(int systemId, MemoryStoreContext store)
         {
-            this.batchNumber = batchNumber;
+            this.systemId = systemId;
             this.store = store;
         }
 
@@ -19,12 +15,9 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
         {
             Results.Clear();
 
-            foreach (KeyValuePair<int, Entity<LoggedBatch>> batch in store.ImplementedBatchLedger)
+            if (store.ImplementedBatchLedger.ContainsKey(systemId))
             {
-                if (batch.Value.NativeModel.BatchNumber == batchNumber)
-                {
-                    Results.Add(batch.Value);
-                }
+                Results.Add(store.ImplementedBatchLedger[systemId]);
             }
         }
     }
