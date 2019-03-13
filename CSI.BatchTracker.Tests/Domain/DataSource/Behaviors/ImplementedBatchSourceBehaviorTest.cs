@@ -105,5 +105,35 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             Assert.AreEqual(expectedQuantity, inventorySource.CurrentInventory[0].Quantity);
             Assert.AreEqual(expectedCount, implementedBatchSource.ImplementedBatchLedger.Count);
         }
+
+        [Test]
+        public void FindingMultipleRecordsOfSpecificBatchInHaystackOfBatches()
+        {
+            int expectedCount = 2;
+            string targetBatch = receivedBatch.BatchNumber;
+            ReceivedBatch paddingBatch = receivedBatchHelper.GetUniqueBatch2();
+
+            for (int i = 0; i < 5; i++)
+            {
+                DateTime newDate = DateTime.Today.AddDays(i);
+                receivedBatch.ActivityDate = newDate;
+                paddingBatch.ActivityDate = newDate;
+
+                if (i % 2 == 0)
+                {
+                    inventorySource.AddReceivedBatchToInventory(paddingBatch);
+                    implementedBatchSource.AddBatchToImplementationLedger(paddingBatch.BatchNumber, newDate, batchOperator);
+                }
+                else
+                {
+                    inventorySource.AddReceivedBatchToInventory(receivedBatch);
+                    implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, newDate, batchOperator);
+                }
+            }
+
+            implementedBatchSource.FindImplementedBatchesByBatchNumber(targetBatch);
+
+            Assert.AreEqual(expectedCount, implementedBatchSource.ImplementedBatchLedger.Count);
+        }
     }
 }

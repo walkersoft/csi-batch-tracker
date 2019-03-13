@@ -8,6 +8,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
     {
         ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; }
         void AddBatchToImplementationLedger(string batchNumber, DateTime date, BatchOperator batchOperator);
+        void FindImplementedBatchesByBatchNumber(string batchNumber);
         void UndoImplementedBatch(int targetId);
     }
 }

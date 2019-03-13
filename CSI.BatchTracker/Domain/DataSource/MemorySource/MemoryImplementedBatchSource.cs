@@ -48,8 +48,13 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             ImplementedBatchLedger.Clear();
             ITransaction finder = new ListImplementedBatchTransaction(memoryStore);
             finder.Execute();
+            PopulatedImplementedBatchLedgerFromTransactionResults(finder);            
+        }
 
-            foreach (IEntity entity in finder.Results)
+        void PopulatedImplementedBatchLedgerFromTransactionResults(ITransaction transaction)
+        {
+            ImplementedBatchLedger.Clear();
+            foreach (IEntity entity in transaction.Results)
             {
                 Entity<LoggedBatch> loggedEntity = entity as Entity<LoggedBatch>;
                 ImplementedBatchLedger.Add(loggedEntity.NativeModel);
@@ -68,6 +73,13 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 undo.Execute();
                 UpdateImplementationLedger();
             }            
+        }
+
+        public void FindImplementedBatchesByBatchNumber(string batchNumber)
+        {
+            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumber(batchNumber, memoryStore);
+            finder.Execute();
+            PopulatedImplementedBatchLedgerFromTransactionResults(finder);
         }
     }
 }
