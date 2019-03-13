@@ -43,7 +43,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             }
         }
 
-        public void UpdateImplementationLedger()
+        void UpdateImplementationLedger()
         {
             ImplementedBatchLedger.Clear();
             ITransaction finder = new ListImplementedBatchTransaction(memoryStore);
