@@ -47,12 +47,13 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         public void CorrectBatchIsDeductedWhenSendingToImplementationLedger()
         {
             int expectedQuantity = 2;
+            string targetBatch = string.Empty;
             receivedBatch.Quantity = expectedQuantity + 1;
 
             inventorySource.AddReceivedBatchToInventory(receivedBatch);
             receivedBatch.BatchNumber = receivedBatchHelper.GetUniqueBatch2().BatchNumber;
 
-            string targetBatch = receivedBatch.BatchNumber;
+            targetBatch = receivedBatch.BatchNumber;
             inventorySource.AddReceivedBatchToInventory(receivedBatch);
             implementedBatchSource.AddBatchToImplementationLedger(targetBatch, date, batchOperator);
             InventoryBatch found = inventorySource.FindInventoryBatchByBatchNumber(targetBatch);
