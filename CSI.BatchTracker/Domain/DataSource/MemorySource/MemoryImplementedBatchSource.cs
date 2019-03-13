@@ -77,7 +77,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
         public void FindImplementedBatchesByBatchNumber(string batchNumber)
         {
-            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumber(batchNumber, memoryStore);
+            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(batchNumber, memoryStore);
             finder.Execute();
             PopulatedImplementedBatchLedgerFromTransactionResults(finder);
         }

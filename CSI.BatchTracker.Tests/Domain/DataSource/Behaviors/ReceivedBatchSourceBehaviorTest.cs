@@ -34,8 +34,8 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         {
             ReceivedBatch batch = helper.GetUniqueBatch1();
             string batchNumber = batch.BatchNumber;
-            receivedBatchSource.SaveReceivedBatch(batch);
 
+            receivedBatchSource.SaveReceivedBatch(batch);
             InventoryBatch stored = inventorySource.FindInventoryBatchByBatchNumber(batchNumber);
 
             Assert.AreEqual(batchNumber, stored.BatchNumber);
@@ -173,6 +173,34 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             receivedBatchSource.SaveReceivedBatch(helper.GetBatchWithSpecificDate(dateCriteria3));
 
             receivedBatchSource.FindReceivedBatchesByDate(dateCriteria);
+
+            Assert.AreEqual(expectedCount, receivedBatchSource.ReceivedBatchRepository.Count);
+        }
+
+        [Test]
+        public void FindingAllBatchesBySpecificBatchNumber()
+        {
+            int expectedCount = 2;
+            ReceivedBatch targetBatch = helper.GetUniqueBatch1();
+            ReceivedBatch paddingBatch = helper.GetUniqueBatch2();
+
+            for (int i = 0; i < 5; i++)
+            {
+                targetBatch.ActivityDate = DateTime.Today.AddDays(i);
+                targetBatch.Quantity = i;
+                targetBatch.PONumber = targetBatch.PONumber + i;
+
+                if (i % 2 == 0)
+                {
+                    receivedBatchSource.SaveReceivedBatch(paddingBatch);
+                }
+                else
+                {
+                    receivedBatchSource.SaveReceivedBatch(targetBatch);
+                }
+            }
+
+            receivedBatchSource.FindReceivedBatchesByBatchNumber(targetBatch.BatchNumber);
 
             Assert.AreEqual(expectedCount, receivedBatchSource.ReceivedBatchRepository.Count);
         }

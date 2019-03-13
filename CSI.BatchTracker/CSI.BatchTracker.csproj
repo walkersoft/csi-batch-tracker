@@ -74,7 +74,8 @@
     <Compile Include="Domain\DuracolorIntermixColorList.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteDepletedInventoryBatchAtId.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteReceivedBatchAtIdTransaction.cs" />
-    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInImplementationLedgerByBatchNumber.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInImplementationLedgerByBatchNumberTransaction.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByBatchNumberTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByDateTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByPONumberTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchInReceivingLedgerByIdTransaction.cs" />

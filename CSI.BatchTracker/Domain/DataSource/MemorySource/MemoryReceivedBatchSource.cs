@@ -50,8 +50,13 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         void UpdateReceivedBatchRepository()
         {
             ITransaction finder = new ListReceivingLedgerTransaction(memoryStore);
+            ExecuteFinderTransactionAndPopulateRepositoryAndMappings(finder);
+        }
+
+        void ExecuteFinderTransactionAndPopulateRepositoryAndMappings(ITransaction finder)
+        {
             finder.Execute();
-            PopulateRepositoryAndMappingsFromTransactionResults(finder);            
+            PopulateRepositoryAndMappingsFromTransactionResults(finder);
         }
 
         void PopulateRepositoryAndMappingsFromTransactionResults(ITransaction transaction)
@@ -94,20 +99,24 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         public void FindReceivedBatchesByPONumber(int poNumber)
         {
             ITransaction finder = new FindBatchesInReceivingLedgerByPONumberTransaction(poNumber, memoryStore);
-            finder.Execute();
-            PopulateRepositoryAndMappingsFromTransactionResults(finder);
+            ExecuteFinderTransactionAndPopulateRepositoryAndMappings(finder);
         }
 
         public void FindReceivedBatchesByDate(DateTime date)
         {
             ITransaction finder = new FindBatchesInReceivingLedgerByDateTransaction(date, memoryStore);
-            finder.Execute();
-            PopulateRepositoryAndMappingsFromTransactionResults(finder);
+            ExecuteFinderTransactionAndPopulateRepositoryAndMappings(finder);
         }
 
         public void FindAllReceivedBatches()
         {
             UpdateReceivedBatchRepository();
+        }
+
+        public void FindReceivedBatchesByBatchNumber(string batchNumber)
+        {
+            ITransaction finder = new FindBatchesInReceivingLedgerByBatchNumberTransaction(batchNumber, memoryStore);
+            ExecuteFinderTransactionAndPopulateRepositoryAndMappings(finder);
         }
     }
 }

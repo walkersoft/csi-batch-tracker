@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 {
-    public sealed class FindBatchesInImplementationLedgerByBatchNumber : MemoryDataSourceTransaction
+    public sealed class FindBatchesInImplementationLedgerByBatchNumberTransaction : MemoryDataSourceTransaction
     {
         string batchNumber;
         MemoryStoreContext store;
 
-        public FindBatchesInImplementationLedgerByBatchNumber(string batchNumber, MemoryStoreContext store)
+        public FindBatchesInImplementationLedgerByBatchNumberTransaction(string batchNumber, MemoryStoreContext store)
         {
             this.batchNumber = batchNumber;
             this.store = store;
