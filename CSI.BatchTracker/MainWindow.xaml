@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSI.BatchTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="980"
+        Title="MainWindow" Height="450" Width="1031.697"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Label Content="Add Batch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
@@ -15,7 +15,9 @@
         <TextBox x:Name="batchNumber" HorizontalAlignment="Left" Height="23" Margin="135,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="144"/>
         <TextBox x:Name="batchQty" HorizontalAlignment="Left" Height="23" Margin="284,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="36"/>
         <DatePicker x:Name="recvDate" HorizontalAlignment="Left" Margin="325,62,0,0" VerticalAlignment="Top"/>
-        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="684,62,0,0" VerticalAlignment="Top" Width="95"/>
+        <Button x:Name="receivingbtn" Content="Batch Receiving" HorizontalAlignment="Left" Margin="684,62,0,0" VerticalAlignment="Top" Width="95" Click="Receivingbtn_Click"/>
+        <Button x:Name="historybtn" Content="Batch History" HorizontalAlignment="Left" Margin="784,62,0,0" VerticalAlignment="Top" Width="95" Click="Historybtn_Click"/>
+        <Button x:Name="operatorsbtn" Content="Operators" HorizontalAlignment="Left" Margin="884,62,0,0" VerticalAlignment="Top" Width="95" Click="Operatorsbtn_Click" />
         <Label Content="Color Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Qty." HorizontalAlignment="Left" Margin="284,36,0,0" VerticalAlignment="Top"/>
         <Label Content="Receiving Date" HorizontalAlignment="Left" Margin="325,36,0,0" VerticalAlignment="Top"/>

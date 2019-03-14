@@ -40,11 +40,25 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
         public void SaveReceivedBatch(ReceivedBatch receivedBatch)
         {
-            Entity<ReceivedBatch> entity = new Entity<ReceivedBatch>(receivedBatch);
+            Entity<ReceivedBatch> entity = new Entity<ReceivedBatch>(RecreateReceivedBatch(receivedBatch));
             ITransaction adder = new AddReceivedBatchToReceivingLedgerTransaction(entity, memoryStore);
             adder.Execute();
             UpdateReceivedBatchRepository();
             inventorySource.AddReceivedBatchToInventory(receivedBatch);
+        }
+
+        ReceivedBatch RecreateReceivedBatch(ReceivedBatch batch)
+        {
+            ReceivedBatch newBatch = new ReceivedBatch(
+                batch.ColorName,
+                batch.BatchNumber,
+                batch.ActivityDate,
+                batch.Quantity,
+                batch.PONumber,
+                batch.ReceivingOperator
+            );
+
+            return newBatch;
         }
 
         void UpdateReceivedBatchRepository()

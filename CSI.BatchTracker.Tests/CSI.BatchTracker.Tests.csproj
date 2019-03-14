@@ -74,6 +74,7 @@
     <Compile Include="ViewModels\Commands\Behaviors\BatchOperatorListBoxChangedCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\BatchOperatorViewModelCommandTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\DeleteSelectedBatchOperatorCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\DisplayBatchHistoryFromBatchNumberCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\SaveBatchOperatorCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\BatchOperatorComboBoxChangedCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\BatchOperatorListBoxChangedCommandTest.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="ViewModels\Commands\Behaviors\CommitReceivingSessionLedgerToDataSourceCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ReceivingManagementViewModelCommandTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\RemoveReceivableBatchFromSessionLedgerCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\DisplayBatchHistoryFromBatchNumberCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\SaveBatchOperatorCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\DeleteSelectedBatchOperatorCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\AddReceivedBatchToReceivingSessionLedgerCommandTest.cs" />

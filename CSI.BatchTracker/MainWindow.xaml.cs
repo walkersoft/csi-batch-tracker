@@ -16,32 +16,23 @@ using System.Windows;
 
 namespace CSI.BatchTracker
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         public IActiveInventorySource InventorySource { get { return inventorySource; } set { inventorySource = value; } }
         public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
 
         IReceivedBatchSource receivingSource;
         IBatchOperatorSource operatorSource;
+        IImplementedBatchSource implementedBatchSource;
         IActiveInventorySource inventorySource;
 
         MemoryStoreContext Store { get; set; }
         BatchOperatorViewModel batchOperatorViewModel;
-        ReceivingManagementViewModel receivingManagmentViewModel;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void NotifyPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        ReceivingManagementViewModel receivingManagementViewModel;
+        BatchHistoryViewModel batchHistoryViewModel;
 
         public MainWindow()
         {
-            SetupBatchOperators();
             SetupColors();
             InitializeComponent();
             DataContext = this;
@@ -50,51 +41,41 @@ namespace CSI.BatchTracker
             operatorSource = new MemoryBatchOperatorSource(context);
             inventorySource = new MemoryActiveInventorySource(context);
             receivingSource = new MemoryReceivedBatchSource(context, inventorySource);
+            implementedBatchSource = new MemoryImplementedBatchSource(context, inventorySource);
             CurrentInventory = inventorySource.CurrentInventory;
 
             AddBatchOperatorsToRepo(operatorSource);
-
-            batchOperatorViewModel = new BatchOperatorViewModel(operatorSource);
-            receivingManagmentViewModel = new ReceivingManagementViewModel(
-                new DuracolorIntermixBatchNumberValidator(),
-                new DuracolorIntermixColorList(),
-                receivingSource,
-                operatorSource,
-                inventorySource
-            );
-            //BatchOperatorManagementWindow window = new BatchOperatorManagementWindow(batchOperatorViewModel);
-            inventorySource.AddReceivedBatchToInventory(new ReceivedBatch("Yellow", "872880703401", DateTime.Parse("6/7/2018"), 4, 42089, GetRandomOperatorFromRepository()));
-            BatchReceivingManagementWindow window = new BatchReceivingManagementWindow(receivingManagmentViewModel);
-
-            window.ShowDialog();
-            NotifyPropertyChanged("CurrentInventory");
             
+            
+            PopulateInventoryAndImplementBatches();          
+        }
+
+        string PopulateInventoryAndImplementBatches()
+        {
+            string batchNumber = "872880101101";
+            operatorSource.FindAllBatchOperators();
+            ReceivedBatch batch = new ReceivedBatch("White", batchNumber, DateTime.Today, 4, 54023, operatorSource.OperatorRepository[0]);
+
+            receivingSource.SaveReceivedBatch(batch);
+            batch.Quantity = 2;
+            batch.PONumber = 54159;
+            batch.ActivityDate = batch.ActivityDate.AddDays(5);
+            batch.ReceivingOperator = operatorSource.OperatorRepository[1];
+            receivingSource.SaveReceivedBatch(batch);
+
+            for (int i = 0; i < 4; i++)
+            {
+                implementedBatchSource.AddBatchToImplementationLedger(batchNumber, batch.ActivityDate.AddDays(i), operatorSource.OperatorRepository[2]);
+            }
+
+            return batchNumber;
         }
 
         void AddBatchOperatorsToRepo(IBatchOperatorSource source)
         {
             source.SaveOperator(new BatchOperator("Jane", "Doe"));
             source.SaveOperator(new BatchOperator("John", "Roe"));
-        }
-
-        void SetupBatchOperators()
-        {
-            List<BatchOperator> batchOperators = new List<BatchOperator>
-            {
-                new BatchOperator("Lang", "Roubadoux"),
-                new BatchOperator("Nicholas", "Huron"),
-                new BatchOperator("Wally", "McTalian")
-            };
-
-            foreach (BatchOperator batchOperator in batchOperators)
-            {
-                Entity<BatchOperator> entity;
-                ITransaction adder;
-
-                entity = new Entity<BatchOperator>(batchOperator);
-                adder = new AddBatchOperatorTransaction(entity, Store);
-                adder.Execute();
-            }
+            source.SaveOperator(new BatchOperator("Wally", "Beaver"));
         }
 
         void SetupColors()
@@ -124,6 +105,40 @@ namespace CSI.BatchTracker
             }
 
             return batchNumber;
+        }
+
+        private void Receivingbtn_Click(object sender, RoutedEventArgs e)
+        {
+            receivingManagementViewModel = new ReceivingManagementViewModel(
+                new DuracolorIntermixBatchNumberValidator(),
+                new DuracolorIntermixColorList(),
+                receivingSource,
+                operatorSource,
+                inventorySource
+            );
+
+            BatchReceivingManagementWindow window = new BatchReceivingManagementWindow(receivingManagementViewModel);
+            window.ShowDialog();
+        }
+
+        private void Historybtn_Click(object sender, RoutedEventArgs e)
+        {
+            batchHistoryViewModel = new BatchHistoryViewModel(
+                new DuracolorIntermixBatchNumberValidator(),
+                inventorySource,
+                receivingSource,
+                implementedBatchSource
+            );
+
+            BatchHistoryWindow window = new BatchHistoryWindow(batchHistoryViewModel);
+            window.ShowDialog();
+        }
+
+        private void Operatorsbtn_Click(object sender, RoutedEventArgs e)
+        {
+            batchOperatorViewModel = new BatchOperatorViewModel(operatorSource);
+            BatchOperatorManagementWindow window = new BatchOperatorManagementWindow(batchOperatorViewModel);
+            window.ShowDialog();
         }
     }
 }
