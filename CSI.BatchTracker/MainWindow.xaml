@@ -3,107 +3,106 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:CSI.BatchTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1031.697"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <Grid>
-        <Label Content="Add Batch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        Title="BatchTRAX - Cedar Siding, Inc.">
+    <StackPanel Orientation="Vertical">
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem Header="_Close" InputGestureText="Alt+F4"/>
+            </MenuItem>
+            <MenuItem Header="_Batch Management">
+                <MenuItem Header="_Receiving Session" InputGestureText="Ctrl+R"/>
+                <MenuItem Header="Receiving _History" InputGestureText="Ctrl+H"/>
+                <MenuItem Header="Individual _Batch History" InputGestureText="Ctrl+B"/>
+            </MenuItem>
+            <MenuItem Header="_People">
+                <MenuItem Header="Batch _Operator Management" InputGestureText="Ctrl+O"/>
+            </MenuItem>
+        </Menu>
 
-        <ComboBox x:Name="batchColor" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=DataStore.Colors}"/>
+        <WrapPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Current Inventory" FontWeight="Bold"/>
+                <DataGrid AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserSortColumns="False"
+                          IsReadOnly="True"
+                          MinHeight="180"
+                          HorizontalContentAlignment="Stretch">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Color Name" Width="150"/>
+                        <DataGridTextColumn Header="Quantity" Width="80"/>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-        <TextBox x:Name="batchNumber" HorizontalAlignment="Left" Height="23" Margin="135,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="144"/>
-        <TextBox x:Name="batchQty" HorizontalAlignment="Left" Height="23" Margin="284,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="36"/>
-        <DatePicker x:Name="recvDate" HorizontalAlignment="Left" Margin="325,62,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="receivingbtn" Content="Batch Receiving" HorizontalAlignment="Left" Margin="684,62,0,0" VerticalAlignment="Top" Width="95" Click="Receivingbtn_Click"/>
-        <Button x:Name="historybtn" Content="Batch History" HorizontalAlignment="Left" Margin="784,62,0,0" VerticalAlignment="Top" Width="95" Click="Historybtn_Click"/>
-        <Button x:Name="operatorsbtn" Content="Operators" HorizontalAlignment="Left" Margin="884,62,0,0" VerticalAlignment="Top" Width="95" Click="Operatorsbtn_Click" />
-        <Label Content="Color Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
-        <Label Content="Qty." HorizontalAlignment="Left" Margin="284,36,0,0" VerticalAlignment="Top"/>
-        <Label Content="Receiving Date" HorizontalAlignment="Left" Margin="325,36,0,0" VerticalAlignment="Top"/>
-        <Label Content="Batch Number" HorizontalAlignment="Left" Margin="135,36,0,0" VerticalAlignment="Top"/>
+                <Label Content="Average Usage (Last 30 days)" FontWeight="Bold"/>
+                <DataGrid AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserSortColumns="False"
+                          IsReadOnly="True"
+                          MinHeight="180"
+                          HorizontalContentAlignment="Stretch">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Color Name" Width="150"/>
+                        <DataGridTextColumn Header="Qty. Used" Width="80"/>
+                        <DataGridTextColumn Header="Avg. Daily Usage" Width="130"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Margin="5,0,5,0"/>
+            </StackPanel>
 
-        <ComboBox x:Name="batchOperator" HorizontalAlignment="Left" Margin="437,62,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Repository.OperatorRepository}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding FullName}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        
-        <Label Content="Receiving Operator" HorizontalAlignment="Left" Margin="437,36,0,0" VerticalAlignment="Top"/>
-        <Label Content="Current Inventory" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
+            <StackPanel Orientation="Vertical">
+                <Label Content="Implement Batch" FontWeight="Bold"/>
+                <WrapPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" Margin="0,0,5,0">
+                        <Label Content="Batch"/>
+                        <ComboBox Width="160"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,5,0">
+                        <Label Content="Implementation Date &amp; Time"/>
+                        <xceed:DateTimePicker Width="250"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,5,0">
+                        <Label Content="Implementing Operator"/>
+                        <ComboBox Width="130"/>
+                    </StackPanel>
+                    <Button VerticalAlignment="Bottom" Width="100" Content="Commit Batch"/>
+                </WrapPanel>
 
-        <DataGrid x:Name="inventoryGrid" HorizontalAlignment="Left" Height="100" Margin="13,115,0,0" VerticalAlignment="Top" Width="414"
-                  ItemsSource="{Binding Path=CurrentInventory, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Color Name" Binding="{Binding ColorName}"/>
-                <DataGridTextColumn Header="Batch Number" Binding="{Binding BatchNumber}"/>
-                <DataGridTextColumn Header="Qty. Avilable" Binding="{Binding Quantity}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        
-        <Label Content="Implemented Batch Ledger" HorizontalAlignment="Left" Margin="440,173,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="ledgerGrid" HorizontalAlignment="Left" Height="206" Margin="440,204,0,0" VerticalAlignment="Top" Width="522"
-                  ItemsSource="{Binding Path=DataStore.LoggedBatches}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Color Name" Binding="{Binding ColorName}"/>
-                <DataGridTextColumn Header="Batch Number" Binding="{Binding BatchNumber}"/>
-                <DataGridTextColumn Header="Activity Date" Binding="{Binding ActivityDate}"/>
-                <DataGridTextColumn Header="Operator" Binding="{Binding ImplementingOperator.FullName}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label Content="Implement Batch" HorizontalAlignment="Left" Margin="437,89,0,0" VerticalAlignment="Top"/>
-        <Label Content="Implementing Operator" HorizontalAlignment="Left" Margin="706,115,0,0" VerticalAlignment="Top"/>
-        <Label Content="Date" HorizontalAlignment="Left" Margin="598,115,0,0" VerticalAlignment="Top"/>
-        <Label Content="Batch Selection" HorizontalAlignment="Left" Margin="437,115,0,0" VerticalAlignment="Top"/>
-
-        <ComboBox x:Name="ledgerBatchSelection" HorizontalAlignment="Left" Margin="437,146,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=Repository.InventoryRepository}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding DisplayName}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-
-        <DatePicker x:Name="ledgerBatchDate" HorizontalAlignment="Left" Margin="598,146,0,0" VerticalAlignment="Top"/>
-
-        <ComboBox x:Name="ledgerBatchOperator" HorizontalAlignment="Left" Margin="706,146,0,0" VerticalAlignment="Top" Width="156" ItemsSource="{Binding Path=Repository.OperatorRepository}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding FullName}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-
-        <Button Content="Add Batch" HorizontalAlignment="Left" Margin="867,146,0,0" VerticalAlignment="Top" Width="95"/>
-        <Label Content="Add Operator" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top"/>
-        <Label Content="Last Name" HorizontalAlignment="Left" Margin="135,246,0,0" VerticalAlignment="Top"/>
-        <Label Content="First Name" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="103"/>
-        <TextBox x:Name="operatorFN" HorizontalAlignment="Left" Height="23" Margin="10,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103"/>
-        <TextBox x:Name="operatorLN" HorizontalAlignment="Left" Height="23" Margin="135,272,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103"/>
-        <Button Content="Add Operator" HorizontalAlignment="Left" Margin="252,272,0,0" VerticalAlignment="Top" Width="95"/>
-        
-        <DataGrid x:Name="operatorGrid" HorizontalAlignment="Left" Height="100" Margin="10,310,0,0" VerticalAlignment="Top" Width="337"
-                  DataContext="{Binding Path=Repository}" ItemsSource="{Binding Path=OperatorRepository}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Width="100" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="Last Name" Width="100" Binding="{Binding LastName}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        
-        <Separator HorizontalAlignment="Left" Height="100" Margin="279,206,0,0" VerticalAlignment="Top" Width="309" RenderTransformOrigin="0.5,0.5">
-            <Separator.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90.025"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Separator.RenderTransform>
-        </Separator>
-        <TextBox x:Name="poNumber" HorizontalAlignment="Left" Height="23" Margin="598,62,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="81"/>
-        <Label Content="PO Number" HorizontalAlignment="Left" Margin="598,36,0,0" VerticalAlignment="Top"/>
-
-    </Grid>
+                <Label Content="Implementation Ledger (Last 30 days)" FontWeight="Bold"/>
+                <DataGrid AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserSortColumns="False"
+                          IsReadOnly="True"
+                          MinHeight="280"
+                          Margin="0,0,0,5"
+                          VerticalScrollBarVisibility="Visible"
+                          VerticalContentAlignment="Stretch">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Color Name" Width="120"/>
+                        <DataGridTextColumn Header="Batch Number" Width="150"/>
+                        <DataGridTextColumn Header="Date Implemented" Width="170"/>
+                        <DataGridTextColumn Header="Implementing Operator" Width="170"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <WrapPanel Orientation="Horizontal">
+                    <Button Content="Return Selected Batch to Inventory" HorizontalAlignment="Left" Margin="0,0,5,0"/>
+                    <Button Content="View History of Selected Batch" HorizontalAlignment="Left"/>
+                </WrapPanel>
+            </StackPanel>
+        </WrapPanel>
+    </StackPanel>
 </Window>
