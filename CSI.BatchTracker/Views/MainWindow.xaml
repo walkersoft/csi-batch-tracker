@@ -37,7 +37,7 @@
                           HorizontalContentAlignment="Stretch"
                           ItemsSource="{Binding CurrentInventory}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="100" Binding="{Binding ColorName}"/>
+                        <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                         <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
                         <DataGridTextColumn Header="Quantity" Width="80" Binding="{Binding Quantity}"/>
                     </DataGrid.Columns>
@@ -53,7 +53,7 @@
                           MinHeight="180"
                           HorizontalContentAlignment="Stretch">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="150"/>
+                        <DataGridTextColumn Header="Color Name" Width="120"/>
                         <DataGridTextColumn Header="Qty. Used" Width="80"/>
                         <DataGridTextColumn Header="Avg. Daily Usage" Width="130"/>
                     </DataGrid.Columns>
