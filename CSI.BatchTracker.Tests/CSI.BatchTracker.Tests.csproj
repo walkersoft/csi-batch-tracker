@@ -69,7 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelpers\NativeModels\BatchOperatorTestHelper.cs" />
     <Compile Include="TestHelpers\NativeModels\ReceivedBatchTestHelper.cs" />
-    <Compile Include="ViewModels\BatchOperatorViewModelTest.cs" />
+    <Compile Include="ViewModels\WithMemoryStore\BatchOperatorViewModelTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\AddReceivedBatchToReceivingSessionLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\BatchOperatorListBoxChangedCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\BatchOperatorViewModelCommandTestingBase.cs" />
@@ -88,7 +88,7 @@
     <Compile Include="ViewModels\Commands\WithMemoryStore\AddReceivedBatchToReceivingSessionLedgerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\CommitReceivingSessionLedgerToDataSourceCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\RemoveReceivableBatchFromSessionLedgerCommandTest.cs" />
-    <Compile Include="ViewModels\ReceivingManagementViewModelTest.cs" />
+    <Compile Include="ViewModels\WithMemoryStore\ReceivingManagementViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

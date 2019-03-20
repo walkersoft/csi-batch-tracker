@@ -5,7 +5,7 @@ using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
 using NUnit.Framework;
 
-namespace CSI.BatchTracker.Tests.ViewModels
+namespace CSI.BatchTracker.Tests.ViewModels.WithMemoryStore
 {
     [TestFixture]
     class ReceivingManagementViewModelTest
