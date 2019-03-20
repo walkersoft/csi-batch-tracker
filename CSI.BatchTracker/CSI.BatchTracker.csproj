@@ -108,6 +108,7 @@
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransaction.cs" />
     <Compile Include="Domain\BatchOperatorValidator.cs" />
     <Compile Include="ViewModels\Commands\DisplayBatchHistoryFromBatchNumberCommand.cs" />
+    <Compile Include="ViewModels\Commands\OpenReceivingManagementSessionViewCommand.cs" />
     <Compile Include="ViewModels\Commands\RemoveReceivableBatchFromSessionLedgerCommand.cs" />
     <Compile Include="ViewModels\Commands\SaveBatchOperatorCommand.cs" />
     <Compile Include="ViewModels\BatchOperatorViewModel.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Domain\NativeModels\LoggedBatch.cs" />
     <Compile Include="Exceptions\BatchException.cs" />
     <Compile Include="Exceptions\BatchNumberValidationException.cs" />
+    <Compile Include="Views\Contracts\IView.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

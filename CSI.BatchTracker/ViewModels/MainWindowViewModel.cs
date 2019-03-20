@@ -1,6 +1,7 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Views;
+using CSI.BatchTracker.Views.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,8 @@ namespace CSI.BatchTracker.ViewModels
 
         public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
         public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
+
+        public IView ReceivingManagementSessionView { get; set; }
 
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
@@ -74,6 +77,17 @@ namespace CSI.BatchTracker.ViewModels
             return ImplementableBatchSelectedIndex > -1
                 && ImplementationDateTime != null
                 && ImplementingBatchOperatorSelectedIndex > -1;
+        }
+
+        public bool ReceivingManagementSessionViewIsSet()
+        {
+            return ReceivingManagementSessionView != null
+                && ReceivingManagementSessionView.CanShowView();
+        }
+
+        public void ShowReceivingManagementSessionView()
+        {
+            ReceivingManagementSessionView.ShowView();
         }
     }
 }
