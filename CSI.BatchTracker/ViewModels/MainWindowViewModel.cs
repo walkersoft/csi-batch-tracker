@@ -1,5 +1,6 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,8 +34,19 @@ namespace CSI.BatchTracker.ViewModels
             this.receivedBatchSource = receivedBatchSource;
             this.implementedBatchSource = implementedBatchSource;
             this.operatorSource = operatorSource;
+
+            AssociateInventoryAndImplementationLedgers();
+            InitializeBatchImplementationSettings();
+        }
+
+        void AssociateInventoryAndImplementationLedgers()
+        {
             CurrentInventory = inventorySource.CurrentInventory;
             ImplementedBatchLedger = implementedBatchSource.ImplementedBatchLedger;
+        }
+
+        void InitializeBatchImplementationSettings()
+        {
             ImplementableBatchSelectedIndex = -1;
             ImplementingBatchOperatorSelectedIndex = -1;
             ImplementationDateTime = null;
