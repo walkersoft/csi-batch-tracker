@@ -27,21 +27,21 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void CommandWillNotExecuteIfViewCannotShowItself()
         {
-            viewModel.ReceivingManagementSessionView = new IViewTestStub();
+            viewModel.ReceivingManagementSessionViewer = new IViewTestStub();
             Assert.False(command.CanExecute(null));
         }
 
         [Test]
         public void CommandWillExecuteIfViewIsSetAndCanShowItself()
         {
-            viewModel.ReceivingManagementSessionView = new PassableIViewTestStub();
+            viewModel.ReceivingManagementSessionViewer = new PassableIViewTestStub();
             Assert.True(command.CanExecute(null));
         }
 
         [Test]
         public void ExecutedCommandWillCallIViewShowViewMethod()
         {
-            viewModel.ReceivingManagementSessionView = new IViewTestStub();
+            viewModel.ReceivingManagementSessionViewer = new IViewTestStub();
             Assert.DoesNotThrow(() => command.Execute(null));
         }
     }

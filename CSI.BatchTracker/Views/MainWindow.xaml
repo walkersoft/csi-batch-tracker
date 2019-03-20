@@ -15,7 +15,7 @@
                 <MenuItem Header="_Close" InputGestureText="Alt+F4"/>
             </MenuItem>
             <MenuItem Header="_Batch Management">
-                <MenuItem Header="_Receiving Session" InputGestureText="Ctrl+R"/>
+                <MenuItem Header="_Receiving Session" InputGestureText="Ctrl+R" Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
                 <MenuItem Header="Receiving _History" InputGestureText="Ctrl+H"/>
                 <MenuItem Header="Individual _Batch History" InputGestureText="Ctrl+B"/>
             </MenuItem>

@@ -121,9 +121,11 @@
     <Compile Include="Views\BatchOperatorManagementWindow.xaml.cs">
       <DependentUpon>BatchOperatorManagementWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BatchReceivingManagementViewer.cs" />
     <Compile Include="Views\BatchReceivingManagementWindow.xaml.cs">
       <DependentUpon>BatchReceivingManagementWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewBase.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
