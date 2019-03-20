@@ -16,6 +16,7 @@ namespace CSI.BatchTracker.ViewModels
     public sealed class MainWindowViewModel : ViewModelBase
     {
         public int ImplementableBatchSelectedIndex { get; set; }
+
         public int ImplementingBatchOperatorSelectedIndex { get; set; }
         public DateTime? ImplementationDateTime { get; set; }
 
@@ -23,8 +24,10 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
 
         public IView ReceivingManagementSessionViewer { get; set; }
+        public IView BatchOperatorManagementSessionViewer { get; set; }
 
         public ICommand LaunchReceivingManagementSessionViewerCommand { get; set; }
+        public ICommand LaunchBatchOperatorManagementSessionViewerCommand { get; set; }
 
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
@@ -46,6 +49,7 @@ namespace CSI.BatchTracker.ViewModels
             InitializeBatchImplementationSettings();
 
             LaunchReceivingManagementSessionViewerCommand = new OpenReceivingManagementSessionViewCommand(this);
+            LaunchBatchOperatorManagementSessionViewerCommand = new OpenBatchOperatorManagementViewCommand(this);
         }
 
         void AssociateInventoryAndImplementationLedgers()
@@ -94,6 +98,17 @@ namespace CSI.BatchTracker.ViewModels
         public void ShowReceivingManagementSessionView()
         {
             ReceivingManagementSessionViewer.ShowView();
+        }
+
+        public bool BatchOperatorManagementSessionViewIsSet()
+        {
+            return BatchOperatorManagementSessionViewer != null
+                && BatchOperatorManagementSessionViewer.CanShowView();
+        }
+
+        public void ShowBatchOperatorManagementSessionView()
+        {
+            BatchOperatorManagementSessionViewer.ShowView();
         }
     }
 }

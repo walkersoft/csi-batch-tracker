@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Views
 {
-    public class BatchReceivingManagementViewer : ViewBase
+    public sealed class BatchOperatorManagementViewer : ViewBase
     {
-        ReceivingManagementViewModel viewModel;
+        BatchOperatorViewModel viewModel;
 
-        public BatchReceivingManagementViewer(ReceivingManagementViewModel viewModel)
+        public BatchOperatorManagementViewer(BatchOperatorViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
 
         public override void ResetWindow()
         {
-            window = new BatchReceivingManagementWindow(viewModel);
-        }        
+            window = new BatchOperatorManagementWindow(viewModel);
+        }
     }
 }

@@ -74,8 +74,10 @@
     <Compile Include="TestHelpers\NativeModels\ReceivedBatchTestHelper.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\CommitBatchToInventoryLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\MainWindowViewModelCommandBehaviorTestingBase.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\OpenBatchOperatorManagementViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenReceivingManagementSessionViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\CommitBatchToInventoryLedgerCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchOperatorManagementViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingManagementSessionViewCommandTest.cs" />
     <Compile Include="ViewModels\WithMemoryStore\BatchOperatorViewModelTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\AddReceivedBatchToReceivingSessionLedgerCommandBehaviorTest.cs" />

@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         Title="BatchTRAX - Cedar Siding, Inc.">
     <StackPanel Orientation="Vertical">
-        <Menu>
+        <Menu Margin="0,0,0,5">
             <MenuItem Header="_File">
                 <MenuItem Header="_Close" InputGestureText="Alt+F4"/>
             </MenuItem>
@@ -20,7 +20,7 @@
                 <MenuItem Header="Individual _Batch History" InputGestureText="Ctrl+B"/>
             </MenuItem>
             <MenuItem Header="_People">
-                <MenuItem Header="Batch _Operator Management" InputGestureText="Ctrl+O"/>
+                <MenuItem Header="Batch _Operator Management" InputGestureText="Ctrl+O" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
         </Menu>
 
@@ -34,10 +34,12 @@
                           CanUserSortColumns="False"
                           IsReadOnly="True"
                           MinHeight="180"
-                          HorizontalContentAlignment="Stretch">
+                          HorizontalContentAlignment="Stretch"
+                          ItemsSource="{Binding CurrentInventory}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="150"/>
-                        <DataGridTextColumn Header="Quantity" Width="80"/>
+                        <DataGridTextColumn Header="Color Name" Width="100" Binding="{Binding ColorName}"/>
+                        <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
+                        <DataGridTextColumn Header="Quantity" Width="80" Binding="{Binding Quantity}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

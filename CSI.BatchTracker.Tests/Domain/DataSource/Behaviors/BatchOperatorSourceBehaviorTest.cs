@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             operatorSource.SaveOperator(batchOperator);
 
             Assert.AreEqual(batchOperator.FirstName, operatorSource.OperatorRepository[targetCollectionId].FirstName);
-            Assert.AreEqual(batchOperator.FirstName, operatorSource.OperatorRepository[targetCollectionId].FirstName);
+            Assert.AreEqual(batchOperator.LastName, operatorSource.OperatorRepository[targetCollectionId].LastName);
         }
 
         [Test]

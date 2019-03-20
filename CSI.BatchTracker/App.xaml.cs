@@ -24,6 +24,7 @@ namespace CSI.BatchTracker
             SetupMainWindowViewModelViewers();
             mainWindow = new MainWindow(mainWindowViewModel);
             mainWindow.Show();
+            
         }
 
         MainWindowViewModel PrepareMainWindowViewModel()
@@ -42,6 +43,7 @@ namespace CSI.BatchTracker
         void SetupMainWindowViewModelViewers()
         {
             mainWindowViewModel.ReceivingManagementSessionViewer = new BatchReceivingManagementViewer(GetReceivingManagementViewModel());
+            mainWindowViewModel.BatchOperatorManagementSessionViewer = new BatchOperatorManagementViewer(GetBatchOperatorViewModel());
         }
 
         ReceivingManagementViewModel GetReceivingManagementViewModel()
@@ -52,6 +54,11 @@ namespace CSI.BatchTracker
                 receivedBatchSource,
                 operatorSource,
                 inventorySource);
+        }
+
+        BatchOperatorViewModel GetBatchOperatorViewModel()
+        {
+            return new BatchOperatorViewModel(operatorSource);
         }
 
         public void ShutdownBatchTRAX(object sender, ExitEventArgs e)

@@ -19,7 +19,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         {
             this.memoryStore = memoryStore;
             BatchOperatorIdMappings = new Dictionary<int, int>();
-            OperatorRepository = new ObservableCollection<BatchOperator>();
+            operatorRepository = new ObservableCollection<BatchOperator>();
         }
 
         ObservableCollection<BatchOperator> operatorRepository;
@@ -78,8 +78,8 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
             foreach (Entity<BatchOperator> batchOperator in finder.Results)
             {
-                operatorRepository.Add(batchOperator.NativeModel);
                 BatchOperatorIdMappings.Add(i, batchOperator.SystemId);
+                operatorRepository.Add(batchOperator.NativeModel);
                 i++;
             }
         }
