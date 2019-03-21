@@ -39,6 +39,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 Entity<LoggedBatch> entity = new Entity<LoggedBatch>(implemented);
                 ITransaction adder = new TransferInventoryBatchToImplementedBatchLedgerTransaction(entity, memoryStore);
                 adder.Execute();
+                inventorySource.DeductBatchFromInventory(batchNumber);
                 UpdateImplementationLedger();
             }
         }

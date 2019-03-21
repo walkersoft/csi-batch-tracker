@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    abstract class CommitBatchToInventoryLedgerCommandBehaviorTest : MainWindowViewModelCommandBehaviorTestingBase
+    abstract class CommitBatchToImplementationLedgerCommandBehaviorTest : MainWindowViewModelCommandBehaviorTestingBase
     {
         [SetUp]
         public override void SetUp()

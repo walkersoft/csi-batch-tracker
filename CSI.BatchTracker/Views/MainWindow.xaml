@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:CSI.BatchTracker"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
@@ -69,17 +70,38 @@
                 <WrapPanel Orientation="Horizontal">
                     <StackPanel Orientation="Vertical" Margin="0,0,5,0">
                         <Label Content="Batch"/>
-                        <ComboBox Width="160"/>
+                        <ComboBox Width="160" 
+                                  SelectedIndex="{Binding ImplementableBatchSelectedIndex}"
+                                  ItemsSource="{Binding CurrentInventory}"
+                                  DisplayMemberPath="DisplayName">
+                            <ComboBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
+                            </ComboBox.InputBindings>
+                        </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="0,0,5,0">
                         <Label Content="Implementation Date &amp; Time"/>
-                        <xceed:DateTimePicker Width="250"/>
+                        <xceed:DateTimePicker Width="250" Height="22" Value="{Binding ImplementationDateTime}">
+                            <xceed:DateTimePicker.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
+                            </xceed:DateTimePicker.InputBindings>
+                        </xceed:DateTimePicker>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="0,0,5,0">
                         <Label Content="Implementing Operator"/>
-                        <ComboBox Width="130"/>
+                        <ComboBox Width="130"
+                                  SelectedIndex="{Binding ImplementingBatchOperatorSelectedIndex}"
+                                  ItemsSource="{Binding OperatorRepository}"
+                                  DisplayMemberPath="FullName">
+                            <ComboBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
+                            </ComboBox.InputBindings>
+                        </ComboBox>
                     </StackPanel>
-                    <Button VerticalAlignment="Bottom" Width="100" Content="Commit Batch"/>
+                    <Button VerticalAlignment="Bottom" 
+                            Width="100" 
+                            Content="Commit Batch"
+                            Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
                 </WrapPanel>
 
                 <Label Content="Implementation Ledger (Last 30 days)" FontWeight="Bold"/>
@@ -92,17 +114,18 @@
                           MinHeight="280"
                           Margin="0,0,0,5"
                           VerticalScrollBarVisibility="Visible"
-                          VerticalContentAlignment="Stretch">
+                          VerticalContentAlignment="Stretch"
+                          ItemsSource="{Binding ImplementedBatchLedger}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="120"/>
-                        <DataGridTextColumn Header="Batch Number" Width="150"/>
-                        <DataGridTextColumn Header="Date Implemented" Width="170"/>
-                        <DataGridTextColumn Header="Implementing Operator" Width="170"/>
+                        <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
+                        <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
+                        <DataGridTextColumn Header="Date Implemented" Width="170" Binding="{Binding ActivityDate}"/>
+                        <DataGridTextColumn Header="Implementing Operator" Width="170" Binding="{Binding ImplementingOperator.FullName}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <WrapPanel Orientation="Horizontal">
-                    <Button Content="Return Selected Batch to Inventory" HorizontalAlignment="Left" Margin="0,0,5,0"/>
-                    <Button Content="View History of Selected Batch" HorizontalAlignment="Left"/>
+                    <Button Content="Return Selected Batch to Inventory" Width="230" HorizontalAlignment="Left" Margin="0,0,5,0"/>
+                    <Button Content="View History of Selected Batch" Width="190" HorizontalAlignment="Left" />
                 </WrapPanel>
             </StackPanel>
         </WrapPanel>

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public sealed class CommitBatchToInventoryLedgerCommand : CommandBase
+    public sealed class CommitBatchToImplementationLedgerCommand : CommandBase
     {
         MainWindowViewModel viewModel;
 
-        public CommitBatchToInventoryLedgerCommand(MainWindowViewModel viewModel)
+        public CommitBatchToImplementationLedgerCommand(MainWindowViewModel viewModel)
         {
             this.viewModel = viewModel;
         }

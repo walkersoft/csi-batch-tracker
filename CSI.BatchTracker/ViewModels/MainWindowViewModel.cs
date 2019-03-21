@@ -22,12 +22,14 @@ namespace CSI.BatchTracker.ViewModels
 
         public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
         public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
+        public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
 
         public IView ReceivingManagementSessionViewer { get; set; }
         public IView BatchOperatorManagementSessionViewer { get; set; }
 
-        public ICommand LaunchReceivingManagementSessionViewerCommand { get; set; }
-        public ICommand LaunchBatchOperatorManagementSessionViewerCommand { get; set; }
+        public ICommand LaunchReceivingManagementSessionViewerCommand { get; private set; }
+        public ICommand LaunchBatchOperatorManagementSessionViewerCommand { get; private set; }
+        public ICommand CommitInventoryBatchToImplementationLedgerCommand { get; private set; }
 
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
@@ -45,17 +47,19 @@ namespace CSI.BatchTracker.ViewModels
             this.implementedBatchSource = implementedBatchSource;
             this.operatorSource = operatorSource;
 
-            AssociateInventoryAndImplementationLedgers();
+            AssociateCollectionsAndRepositories();
             InitializeBatchImplementationSettings();
 
             LaunchReceivingManagementSessionViewerCommand = new OpenReceivingManagementSessionViewCommand(this);
             LaunchBatchOperatorManagementSessionViewerCommand = new OpenBatchOperatorManagementViewCommand(this);
+            CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
         }
 
-        void AssociateInventoryAndImplementationLedgers()
+        void AssociateCollectionsAndRepositories()
         {
             CurrentInventory = inventorySource.CurrentInventory;
             ImplementedBatchLedger = implementedBatchSource.ImplementedBatchLedger;
+            OperatorRepository = operatorSource.OperatorRepository;
         }
 
         void InitializeBatchImplementationSettings()

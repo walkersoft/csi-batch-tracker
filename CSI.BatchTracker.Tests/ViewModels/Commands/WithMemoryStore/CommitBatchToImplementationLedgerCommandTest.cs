@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
 {
     [TestFixture]
-    class CommitBatchToInventoryLedgerCommandTest : CommitBatchToInventoryLedgerCommandBehaviorTest 
+    class CommitBatchToImplementationLedgerCommandTest : CommitBatchToImplementationLedgerCommandBehaviorTest 
     {
         [SetUp]
         public override void SetUp()
@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
             implementedBatchSource = new MemoryImplementedBatchSource(context, inventorySource);
             operatorSource = new MemoryBatchOperatorSource(context);
             viewModel = new MainWindowViewModel(inventorySource, receivedBatchSource, implementedBatchSource, operatorSource);
-            command = new CommitBatchToInventoryLedgerCommand(viewModel);
+            command = new CommitBatchToImplementationLedgerCommand(viewModel);
             base.SetUp();
         }
     }

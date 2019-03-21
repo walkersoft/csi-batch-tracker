@@ -19,7 +19,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         {
             this.memoryStore = memoryStore;
             BatchOperatorIdMappings = new Dictionary<int, int>();
-            operatorRepository = new ObservableCollection<BatchOperator>();
+            OperatorRepository = new ObservableCollection<BatchOperator>();
         }
 
         ObservableCollection<BatchOperator> operatorRepository;

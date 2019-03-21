@@ -23,7 +23,13 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
             LastSystemId++;
             entity = new Entity<LoggedBatch>(LastSystemId, entity.NativeModel);
             store.ImplementedBatchLedger.Add(LastSystemId, entity);
-            inventoryBatch.NativeModel.DeductQuantity(1);
+            EditInventoryRecordAndDeleteIfDepleted(inventoryBatch);
+        }
+        
+        void EditInventoryRecordAndDeleteIfDepleted(Entity<InventoryBatch> entity)
+        {
+            EditBatchInCurrentInventoryTransaction updater = new EditBatchInCurrentInventoryTransaction(entity, store);
+            updater.Execute();
         }
 
         Entity<InventoryBatch> GetExistingInventoryBatch(Entity<LoggedBatch> implemented)
