@@ -41,5 +41,14 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             operatorSource.SaveOperator(operatorHelper.GetJohnDoeOperator());
             receivedBatchSource.SaveReceivedBatch(SetupReceivedBatchWithQuantityOfTwo());
         }
+
+        protected string SetupInventoryStateAndReceiveSingleBatchAndReturnBatchNumber()
+        {
+            ReceivedBatch batch = SetupReceivedBatchWithQuantityOfTwo();
+            SetupInventoryStateToImplementBatch();
+            implementedBatchSource.AddBatchToImplementationLedger(batch.BatchNumber, DateTime.Now, batch.ReceivingOperator);
+
+            return batch.BatchNumber;
+        }
     }
 }

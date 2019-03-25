@@ -76,9 +76,11 @@
     <Compile Include="ViewModels\Commands\Behaviors\MainWindowViewModelCommandBehaviorTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchOperatorManagementViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenReceivingManagementSessionViewCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\UndoImplementedBatchCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\CommitBatchToImplementationLedgerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchOperatorManagementViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingManagementSessionViewCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\UndoImplementedBatchCommandTest.cs" />
     <Compile Include="ViewModels\WithMemoryStore\BatchOperatorViewModelTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\AddReceivedBatchToReceivingSessionLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\BatchOperatorListBoxChangedCommandBehaviorTest.cs" />

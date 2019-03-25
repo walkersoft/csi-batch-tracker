@@ -115,7 +115,8 @@
                           Margin="0,0,0,5"
                           VerticalScrollBarVisibility="Visible"
                           VerticalContentAlignment="Stretch"
-                          ItemsSource="{Binding ImplementedBatchLedger}">
+                          ItemsSource="{Binding ImplementedBatchLedger}"
+                          SelectedIndex="{Binding ImplementedBatchSelectedIndex}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                         <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
@@ -124,7 +125,11 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <WrapPanel Orientation="Horizontal">
-                    <Button Content="Return Selected Batch to Inventory" Width="230" HorizontalAlignment="Left" Margin="0,0,5,0"/>
+                    <Button Content="Return Selected Batch to Inventory" 
+                            Width="230" 
+                            HorizontalAlignment="Left" 
+                            Margin="0,0,5,0"
+                            Command="{Binding UndoSelectedImplementedBatchCommand}"/>
                     <Button Content="View History of Selected Batch" Width="190" HorizontalAlignment="Left" />
                 </WrapPanel>
             </StackPanel>

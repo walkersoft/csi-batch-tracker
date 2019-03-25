@@ -5,6 +5,7 @@ using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement;
 using CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CSI.BatchTracker.Domain.DataSource.MemorySource
@@ -12,6 +13,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
     public class MemoryImplementedBatchSource : IImplementedBatchSource
     {
         public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
+        public Dictionary<int, int> ImplementedBatchIdMappings { get; private set; }
 
         MemoryStoreContext memoryStore;
         IActiveInventorySource inventorySource;
@@ -21,6 +23,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             this.memoryStore = memoryStore;
             this.inventorySource = inventorySource;
             ImplementedBatchLedger = new ObservableCollection<LoggedBatch>();
+            ImplementedBatchIdMappings = new Dictionary<int, int>();
         }
 
         public void AddBatchToImplementationLedger(string batchNumber, DateTime date, BatchOperator batchOperator)
@@ -55,10 +58,15 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         void PopulatedImplementedBatchLedgerFromTransactionResults(ITransaction transaction)
         {
             ImplementedBatchLedger.Clear();
+            ImplementedBatchIdMappings.Clear();
+            int i = 0;
+
             foreach (IEntity entity in transaction.Results)
             {
                 Entity<LoggedBatch> loggedEntity = entity as Entity<LoggedBatch>;
+                ImplementedBatchIdMappings.Add(i, loggedEntity.SystemId);
                 ImplementedBatchLedger.Add(loggedEntity.NativeModel);
+                i++;
             }
         }
 

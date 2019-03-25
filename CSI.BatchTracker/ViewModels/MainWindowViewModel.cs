@@ -16,8 +16,9 @@ namespace CSI.BatchTracker.ViewModels
     public sealed class MainWindowViewModel : ViewModelBase
     {
         public int ImplementableBatchSelectedIndex { get; set; }
-
+        public int ImplementedBatchSelectedIndex { get; set; }
         public int ImplementingBatchOperatorSelectedIndex { get; set; }
+
         public DateTime? ImplementationDateTime { get; set; }
 
         public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
@@ -30,6 +31,7 @@ namespace CSI.BatchTracker.ViewModels
         public ICommand LaunchReceivingManagementSessionViewerCommand { get; private set; }
         public ICommand LaunchBatchOperatorManagementSessionViewerCommand { get; private set; }
         public ICommand CommitInventoryBatchToImplementationLedgerCommand { get; private set; }
+        public ICommand UndoSelectedImplementedBatchCommand { get; private set; }
 
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
@@ -53,6 +55,7 @@ namespace CSI.BatchTracker.ViewModels
             LaunchReceivingManagementSessionViewerCommand = new OpenReceivingManagementSessionViewCommand(this);
             LaunchBatchOperatorManagementSessionViewerCommand = new OpenBatchOperatorManagementViewCommand(this);
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
+            UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
         }
 
         void AssociateCollectionsAndRepositories()
@@ -65,6 +68,7 @@ namespace CSI.BatchTracker.ViewModels
         void InitializeBatchImplementationSettings()
         {
             ImplementableBatchSelectedIndex = -1;
+            ImplementedBatchSelectedIndex = -1;
             ImplementingBatchOperatorSelectedIndex = -1;
             ImplementationDateTime = null;
         }
@@ -113,6 +117,19 @@ namespace CSI.BatchTracker.ViewModels
         public void ShowBatchOperatorManagementSessionView()
         {
             BatchOperatorManagementSessionViewer.ShowView();
+        }
+
+        public bool SelectedBatchCanBeUndone()
+        {
+            return ImplementedBatchLedger.Count > 0
+                && ImplementedBatchSelectedIndex > -1;
+        }
+
+        public void UndoSelectedBatchFromImplementationLedger()
+        {
+            int targetId = implementedBatchSource.ImplementedBatchIdMappings[ImplementedBatchSelectedIndex];
+            implementedBatchSource.UndoImplementedBatch(targetId);
+            NotifyPropertyChanged("CurrentInventory");
         }
     }
 }
