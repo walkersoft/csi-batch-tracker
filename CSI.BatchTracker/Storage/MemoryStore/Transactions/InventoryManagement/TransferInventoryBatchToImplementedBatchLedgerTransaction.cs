@@ -8,7 +8,7 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
     {
         Entity<LoggedBatch> entity;
         MemoryStoreContext store;
-        public int LastSystemId { get; private set; }
+        public static int LastSystemId { get; private set; }
 
         public TransferInventoryBatchToImplementedBatchLedgerTransaction(Entity<LoggedBatch> entity, MemoryStoreContext store)
         {

@@ -5,6 +5,7 @@ using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using CSI.BatchTracker.Views;
+using System;
 using System.Windows;
 
 namespace CSI.BatchTracker
@@ -23,8 +24,7 @@ namespace CSI.BatchTracker
             mainWindowViewModel = PrepareMainWindowViewModel();
             SetupMainWindowViewModelViewers();
             mainWindow = new MainWindow(mainWindowViewModel);
-            mainWindow.Show();
-            
+            mainWindow.Show();          
         }
 
         MainWindowViewModel PrepareMainWindowViewModel()

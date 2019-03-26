@@ -135,5 +135,37 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 
             Assert.AreEqual(expectedCount, implementedBatchSource.ImplementedBatchLedger.Count);
         }
+
+        [Test]
+        public void TriggerUpdatingOfActiveInventoryWhenImplementationLedgerManipulatesInventoryStore()
+        {
+            int expectedCountBefore = 0;
+            int expectedCountAfter = 1;
+            receivedBatch.Quantity = 1;
+
+            inventorySource.AddReceivedBatchToInventory(receivedBatch);
+            implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, DateTime.Now, receivedBatch.ReceivingOperator);
+
+            Assert.AreEqual(expectedCountBefore, inventorySource.CurrentInventory.Count);
+
+            implementedBatchSource.UndoImplementedBatch(implementedBatchSource.ImplementedBatchIdMappings[0]);
+
+            Assert.AreEqual(expectedCountAfter, inventorySource.CurrentInventory.Count);
+        }
+
+        [Test]
+        public void ReceivedBatchTimeStampSecondsAreAtZero()
+        {
+            int expectedSeconds = 0;
+
+            inventorySource.AddReceivedBatchToInventory(receivedBatch);
+            implementedBatchSource.AddBatchToImplementationLedger(
+                receivedBatch.BatchNumber,
+                new DateTime(2019, 1, 1, 1, 1, 1),
+                receivedBatch.ReceivingOperator
+            );
+
+            Assert.AreEqual(expectedSeconds, implementedBatchSource.ImplementedBatchLedger[0].ActivityDate.Second);
+        }
     }
 }

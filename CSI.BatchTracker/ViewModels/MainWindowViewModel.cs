@@ -15,15 +15,10 @@ namespace CSI.BatchTracker.ViewModels
 {
     public sealed class MainWindowViewModel : ViewModelBase
     {
-        public int ImplementableBatchSelectedIndex { get; set; }
-        public int ImplementedBatchSelectedIndex { get; set; }
-        public int ImplementingBatchOperatorSelectedIndex { get; set; }
-
-        public DateTime? ImplementationDateTime { get; set; }
-
-        public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
-        public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
-        public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
+        IActiveInventorySource inventorySource;
+        IReceivedBatchSource receivedBatchSource;
+        IImplementedBatchSource implementedBatchSource;
+        IBatchOperatorSource operatorSource;
 
         public IView ReceivingManagementSessionViewer { get; set; }
         public IView BatchOperatorManagementSessionViewer { get; set; }
@@ -33,10 +28,13 @@ namespace CSI.BatchTracker.ViewModels
         public ICommand CommitInventoryBatchToImplementationLedgerCommand { get; private set; }
         public ICommand UndoSelectedImplementedBatchCommand { get; private set; }
 
-        IActiveInventorySource inventorySource;
-        IReceivedBatchSource receivedBatchSource;
-        IImplementedBatchSource implementedBatchSource;
-        IBatchOperatorSource operatorSource;
+        public int ImplementableBatchSelectedIndex { get; set; }
+        public int ImplementedBatchSelectedIndex { get; set; }
+        public int ImplementingBatchOperatorSelectedIndex { get; set; }
+        public DateTime? ImplementationDateTime { get; set; }
+        public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
+        public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
+        public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }        
 
         public MainWindowViewModel(
             IActiveInventorySource inventorySource,
@@ -129,7 +127,6 @@ namespace CSI.BatchTracker.ViewModels
         {
             int targetId = implementedBatchSource.ImplementedBatchIdMappings[ImplementedBatchSelectedIndex];
             implementedBatchSource.UndoImplementedBatch(targetId);
-            NotifyPropertyChanged("CurrentInventory");
         }
     }
 }

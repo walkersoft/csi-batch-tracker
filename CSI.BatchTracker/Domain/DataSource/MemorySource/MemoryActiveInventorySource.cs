@@ -38,7 +38,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             UpdateActiveInventory();
         }
 
-        void UpdateActiveInventory()
+        public void UpdateActiveInventory()
         {
             ITransaction finder = new ListCurrentInventoryTransaction(memoryStore);
             finder.Execute();
@@ -48,8 +48,8 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
             foreach (KeyValuePair<int, Entity<InventoryBatch>> entity in memoryStore.CurrentInventory)
             {
-                CurrentInventory.Add(entity.Value.NativeModel);
                 CurrentInventoryBatchNumberToIdMappings.Add(entity.Value.NativeModel.BatchNumber, entity.Value.SystemId);
+                CurrentInventory.Add(entity.Value.NativeModel);
             }
         }
 

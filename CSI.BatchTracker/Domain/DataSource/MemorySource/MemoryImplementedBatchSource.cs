@@ -29,6 +29,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         public void AddBatchToImplementationLedger(string batchNumber, DateTime date, BatchOperator batchOperator)
         {
             InventoryBatch inventoryBatch = inventorySource.FindInventoryBatchByBatchNumber(batchNumber);
+            date = CreateDateTimeWithPrecisionToMinutes(date);
 
             if (inventoryBatch.BatchNumber == batchNumber)
             {
@@ -45,6 +46,11 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 inventorySource.DeductBatchFromInventory(batchNumber);
                 UpdateImplementationLedger();
             }
+        }
+
+        DateTime CreateDateTimeWithPrecisionToMinutes(DateTime date)
+        {
+            return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, 0);
         }
 
         void UpdateImplementationLedger()
@@ -81,7 +87,9 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 ITransaction undo = new UndoImplementedBatchCommittedToLedgerTransaction(implemented, memoryStore);
                 undo.Execute();
                 UpdateImplementationLedger();
-            }            
+            }
+
+            inventorySource.UpdateActiveInventory();
         }
 
         public void FindImplementedBatchesByBatchNumber(string batchNumber)

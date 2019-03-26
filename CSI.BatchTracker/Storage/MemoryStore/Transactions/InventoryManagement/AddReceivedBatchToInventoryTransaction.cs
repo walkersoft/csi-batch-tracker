@@ -8,7 +8,7 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
     {
         MemoryStoreContext store;
         Entity<InventoryBatch> entity;
-        public int LastSystemId { get; private set; }
+        public static int LastSystemId { get; private set; }
 
         public AddReceivedBatchToInventoryTransaction(Entity<InventoryBatch> entity, MemoryStoreContext store)
         {
