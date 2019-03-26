@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DemoTools\DataSourcePopulator.cs" />
     <Compile Include="Domain\Contracts\IColorList.cs" />
     <Compile Include="Domain\DataSource\Contracts\IActiveInventorySource.cs" />
     <Compile Include="Domain\DataSource\Contracts\IBatchOperatorSource.cs" />
