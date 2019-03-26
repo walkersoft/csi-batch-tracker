@@ -3,9 +3,7 @@ using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
-using CSI.BatchTracker.ViewModels.Commands;
 using CSI.BatchTracker.Views;
-using System;
 using System.Windows;
 
 namespace CSI.BatchTracker

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSI.BatchTracker.ViewModels.Commands
+﻿namespace CSI.BatchTracker.ViewModels.Commands
 {
     public sealed class DisplayBatchHistoryFromBatchNumberCommand : CommandBase
     {

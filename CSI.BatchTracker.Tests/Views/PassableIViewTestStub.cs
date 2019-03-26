@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSI.BatchTracker.Tests.Views
+﻿namespace CSI.BatchTracker.Tests.Views
 {
     class PassableIViewTestStub : IViewTestStub
     {
