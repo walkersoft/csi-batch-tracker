@@ -22,8 +22,12 @@ namespace CSI.BatchTracker.DemoTools
         string batchNumber = string.Empty;
         BatchOperator receivingOperator;
         BatchOperator implementingOperator;
+        List<ReceivedBatch> receiveableBatches;
 
         DateTime receivingDate;
+        DateTime implementingDate;
+
+        int totalReceivedVessels;
 
         List<string> randomToteColor = new List<string>
         {
@@ -53,25 +57,28 @@ namespace CSI.BatchTracker.DemoTools
             ReceivingSource = receivingSource;
             ImplementationSource = implementationSource;
             receivingDate = DateTime.Today.AddDays(-50);
+            implementingDate = receivingDate.AddDays(10);
+            receiveableBatches = new List<ReceivedBatch>();
         }
 
         public void Run()
         {
             PopulateOperatorSource();
-            BuildAndReceiveTenTrucks();
-            
+            BuildAndReceiveTenTrucks();            
         }
 
         void PopulateOperatorSource()
         {
-            Dictionary<string, string> names = new Dictionary<string, string>();
-            names.Add("Jason", "Walker");
-            names.Add("Geoff", "Nelson");
-            names.Add("Luis Angel", "Calderon");
-            names.Add("Israel", "Coyomani");
-            names.Add("Rigel", "Salas");
-            names.Add("Benjamin", "Hueramo");
-            names.Add("Miguel", "Garcia");
+            Dictionary<string, string> names = new Dictionary<string, string>
+            {
+                { "Jason", "Walker" },
+                { "Geoff", "Nelson" },
+                { "Luis Angel", "Calderon" },
+                { "Israel", "Coyomani" },
+                { "Rigel", "Salas" },
+                { "Benjamin", "Hueramo" },
+                { "Miguel", "Garcia" }
+            };
 
             foreach (KeyValuePair<string, string> name in names)
             {
@@ -85,13 +92,27 @@ namespace CSI.BatchTracker.DemoTools
             for (int i = 0; i < 10; i++)
             {
                 GetNextPoNumber();
+                GetNextReceivingDate();
                 FillPoWithTotes();
+                FillPoWithDrums();
             }
+
+            ReceiveAllBatches();
+            ImplementMostBatches();
         }
 
         void GetNextPoNumber()
         {
             nextPoNumber += random.Next(25, 200);
+        }
+
+        void GetNextReceivingDate()
+        {
+            do
+            {
+                receivingDate.AddDays(random.Next(3, 7));
+            }
+            while (receivingDate.DayOfWeek == DayOfWeek.Saturday || receivingDate.DayOfWeek == DayOfWeek.Sunday);
         }
 
         void FillPoWithTotes()
@@ -101,6 +122,15 @@ namespace CSI.BatchTracker.DemoTools
             while (toteCount > 0)
             {
                 ReceivedBatch received = GetRandomTote();
+
+                if (received.Quantity > toteCount)
+                {
+                    received.Quantity = toteCount;
+                }
+
+                receiveableBatches.Add(received);
+                toteCount -= received.Quantity;
+                totalReceivedVessels += received.Quantity;
             }
         }
 
@@ -125,27 +155,119 @@ namespace CSI.BatchTracker.DemoTools
                     break;
             }
 
-            receivingOperator = OperatorSource.FindBatchOperator(random.Next(1, OperatorSource.OperatorRepository.Count + 1));
+            receivingOperator = OperatorSource.FindBatchOperator(random.Next(1, 3));
             string batchNumber = GetRandomBatchNumber();
-
-            do
-            {
-                receivingDate.AddDays(random.Next(3, 7));
-            }
-            while (receivingDate.DayOfWeek == DayOfWeek.Saturday || receivingDate.DayOfWeek == DayOfWeek.Sunday);
 
             return new ReceivedBatch(toteColor, batchNumber, receivingDate, toteQty, nextPoNumber, receivingOperator);
         }
 
+        void FillPoWithDrums()
+        {
+            int drumCount = random.Next(3, 9);
+
+            while (drumCount > 0)
+            {
+                ReceivedBatch received = GetRandomDrum();
+
+                if (received.Quantity > drumCount)
+                {
+                    received.Quantity = drumCount;
+                }
+
+                receiveableBatches.Add(received);
+                drumCount -= received.Quantity;
+                totalReceivedVessels += received.Quantity;
+            }
+        }
+
+        ReceivedBatch GetRandomDrum()
+        {
+            int drumQty = 0;
+            string drumColor = randomDrumColor[random.Next(0, randomDrumColor.Count)];
+
+            switch (drumColor)
+            {
+                case "Blue Red":
+                    drumQty = random.Next(3, 5);
+                    break;
+
+                case "Deep Green":
+                case "Deep Blue":
+                    drumQty = random.Next(2, 4);
+                    break;
+
+                case "Bright Red":
+                case "Bright Yellow":
+                    drumQty = random.Next(1, 3);
+                    break;
+            }
+
+            receivingOperator = OperatorSource.FindBatchOperator(random.Next(1, 3));
+            string batchNumber = GetRandomBatchNumber();
+
+            return new ReceivedBatch(drumColor, batchNumber, receivingDate, drumQty, nextPoNumber, receivingOperator);
+        }
+
         string GetRandomBatchNumber()
         {
-            int year = random.Next(0, 2) == 0 ? 8 : 9;
-            int week = random.Next(10, 51);
-            int batchSuffix = random.Next(0, 10);
-            int runPrefix = random.Next(1, 6);
-            int runSuffix = random.Next(1, 10);
+            string batchNumber;
 
-            return string.Format("8728{0}{1}0{2}{3}0{4}", year, week, batchSuffix, runPrefix, runSuffix);
+            do
+            {
+                int year = random.Next(0, 2) == 0 ? 8 : 9;
+                int week = random.Next(10, 51);
+                int batchSuffix = random.Next(0, 10);
+                int runPrefix = random.Next(1, 6);
+                int runSuffix = random.Next(1, 10);
+                batchNumber = string.Format("8728{0}{1}0{2}{3}0{4}", year, week, batchSuffix, runPrefix, runSuffix);
+            }
+            while (BatchNumberIsNotUnique(batchNumber));
+
+            return batchNumber;
+        }
+
+        bool BatchNumberIsNotUnique(string batchNumber)
+        {
+            foreach (ReceivedBatch batch in receiveableBatches)
+            {
+                if (batch.BatchNumber == batchNumber)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        void ReceiveAllBatches()
+        {
+            foreach (ReceivedBatch received in receiveableBatches)
+            {
+                InventorySource.AddReceivedBatchToInventory(received);
+            }
+        }
+
+        void ImplementMostBatches()
+        {
+            int numberOfImplementations = totalReceivedVessels - 24;
+            for (int i = 0; i < numberOfImplementations; i++)
+            {
+                implementingDate = GetNextImplementingDate(implementingDate);
+                string batchNumber = InventorySource.CurrentInventory[random.Next(0, 10)].BatchNumber;
+                implementingOperator = OperatorSource.FindBatchOperator(random.Next(1, OperatorSource.OperatorRepository.Count + 1));
+                ImplementationSource.AddBatchToImplementationLedger(batchNumber, implementingDate, implementingOperator);
+            }
+        }
+
+        DateTime GetNextImplementingDate(DateTime currentDate)
+        {
+            do
+            {
+                currentDate = currentDate.AddHours(random.Next(8, 16)).AddMinutes(random.Next(10, 60));
+            }
+            while (currentDate.DayOfWeek == DayOfWeek.Saturday || currentDate.DayOfWeek == DayOfWeek.Sunday);
+
+            return currentDate;
         }
     }
 }

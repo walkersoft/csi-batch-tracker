@@ -23,6 +23,9 @@
             <MenuItem Header="_People">
                 <MenuItem Header="Batch _Operator Management" InputGestureText="Ctrl+O" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
+            <MenuItem Header="_Demo Tools">
+                <MenuItem Header="Populate Data Sources" Command="{Binding LaunchDataSourcePopulatorCommand}"/>
+            </MenuItem>
         </Menu>
 
         <WrapPanel Orientation="Horizontal" Margin="5">
@@ -34,8 +37,10 @@
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
                           IsReadOnly="True"
-                          MinHeight="180"
+                          MinHeight="200"
+                          MaxHeight="200"
                           HorizontalContentAlignment="Stretch"
+                          VerticalScrollBarVisibility="Visible"
                           ItemsSource="{Binding CurrentInventory}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
@@ -50,8 +55,9 @@
                           CanUserDeleteRows="False"
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
-                          IsReadOnly="True"
-                          MinHeight="180"
+                          IsReadOnly="True"                          
+                          MinHeight="200"
+                          MaxHeight="200"
                           HorizontalContentAlignment="Stretch">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Color Name" Width="120"/>
@@ -111,7 +117,8 @@
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
                           IsReadOnly="True"
-                          MinHeight="280"
+                          MinHeight="320"
+                          MaxHeight="320"
                           Margin="0,0,0,5"
                           VerticalScrollBarVisibility="Visible"
                           VerticalContentAlignment="Stretch"

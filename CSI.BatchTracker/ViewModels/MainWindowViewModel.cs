@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
+﻿using CSI.BatchTracker.DemoTools;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using CSI.BatchTracker.Views.Contracts;
@@ -49,6 +50,7 @@ namespace CSI.BatchTracker.ViewModels
             LaunchBatchOperatorManagementSessionViewerCommand = new OpenBatchOperatorManagementViewCommand(this);
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
+            LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
         }
 
         void AssociateCollectionsAndRepositories()
@@ -123,5 +125,23 @@ namespace CSI.BatchTracker.ViewModels
             int targetId = implementedBatchSource.ImplementedBatchIdMappings[ImplementedBatchSelectedIndex];
             implementedBatchSource.UndoImplementedBatch(targetId);
         }
+
+        #region DemoToolsCode
+
+        public ICommand LaunchDataSourcePopulatorCommand { get; private set; }
+
+        public void RunPopulatorTool()
+        {
+            DataSourcePopulator populator = new DataSourcePopulator(
+                operatorSource,
+                inventorySource,
+                receivedBatchSource,
+                implementedBatchSource
+            );
+
+            populator.Run();
+        }
+
+        #endregion
     }
 }
