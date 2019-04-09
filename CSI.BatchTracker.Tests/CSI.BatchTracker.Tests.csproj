@@ -74,10 +74,12 @@
     <Compile Include="TestHelpers\NativeModels\ReceivedBatchTestHelper.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\CommitBatchToImplementationLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\MainWindowViewModelCommandBehaviorTestingBase.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\OpenBatchHistoryViewerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchOperatorManagementViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenReceivingManagementSessionViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\UndoImplementedBatchCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\CommitBatchToImplementationLedgerCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchHistoryViewerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchOperatorManagementViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingManagementSessionViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\UndoImplementedBatchCommandTest.cs" />

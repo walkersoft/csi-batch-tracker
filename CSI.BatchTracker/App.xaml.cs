@@ -19,29 +19,33 @@ namespace CSI.BatchTracker
 
         public void StartupBatchTRAX(object sender, StartupEventArgs e)
         {
-            mainWindowViewModel = PrepareMainWindowViewModel();
+            PrepareMainWindowViewModel();
             SetupMainWindowViewModelViewers();
-            mainWindow = new MainWindow(mainWindowViewModel);
-            mainWindow.Show();          
+            ShowMainWindow();
         }
 
-        MainWindowViewModel PrepareMainWindowViewModel()
+        void PrepareMainWindowViewModel()
         {
-            MainWindowViewModel viewModel;
             MemoryStoreContext context = new MemoryStoreContext();
             operatorSource = new MemoryBatchOperatorSource(context);
             inventorySource = new MemoryActiveInventorySource(context);
             receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
             implementedBatchSource = new MemoryImplementedBatchSource(context, inventorySource);
 
-            viewModel = new MainWindowViewModel(inventorySource, receivedBatchSource, implementedBatchSource, operatorSource);
-            return viewModel;
+            mainWindowViewModel =  new MainWindowViewModel(inventorySource, receivedBatchSource, implementedBatchSource, operatorSource);
         }
 
         void SetupMainWindowViewModelViewers()
         {
             mainWindowViewModel.ReceivingManagementSessionViewer = new BatchReceivingManagementViewer(GetReceivingManagementViewModel());
             mainWindowViewModel.BatchOperatorManagementSessionViewer = new BatchOperatorManagementViewer(GetBatchOperatorViewModel());
+            mainWindowViewModel.BatchHistoryViewer = new BatchHistoryViewer(GetBatchHistoryViewModel());
+        }
+
+        void ShowMainWindow()
+        {
+            mainWindow = new MainWindow(mainWindowViewModel);
+            mainWindow.Show();
         }
 
         ReceivingManagementViewModel GetReceivingManagementViewModel()
@@ -57,6 +61,15 @@ namespace CSI.BatchTracker
         BatchOperatorViewModel GetBatchOperatorViewModel()
         {
             return new BatchOperatorViewModel(operatorSource);
+        }
+
+        BatchHistoryViewModel GetBatchHistoryViewModel()
+        {
+            return new BatchHistoryViewModel(
+                new DuracolorIntermixBatchNumberValidator(),
+                inventorySource,
+                receivedBatchSource,
+                implementedBatchSource);
         }
 
         public void ShutdownBatchTRAX(object sender, ExitEventArgs e)

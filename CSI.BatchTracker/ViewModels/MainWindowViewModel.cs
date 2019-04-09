@@ -2,6 +2,7 @@
 using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
+using CSI.BatchTracker.Views;
 using CSI.BatchTracker.Views.Contracts;
 using System;
 using System.Collections.ObjectModel;
@@ -14,13 +15,16 @@ namespace CSI.BatchTracker.ViewModels
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
         IImplementedBatchSource implementedBatchSource;
+
         IBatchOperatorSource operatorSource;
 
         public IView ReceivingManagementSessionViewer { get; set; }
         public IView BatchOperatorManagementSessionViewer { get; set; }
+        public IView BatchHistoryViewer { get; set; }
 
         public ICommand LaunchReceivingManagementSessionViewerCommand { get; private set; }
         public ICommand LaunchBatchOperatorManagementSessionViewerCommand { get; private set; }
+        public ICommand LaunchBatchHistoryViewerCommand { get; private set; }
         public ICommand CommitInventoryBatchToImplementationLedgerCommand { get; private set; }
         public ICommand UndoSelectedImplementedBatchCommand { get; private set; }
 
@@ -48,6 +52,7 @@ namespace CSI.BatchTracker.ViewModels
 
             LaunchReceivingManagementSessionViewerCommand = new OpenReceivingManagementSessionViewCommand(this);
             LaunchBatchOperatorManagementSessionViewerCommand = new OpenBatchOperatorManagementViewCommand(this);
+            LaunchBatchHistoryViewerCommand = new OpenBatchHistoryViewerCommand(this);
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
             LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
@@ -124,6 +129,17 @@ namespace CSI.BatchTracker.ViewModels
         {
             int targetId = implementedBatchSource.ImplementedBatchIdMappings[ImplementedBatchSelectedIndex];
             implementedBatchSource.UndoImplementedBatch(targetId);
+        }
+
+        public bool BatchHistoryViewerWithBatchNumberIsSet()
+        {
+            return BatchHistoryViewer != null
+                && BatchHistoryViewer.CanShowView();
+        }
+
+        public void ShowBatchHistoryViewerWithBatchNumber()
+        {
+            BatchHistoryViewer.ShowView();
         }
 
         #region DemoToolsCode
