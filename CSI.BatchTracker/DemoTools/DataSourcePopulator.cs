@@ -1,12 +1,7 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
-using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Domain.NativeModels;
-using CSI.BatchTracker.Storage.MemoryStore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.DemoTools
 {
