@@ -243,7 +243,7 @@ namespace CSI.BatchTracker.DemoTools
         {
             foreach (ReceivedBatch received in receiveableBatches)
             {
-                InventorySource.AddReceivedBatchToInventory(received);
+                ReceivingSource.SaveReceivedBatch(received);
             }
         }
 
