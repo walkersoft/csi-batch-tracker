@@ -110,7 +110,7 @@ namespace CSI.BatchTracker.DemoTools
         {
             do
             {
-                receivingDate.AddDays(random.Next(3, 7));
+                receivingDate = receivingDate.AddDays(random.Next(3, 7));
             }
             while (receivingDate.DayOfWeek == DayOfWeek.Saturday || receivingDate.DayOfWeek == DayOfWeek.Sunday);
         }
