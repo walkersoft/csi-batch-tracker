@@ -75,11 +75,13 @@
     <Compile Include="ViewModels\Commands\Behaviors\CommitBatchToImplementationLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\MainWindowViewModelCommandBehaviorTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchHistoryViewerCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\OpenBatchHistoryViewerWithBatchNumberCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchOperatorManagementViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenReceivingManagementSessionViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\UndoImplementedBatchCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\CommitBatchToImplementationLedgerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchHistoryViewerCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchHistoryViewerWithBatchNumberCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchOperatorManagementViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingManagementSessionViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\UndoImplementedBatchCommandTest.cs" />
@@ -103,7 +105,9 @@
     <Compile Include="ViewModels\Commands\WithMemoryStore\CommitReceivingSessionLedgerToDataSourceCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\RemoveReceivableBatchFromSessionLedgerCommandTest.cs" />
     <Compile Include="ViewModels\WithMemoryStore\ReceivingManagementViewModelTest.cs" />
+    <Compile Include="Views\IBatchHistoryViewerTestStub.cs" />
     <Compile Include="Views\IViewTestStub.cs" />
+    <Compile Include="Views\PassableIBatchHistoryViewerTestStub.cs" />
     <Compile Include="Views\PassableIViewTestStub.cs" />
   </ItemGroup>
   <ItemGroup>

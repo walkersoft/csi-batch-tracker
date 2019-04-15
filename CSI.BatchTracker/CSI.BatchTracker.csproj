@@ -111,6 +111,7 @@
     <Compile Include="Domain\BatchOperatorValidator.cs" />
     <Compile Include="ViewModels\Commands\DisplayBatchHistoryFromBatchNumberCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenBatchHistoryViewerCommand.cs" />
+    <Compile Include="ViewModels\Commands\OpenBatchHistoryViewerWithBatchNumberCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenBatchOperatorManagementViewCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenReceivingManagementSessionViewCommand.cs" />
     <Compile Include="ViewModels\Commands\RemoveReceivableBatchFromSessionLedgerCommand.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Views\BatchReceivingManagementWindow.xaml.cs">
       <DependentUpon>BatchReceivingManagementWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Contracts\IBatchHistoryView.cs" />
     <Compile Include="Views\ViewBase.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    abstract class OpenBatchHistoryViewerCommandBehaviorTest : MainWindowViewModelCommandBehaviorTestingBase
+    abstract class OpenBatchHistoryViewerWithBatchNumberCommandBehaviorTest : MainWindowViewModelCommandBehaviorTestingBase
     {
         [SetUp]
         public override void SetUp()
@@ -31,8 +31,24 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
-        public void CommandExecutesIfViewCanShowItself()
+        public void CommandWillNotExecuteIfImplementationLedgerIsEmpty()
         {
+            viewModel.BatchHistoryViewer = new IBatchHistoryViewerTestStub();
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
+        public void CommandWillNotExecuteIfItemIsNotSelectedInImplementationLedger()
+        {
+            SetupInventoryStateAndReceiveSingleBatchAndReturnBatchNumber();
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
+        public void CommandExecutesIfViewCanShowItselfAndImplementedBatchIsSelected()
+        {
+            SetupInventoryStateAndReceiveSingleBatchAndReturnBatchNumber();
+            viewModel.ImplementedBatchSelectedIndex = 0;
             viewModel.BatchHistoryViewer = new PassableIBatchHistoryViewerTestStub();
             Assert.True(command.CanExecute(null));
         }
@@ -40,6 +56,8 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void ExecutedCommandWillCallIViewShowViewMethod()
         {
+            SetupInventoryStateAndReceiveSingleBatchAndReturnBatchNumber();
+            viewModel.ImplementedBatchSelectedIndex = 0;
             viewModel.BatchHistoryViewer = new IBatchHistoryViewerTestStub();
             Assert.DoesNotThrow(() => command.Execute(null));
         }

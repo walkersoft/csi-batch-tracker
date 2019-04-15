@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.ViewModels;
+using CSI.BatchTracker.Views.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Views
 {
-    public sealed class BatchHistoryViewer : ViewBase
+    public sealed class BatchHistoryViewer : ViewBase, IBatchHistoryView
     {
         BatchHistoryViewModel viewModel;
         public string IncomingBatchNumber { get; set; }
@@ -15,19 +16,21 @@ namespace CSI.BatchTracker.Views
         public BatchHistoryViewer(BatchHistoryViewModel viewModel)
         {
             this.viewModel = viewModel;
-            PopulateViewModelBatchFromIncomingBatchNumberIfPresent();
         }
 
         public override void ResetWindow()
         {
             window = new BatchHistoryWindow(viewModel);
+            PopulateViewModelBatchFromIncomingBatchNumberIfPresent();
         }
 
         void PopulateViewModelBatchFromIncomingBatchNumberIfPresent()
         {
-            if (string.IsNullOrEmpty(IncomingBatchNumber) == false)
+            viewModel.BatchNumber = IncomingBatchNumber;
+
+            if (viewModel.BatchNumberIsValid())
             {
-                viewModel.BatchNumber = IncomingBatchNumber;
+                viewModel.RetrieveBatchHistoryData();
                 IncomingBatchNumber = string.Empty;
             }
         }

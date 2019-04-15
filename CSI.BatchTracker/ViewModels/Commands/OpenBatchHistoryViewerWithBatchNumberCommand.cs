@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public sealed class OpenBatchHistoryViewerCommand : CommandBase
+    public sealed class OpenBatchHistoryViewerWithBatchNumberCommand : CommandBase
     {
         MainWindowViewModel viewModel;
 
-        public OpenBatchHistoryViewerCommand(MainWindowViewModel viewModel)
+        public OpenBatchHistoryViewerWithBatchNumberCommand(MainWindowViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
 
         public override bool CanExecute(object parameter)
         {
-            return viewModel.BatchHistoryViewerIsSet();
+            return viewModel.BatchHistoryViewerIsSetAndImplementedBatchIsSelected();
         }
 
         public override void Execute(object parameter)
         {
-            viewModel.ShowBatchHistoryViewer();
+            viewModel.ShowBatchHistoryViewerWithBatchNumber();
         }
     }
 }

@@ -8,8 +8,7 @@ using System.Windows.Input;
 namespace CSI.BatchTracker.ViewModels
 {
     public sealed class BatchHistoryViewModel : ViewModelBase
-    {
-        
+    {        
         string batchNumber;
         public string BatchNumber
         {

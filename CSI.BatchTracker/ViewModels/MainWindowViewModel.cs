@@ -20,11 +20,12 @@ namespace CSI.BatchTracker.ViewModels
 
         public IView ReceivingManagementSessionViewer { get; set; }
         public IView BatchOperatorManagementSessionViewer { get; set; }
-        public IView BatchHistoryViewer { get; set; }
+        public IBatchHistoryView BatchHistoryViewer { get; set; }
 
         public ICommand LaunchReceivingManagementSessionViewerCommand { get; private set; }
         public ICommand LaunchBatchOperatorManagementSessionViewerCommand { get; private set; }
         public ICommand LaunchBatchHistoryViewerCommand { get; private set; }
+        public ICommand LaunchBatchHistoryViewerWithBatchNumberCommand { get; private set; }
         public ICommand CommitInventoryBatchToImplementationLedgerCommand { get; private set; }
         public ICommand UndoSelectedImplementedBatchCommand { get; private set; }
 
@@ -53,6 +54,7 @@ namespace CSI.BatchTracker.ViewModels
             LaunchReceivingManagementSessionViewerCommand = new OpenReceivingManagementSessionViewCommand(this);
             LaunchBatchOperatorManagementSessionViewerCommand = new OpenBatchOperatorManagementViewCommand(this);
             LaunchBatchHistoryViewerCommand = new OpenBatchHistoryViewerCommand(this);
+            LaunchBatchHistoryViewerWithBatchNumberCommand = new OpenBatchHistoryViewerWithBatchNumberCommand(this);
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
             LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
@@ -131,14 +133,27 @@ namespace CSI.BatchTracker.ViewModels
             implementedBatchSource.UndoImplementedBatch(targetId);
         }
 
-        public bool BatchHistoryViewerWithBatchNumberIsSet()
+        public bool BatchHistoryViewerIsSet()
         {
             return BatchHistoryViewer != null
                 && BatchHistoryViewer.CanShowView();
         }
 
+        public void ShowBatchHistoryViewer()
+        {
+            BatchHistoryViewer.ShowView();
+        }
+
+        public bool BatchHistoryViewerIsSetAndImplementedBatchIsSelected()
+        {
+            return ImplementedBatchSelectedIndex > -1
+                && ImplementedBatchLedger.Count > 0
+                && BatchHistoryViewerIsSet();
+        }
+
         public void ShowBatchHistoryViewerWithBatchNumber()
         {
+            BatchHistoryViewer.IncomingBatchNumber = ImplementedBatchLedger[ImplementedBatchSelectedIndex].BatchNumber;
             BatchHistoryViewer.ShowView();
         }
 
