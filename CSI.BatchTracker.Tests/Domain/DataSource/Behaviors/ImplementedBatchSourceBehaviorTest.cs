@@ -3,6 +3,7 @@ using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using NUnit.Framework;
 using System;
+using System.Collections.ObjectModel;
 
 namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 {
@@ -131,9 +132,9 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
                 }
             }
 
-            implementedBatchSource.FindImplementedBatchesByBatchNumber(targetBatch);
+            ObservableCollection<LoggedBatch> batches = implementedBatchSource.GetImplementedBatchesByBatchNumber(targetBatch);
 
-            Assert.AreEqual(expectedCount, implementedBatchSource.ImplementedBatchLedger.Count);
+            Assert.AreEqual(expectedCount, batches.Count);
         }
 
         [Test]

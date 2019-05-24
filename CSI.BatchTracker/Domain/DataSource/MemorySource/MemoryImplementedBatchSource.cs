@@ -92,11 +92,20 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             inventorySource.UpdateActiveInventory();
         }
 
-        public void FindImplementedBatchesByBatchNumber(string batchNumber)
+        public ObservableCollection<LoggedBatch> GetImplementedBatchesByBatchNumber(string batchNumber)
         {
             ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(batchNumber, memoryStore);
             finder.Execute();
-            PopulatedImplementedBatchLedgerFromTransactionResults(finder);
+
+            ObservableCollection<LoggedBatch> batches = new ObservableCollection<LoggedBatch>();
+
+            foreach(IEntity entity in finder.Results)
+            {
+                Entity<LoggedBatch> batch = entity as Entity<LoggedBatch>;
+                batches.Add(batch.NativeModel);
+            }
+
+            return batches;
         }
     }
 }

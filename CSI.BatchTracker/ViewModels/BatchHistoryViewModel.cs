@@ -80,15 +80,13 @@ namespace CSI.BatchTracker.ViewModels
 
         void GetReceivingHistoryData()
         {
-            receivedBatchSource.FindReceivedBatchesByBatchNumber(BatchNumber);
-            ReceivingHistoryGrid = receivedBatchSource.ReceivedBatchRepository;
+            ReceivingHistoryGrid = receivedBatchSource.GetReceivedBatchesByBatchNumber(BatchNumber);
             NotifyPropertyChanged("ReceivingHistoryGrid");
         }
 
         void GetImplementationHistoryData()
         {
-            implementedBatchSource.FindImplementedBatchesByBatchNumber(BatchNumber);
-            ImplementationHistoryGrid = implementedBatchSource.ImplementedBatchLedger;
+            ImplementationHistoryGrid = implementedBatchSource.GetImplementedBatchesByBatchNumber(BatchNumber);
             NotifyPropertyChanged("ImplementationHistoryGrid");
         }
     }

@@ -127,10 +127,24 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             UpdateReceivedBatchRepository();
         }
 
-        public void FindReceivedBatchesByBatchNumber(string batchNumber)
+        public ObservableCollection<ReceivedBatch> GetReceivedBatchesByBatchNumber(string batchNumber)
         {
             ITransaction finder = new FindBatchesInReceivingLedgerByBatchNumberTransaction(batchNumber, memoryStore);
-            ExecuteFinderTransactionAndPopulateRepositoryAndMappings(finder);
+            finder.Execute();
+            return BuildObservableCollectionFromTransactionResults(finder);
+        }
+
+        ObservableCollection<ReceivedBatch> BuildObservableCollectionFromTransactionResults(ITransaction transaction)
+        {
+            ObservableCollection<ReceivedBatch> batches = new ObservableCollection<ReceivedBatch>();
+
+            foreach (IEntity entity in transaction.Results)
+            {
+                Entity<ReceivedBatch> batch = entity as Entity<ReceivedBatch>;
+                batches.Add(batch.NativeModel);
+            }
+
+            return batches;
         }
     }
 }

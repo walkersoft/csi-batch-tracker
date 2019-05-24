@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
         void UpdateReceivedBatch(int id, ReceivedBatch batch);
         void DeleteReceivedBatch(int id);
         ReceivedBatch FindReceivedBatchById(int id);
-        void FindReceivedBatchesByBatchNumber(string batchNumber);
+        ObservableCollection<ReceivedBatch> GetReceivedBatchesByBatchNumber(string batchNumber);
         void FindReceivedBatchesByPONumber(int poNumber);
         void FindReceivedBatchesByDate(DateTime date);
         void FindAllReceivedBatches();
