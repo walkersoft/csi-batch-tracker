@@ -134,6 +134,9 @@
       <DependentUpon>BatchReceivingManagementWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Contracts\IBatchHistoryView.cs" />
+    <Compile Include="Views\ReceivingHistoryWindow.xaml.cs">
+      <DependentUpon>ReceivingHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewBase.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BatchReceivingManagementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReceivingHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
