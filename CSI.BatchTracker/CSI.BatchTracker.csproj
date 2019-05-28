@@ -96,6 +96,7 @@
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteReceivedBatchAtIdTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInImplementationLedgerByBatchNumberTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByBatchNumberTransaction.cs" />
+    <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByDateRangeTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByDateTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByPONumberTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchInReceivingLedgerByIdTransaction.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransaction.cs" />
     <Compile Include="Domain\BatchOperatorValidator.cs" />
     <Compile Include="ViewModels\Commands\DisplayBatchHistoryFromBatchNumberCommand.cs" />
+    <Compile Include="ViewModels\Commands\ListReceivingRecordsByDateRangeCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenBatchHistoryViewerCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenBatchHistoryViewerWithBatchNumberCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenBatchOperatorManagementViewCommand.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="ViewModels\BatchOperatorViewModel.cs" />
     <Compile Include="ViewModels\Commands\UndoImplementedBatchCommand.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ReceivingHistoryViewModel.cs" />
     <Compile Include="ViewModels\ReceivingManagementViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\BatchHistoryViewer.cs" />

@@ -146,5 +146,12 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
             return batches;
         }
+
+        public ObservableCollection<ReceivedBatch> GetReceivedBatchesWithinDateRange(DateTime startDate, DateTime endDate)
+        {
+            ITransaction finder = new FindBatchesInReceivingLedgerByDateRangeTransaction(startDate, endDate, memoryStore);
+            finder.Execute();
+            return BuildObservableCollectionFromTransactionResults(finder);
+        }
     }
 }

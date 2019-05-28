@@ -3,6 +3,7 @@ using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
@@ -205,6 +206,33 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             batches = receivedBatchSource.GetReceivedBatchesByBatchNumber(targetBatch.BatchNumber);
 
             Assert.AreEqual(expectedCount, batches.Count);
+        }
+
+        [Test]
+        public void FindingAllBatchByInclusiveDateRangeThatIgnoresTimeOfDay()
+        {
+            int expectedCount = 3;
+            DateTime startDate = new DateTime(2019, 5, 29, 7, 15, 00);
+            DateTime endDate = startDate.AddDays(5);
+
+            ReceivedBatch inRangeBatch1 = helper.GetBatchWithSpecificDate(startDate);
+            ReceivedBatch inRangeBatch2 = helper.GetBatchWithSpecificDate(startDate.AddDays(2));
+            ReceivedBatch inRangeBatch3 = helper.GetBatchWithSpecificDate(startDate.AddDays(4));
+            ReceivedBatch outOfRangeBatch1 = helper.GetBatchWithSpecificDate(startDate.AddDays(-1));
+            ReceivedBatch outOfRangeBatch2 = helper.GetBatchWithSpecificDate(endDate.AddDays(1));
+            List<ReceivedBatch> receivables = new List<ReceivedBatch>
+            {
+                outOfRangeBatch1, inRangeBatch1, inRangeBatch2, inRangeBatch3, outOfRangeBatch2
+            };
+
+            foreach (ReceivedBatch batch in receivables)
+            {
+                receivedBatchSource.SaveReceivedBatch(batch);
+            }
+
+            ObservableCollection<ReceivedBatch> found = receivedBatchSource.GetReceivedBatchesWithinDateRange(startDate, endDate);
+
+            Assert.AreEqual(expectedCount, found.Count);
         }
     }
 }
