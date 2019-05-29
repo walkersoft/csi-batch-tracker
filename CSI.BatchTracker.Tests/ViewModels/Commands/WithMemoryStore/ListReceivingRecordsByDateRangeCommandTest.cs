@@ -48,5 +48,14 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
 
             Assert.True(command.CanExecute(null));
         }
+
+        [Test]
+        public void CommandWillExecuteIfStartingDateIsBeforeEndingDateAndNotTheSameDay()
+        {
+            viewModel.DateRangeStartingDate = DateTime.Today;
+            viewModel.DateRangeEndingDate = viewModel.DateRangeStartingDate.AddDays(5);
+
+            Assert.True(command.CanExecute(null));
+        }
     }
 }

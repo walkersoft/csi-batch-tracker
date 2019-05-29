@@ -25,13 +25,12 @@ namespace CSI.BatchTracker.ViewModels
         {
             return DateRangeStartingDate > DateTime.MinValue
                 && DateRangeEndingDate > DateTime.MinValue
-                && DateRangeIsTheSameDayOfTheSameYear();
+                && DateRangeStartingDateIsOnOrBeforeEndingDate();
         }
 
-        bool DateRangeIsTheSameDayOfTheSameYear()
+        bool DateRangeStartingDateIsOnOrBeforeEndingDate()
         {
-            return DateRangeStartingDate.DayOfYear == DateRangeEndingDate.DayOfYear
-                && DateRangeStartingDate.Year == DateRangeEndingDate.Year;
+            return DateRangeStartingDate.Date <= DateRangeEndingDate.Date;
         }
     }
 }
