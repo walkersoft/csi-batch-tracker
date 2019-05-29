@@ -35,8 +35,8 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.RecordAquisition
 
         bool ActivityDateIsWithinRange(DateTime activityDate)
         {
-            return activityDate.DayOfYear >= start.DayOfYear
-                && activityDate.DayOfYear <= end.DayOfYear;
+            return activityDate.Date >= start.Date
+                && activityDate.Date <= end.Date;
         }
     }
 }
