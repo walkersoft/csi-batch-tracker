@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
+using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.ViewModels;
 using NUnit.Framework;
 using System;
@@ -17,5 +18,12 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         protected IReceivedBatchSource receivedBatchSource;
         protected IActiveInventorySource inventorySource;
         protected ReceivingHistoryViewModel viewModel;
+        protected ReceivedBatchTestHelper helper;
+
+        [SetUp]
+        public virtual void SetUp()
+        {
+            helper = new ReceivedBatchTestHelper();
+        }
     }
 }
