@@ -19,12 +19,14 @@ namespace CSI.BatchTracker.ViewModels
 
         public IView ReceivingManagementSessionViewer { get; set; }
         public IView BatchOperatorManagementSessionViewer { get; set; }
+        public IView ReceivingHistorySessionViewer { get; set; }
         public IBatchHistoryView BatchHistoryViewer { get; set; }
 
         public ICommand LaunchReceivingManagementSessionViewerCommand { get; private set; }
         public ICommand LaunchBatchOperatorManagementSessionViewerCommand { get; private set; }
         public ICommand LaunchBatchHistoryViewerCommand { get; private set; }
         public ICommand LaunchBatchHistoryViewerWithBatchNumberCommand { get; private set; }
+        public ICommand LaunchReceivingHistorySessionViewerCommand { get; private set; }
         public ICommand CommitInventoryBatchToImplementationLedgerCommand { get; private set; }
         public ICommand UndoSelectedImplementedBatchCommand { get; private set; }
 
@@ -54,6 +56,7 @@ namespace CSI.BatchTracker.ViewModels
             LaunchBatchOperatorManagementSessionViewerCommand = new OpenBatchOperatorManagementViewCommand(this);
             LaunchBatchHistoryViewerCommand = new OpenBatchHistoryViewerCommand(this);
             LaunchBatchHistoryViewerWithBatchNumberCommand = new OpenBatchHistoryViewerWithBatchNumberCommand(this);
+            LaunchReceivingHistorySessionViewerCommand = new OpenReceivingHistorySessionViewCommand(this);
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
             LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
@@ -154,6 +157,17 @@ namespace CSI.BatchTracker.ViewModels
         {
             BatchHistoryViewer.IncomingBatchNumber = ImplementedBatchLedger[ImplementedBatchSelectedIndex].BatchNumber;
             BatchHistoryViewer.ShowView();
+        }
+
+        public bool ReceivingHistoryViewerIsSet()
+        {
+            return ReceivingHistorySessionViewer != null
+                && ReceivingHistorySessionViewer.CanShowView();
+        }
+
+        public void ShowReceivingHistoryViewer()
+        {
+            ReceivingHistorySessionViewer.ShowView();
         }
 
         #region DemoToolsCode

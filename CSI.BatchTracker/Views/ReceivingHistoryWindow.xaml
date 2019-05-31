@@ -14,16 +14,23 @@
         
         <StackPanel Orientation="Horizontal">
             <Label Content="Search Criteria:" Margin="0,0,5,0"/>
-            <ComboBox Width="140" Margin="0,0,5,0">
+            <ComboBox Width="140" 
+                      Margin="0,0,5,0"
+                      VerticalContentAlignment="Center"
+                      SelectedIndex="{Binding SearchCriteriaSelectedIndex}">
                 <ComboBoxItem Content="Date Range"/>
                 <ComboBoxItem Content="Date Period"/>
                 <ComboBoxItem Content="Specific Date"/>
                 <ComboBoxItem Content="PO Number"/>
             </ComboBox>
             <StackPanel Visibility="Visible" Orientation="Horizontal" Margin="0,0,5,0">
-                <DatePicker Width="120"/>
+                <DatePicker Width="120" 
+                            VerticalContentAlignment="Center"
+                            SelectedDate="{Binding DateRangeStartingDate, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="to"/>
-                <DatePicker Width="120"/>
+                <DatePicker Width="120"
+                            VerticalContentAlignment="Center"
+                            SelectedDate="{Binding DateRangeEndingDate, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,5,0">
                 <ComboBox Width="140">
@@ -38,7 +45,7 @@
             <WrapPanel Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,5,0">
                 <TextBox Width="120"/>
             </WrapPanel>
-            <Button Content="Search" Width="80"/>
+            <Button Content="Search" Width="80" Command="{Binding ListReceivingRecordsByDateRange}"/>
         </StackPanel>
         
         <Separator Width="Auto" Margin="0,8,0,8"/>
@@ -53,11 +60,12 @@
                           CanUserSortColumns="False"
                           IsReadOnly="True"
                           Height="300"
-                          VerticalScrollBarVisibility="Visible">
+                          VerticalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding RetreivedRecordsLedger}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="PO Number" Width="100"/>
-                        <DataGridTextColumn Header="Receiving Date" Width="150"/>
-                        <DataGridTextColumn Header="Receiving Operator" Width="120"/>
+                        <DataGridTextColumn Header="PO Number" Width="100" Binding="{Binding PONumber}"/>
+                        <DataGridTextColumn Header="Receiving Date" Width="150" Binding="{Binding ActivityDate}"/>
+                        <DataGridTextColumn Header="Receiving Operator" Width="120" Binding="{Binding ReceivingOperator}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

@@ -77,6 +77,7 @@
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchHistoryViewerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchHistoryViewerWithBatchNumberCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchOperatorManagementViewCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\OpenReceivingHistoryManagementSessionViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenReceivingManagementSessionViewCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ReceivingHistoryViewModelCommandBehaviorTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\UndoImplementedBatchCommandBehaviorTest.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchHistoryViewerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchHistoryViewerWithBatchNumberCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchOperatorManagementViewCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingHistorySessionViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingManagementSessionViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\UndoImplementedBatchCommandTest.cs" />
     <Compile Include="ViewModels\WithMemoryStore\BatchOperatorViewModelTest.cs" />

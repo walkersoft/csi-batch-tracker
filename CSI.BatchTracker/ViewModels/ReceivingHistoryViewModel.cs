@@ -1,11 +1,13 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CSI.BatchTracker.ViewModels
 {
@@ -17,13 +19,18 @@ namespace CSI.BatchTracker.ViewModels
         public DateTime DateRangeStartingDate { get; set; }
         public DateTime DateRangeEndingDate { get; set; }
         public ObservableCollection<ReceivedBatch> RetreivedRecordsLedger { get; set; }
-        public int SearchCriteriaSelectedIndex { get; private set; }
+        public int SearchCriteriaSelectedIndex { get; set; }
+
+        public ICommand ListReceivingRecordsByDateRange { get; private set; }
 
         public ReceivingHistoryViewModel(IReceivedBatchSource receivedBatchSource, IActiveInventorySource inventorySource)
         {
             this.receivedBatchSource = receivedBatchSource;
             this.inventorySource = inventorySource;
             SearchCriteriaSelectedIndex = 0;
+            DateRangeStartingDate = DateTime.Today;
+            DateRangeEndingDate = DateTime.Today;
+            ListReceivingRecordsByDateRange = new ListReceivingRecordsByDateRangeCommand(this);
             NotifyPropertyChanged("SearchCriteriaSelectedIndex");
         }
 

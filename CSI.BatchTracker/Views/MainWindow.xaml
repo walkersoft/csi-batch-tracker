@@ -17,7 +17,7 @@
             </MenuItem>
             <MenuItem Header="_Batch Management">
                 <MenuItem Header="_Receiving Session" InputGestureText="Ctrl+R" Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
-                <MenuItem Header="Receiving _History" InputGestureText="Ctrl+H"/>
+                <MenuItem Header="Receiving _History" InputGestureText="Ctrl+H" Command="{Binding LaunchReceivingHistorySessionViewerCommand}"/>
                 <MenuItem Header="Individual _Batch History" InputGestureText="Ctrl+B" Command="{Binding LaunchBatchHistoryViewerCommand}"/>
             </MenuItem>
             <MenuItem Header="_People">
