@@ -92,6 +92,7 @@
     <Compile Include="Domain\DataSource\MemorySource\MemoryImplementedBatchSource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryReceivedBatchSource.cs" />
     <Compile Include="Domain\DuracolorIntermixColorList.cs" />
+    <Compile Include="Domain\NativeModels\ReceivedPurchaseOrder.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteDepletedInventoryBatchAtId.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteReceivedBatchAtIdTransaction.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\RecordAquisition\FindBatchesInImplementationLedgerByBatchNumberTransaction.cs" />

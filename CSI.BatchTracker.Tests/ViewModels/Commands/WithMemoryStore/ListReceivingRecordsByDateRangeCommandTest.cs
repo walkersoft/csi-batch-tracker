@@ -29,9 +29,9 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
         }
 
         [Test]
-        public void CommandWillNotExecuteIfDateRangeIsNotSet()
+        public void DefaultCommandSetupWillExecute()
         {
-            Assert.False(command.CanExecute(null));
+            Assert.True(command.CanExecute(null));
         }
 
         [Test]

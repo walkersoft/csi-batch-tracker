@@ -55,6 +55,7 @@
     <Compile Include="Domain\DuracolorIntermixColorListTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\BatchOperatorSourceBehaviorTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\ReceivedBatchSourceBehaviorTest.cs" />
+    <Compile Include="Domain\NativeModels\ReceivedPurchaseOrderTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryActiveInventorySourceTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryBatchOperatorStoreTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryImplementedBatchSourceTest.cs" />
