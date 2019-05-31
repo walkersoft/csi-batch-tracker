@@ -18,8 +18,10 @@ namespace CSI.BatchTracker.ViewModels
 
         public DateTime DateRangeStartingDate { get; set; }
         public DateTime DateRangeEndingDate { get; set; }
-        public ObservableCollection<ReceivedBatch> RetreivedRecordsLedger { get; set; }
+        public ObservableCollection<ReceivedBatch> SelectedPurchaseOrderReceivedBatches { get; set; }
+        public ObservableCollection<ReceivedPurchaseOrder> RetreivedRecordsLedger { get; set; }
         public int SearchCriteriaSelectedIndex { get; set; }
+        public int RetreivedRecordsLedgerSelectedIndex { get; set; }
 
         public ICommand ListReceivingRecordsByDateRange { get; private set; }
 
@@ -50,9 +52,45 @@ namespace CSI.BatchTracker.ViewModels
         {
             if (SearchCriteriaSelectedIndex == 0)
             {
-                RetreivedRecordsLedger = receivedBatchSource.GetReceivedBatchesWithinDateRange(DateRangeStartingDate, DateRangeEndingDate);
+                RetreivedRecordsLedger = AggregateRecordsByPONumber(
+                    receivedBatchSource.GetReceivedBatchesWithinDateRange(DateRangeStartingDate, DateRangeEndingDate)
+                );
+
                 NotifyPropertyChanged("RetreivedRecordsLedger");
             }
+        }
+
+        ObservableCollection<ReceivedPurchaseOrder> AggregateRecordsByPONumber(ObservableCollection<ReceivedBatch> results)
+        {
+            Dictionary<int, ReceivedPurchaseOrder> aggregatedBatches = new Dictionary<int, ReceivedPurchaseOrder>();
+
+            foreach (ReceivedBatch batch in results)
+            {
+                if (aggregatedBatches.ContainsKey(batch.PONumber))
+                {
+                    aggregatedBatches[batch.PONumber].AddBatch(batch);
+                }
+                else
+                {
+                    ReceivedPurchaseOrder receivedPO = new ReceivedPurchaseOrder(
+                        batch.PONumber, 
+                        batch.ActivityDate, 
+                        batch.ReceivingOperator
+                    );
+
+                    receivedPO.AddBatch(batch);
+                    aggregatedBatches.Add(batch.PONumber, receivedPO);
+                }
+            }
+
+            ObservableCollection<ReceivedPurchaseOrder> receivedPurchaseOrders = new ObservableCollection<ReceivedPurchaseOrder>();
+
+            foreach (KeyValuePair<int, ReceivedPurchaseOrder> received in aggregatedBatches)
+            {
+                receivedPurchaseOrders.Add(received.Value);
+            }
+
+            return receivedPurchaseOrders;
         }
     }
 }

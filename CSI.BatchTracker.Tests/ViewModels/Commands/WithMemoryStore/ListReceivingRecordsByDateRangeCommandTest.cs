@@ -64,7 +64,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
         [Test]
         public void ExecutedCommandWillPopulateRetreivedRecordsLedger()
         {
-            int expectedCount = 2;
+            int expectedCount = 1;
             viewModel.DateRangeStartingDate = DateTime.Today;
             viewModel.DateRangeEndingDate = viewModel.DateRangeStartingDate.AddDays(3);
             DateTime firstItemDate = viewModel.DateRangeStartingDate.AddDays(1);
@@ -82,7 +82,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
                 receivedBatchSource.SaveReceivedBatch(batch);
             }
 
-            if (command.CanExecute(null)) command.Execute(null);
+            command.Execute(null);
 
             Assert.AreEqual(expectedCount, viewModel.RetreivedRecordsLedger.Count);
             Assert.AreEqual(firstItemDate, viewModel.RetreivedRecordsLedger[0].ActivityDate);

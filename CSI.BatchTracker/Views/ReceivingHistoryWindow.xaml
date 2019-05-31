@@ -61,11 +61,12 @@
                           IsReadOnly="True"
                           Height="300"
                           VerticalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding RetreivedRecordsLedger}">
+                          ItemsSource="{Binding RetreivedRecordsLedger}"
+                          SelectedIndex="{Binding RetrievedRecordsLedgerSelectedIndex}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="PO Number" Width="100" Binding="{Binding PONumber}"/>
-                        <DataGridTextColumn Header="Receiving Date" Width="150" Binding="{Binding ActivityDate}"/>
-                        <DataGridTextColumn Header="Receiving Operator" Width="120" Binding="{Binding ReceivingOperator}"/>
+                        <DataGridTextColumn Header="Receiving Date" Width="150" Binding="{Binding DisplayDate}"/>
+                        <DataGridTextColumn Header="Receiving Operator" Width="120" Binding="{Binding ReceivingOperator.FullName}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
@@ -85,10 +86,11 @@
                           IsReadOnly="True"
                           Height="213"
                           VerticalAlignment="Stretch"
-                          VerticalScrollBarVisibility="Visible">
+                          VerticalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding SelectedPurchaseOrderReceivedBatches}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color" Width="120"/>
-                        <DataGridTextColumn Header="Qty" Width="40"/>
+                        <DataGridTextColumn Header="Color" Width="120" Binding="{Binding ColorName}"/>
+                        <DataGridTextColumn Header="Qty" Width="40" Binding="{Binding Quantity}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
