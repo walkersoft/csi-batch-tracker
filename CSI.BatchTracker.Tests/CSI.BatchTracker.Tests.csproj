@@ -74,6 +74,7 @@
     <Compile Include="TestHelpers\NativeModels\BatchOperatorTestHelper.cs" />
     <Compile Include="TestHelpers\NativeModels\ReceivedBatchTestHelper.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\CommitBatchToImplementationLedgerCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByDateRangeCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\MainWindowViewModelCommandBehaviorTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchHistoryViewerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchHistoryViewerWithBatchNumberCommandBehaviorTest.cs" />
