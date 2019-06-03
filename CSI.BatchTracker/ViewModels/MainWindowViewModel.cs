@@ -15,7 +15,6 @@ namespace CSI.BatchTracker.ViewModels
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
         IImplementedBatchSource implementedBatchSource;
-
         IBatchOperatorSource operatorSource;
 
         public IView ReceivingManagementSessionViewer { get; set; }
