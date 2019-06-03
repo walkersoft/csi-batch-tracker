@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
         Title="Receiving History"
@@ -62,12 +63,17 @@
                           Height="300"
                           VerticalScrollBarVisibility="Visible"
                           ItemsSource="{Binding RetreivedRecordsLedger}"
-                          SelectedIndex="{Binding RetrievedRecordsLedgerSelectedIndex}">
+                          SelectedIndex="{Binding RetreivedRecordsLedgerSelectedIndex, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="PO Number" Width="100" Binding="{Binding PONumber}"/>
                         <DataGridTextColumn Header="Receiving Date" Width="150" Binding="{Binding DisplayDate}"/>
                         <DataGridTextColumn Header="Receiving Operator" Width="120" Binding="{Binding ReceivingOperator.FullName}"/>
                     </DataGrid.Columns>
+                    <input:Interaction.Triggers>
+                        <input:EventTrigger EventName="SelectionChanged">
+                            <input:InvokeCommandAction Command="{Binding ListBatchesFromReceivedPurchaseOrder}"/>
+                        </input:EventTrigger>
+                    </input:Interaction.Triggers>
                 </DataGrid>
             </StackPanel>
             <StackPanel Orientation="Vertical">

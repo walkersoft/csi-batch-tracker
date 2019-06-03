@@ -24,6 +24,7 @@ namespace CSI.BatchTracker.ViewModels
         public int RetreivedRecordsLedgerSelectedIndex { get; set; }
 
         public ICommand ListReceivingRecordsByDateRange { get; private set; }
+        public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
 
         public ReceivingHistoryViewModel(IReceivedBatchSource receivedBatchSource, IActiveInventorySource inventorySource)
         {
@@ -33,6 +34,9 @@ namespace CSI.BatchTracker.ViewModels
             DateRangeStartingDate = DateTime.Today;
             DateRangeEndingDate = DateTime.Today;
             ListReceivingRecordsByDateRange = new ListReceivingRecordsByDateRangeCommand(this);
+            ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
+            RetreivedRecordsLedger = new ObservableCollection<ReceivedPurchaseOrder>();
+            SelectedPurchaseOrderReceivedBatches = new ObservableCollection<ReceivedBatch>();
             NotifyPropertyChanged("SearchCriteriaSelectedIndex");
         }
 
@@ -57,6 +61,17 @@ namespace CSI.BatchTracker.ViewModels
                 );
 
                 NotifyPropertyChanged("RetreivedRecordsLedger");
+            }
+
+            SelectFirstLedgerRecordIfAvailable();
+        }
+
+        void SelectFirstLedgerRecordIfAvailable()
+        {
+            if(RetreivedRecordsLedger.Count > 0)
+            {
+                RetreivedRecordsLedgerSelectedIndex = 0;
+                PopulateSelectedPurchaseOrderBatchCollection();
             }
         }
 
@@ -91,6 +106,25 @@ namespace CSI.BatchTracker.ViewModels
             }
 
             return receivedPurchaseOrders;
+        }
+
+        public bool ReceivedPurchaseOrderIsSelected()
+        {
+            if (RetreivedRecordsLedger.Count > 0 && RetreivedRecordsLedgerSelectedIndex > -1)
+            {
+                return true;
+            }
+
+            SelectedPurchaseOrderReceivedBatches.Clear();
+            NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
+
+            return false;
+        }
+
+        public void PopulateSelectedPurchaseOrderBatchCollection()
+        {
+            SelectedPurchaseOrderReceivedBatches = RetreivedRecordsLedger[RetreivedRecordsLedgerSelectedIndex].ReceivedBatches;
+            NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
         }
     }
 }

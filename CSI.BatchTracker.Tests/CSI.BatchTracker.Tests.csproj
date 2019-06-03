@@ -74,6 +74,7 @@
     <Compile Include="TestHelpers\NativeModels\BatchOperatorTestHelper.cs" />
     <Compile Include="TestHelpers\NativeModels\ReceivedBatchTestHelper.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\CommitBatchToImplementationLedgerCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\ListBatchesFromReceivedPurchaseOrderCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByDateRangeCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\MainWindowViewModelCommandBehaviorTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenBatchHistoryViewerCommandBehaviorTest.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="ViewModels\Commands\Behaviors\ReceivingHistoryViewModelCommandBehaviorTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\UndoImplementedBatchCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\CommitBatchToImplementationLedgerCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\ListBatchesFromReceivedPurchaseOrderCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\ListReceivingRecordsByDateRangeCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchHistoryViewerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenBatchHistoryViewerWithBatchNumberCommandTest.cs" />

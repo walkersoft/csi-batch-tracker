@@ -112,6 +112,7 @@
     <Compile Include="Storage\MemoryStore\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransaction.cs" />
     <Compile Include="Domain\BatchOperatorValidator.cs" />
     <Compile Include="ViewModels\Commands\DisplayBatchHistoryFromBatchNumberCommand.cs" />
+    <Compile Include="ViewModels\Commands\ListBatchesFromReceivedPurchaseOrderCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByDateRangeCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenBatchHistoryViewerCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenBatchHistoryViewerWithBatchNumberCommand.cs" />
