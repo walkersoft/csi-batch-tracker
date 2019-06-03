@@ -50,12 +50,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\Commands\WithMemoryStore\ReceivingHistorySearchCriteriaVisibilityManagerTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\ActiveInventorySourceBehaviorTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\ImplementedBatchSourceBehaviorTest.cs" />
     <Compile Include="Domain\DuracolorIntermixColorListTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\BatchOperatorSourceBehaviorTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\ReceivedBatchSourceBehaviorTest.cs" />
     <Compile Include="Domain\NativeModels\ReceivedPurchaseOrderTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\ReceivingHistorySearchCriteriaVisibilityManagerCommandBehaviorTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryActiveInventorySourceTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryBatchOperatorStoreTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryImplementedBatchSourceTest.cs" />

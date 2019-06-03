@@ -19,12 +19,17 @@
                       Margin="0,0,5,0"
                       VerticalContentAlignment="Center"
                       SelectedIndex="{Binding SearchCriteriaSelectedIndex}">
+                <input:Interaction.Triggers>
+                    <input:EventTrigger EventName="SelectionChanged">
+                        <input:InvokeCommandAction Command="{Binding ChangeSearchCriteriaPanelVisibility}"/>
+                    </input:EventTrigger>
+                </input:Interaction.Triggers>
                 <ComboBoxItem Content="Date Range"/>
                 <ComboBoxItem Content="Date Period"/>
                 <ComboBoxItem Content="Specific Date"/>
-                <ComboBoxItem Content="PO Number"/>
+                <ComboBoxItem Content="PO Number"/>                
             </ComboBox>
-            <StackPanel Visibility="Visible" Orientation="Horizontal" Margin="0,0,5,0">
+            <StackPanel Visibility="{Binding VisibilityManager.DateRangeCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
                 <DatePicker Width="120" 
                             VerticalContentAlignment="Center"
                             SelectedDate="{Binding DateRangeStartingDate, UpdateSourceTrigger=PropertyChanged}"/>
@@ -33,17 +38,17 @@
                             VerticalContentAlignment="Center"
                             SelectedDate="{Binding DateRangeEndingDate, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <StackPanel Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,5,0">
+            <StackPanel DataContext="{Binding VisibilityManager}" Visibility="{Binding DatePeriodCriteriaVisibility, UpdateSourceTrigger=PropertyChanged}" Orientation="Horizontal" Margin="0,0,5,0">
                 <ComboBox Width="140">
                     <ComboBoxItem Content="Last 30 Days"/>
                     <ComboBoxItem Content="Last 90 Days"/>
                     <ComboBoxItem Content="Last Year"/>
                 </ComboBox>
             </StackPanel>
-            <WrapPanel Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,5,0">
+            <WrapPanel Visibility="{Binding VisibilityManager.SpecificDateCriteriaVisibility, UpdateSourceTrigger=PropertyChanged}" Orientation="Horizontal" Margin="0,0,5,0">
                 <DatePicker Width="120"/>
             </WrapPanel>
-            <WrapPanel Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,5,0">
+            <WrapPanel Visibility="{Binding VisibilityManager.PONumberCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
                 <TextBox Width="120"/>
             </WrapPanel>
             <Button Content="Search" Width="80" Command="{Binding ListReceivingRecordsByDateRange}"/>
@@ -61,6 +66,7 @@
                           CanUserSortColumns="False"
                           IsReadOnly="True"
                           Height="300"
+                          HeadersVisibility="Column"
                           VerticalScrollBarVisibility="Visible"
                           ItemsSource="{Binding RetreivedRecordsLedger}"
                           SelectedIndex="{Binding RetreivedRecordsLedgerSelectedIndex, Mode=TwoWay}">
@@ -91,6 +97,7 @@
                           CanUserSortColumns="False"
                           IsReadOnly="True"
                           Height="213"
+                          HeadersVisibility="Column"
                           VerticalAlignment="Stretch"
                           VerticalScrollBarVisibility="Visible"
                           ItemsSource="{Binding SelectedPurchaseOrderReceivedBatches}">

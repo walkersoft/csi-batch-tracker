@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
+﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using System;
@@ -16,6 +17,7 @@ namespace CSI.BatchTracker.ViewModels
         IReceivedBatchSource receivedBatchSource;
         IActiveInventorySource inventorySource;
 
+        public SearchCriteriaVisibilityManager VisibilityManager { get; set; }
         public DateTime DateRangeStartingDate { get; set; }
         public DateTime DateRangeEndingDate { get; set; }
         public ObservableCollection<ReceivedBatch> SelectedPurchaseOrderReceivedBatches { get; set; }
@@ -25,7 +27,9 @@ namespace CSI.BatchTracker.ViewModels
 
         public ICommand ListReceivingRecordsByDateRange { get; private set; }
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
+        public ICommand ChangeSearchCriteriaPanelVisibility { get; private set;}
 
+        
         public ReceivingHistoryViewModel(IReceivedBatchSource receivedBatchSource, IActiveInventorySource inventorySource)
         {
             this.receivedBatchSource = receivedBatchSource;
@@ -35,8 +39,10 @@ namespace CSI.BatchTracker.ViewModels
             DateRangeEndingDate = DateTime.Today;
             ListReceivingRecordsByDateRange = new ListReceivingRecordsByDateRangeCommand(this);
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
+            ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
             RetreivedRecordsLedger = new ObservableCollection<ReceivedPurchaseOrder>();
             SelectedPurchaseOrderReceivedBatches = new ObservableCollection<ReceivedBatch>();
+            VisibilityManager = new SearchCriteriaVisibilityManager();
             NotifyPropertyChanged("SearchCriteriaSelectedIndex");
         }
 
@@ -122,6 +128,19 @@ namespace CSI.BatchTracker.ViewModels
         {
             SelectedPurchaseOrderReceivedBatches = RetreivedRecordsLedger[RetreivedRecordsLedgerSelectedIndex].ReceivedBatches;
             NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
+        }
+
+        public bool SearchCriteriaVisibilityManagerIsSet()
+        {
+            return VisibilityManager != null;
+        }
+
+        public void SetActiveSearchCritera()
+        {
+            if (SearchCriteriaSelectedIndex == 0) VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.DateRange);
+            if (SearchCriteriaSelectedIndex == 1) VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.DatePeriod);
+            if (SearchCriteriaSelectedIndex == 2) VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.SpecificDate);
+            if (SearchCriteriaSelectedIndex == 3) VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.PONumber);
         }
     }
 }
