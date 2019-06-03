@@ -5,6 +5,7 @@ using CSI.BatchTracker.ViewModels.Commands;
 using CSI.BatchTracker.Views.Contracts;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 
 namespace CSI.BatchTracker.ViewModels
@@ -174,6 +175,7 @@ namespace CSI.BatchTracker.ViewModels
 
         public ICommand LaunchDataSourcePopulatorCommand { get; private set; }
 
+        [ExcludeFromCodeCoverage]
         public void RunPopulatorTool()
         {
             DataSourcePopulator populator = new DataSourcePopulator(

@@ -42,8 +42,8 @@ namespace CSI.BatchTracker.ViewModels
 
         public bool DateRangeCriteriaIsMet()
         {
-            return DateRangeStartingDate > DateTime.MinValue
-                && DateRangeEndingDate > DateTime.MinValue
+            return DateRangeStartingDate != null
+                && DateRangeEndingDate != null
                 && DateRangeStartingDateIsOnOrBeforeEndingDate();
         }
 
@@ -68,11 +68,8 @@ namespace CSI.BatchTracker.ViewModels
 
         void SelectFirstLedgerRecordIfAvailable()
         {
-            if(RetreivedRecordsLedger.Count > 0)
-            {
-                RetreivedRecordsLedgerSelectedIndex = 0;
-                PopulateSelectedPurchaseOrderBatchCollection();
-            }
+            RetreivedRecordsLedgerSelectedIndex = 0;
+            PopulateSelectedPurchaseOrderBatchCollection();
         }
 
         ObservableCollection<ReceivedPurchaseOrder> AggregateRecordsByPONumber(ObservableCollection<ReceivedBatch> results)

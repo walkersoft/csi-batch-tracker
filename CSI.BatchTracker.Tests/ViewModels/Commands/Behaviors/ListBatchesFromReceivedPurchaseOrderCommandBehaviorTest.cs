@@ -32,6 +32,22 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
+        public void CommandWillNotExecuteIfRetrievedRecordLedgerIsEmpty()
+        {
+            viewModel.RetreivedRecordsLedger.Clear();
+            viewModel.RetreivedRecordsLedgerSelectedIndex = 0;
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
+        public void CommandWillExecuteIfRetreivedRecordLedgerIsPopulatedAndPurchaseOrderIsSelected()
+        {
+            viewModel.RetreivedRecordsLedger.Add(CreatePurchaseOrderWithSingleEntry());
+            viewModel.RetreivedRecordsLedgerSelectedIndex = 0;
+            Assert.True(command.CanExecute(null));
+        }
+
+        [Test]
         public void ExecutedCommandWillPopulateReceivedBatchCollectionForTheSelectedPurchaseOrderRecord()
         {
             int expectedLedgerCount = 1;

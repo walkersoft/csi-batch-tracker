@@ -21,6 +21,8 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void CommandWillNotExecuteIfViewCannotShowItself()
         {
+            SetupInventoryStateAndReceiveSingleBatchAndReturnBatchNumber();
+            viewModel.ImplementedBatchSelectedIndex = 0;
             viewModel.BatchHistoryViewer = new IBatchHistoryViewerTestStub();
             Assert.False(command.CanExecute(null));
         }
@@ -28,6 +30,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void CommandWillNotExecuteIfImplementationLedgerIsEmpty()
         {
+            viewModel.ImplementedBatchSelectedIndex = 0;
             viewModel.BatchHistoryViewer = new IBatchHistoryViewerTestStub();
             Assert.False(command.CanExecute(null));
         }
@@ -36,6 +39,17 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         public void CommandWillNotExecuteIfItemIsNotSelectedInImplementationLedger()
         {
             SetupInventoryStateAndReceiveSingleBatchAndReturnBatchNumber();
+            viewModel.ImplementedBatchSelectedIndex = -1;
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
+        public void CommandWillNotExecuteIfViewIsNotSetEvenWhenImplementationLedgerIsSetAndAnItemIsSelected()
+        {
+            SetupInventoryStateAndReceiveSingleBatchAndReturnBatchNumber();
+            viewModel.ImplementedBatchSelectedIndex = 0;
+            viewModel.BatchHistoryViewer = new IBatchHistoryViewerTestStub();
+
             Assert.False(command.CanExecute(null));
         }
 
