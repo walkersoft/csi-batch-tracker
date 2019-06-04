@@ -1,16 +1,9 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.MemorySource;
-using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
 {
