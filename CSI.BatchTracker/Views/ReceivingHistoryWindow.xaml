@@ -38,14 +38,14 @@
                             VerticalContentAlignment="Center"
                             SelectedDate="{Binding DateRangeEndingDate, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <StackPanel DataContext="{Binding VisibilityManager}" Visibility="{Binding DatePeriodCriteriaVisibility, UpdateSourceTrigger=PropertyChanged}" Orientation="Horizontal" Margin="0,0,5,0">
+            <StackPanel Visibility="{Binding VisibilityManager.DatePeriodCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
                 <ComboBox Width="140">
                     <ComboBoxItem Content="Last 30 Days"/>
                     <ComboBoxItem Content="Last 90 Days"/>
                     <ComboBoxItem Content="Last Year"/>
                 </ComboBox>
             </StackPanel>
-            <WrapPanel Visibility="{Binding VisibilityManager.SpecificDateCriteriaVisibility, UpdateSourceTrigger=PropertyChanged}" Orientation="Horizontal" Margin="0,0,5,0">
+            <WrapPanel Visibility="{Binding VisibilityManager.SpecificDateCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
                 <DatePicker Width="120"/>
             </WrapPanel>
             <WrapPanel Visibility="{Binding VisibilityManager.PONumberCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">

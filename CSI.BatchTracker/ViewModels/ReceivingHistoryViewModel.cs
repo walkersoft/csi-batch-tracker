@@ -74,8 +74,11 @@ namespace CSI.BatchTracker.ViewModels
 
         void SelectFirstLedgerRecordIfAvailable()
         {
-            RetreivedRecordsLedgerSelectedIndex = 0;
-            PopulateSelectedPurchaseOrderBatchCollection();
+            if (RetreivedRecordsLedger.Count > 0)
+            {
+                RetreivedRecordsLedgerSelectedIndex = 0;
+                PopulateSelectedPurchaseOrderBatchCollection();
+            }            
         }
 
         ObservableCollection<ReceivedPurchaseOrder> AggregateRecordsByPONumber(ObservableCollection<ReceivedBatch> results)

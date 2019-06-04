@@ -20,6 +20,9 @@ namespace CSI.BatchTracker.ViewModels
         public SearchCriteriaVisibilityManager()
         {
             DateRangeCriteriaVisibility = Visibility.Visible;
+            DatePeriodCriteriaVisibility = Visibility.Collapsed;
+            SpecificDateCriteriaVisibility = Visibility.Collapsed;
+            PONumberCriteriaVisibility = Visibility.Collapsed;
         }
 
         Visibility dateRangeCriteriaVisibility;
@@ -29,10 +32,7 @@ namespace CSI.BatchTracker.ViewModels
             set
             {
                 dateRangeCriteriaVisibility = value;
-                datePeriodCriteriaVisibility = Visibility.Collapsed;
-                specificDateCriteriaVisibility = Visibility.Collapsed;
-                poNumberCriteriaVisibility = Visibility.Collapsed;
-                NotifyVisibilityChanges();
+                NotifyPropertyChanged("DateRangeCriteriaVisibility");
             }
         }
 
@@ -43,10 +43,7 @@ namespace CSI.BatchTracker.ViewModels
             set
             {
                 datePeriodCriteriaVisibility = value;
-                dateRangeCriteriaVisibility = Visibility.Collapsed;
-                specificDateCriteriaVisibility = Visibility.Collapsed;
-                poNumberCriteriaVisibility = Visibility.Collapsed;
-                NotifyVisibilityChanges();
+                NotifyPropertyChanged("DatePeriodCriteriaVisibility");
             }
         }
 
@@ -57,10 +54,7 @@ namespace CSI.BatchTracker.ViewModels
             set
             {
                 specificDateCriteriaVisibility = value;
-                dateRangeCriteriaVisibility = Visibility.Collapsed;
-                datePeriodCriteriaVisibility = Visibility.Collapsed;
-                poNumberCriteriaVisibility = Visibility.Collapsed;
-                NotifyVisibilityChanges();
+                NotifyPropertyChanged("SpecificDateCriteriaVisibility");
             }
         }
 
@@ -71,27 +65,43 @@ namespace CSI.BatchTracker.ViewModels
             set
             {
                 poNumberCriteriaVisibility = value;
-                dateRangeCriteriaVisibility = Visibility.Collapsed;
-                datePeriodCriteriaVisibility = Visibility.Collapsed;
-                specificDateCriteriaVisibility = Visibility.Collapsed;
-                NotifyVisibilityChanges();
+                NotifyPropertyChanged("PONumberCriteriaVisibility");
             }
-        }
-
-        void NotifyVisibilityChanges()
-        {
-            NotifyPropertyChanged("DateRangeCriteraVisibility");
-            NotifyPropertyChanged("DatePeriodCriteraVisibility");
-            NotifyPropertyChanged("SpecificDateCriteraVisibility");
-            NotifyPropertyChanged("PONumberCriteraVisibility");
         }
 
         public void SetVisibility(ActiveCriteriaPanel activePanel)
         {
-            if (activePanel == ActiveCriteriaPanel.DateRange) DateRangeCriteriaVisibility = Visibility.Visible;
-            if (activePanel == ActiveCriteriaPanel.DatePeriod) DatePeriodCriteriaVisibility = Visibility.Visible;
-            if (activePanel == ActiveCriteriaPanel.SpecificDate) SpecificDateCriteriaVisibility = Visibility.Visible;
-            if (activePanel == ActiveCriteriaPanel.PONumber) PONumberCriteriaVisibility = Visibility.Visible;
+            if (activePanel == ActiveCriteriaPanel.DateRange)
+            {
+                DateRangeCriteriaVisibility = Visibility.Visible;
+                DatePeriodCriteriaVisibility = Visibility.Collapsed;
+                SpecificDateCriteriaVisibility = Visibility.Collapsed;
+                PONumberCriteriaVisibility = Visibility.Collapsed;
+            }
+
+            if (activePanel == ActiveCriteriaPanel.DatePeriod)
+            {
+                DateRangeCriteriaVisibility = Visibility.Collapsed;
+                DatePeriodCriteriaVisibility = Visibility.Visible;
+                SpecificDateCriteriaVisibility = Visibility.Collapsed;
+                PONumberCriteriaVisibility = Visibility.Collapsed;
+            }
+
+            if (activePanel == ActiveCriteriaPanel.SpecificDate)
+            {
+                DateRangeCriteriaVisibility = Visibility.Collapsed;
+                DatePeriodCriteriaVisibility = Visibility.Collapsed;
+                SpecificDateCriteriaVisibility = Visibility.Visible;
+                PONumberCriteriaVisibility = Visibility.Collapsed;
+            }
+
+            if (activePanel == ActiveCriteriaPanel.PONumber)
+            {
+                DateRangeCriteriaVisibility = Visibility.Collapsed;
+                DatePeriodCriteriaVisibility = Visibility.Collapsed;
+                SpecificDateCriteriaVisibility = Visibility.Collapsed;
+                PONumberCriteriaVisibility = Visibility.Visible;
+            }
         }
     }
 }

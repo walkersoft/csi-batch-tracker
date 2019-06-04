@@ -76,5 +76,14 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             Assert.AreEqual(expectedCount, viewModel.RetreivedRecordsLedger.Count);
             Assert.AreEqual(firstItemDate, viewModel.RetreivedRecordsLedger[0].ActivityDate);
         }
+
+        [Test]
+        public void ExecutedCommandWillNotThrowErrorsCriteraIsSetButNoRecordsAreFound()
+        {
+            viewModel.DateRangeStartingDate = DateTime.Today;
+            viewModel.DateRangeEndingDate = viewModel.DateRangeStartingDate.AddDays(1);
+
+            Assert.DoesNotThrow(() => command.Execute(null));
+        }
     }
 }
