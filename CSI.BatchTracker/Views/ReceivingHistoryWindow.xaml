@@ -39,17 +39,22 @@
                             SelectedDate="{Binding DateRangeEndingDate, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Visibility="{Binding VisibilityManager.DatePeriodCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
-                <ComboBox Width="140">
+                <ComboBox Width="140"
+                          VerticalContentAlignment="Center">
                     <ComboBoxItem Content="Last 30 Days"/>
                     <ComboBoxItem Content="Last 90 Days"/>
                     <ComboBoxItem Content="Last Year"/>
                 </ComboBox>
             </StackPanel>
             <WrapPanel Visibility="{Binding VisibilityManager.SpecificDateCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
-                <DatePicker Width="120"/>
+                <DatePicker Width="120"
+                            Height="26"
+                            VerticalContentAlignment="Center"/>
             </WrapPanel>
             <WrapPanel Visibility="{Binding VisibilityManager.PONumberCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
-                <TextBox Width="120"/>
+                <TextBox Width="120"
+                         Height="26"
+                         VerticalContentAlignment="Center"/>
             </WrapPanel>
             <Button Content="Search" Width="80" Command="{Binding ListReceivingRecordsByDateRange}"/>
         </StackPanel>
