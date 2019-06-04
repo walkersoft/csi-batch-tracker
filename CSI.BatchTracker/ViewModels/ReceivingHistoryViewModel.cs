@@ -60,11 +60,10 @@ namespace CSI.BatchTracker.ViewModels
             {
                 RetreivedRecordsLedger = AggregateRecordsByPONumber(
                     receivedBatchSource.GetReceivedBatchesWithinDateRange(DateRangeStartingDate, DateRangeEndingDate)
-                );
-
-                NotifyPropertyChanged("RetreivedRecordsLedger");
+                );                
             }
 
+            NotifyPropertyChanged("RetreivedRecordsLedger");
             SelectFirstLedgerRecordIfAvailable();
         }
 
