@@ -56,7 +56,7 @@
                          Height="26"
                          VerticalContentAlignment="Center"/>
             </WrapPanel>
-            <Button Content="Search" Width="80" Command="{Binding ListReceivingRecordsByDateRange}"/>
+            <Button Content="Search" Width="80" Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
         </StackPanel>
         
         <Separator Width="Auto" Margin="0,8,0,8"/>

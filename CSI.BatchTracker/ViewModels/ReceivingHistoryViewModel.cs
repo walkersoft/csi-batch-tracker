@@ -21,7 +21,7 @@ namespace CSI.BatchTracker.ViewModels
         public int SearchCriteriaSelectedIndex { get; set; }
         public int RetreivedRecordsLedgerSelectedIndex { get; set; }
 
-        public ICommand ListReceivingRecordsByDateRange { get; private set; }
+        public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
         public ICommand ChangeSearchCriteriaPanelVisibility { get; private set;}
 
@@ -33,7 +33,7 @@ namespace CSI.BatchTracker.ViewModels
             SearchCriteriaSelectedIndex = 0;
             DateRangeStartingDate = DateTime.Today;
             DateRangeEndingDate = DateTime.Today;
-            ListReceivingRecordsByDateRange = new ListReceivingRecordsByDateRangeCommand(this);
+            PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDateRangeCommand(this);
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
             RetreivedRecordsLedger = new ObservableCollection<ReceivedPurchaseOrder>();
