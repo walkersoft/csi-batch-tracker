@@ -153,5 +153,12 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             finder.Execute();
             return BuildObservableCollectionFromTransactionResults(finder);
         }
+
+        public ObservableCollection<ReceivedBatch> GetReceivedBatchesByPONumber(int poNumber)
+        {
+            ITransaction finder = new FindBatchesInReceivingLedgerByPONumberTransaction(poNumber, memoryStore);
+            finder.Execute();
+            return BuildObservableCollectionFromTransactionResults(finder);
+        }
     }
 }

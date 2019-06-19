@@ -26,18 +26,6 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
-        public void CommandWillNeverExecuteForAnyCriteriaIfVisibilityManagerIsNull()
-        {
-            viewModel.VisibilityManager = null;
-
-            for (int i = 0; i < 4; i++)
-            {
-                viewModel.SearchCriteriaSelectedIndex = i;
-                Assert.False(command.CanExecute(null));
-            }
-        }
-
-        [Test]
         public void SearchByDateRangePanelIsVisible()
         {
             viewModel.SearchCriteriaSelectedIndex = 0;

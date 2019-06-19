@@ -16,6 +16,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
         ReceivedBatch FindReceivedBatchById(int id);
         ObservableCollection<ReceivedBatch> GetReceivedBatchesByBatchNumber(string batchNumber);
         ObservableCollection<ReceivedBatch> GetReceivedBatchesWithinDateRange(DateTime startDate, DateTime endDate);
+        ObservableCollection<ReceivedBatch> GetReceivedBatchesByPONumber(int poNumber);
         void FindReceivedBatchesByPONumber(int poNumber);
         void FindReceivedBatchesByDate(DateTime date);
         void FindAllReceivedBatches();

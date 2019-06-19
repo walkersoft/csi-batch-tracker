@@ -37,6 +37,7 @@
                 <DatePicker Width="120"
                             VerticalContentAlignment="Center"
                             SelectedDate="{Binding DateRangeEndingDate, UpdateSourceTrigger=PropertyChanged}"/>
+
             </StackPanel>
             <StackPanel Visibility="{Binding VisibilityManager.DatePeriodCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
                 <ComboBox Width="140"
@@ -54,7 +55,12 @@
             <WrapPanel Visibility="{Binding VisibilityManager.PONumberCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
                 <TextBox Width="120"
                          Height="26"
-                         VerticalContentAlignment="Center"/>
+                         VerticalContentAlignment="Center"
+                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
             </WrapPanel>
             <Button Content="Search" Width="80" Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
         </StackPanel>

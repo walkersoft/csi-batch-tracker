@@ -234,5 +234,29 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 
             Assert.AreEqual(expectedCount, found.Count);
         }
+
+        [Test]
+        public void FindAllBatchesByPONumber()
+        {
+            int expectedCount = 2;
+            int targetPO = 11111;
+            ReceivedBatch inRangeBatch1 = helper.GetBatchWithSpecificPO(targetPO);
+            ReceivedBatch inRangeBatch2 = helper.GetBatchWithSpecificPO(targetPO);
+            ReceivedBatch outOfRangeBatch1 = helper.GetBatchWithSpecificPO(targetPO + 1);
+            ReceivedBatch outOfRangeBatch2 = helper.GetBatchWithSpecificPO(targetPO - 1);
+            List<ReceivedBatch> receivables = new List<ReceivedBatch>
+            {
+                inRangeBatch1, inRangeBatch2, outOfRangeBatch1, outOfRangeBatch2
+            };
+
+            foreach (ReceivedBatch batch in receivables)
+            {
+                receivedBatchSource.SaveReceivedBatch(batch);
+            }
+
+            ObservableCollection<ReceivedBatch> found = receivedBatchSource.GetReceivedBatchesByPONumber(targetPO);
+
+            Assert.AreEqual(expectedCount, found.Count);
+        }
     }
 }
