@@ -81,6 +81,8 @@ namespace CSI.BatchTracker.ViewModels
 
         public void FetchReceivingRecordsBasedOnSearchCriteria()
         {
+            SelectedPurchaseOrderReceivedBatches.Clear();
+
             if (SearchCriteriaSelectedIndex == 0)
             {
                 RetreivedRecordsLedger = AggregateRecordsByPONumber(
