@@ -15,21 +15,21 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void CommandWillNotExecuteIfPOFieldIsEmpty()
         {
-            viewModel.PONumber = string.Empty;
+            viewModel.SpecificPONumber = string.Empty;
             Assert.False(command.CanExecute(null));
         }
 
         [Test]
         public void CommandWillNotExecuteIfPOFieldDoesNotContainAnIntegerValue()
         {
-            viewModel.PONumber = "foo";
+            viewModel.SpecificPONumber = "foo";
             Assert.False(command.CanExecute(null));
         }
 
         [Test]
         public void CommandWillExecuteIfPOFieldIsPopulatedAndContainsAnIntegerValue()
         {
-            viewModel.PONumber = "11111";
+            viewModel.SpecificPONumber = "11111";
             Assert.True(command.CanExecute(null));
         }
 
@@ -37,7 +37,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         public void ExecutedCommandDoesNotShowAnEntryInTheRetreivedRecordsLedgerIfThePONumberDoesNotExists()
         {
             int expectedCount = 0;
-            viewModel.PONumber = "11111";
+            viewModel.SpecificPONumber = "11111";
 
             viewModel.SearchCriteriaSelectedIndex = 3;
             command.Execute(null);
@@ -54,7 +54,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 
             receivedBatchSource.SaveReceivedBatch(batch);
             viewModel.SearchCriteriaSelectedIndex = 3;
-            viewModel.PONumber = poNumber.ToString();
+            viewModel.SpecificPONumber = poNumber.ToString();
             command.Execute(null);
 
             Assert.AreEqual(expectedCount, viewModel.RetreivedRecordsLedger.Count);

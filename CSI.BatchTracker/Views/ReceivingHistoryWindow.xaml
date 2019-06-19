@@ -56,7 +56,7 @@
                 <TextBox Width="120"
                          Height="26"
                          VerticalContentAlignment="Center"
-                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
+                         Text="{Binding SpecificPONumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
                     </TextBox.InputBindings>

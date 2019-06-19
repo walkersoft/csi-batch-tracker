@@ -26,7 +26,7 @@ namespace CSI.BatchTracker.ViewModels
 
         int poNumber;
         string poNumberAsString;
-        public string PONumber
+        public string SpecificPONumber
         {
             get { return poNumberAsString; }
             set
@@ -187,8 +187,8 @@ namespace CSI.BatchTracker.ViewModels
 
         public bool PONumberIsValid()
         {
-            return string.IsNullOrEmpty(PONumber) == false
-                && int.TryParse(PONumber, out poNumber);
+            return string.IsNullOrEmpty(SpecificPONumber) == false
+                && int.TryParse(SpecificPONumber, out poNumber);
         }
     }
 }
