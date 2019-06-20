@@ -11,7 +11,7 @@
         ResizeMode="NoResize"
         Title="BatchTRAX - Cedar Siding, Inc.">
     <StackPanel Orientation="Vertical">
-        <Menu Margin="0,0,0,5">
+        <Menu Margin="0,0,0,5" Background="#FFE0EFFF">
             <MenuItem Header="_File">
                 <MenuItem Header="_Close" InputGestureText="Alt+F4"/>
             </MenuItem>
@@ -66,7 +66,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            
+
             <StackPanel Orientation="Horizontal">
                 <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Margin="5,0,5,0"/>
             </StackPanel>
