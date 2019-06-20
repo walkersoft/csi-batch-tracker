@@ -94,6 +94,7 @@
     <Compile Include="Domain\DuracolorIntermixColorList.cs" />
     <Compile Include="Domain\NativeModels\ReceivedPurchaseOrder.cs" />
     <Compile Include="ViewModels\Commands\ChangeSearchCriteriaPanelVisibilityCommand.cs" />
+    <Compile Include="ViewModels\Commands\ListReceivingRecordsByDatePeriodCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByPONumberCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsBySpecificDateCommand.cs" />
     <Compile Include="ViewModels\SearchCriteriaVisibilityManager.cs" />

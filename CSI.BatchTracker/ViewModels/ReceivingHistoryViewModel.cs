@@ -19,6 +19,7 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<ReceivedBatch> SelectedPurchaseOrderReceivedBatches { get; set; }
         public ObservableCollection<ReceivedPurchaseOrder> RetreivedRecordsLedger { get; set; }
         public int RetreivedRecordsLedgerSelectedIndex { get; set; }
+        public int DatePeriodSelectedIndex { get; set; }
         public DateTime SpecificDate { get; set; }
 
         public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
@@ -58,6 +59,7 @@ namespace CSI.BatchTracker.ViewModels
             this.inventorySource = inventorySource;
             VisibilityManager = new SearchCriteriaVisibilityManager();
             SearchCriteriaSelectedIndex = 0;
+            DatePeriodSelectedIndex = 0;
             DateRangeStartingDate = DateTime.Today;
             DateRangeEndingDate = DateTime.Today;
             SpecificDate = DateTime.Today;
@@ -89,6 +91,31 @@ namespace CSI.BatchTracker.ViewModels
             {
                 RetreivedRecordsLedger = AggregateRecordsByPONumber(
                     receivedBatchSource.GetReceivedBatchesWithinDateRange(DateRangeStartingDate, DateRangeEndingDate)
+                );
+            }
+
+            if (SearchCriteriaSelectedIndex == 1)
+            {
+                DateTime startingDate = DateTime.Today;
+                DateTime endingDate = DateTime.Today;
+
+                if (DatePeriodSelectedIndex == 0)
+                {
+                    startingDate = endingDate.AddDays(-30);
+                }
+
+                if (DatePeriodSelectedIndex == 1)
+                {
+                    startingDate = endingDate.AddDays(-90);
+                }
+
+                if (DatePeriodSelectedIndex == 2)
+                {
+                    startingDate = endingDate.AddDays(-365);
+                }
+
+                RetreivedRecordsLedger = AggregateRecordsByPONumber(
+                    receivedBatchSource.GetReceivedBatchesWithinDateRange(startingDate, endingDate)
                 );
             }
 
@@ -183,8 +210,12 @@ namespace CSI.BatchTracker.ViewModels
                 PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDateRangeCommand(this);
                 VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.DateRange);
             }
-            
-            if (SearchCriteriaSelectedIndex == 1) VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.DatePeriod);
+
+            if (SearchCriteriaSelectedIndex == 1)
+            {
+                PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDatePeriodCommand(this);
+                VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.DatePeriod);
+            }
 
             if (SearchCriteriaSelectedIndex == 2)
             {

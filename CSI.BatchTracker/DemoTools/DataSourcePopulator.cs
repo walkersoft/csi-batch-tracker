@@ -51,7 +51,7 @@ namespace CSI.BatchTracker.DemoTools
             InventorySource = inventorySource;
             ReceivingSource = receivingSource;
             ImplementationSource = implementationSource;
-            receivingDate = DateTime.Today.AddDays(-50);
+            receivingDate = DateTime.Today.AddDays(-100);
             implementingDate = receivingDate.AddDays(10);
             receiveableBatches = new List<ReceivedBatch>();
         }
@@ -98,14 +98,14 @@ namespace CSI.BatchTracker.DemoTools
 
         void GetNextPoNumber()
         {
-            nextPoNumber += random.Next(25, 200);
+            nextPoNumber += random.Next(25, 100);
         }
 
         void GetNextReceivingDate()
         {
             do
             {
-                receivingDate = receivingDate.AddDays(random.Next(3, 7));
+                receivingDate = receivingDate.AddDays(random.Next(5, 11));
             }
             while (receivingDate.DayOfWeek == DayOfWeek.Saturday || receivingDate.DayOfWeek == DayOfWeek.Sunday);
         }

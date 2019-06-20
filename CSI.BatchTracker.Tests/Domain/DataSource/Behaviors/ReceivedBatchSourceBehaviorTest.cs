@@ -258,5 +258,20 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 
             Assert.AreEqual(expectedCount, found.Count);
         }
+
+        [Test]
+        public void FindAllBatchesBySpecificDate()
+        {
+            int expectedCount = 1;
+            DateTime targetDate = DateTime.Today;
+            ReceivedBatch inRangeBatch = helper.GetBatchWithSpecificDate(targetDate);
+            ReceivedBatch outOfRangeBatch = helper.GetBatchWithSpecificDate(targetDate.AddDays(1));
+
+            receivedBatchSource.SaveReceivedBatch(outOfRangeBatch);
+            receivedBatchSource.SaveReceivedBatch(inRangeBatch);
+            ObservableCollection<ReceivedBatch> found = receivedBatchSource.GetReceivedBatchesbySpecificDate(targetDate);
+
+            Assert.AreEqual(expectedCount, found.Count);
+        }
     }
 }
