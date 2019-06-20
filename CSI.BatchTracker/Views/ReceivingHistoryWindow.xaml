@@ -50,7 +50,8 @@
             <WrapPanel Visibility="{Binding VisibilityManager.SpecificDateCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
                 <DatePicker Width="120"
                             Height="26"
-                            VerticalContentAlignment="Center"/>
+                            VerticalContentAlignment="Center"
+                            SelectedDate="{Binding SpecificDate, UpdateSourceTrigger=PropertyChanged}"/>
             </WrapPanel>
             <WrapPanel Visibility="{Binding VisibilityManager.PONumberCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
                 <TextBox Width="120"

@@ -130,13 +130,13 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         public ObservableCollection<ReceivedBatch> GetReceivedBatchesByBatchNumber(string batchNumber)
         {
             ITransaction finder = new FindBatchesInReceivingLedgerByBatchNumberTransaction(batchNumber, memoryStore);
-            finder.Execute();
-            return BuildObservableCollectionFromTransactionResults(finder);
+            return ExecuteFinderAndBuildObservableCollectionFromTransactionResults(finder);
         }
 
-        ObservableCollection<ReceivedBatch> BuildObservableCollectionFromTransactionResults(ITransaction transaction)
+        ObservableCollection<ReceivedBatch> ExecuteFinderAndBuildObservableCollectionFromTransactionResults(ITransaction transaction)
         {
             ObservableCollection<ReceivedBatch> batches = new ObservableCollection<ReceivedBatch>();
+            transaction.Execute();
 
             foreach (IEntity entity in transaction.Results)
             {
@@ -150,15 +150,19 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         public ObservableCollection<ReceivedBatch> GetReceivedBatchesWithinDateRange(DateTime startDate, DateTime endDate)
         {
             ITransaction finder = new FindBatchesInReceivingLedgerByDateRangeTransaction(startDate, endDate, memoryStore);
-            finder.Execute();
-            return BuildObservableCollectionFromTransactionResults(finder);
+            return ExecuteFinderAndBuildObservableCollectionFromTransactionResults(finder);
         }
 
         public ObservableCollection<ReceivedBatch> GetReceivedBatchesByPONumber(int poNumber)
         {
             ITransaction finder = new FindBatchesInReceivingLedgerByPONumberTransaction(poNumber, memoryStore);
-            finder.Execute();
-            return BuildObservableCollectionFromTransactionResults(finder);
+            return ExecuteFinderAndBuildObservableCollectionFromTransactionResults(finder);
+        }
+
+        public ObservableCollection<ReceivedBatch> GetReceivedBatchesbySpecificDate(DateTime specificDate)
+        {
+            ITransaction finder = new FindBatchesInReceivingLedgerByDateTransaction(specificDate, memoryStore);
+            return ExecuteFinderAndBuildObservableCollectionFromTransactionResults(finder);
         }
     }
 }

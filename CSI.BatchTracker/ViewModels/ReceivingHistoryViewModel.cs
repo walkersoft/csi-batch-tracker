@@ -19,6 +19,7 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<ReceivedBatch> SelectedPurchaseOrderReceivedBatches { get; set; }
         public ObservableCollection<ReceivedPurchaseOrder> RetreivedRecordsLedger { get; set; }
         public int RetreivedRecordsLedgerSelectedIndex { get; set; }
+        public DateTime SpecificDate { get; set; }
 
         public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
@@ -59,6 +60,7 @@ namespace CSI.BatchTracker.ViewModels
             SearchCriteriaSelectedIndex = 0;
             DateRangeStartingDate = DateTime.Today;
             DateRangeEndingDate = DateTime.Today;
+            SpecificDate = DateTime.Today;
             PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDateRangeCommand(this);
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
@@ -87,6 +89,13 @@ namespace CSI.BatchTracker.ViewModels
             {
                 RetreivedRecordsLedger = AggregateRecordsByPONumber(
                     receivedBatchSource.GetReceivedBatchesWithinDateRange(DateRangeStartingDate, DateRangeEndingDate)
+                );
+            }
+
+            if (SearchCriteriaSelectedIndex == 2)
+            {
+                RetreivedRecordsLedger = AggregateRecordsByPONumber(
+                    receivedBatchSource.GetReceivedBatchesbySpecificDate(SpecificDate)
                 );
             }
 
@@ -176,7 +185,12 @@ namespace CSI.BatchTracker.ViewModels
             }
             
             if (SearchCriteriaSelectedIndex == 1) VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.DatePeriod);
-            if (SearchCriteriaSelectedIndex == 2) VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.SpecificDate);
+
+            if (SearchCriteriaSelectedIndex == 2)
+            {
+                PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsBySpecificDateCommand(this);
+                VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.SpecificDate);
+            }
 
             if (SearchCriteriaSelectedIndex == 3)
             {
@@ -189,6 +203,11 @@ namespace CSI.BatchTracker.ViewModels
         {
             return string.IsNullOrEmpty(SpecificPONumber) == false
                 && int.TryParse(SpecificPONumber, out poNumber);
+        }
+
+        public bool SpecifcDateCriteriaIsSet()
+        {
+            return SpecificDate > DateTime.MinValue;
         }
     }
 }

@@ -51,7 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByPONumberCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsBySpecficDateCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\ListReceivingRecordsByPONumberCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\ListReceivingRecordsBySpecificDateCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\ReceivingHistorySearchCriteriaVisibilityManagerTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\ActiveInventorySourceBehaviorTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\ImplementedBatchSourceBehaviorTest.cs" />
