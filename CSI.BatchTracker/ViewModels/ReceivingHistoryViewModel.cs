@@ -81,7 +81,6 @@ namespace CSI.BatchTracker.ViewModels
             PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDateRangeCommand(this);
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
-            datePeriodCommand = new ListReceivingRecordsByDatePeriodCommand(this);
         }
 
         public bool DateRangeCriteriaIsMet()
