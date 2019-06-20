@@ -16,7 +16,7 @@
 
         public override void Execute(object parameter)
         {
-            viewModel.FetchReceivingRecordsBasedOnSearchCriteria();
+            viewModel.FetchReceivingRecordsByDatePeriod();
         }
     }
 }

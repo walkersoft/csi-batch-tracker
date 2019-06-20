@@ -4,6 +4,7 @@ using CSI.BatchTracker.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 
 namespace CSI.BatchTracker.ViewModels
@@ -17,14 +18,13 @@ namespace CSI.BatchTracker.ViewModels
         public DateTime DateRangeStartingDate { get; set; }
         public DateTime DateRangeEndingDate { get; set; }
         public ObservableCollection<ReceivedBatch> SelectedPurchaseOrderReceivedBatches { get; set; }
-        public ObservableCollection<ReceivedPurchaseOrder> RetreivedRecordsLedger { get; set; }
         public int RetreivedRecordsLedgerSelectedIndex { get; set; }
         public int DatePeriodSelectedIndex { get; set; }
         public DateTime SpecificDate { get; set; }
 
-        public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
         public ICommand ChangeSearchCriteriaPanelVisibility { get; private set;}
+        public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
 
         int poNumber;
         string poNumberAsString;
@@ -39,6 +39,7 @@ namespace CSI.BatchTracker.ViewModels
                 }
 
                 NotifyPropertyChanged("PONumber");
+                SelectFirstLedgerRecordIfAvailable();
             }
         }
 
@@ -52,12 +53,26 @@ namespace CSI.BatchTracker.ViewModels
                 SetActiveSearchCritera();
             }
         }
+
+        ObservableCollection<ReceivedPurchaseOrder> retreivedRecordsLedger;
+        public ObservableCollection<ReceivedPurchaseOrder> RetreivedRecordsLedger
+        {
+            get { return retreivedRecordsLedger; }
+            set
+            {
+                retreivedRecordsLedger = value;
+                NotifyPropertyChanged("RetreivedRecordsLedger");
+                SelectFirstLedgerRecordIfAvailable();
+            }
+        }
         
         public ReceivingHistoryViewModel(IReceivedBatchSource receivedBatchSource, IActiveInventorySource inventorySource)
         {
             this.receivedBatchSource = receivedBatchSource;
             this.inventorySource = inventorySource;
             VisibilityManager = new SearchCriteriaVisibilityManager();
+            SelectedPurchaseOrderReceivedBatches = new ObservableCollection<ReceivedBatch>();
+            RetreivedRecordsLedger = new ObservableCollection<ReceivedPurchaseOrder>();
             SearchCriteriaSelectedIndex = 0;
             DatePeriodSelectedIndex = 0;
             DateRangeStartingDate = DateTime.Today;
@@ -66,9 +81,7 @@ namespace CSI.BatchTracker.ViewModels
             PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDateRangeCommand(this);
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
-            RetreivedRecordsLedger = new ObservableCollection<ReceivedPurchaseOrder>();
-            SelectedPurchaseOrderReceivedBatches = new ObservableCollection<ReceivedBatch>();
-            NotifyPropertyChanged("SearchCriteriaSelectedIndex");
+            datePeriodCommand = new ListReceivingRecordsByDatePeriodCommand(this);
         }
 
         public bool DateRangeCriteriaIsMet()
@@ -81,102 +94,6 @@ namespace CSI.BatchTracker.ViewModels
         bool DateRangeStartingDateIsOnOrBeforeEndingDate()
         {
             return DateRangeStartingDate.Date <= DateRangeEndingDate.Date;
-        }
-
-        public void FetchReceivingRecordsBasedOnSearchCriteria()
-        {
-            SelectedPurchaseOrderReceivedBatches.Clear();
-
-            if (SearchCriteriaSelectedIndex == 0)
-            {
-                RetreivedRecordsLedger = AggregateRecordsByPONumber(
-                    receivedBatchSource.GetReceivedBatchesWithinDateRange(DateRangeStartingDate, DateRangeEndingDate)
-                );
-            }
-
-            if (SearchCriteriaSelectedIndex == 1)
-            {
-                DateTime startingDate = DateTime.Today;
-                DateTime endingDate = DateTime.Today;
-
-                if (DatePeriodSelectedIndex == 0)
-                {
-                    startingDate = endingDate.AddDays(-30);
-                }
-
-                if (DatePeriodSelectedIndex == 1)
-                {
-                    startingDate = endingDate.AddDays(-90);
-                }
-
-                if (DatePeriodSelectedIndex == 2)
-                {
-                    startingDate = endingDate.AddDays(-365);
-                }
-
-                RetreivedRecordsLedger = AggregateRecordsByPONumber(
-                    receivedBatchSource.GetReceivedBatchesWithinDateRange(startingDate, endingDate)
-                );
-            }
-
-            if (SearchCriteriaSelectedIndex == 2)
-            {
-                RetreivedRecordsLedger = AggregateRecordsByPONumber(
-                    receivedBatchSource.GetReceivedBatchesbySpecificDate(SpecificDate)
-                );
-            }
-
-            if (SearchCriteriaSelectedIndex == 3)
-            {
-                RetreivedRecordsLedger = AggregateRecordsByPONumber(
-                    receivedBatchSource.GetReceivedBatchesByPONumber(poNumber)
-                );
-            }
-
-            NotifyPropertyChanged("RetreivedRecordsLedger");
-            SelectFirstLedgerRecordIfAvailable();
-        }
-
-        void SelectFirstLedgerRecordIfAvailable()
-        {
-            if (RetreivedRecordsLedger.Count > 0)
-            {
-                RetreivedRecordsLedgerSelectedIndex = 0;
-                PopulateSelectedPurchaseOrderBatchCollection();
-            }            
-        }
-
-        ObservableCollection<ReceivedPurchaseOrder> AggregateRecordsByPONumber(ObservableCollection<ReceivedBatch> results)
-        {
-            Dictionary<int, ReceivedPurchaseOrder> aggregatedBatches = new Dictionary<int, ReceivedPurchaseOrder>();
-
-            foreach (ReceivedBatch batch in results)
-            {
-                if (aggregatedBatches.ContainsKey(batch.PONumber))
-                {
-                    aggregatedBatches[batch.PONumber].AddBatch(batch);
-                }
-                else
-                {
-                    ReceivedPurchaseOrder receivedPO = new ReceivedPurchaseOrder(
-                        batch.PONumber, 
-                        batch.ActivityDate, 
-                        batch.ReceivingOperator
-                    );
-
-                    receivedPO.AddBatch(batch);
-                    aggregatedBatches.Add(batch.PONumber, receivedPO);
-                }
-            }
-
-            ObservableCollection<ReceivedPurchaseOrder> receivedPurchaseOrders = new ObservableCollection<ReceivedPurchaseOrder>();
-
-            foreach (KeyValuePair<int, ReceivedPurchaseOrder> received in aggregatedBatches)
-            {
-                receivedPurchaseOrders.Add(received.Value);
-            }
-
-            return receivedPurchaseOrders;
         }
 
         public bool ReceivedPurchaseOrderIsSelected()
@@ -228,6 +145,8 @@ namespace CSI.BatchTracker.ViewModels
                 PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByPONumberCommand(this);
                 VisibilityManager.SetVisibility(SearchCriteriaVisibilityManager.ActiveCriteriaPanel.PONumber);
             }
+
+            NotifyPropertyChanged("PopulateRetreivedRecordsLedgerFromSearchCriteria");
         }
 
         public bool PONumberIsValid()
@@ -239,6 +158,98 @@ namespace CSI.BatchTracker.ViewModels
         public bool SpecifcDateCriteriaIsSet()
         {
             return SpecificDate > DateTime.MinValue;
+        }
+
+        void SelectFirstLedgerRecordIfAvailable()
+        {
+            if (RetreivedRecordsLedger.Count > 0)
+            {
+                RetreivedRecordsLedgerSelectedIndex = 0;
+                PopulateSelectedPurchaseOrderBatchCollection();
+
+                return;
+            }
+
+            SelectedPurchaseOrderReceivedBatches.Clear();
+        }
+
+        public void FetchReceivingRecordsByDateRange()
+        {
+            RetreivedRecordsLedger = AggregateRecordsByPONumber(
+                receivedBatchSource.GetReceivedBatchesWithinDateRange(DateRangeStartingDate, DateRangeEndingDate)
+            );
+        }
+
+        public void FetchReceivingRecordsByPONumber()
+        {
+            RetreivedRecordsLedger = AggregateRecordsByPONumber(
+                receivedBatchSource.GetReceivedBatchesByPONumber(poNumber)
+            );
+        }
+
+        public void FetchReceivingRecordsBySpecificDate()
+        {
+            RetreivedRecordsLedger = AggregateRecordsByPONumber(
+                receivedBatchSource.GetReceivedBatchesbySpecificDate(SpecificDate)
+            );
+        }
+
+        public void FetchReceivingRecordsByDatePeriod()
+        {
+            DateTime startingDate = DateTime.Today;
+            DateTime endingDate = DateTime.Today;
+
+            if (DatePeriodSelectedIndex == 0)
+            {
+                startingDate = endingDate.AddDays(-30);
+            }
+
+            if (DatePeriodSelectedIndex == 1)
+            {
+                startingDate = endingDate.AddDays(-90);
+            }
+
+            if (DatePeriodSelectedIndex == 2)
+            {
+                startingDate = endingDate.AddDays(-365);
+            }
+
+            RetreivedRecordsLedger = AggregateRecordsByPONumber(
+                receivedBatchSource.GetReceivedBatchesWithinDateRange(startingDate, endingDate)
+            );
+        }
+
+        ObservableCollection<ReceivedPurchaseOrder> AggregateRecordsByPONumber(ObservableCollection<ReceivedBatch> results)
+        {
+            Dictionary<int, ReceivedPurchaseOrder> aggregatedBatches = new Dictionary<int, ReceivedPurchaseOrder>();
+
+            foreach (ReceivedBatch batch in results)
+            {
+                if (aggregatedBatches.ContainsKey(batch.PONumber))
+                {
+                    aggregatedBatches[batch.PONumber].AddBatch(batch);
+                }
+                else
+                {
+                    ReceivedPurchaseOrder receivedPO = new ReceivedPurchaseOrder(
+                        batch.PONumber, 
+                        batch.ActivityDate, 
+                        batch.ReceivingOperator
+                    );
+
+                    receivedPO.AddBatch(batch);
+                    aggregatedBatches.Add(batch.PONumber, receivedPO);
+                }
+            }
+
+            ObservableCollection<ReceivedPurchaseOrder> receivedPurchaseOrders = new ObservableCollection<ReceivedPurchaseOrder>();
+
+            foreach (KeyValuePair<int, ReceivedPurchaseOrder> received in aggregatedBatches)
+            {
+                receivedPurchaseOrders.Add(received.Value);
+            }
+
+            return receivedPurchaseOrders;
         }
     }
 }
