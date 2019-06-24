@@ -30,6 +30,13 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             operatorHelper = new BatchOperatorTestHelper();
         }
 
+        [Test]
+        public void CommandWillNotExecuteIfReceivingSessionIsNotInEditMode()
+        {
+            viewModel.EditModeEnabled = false;
+            Assert.False(command.CanExecute(null));
+        }
+
         protected void SetupValidReceivedBatchInViewModel()
         {
             viewModel.PONumber = "11111";

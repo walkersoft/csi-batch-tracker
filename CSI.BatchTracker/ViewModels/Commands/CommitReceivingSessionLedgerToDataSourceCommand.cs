@@ -11,7 +11,7 @@
 
         public override bool CanExecute(object parameter)
         {
-            return viewModel.SessionLedger.Count > 0;
+            return viewModel.SessionLedgerCanBeCommited();
         }
 
         public override void Execute(object parameter)

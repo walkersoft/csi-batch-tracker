@@ -17,7 +17,8 @@
                 <Label Content="PO Number"/>
                 <TextBox Width="100"
                          Margin="0,0,5,0"
-                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
+                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding EditModeEnabled}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>
@@ -26,10 +27,11 @@
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Receiving Date"/>
-                <DatePicker Width="100" 
+                <DatePicker Width="110" 
                             VerticalContentAlignment="Center"
                             Margin="0,0,5,0"
-                            SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}">
+                            SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding EditModeEnabled}">
                     <DatePicker.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </DatePicker.InputBindings>
@@ -38,11 +40,12 @@
 
             <StackPanel>
                 <Label Content="Receiving Operator"/>
-                <ComboBox Width="175" 
+                <ComboBox Width="150" 
                           VerticalContentAlignment="Center"
                           ItemsSource="{Binding BatchOperatorRepository, UpdateSourceTrigger=PropertyChanged}"
                           DisplayMemberPath="FullName"
-                          SelectedIndex="{Binding ReceivingOperatorComboBoxIndex}">
+                          SelectedIndex="{Binding ReceivingOperatorComboBoxIndex}"
+                          IsEnabled="{Binding EditModeEnabled}">
                     <ComboBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </ComboBox.InputBindings>
@@ -59,11 +62,12 @@
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Color"/>
-                <ComboBox Width="140" 
+                <ComboBox Width="110" 
                           VerticalContentAlignment="Center"
                           Margin="0,0,5,0"                          
                           ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedIndex="{Binding ColorSelectionComboBoxIndex}">
+                          SelectedIndex="{Binding ColorSelectionComboBoxIndex}"
+                          IsEnabled="{Binding EditModeEnabled}">
                     <ComboBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </ComboBox.InputBindings>
@@ -72,9 +76,10 @@
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Batch Number"/>
-                <TextBox Width="150"
+                <TextBox Width="120"
                          VerticalContentAlignment="Center"
-                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
+                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding EditModeEnabled}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>
@@ -85,7 +90,8 @@
                 <Label Content="Quantity"/>
                 <TextBox Width="40"
                          VerticalContentAlignment="Center"
-                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}">
+                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding EditModeEnabled}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>
@@ -98,21 +104,22 @@
 
         <StackPanel Orientation="Vertical">
             <Label Content="Session Ledger" FontWeight="Bold"/>
-            <DataGrid Width="400" 
-                      Height="200" 
+            <DataGrid Width="365"
+                      Height="200"
                       Margin="0,0,0,5"
                       HorizontalAlignment="Left" 
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       CanUserReorderColumns="False"
                       CanUserSortColumns="False"
+                      HeadersVisibility="Column"
                       IsReadOnly="True"
                       ItemsSource="{Binding SessionLedger}"
                       SelectedIndex="{Binding SessionLedgerSelectedIndex}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
-                    <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
-                    <DataGridTextColumn Header="Qty. Received" Width="130" Binding="{Binding Quantity}"/>
+                    <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
+                    <DataGridTextColumn Header="Qty. Received" Width="90" Binding="{Binding Quantity}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <WrapPanel>
