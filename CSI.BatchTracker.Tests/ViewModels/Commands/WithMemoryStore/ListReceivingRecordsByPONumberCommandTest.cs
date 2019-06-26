@@ -14,9 +14,10 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
         public override void SetUp()
         {
             MemoryStoreContext context = new MemoryStoreContext();
+            operatorSource = new MemoryBatchOperatorSource(context);
             inventorySource = new MemoryActiveInventorySource(context);
             receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
-            viewModel = new ReceivingHistoryViewModel(receivedBatchSource, inventorySource);
+            viewModel = new ReceivingHistoryViewModel(receivedBatchSource, inventorySource, GetReceivingManagementViewModel());
             command = new ListReceivingRecordsByPONumberCommand(viewModel);
             base.SetUp();
         }

@@ -1,6 +1,7 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
+using CSI.BatchTracker.Views.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace CSI.BatchTracker.ViewModels
     {
         IReceivedBatchSource receivedBatchSource;
         IActiveInventorySource inventorySource;
+        ReceivingManagementViewModel receivingManagementViewModel;
 
         public SearchCriteriaVisibilityManager VisibilityManager { get; set; }
         public DateTime DateRangeStartingDate { get; set; }
@@ -21,10 +23,12 @@ namespace CSI.BatchTracker.ViewModels
         public int RetreivedRecordsLedgerSelectedIndex { get; set; }
         public int DatePeriodSelectedIndex { get; set; }
         public DateTime SpecificDate { get; set; }
+        public IView ReceivingSessionViewer { get; set; }
 
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
         public ICommand ChangeSearchCriteriaPanelVisibility { get; private set;}
         public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
+        public ICommand OpenReceivedBatchSetForViewing { get; private set; }
 
         int poNumber;
         string poNumberAsString;
@@ -65,11 +69,15 @@ namespace CSI.BatchTracker.ViewModels
                 SelectFirstLedgerRecordIfAvailable();
             }
         }
-        
-        public ReceivingHistoryViewModel(IReceivedBatchSource receivedBatchSource, IActiveInventorySource inventorySource)
+
+        public ReceivingHistoryViewModel(
+            IReceivedBatchSource receivedBatchSource,
+            IActiveInventorySource inventorySource,
+            ReceivingManagementViewModel viewModel)
         {
             this.receivedBatchSource = receivedBatchSource;
             this.inventorySource = inventorySource;
+            receivingManagementViewModel = viewModel;
             VisibilityManager = new SearchCriteriaVisibilityManager();
             SelectedPurchaseOrderReceivedBatches = new ObservableCollection<ReceivedBatch>();
             RetreivedRecordsLedger = new ObservableCollection<ReceivedPurchaseOrder>();
@@ -81,6 +89,7 @@ namespace CSI.BatchTracker.ViewModels
             PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDateRangeCommand(this);
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
+            OpenReceivedBatchSetForViewing = new OpenReceivingRecordForViewingCommand(this);
         }
 
         public bool DateRangeCriteriaIsMet()
@@ -106,6 +115,20 @@ namespace CSI.BatchTracker.ViewModels
             NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
 
             return false;
+        }
+
+        public bool ReceivedPurchaseOrderIsSelectedAndReceivingSessionIsReady()
+        {
+            return ReceivedPurchaseOrderIsSelected()
+                && ReceivingSessionViewer != null
+                && ReceivingSessionViewer.CanShowView();
+        }
+
+        public void OpenReceivingSessionToViewSelectedPurchaseOrder()
+        {
+            receivingManagementViewModel.EditModeEnabled = false;
+            receivingManagementViewModel.PopulateFromPONumber(RetreivedRecordsLedger[RetreivedRecordsLedgerSelectedIndex].PONumber);
+            ReceivingSessionViewer.ShowView();
         }
 
         public void PopulateSelectedPurchaseOrderBatchCollection()

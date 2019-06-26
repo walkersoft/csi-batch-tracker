@@ -5,32 +5,27 @@ using CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Tests.Domain
+namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
 {
     [TestFixture]
-    class ReceivingHistorySearchCriteriaVisibilityManagerTest : ReceivingHistorySearchCriteriaVisibilityManagerCommandBehaviorTest
+    class OpenReceivingRecordForViewingCommandTest : OpenReceivingRecordForViewingCommandBehaviorTest
     {
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
             MemoryStoreContext context = new MemoryStoreContext();
             operatorSource = new MemoryBatchOperatorSource(context);
             inventorySource = new MemoryActiveInventorySource(context);
             receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
             viewModel = new ReceivingHistoryViewModel(receivedBatchSource, inventorySource, GetReceivingManagementViewModel());
-            command = new ChangeSearchCriteriaPanelVisibilityCommand(viewModel);
-        }
-
-        ReceivingManagementViewModel GetReceivingManagementViewModel()
-        {
-            return new ReceivingManagementViewModel(
-                new DuracolorIntermixBatchNumberValidator(),
-                new DuracolorIntermixColorList(),
-                receivedBatchSource,
-                operatorSource,
-                inventorySource
-            );
+            command = new OpenReceivingRecordForViewingCommand(viewModel);
+            base.SetUp();
         }
     }
 }

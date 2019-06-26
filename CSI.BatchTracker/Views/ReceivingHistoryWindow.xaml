@@ -98,7 +98,10 @@
             <StackPanel Orientation="Vertical">
                 <Label Content="Actions" FontWeight="Bold"/>
                 <WrapPanel Orientation="Horizontal">
-                    <Button Content="View Receiving" Width="126" Margin="0,0,8,0"/>
+                    <Button Content="View Receiving" 
+                            Width="126" 
+                            Margin="0,0,8,0"
+                            Command="{Binding OpenReceivedBatchSetForViewing}"/>
                     <Button Content="Modify Receiving" Width="126"/>                    
                 </WrapPanel>
 

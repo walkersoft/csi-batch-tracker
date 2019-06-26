@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
+﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.ViewModels;
 using NUnit.Framework;
@@ -12,6 +13,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         protected ICommand command;
         protected IReceivedBatchSource receivedBatchSource;
         protected IActiveInventorySource inventorySource;
+        protected IBatchOperatorSource operatorSource;
         protected ReceivingHistoryViewModel viewModel;
         protected ReceivedBatchTestHelper helper;
 
@@ -19,6 +21,17 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         public virtual void SetUp()
         {
             helper = new ReceivedBatchTestHelper();
+        }
+
+        protected ReceivingManagementViewModel GetReceivingManagementViewModel()
+        {
+            return new ReceivingManagementViewModel(
+                new DuracolorIntermixBatchNumberValidator(),
+                new DuracolorIntermixColorList(),
+                receivedBatchSource,
+                operatorSource,
+                inventorySource
+            );
         }
     }
 }

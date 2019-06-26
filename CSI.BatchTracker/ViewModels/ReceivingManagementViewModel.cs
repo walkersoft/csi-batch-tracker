@@ -151,6 +151,15 @@ namespace CSI.BatchTracker.ViewModels
                 && EditModeEnabled;
         }
 
+        public void PopulateFromPONumber(int poNumber)
+        {
+            ObservableCollection<ReceivedBatch> found = receivingSource.GetReceivedBatchesByPONumber(poNumber);
+            PONumber = found[0].PONumber.ToString();
+            ReceivingDate = found[0].ActivityDate;
+            // TODO: map to batch operator
+            SessionLedger = found;
+        }
+
         public void AddReceivedBatchToSessionLedger()
         {
             if (ReceivedBatchIsValidForSessionLedger())
