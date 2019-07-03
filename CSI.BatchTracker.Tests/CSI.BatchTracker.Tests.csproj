@@ -50,6 +50,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\ModifiedPurchaseOrderValidatorBehaviorTest.cs" />
+    <Compile Include="Domain\ModifiedPurchaseOrderValidatorWithMemoryStoreTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByPONumberCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsBySpecficDateCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByDatePeriodCommandBehaviorTest.cs" />
