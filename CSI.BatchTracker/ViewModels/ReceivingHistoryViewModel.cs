@@ -1,6 +1,7 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
+using CSI.BatchTracker.Views;
 using CSI.BatchTracker.Views.Contracts;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,7 @@ namespace CSI.BatchTracker.ViewModels
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
             OpenReceivedBatchSetForViewing = new OpenReceivingRecordForViewingCommand(this);
+            ReceivingSessionViewer = new BatchReceivingManagementViewer(receivingManagementViewModel);
         }
 
         public bool DateRangeCriteriaIsMet()
