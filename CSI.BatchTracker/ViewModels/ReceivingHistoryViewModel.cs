@@ -90,7 +90,6 @@ namespace CSI.BatchTracker.ViewModels
             PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDateRangeCommand(this);
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
-            OpenReceivedBatchSetForViewing = new OpenReceivingRecordForViewingCommand(this);
             ReceivingSessionViewer = new BatchReceivingManagementViewer(receivingManagementViewModel);
         }
 
@@ -117,20 +116,6 @@ namespace CSI.BatchTracker.ViewModels
             NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
 
             return false;
-        }
-
-        public bool ReceivedPurchaseOrderIsSelectedAndReceivingSessionIsReady()
-        {
-            return ReceivedPurchaseOrderIsSelected()
-                && ReceivingSessionViewer != null
-                && ReceivingSessionViewer.CanShowView();
-        }
-
-        public void OpenReceivingSessionToViewSelectedPurchaseOrder()
-        {
-            receivingManagementViewModel.EditModeEnabled = false;
-            receivingManagementViewModel.PopulateFromPONumber(RetreivedRecordsLedger[RetreivedRecordsLedgerSelectedIndex].PONumber);
-            ReceivingSessionViewer.ShowView();
         }
 
         public void PopulateSelectedPurchaseOrderBatchCollection()

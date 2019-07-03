@@ -78,7 +78,7 @@
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
                           IsReadOnly="True"
-                          Height="300"
+                          Height="250"
                           HeadersVisibility="Column"
                           VerticalScrollBarVisibility="Visible"
                           ItemsSource="{Binding RetreivedRecordsLedger}"
@@ -94,18 +94,12 @@
                         </input:EventTrigger>
                     </input:Interaction.Triggers>
                 </DataGrid>
+
+                <WrapPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <Button Content="Modify Selected Record" Width="165"/>
+                </WrapPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Label Content="Actions" FontWeight="Bold"/>
-                <WrapPanel Orientation="Horizontal">
-                    <Button Content="View Receiving" 
-                            Width="126" 
-                            Margin="0,0,8,0"
-                            Command="{Binding OpenReceivedBatchSetForViewing}"/>
-                    <Button Content="Modify Receiving" Width="126"/>                    
-                </WrapPanel>
-
-                <Separator Width="Auto" Margin="0,10,0,0"/>
                 
                 <Label Content="Content Preview" FontWeight="Bold"/>
                 <DataGrid HorizontalAlignment="Left" 
@@ -114,7 +108,7 @@
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
                           IsReadOnly="True"
-                          Height="241"
+                          Height="250"
                           HeadersVisibility="Column"
                           VerticalScrollBarVisibility="Visible"
                           ItemsSource="{Binding SelectedPurchaseOrderReceivedBatches}">

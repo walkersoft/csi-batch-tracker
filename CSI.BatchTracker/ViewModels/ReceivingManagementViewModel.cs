@@ -98,7 +98,6 @@ namespace CSI.BatchTracker.ViewModels
 
         public bool ColorListFocusState { get; set; }
         public int SessionLedgerSelectedIndex { get; set; }
-        public bool EditModeEnabled { get; set; }
         public ObservableCollection<ReceivedBatch> SessionLedger { get; private set; }
         public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
         public ObservableCollection<BatchOperator> BatchOperatorRepository { get; private set; }
@@ -124,7 +123,6 @@ namespace CSI.BatchTracker.ViewModels
 
             this.operatorSource.FindAllBatchOperators();
 
-            EditModeEnabled = true;
             ReceivedBatchRepository = this.receivingSource.ReceivedBatchRepository;
             BatchOperatorRepository = this.operatorSource.OperatorRepository;
             SessionLedger = new ObservableCollection<ReceivedBatch>();
@@ -147,17 +145,7 @@ namespace CSI.BatchTracker.ViewModels
                 && batchNumberValidator.Validate(BatchNumber)
                 && string.IsNullOrEmpty(Quantity) == false
                 && int.TryParse(Quantity, out quantity)
-                && quantity > 0
-                && EditModeEnabled;
-        }
-
-        public void PopulateFromPONumber(int poNumber)
-        {
-            ObservableCollection<ReceivedBatch> found = receivingSource.GetReceivedBatchesByPONumber(poNumber);
-            PONumber = found[0].PONumber.ToString();
-            ReceivingDate = found[0].ActivityDate;
-            // TODO: map to batch operator
-            SessionLedger = found;
+                && quantity > 0;
         }
 
         public void AddReceivedBatchToSessionLedger()
@@ -205,8 +193,7 @@ namespace CSI.BatchTracker.ViewModels
         public bool SessionLedgerSelectedItemCanBeRemoved()
         {
             return SessionLedger.Count > 0
-                && SessionLedgerSelectedIndex > -1
-                && EditModeEnabled;
+                && SessionLedgerSelectedIndex > -1;
         }
 
         public void RemoveSelectedEntryFromSessionLedger()
@@ -246,8 +233,7 @@ namespace CSI.BatchTracker.ViewModels
 
         public bool SessionLedgerCanBeCommited()
         {
-            return SessionLedger.Count > 0
-                && EditModeEnabled;
+            return SessionLedger.Count > 0;
         }
     }
 }

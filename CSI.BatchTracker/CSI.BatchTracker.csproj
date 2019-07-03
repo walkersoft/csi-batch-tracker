@@ -97,7 +97,6 @@
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByDatePeriodCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByPONumberCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsBySpecificDateCommand.cs" />
-    <Compile Include="ViewModels\Commands\OpenReceivingRecordForViewingCommand.cs" />
     <Compile Include="ViewModels\SearchCriteriaVisibilityManager.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteDepletedInventoryBatchAtId.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteReceivedBatchAtIdTransaction.cs" />
