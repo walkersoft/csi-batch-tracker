@@ -82,6 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="DemoTools\DataSourcePopulator.cs" />
     <Compile Include="DemoTools\LaunchDataSourcePopulatorCommand.cs" />
+    <Compile Include="Domain\CollectionConversionExtentions.cs" />
     <Compile Include="Domain\Contracts\IColorList.cs" />
     <Compile Include="Domain\DataSource\Contracts\IActiveInventorySource.cs" />
     <Compile Include="Domain\DataSource\Contracts\IBatchOperatorSource.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Domain\DataSource\MemorySource\MemoryImplementedBatchSource.cs" />
     <Compile Include="Domain\DataSource\MemorySource\MemoryReceivedBatchSource.cs" />
     <Compile Include="Domain\DuracolorIntermixColorList.cs" />
+    <Compile Include="Domain\EditablePurchaseOrder.cs" />
     <Compile Include="Domain\ModifiedPurchaseOrderValidator.cs" />
     <Compile Include="Domain\NativeModels\ReceivedPurchaseOrder.cs" />
     <Compile Include="Exceptions\ModifiedPurchaseOrderValidationException.cs" />

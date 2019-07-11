@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
+﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using NUnit.Framework;
@@ -272,6 +273,23 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             ObservableCollection<ReceivedBatch> found = receivedBatchSource.GetReceivedBatchesbySpecificDate(targetDate);
 
             Assert.AreEqual(expectedCount, found.Count);
+        }
+
+        [Test]
+        public void BuildEditablePurchaseOrderFromDataSource()
+        {
+            int targetPONumber = 11111;
+            ReceivedBatch originalBatch = helper.GetBatchWithSpecificPO(targetPONumber);
+
+            receivedBatchSource.SaveReceivedBatch(originalBatch);
+            EditablePurchaseOrder editablePo = receivedBatchSource.GetPurchaseOrderForEditing(targetPONumber);
+
+            Assert.AreEqual(originalBatch.ActivityDate, editablePo.ReceivingDate);
+            Assert.AreEqual(originalBatch.PONumber, editablePo.PONumber);
+            Assert.AreEqual(originalBatch.ReceivingOperator.FullName, editablePo.ReceivingOperator.FullName);
+            Assert.AreEqual(originalBatch.ColorName, editablePo.ReceivedBatches[0].ColorName);
+            Assert.AreEqual(originalBatch.Quantity, editablePo.ReceivedBatches[0].Quantity);
+            Assert.AreEqual(originalBatch.BatchNumber, editablePo.ReceivedBatches[0].BatchNumber);
         }
     }
 }

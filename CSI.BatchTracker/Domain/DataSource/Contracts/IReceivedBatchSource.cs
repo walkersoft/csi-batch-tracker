@@ -14,6 +14,7 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
         void UpdateReceivedBatch(int id, ReceivedBatch batch);
         void DeleteReceivedBatch(int id);
         ReceivedBatch FindReceivedBatchById(int id);
+        EditablePurchaseOrder GetPurchaseOrderForEditing(int poNumber);
         ObservableCollection<ReceivedBatch> GetReceivedBatchesByBatchNumber(string batchNumber);
         ObservableCollection<ReceivedBatch> GetReceivedBatchesWithinDateRange(DateTime startDate, DateTime endDate);
         ObservableCollection<ReceivedBatch> GetReceivedBatchesByPONumber(int poNumber);
