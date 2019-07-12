@@ -138,5 +138,34 @@ namespace CSI.BatchTracker.Tests.Domain
             Assert.AreEqual(expectedPONumber, modified.RecordsToUpdate[2].PONumber);
             Assert.AreEqual(expectedUpdateCount, modified.RecordsToUpdate.Count);
         }
+
+        [Test]
+        public void ReceivedBatchCanHaveColorUpdated()
+        {
+            string expectedColorName = "Bright Red";
+
+            ReceivedBatch batch = modified.ReceivedBatches[0];
+            batch.ColorName = expectedColorName;
+            modified.ReceivedBatches[0] = batch;
+            modified.RunPurchaseOrderComparison();
+
+            Assert.AreEqual(expectedColorName, modified.ReceivedBatches[0].ColorName);
+        }
+
+        [Test]
+        public void ColorUpdatesToReceivedBatchesCascadeToImplementationLedger()
+        {
+            string expectedColorName = "Bright Red";
+            int expectedInventoryCount = 4;
+
+            ReceivedBatch batch = modified.ReceivedBatches[0];
+            implementedBatchSource.AddBatchToImplementationLedger(batch.BatchNumber, DateTime.Now, batch.ReceivingOperator);
+            batch.ColorName = expectedColorName;
+            modified.ReceivedBatches[0] = batch;
+            modified.RunPurchaseOrderComparison();
+
+            Assert.AreEqual(expectedColorName, implementedBatchSource.GetImplementedBatchesByBatchNumber(batch.BatchNumber)[0].ColorName);
+            Assert.AreEqual(expectedInventoryCount, inventorySource.FindInventoryBatchByBatchNumber(batch.BatchNumber).Quantity);
+        }
     }
 }

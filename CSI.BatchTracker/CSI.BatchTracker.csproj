@@ -101,6 +101,7 @@
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByDatePeriodCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByPONumberCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsBySpecificDateCommand.cs" />
+    <Compile Include="ViewModels\ReceivedPurchaseOrderEditorViewModel.cs" />
     <Compile Include="ViewModels\SearchCriteriaVisibilityManager.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteDepletedInventoryBatchAtId.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteReceivedBatchAtIdTransaction.cs" />
@@ -149,6 +150,9 @@
       <DependentUpon>BatchReceivingManagementWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Contracts\IBatchHistoryView.cs" />
+    <Compile Include="Views\ReceivedPurchaseOrderEditorWindow.xaml.cs">
+      <DependentUpon>ReceivedPurchaseOrderEditorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ReceivingHistoryViewer.cs" />
     <Compile Include="Views\ReceivingHistoryWindow.xaml.cs">
       <DependentUpon>ReceivingHistoryWindow.xaml</DependentUpon>
@@ -205,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BatchReceivingManagementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReceivedPurchaseOrderEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
