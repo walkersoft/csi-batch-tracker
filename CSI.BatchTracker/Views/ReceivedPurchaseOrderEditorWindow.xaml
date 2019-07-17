@@ -16,10 +16,9 @@
                 <Label Content="PO Number"/>
                 <TextBox Width="100"
                          Margin="0,0,5,0"
-                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding EditModeEnabled}">
+                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
+                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
             </StackPanel>
@@ -29,10 +28,9 @@
                 <DatePicker Width="110" 
                             VerticalContentAlignment="Center"
                             Margin="0,0,5,0"
-                            SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}"
-                            IsEnabled="{Binding EditModeEnabled}">
+                            SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}">
                     <DatePicker.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
+                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
                     </DatePicker.InputBindings>
                 </DatePicker>
             </StackPanel>
@@ -41,12 +39,11 @@
                 <Label Content="Receiving Operator"/>
                 <ComboBox Width="150" 
                           VerticalContentAlignment="Center"
-                          ItemsSource="{Binding BatchOperatorRepository, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding BatchOperatorsList, UpdateSourceTrigger=PropertyChanged}"
                           DisplayMemberPath="FullName"
-                          SelectedIndex="{Binding ReceivingOperatorComboBoxIndex}"
-                          IsEnabled="{Binding EditModeEnabled}">
+                          SelectedIndex="{Binding SelectedOperatorIndex}">
                     <ComboBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
+                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
                     </ComboBox.InputBindings>
                 </ComboBox>
             </StackPanel>
@@ -67,7 +64,7 @@
                           ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
                           SelectedIndex="{Binding ColorSelectionComboBoxIndex}">
                     <ComboBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
+                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
                     </ComboBox.InputBindings>
                 </ComboBox>
             </StackPanel>
@@ -76,10 +73,9 @@
                 <Label Content="Batch Number"/>
                 <TextBox Width="120"
                          VerticalContentAlignment="Center"
-                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding EditModeEnabled}">
+                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
+                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
             </StackPanel>
@@ -88,16 +84,15 @@
                 <Label Content="Quantity"/>
                 <TextBox Width="40"
                          VerticalContentAlignment="Center"
-                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding EditModeEnabled}">
+                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
+                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
             </StackPanel>
 
             <Button Width="75" Height="Auto" VerticalAlignment="Bottom" Content="{Binding UpdateText}"
-                    Command="{Binding AddBatchToSessionLedgerCommand}"/>
+                    Command="{Binding UpdateReceivedBatchCommand}"/>
         </WrapPanel>
 
         <StackPanel Orientation="Vertical">
@@ -112,8 +107,8 @@
                       CanUserSortColumns="False"
                       HeadersVisibility="Column"
                       IsReadOnly="True"
-                      ItemsSource="{Binding SessionLedger}"
-                      SelectedIndex="{Binding SessionLedgerSelectedIndex}">
+                      ItemsSource="{Binding PurchaseOrderLedger}"
+                      SelectedIndex="{Binding PurchaseOrderLedgerSelectedIndex}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
@@ -124,10 +119,10 @@
                 <Button Width="175" 
                         Margin="0,0,5,0" 
                         Content="Delete Receiving Record"
-                        Command="{Binding RemoveSelectedItemFromSessionLedgerCommand}"/>
+                        Command="{Binding DeleteReceivingRecordCommand}"/>
                 <Button Width="120" 
                         Content="Save Changes"
-                        Command="{Binding CommitSessionLedgerToReceivingLedgerCommand}"/>
+                        Command="{Binding UpdatePurchaseOrderCommand}"/>
             </WrapPanel>
         </StackPanel>
     </StackPanel>

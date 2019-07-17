@@ -52,9 +52,14 @@
   <ItemGroup>
     <Compile Include="Domain\ModifiedPurchaseOrderValidatorBehaviorTest.cs" />
     <Compile Include="Domain\ModifiedPurchaseOrderValidatorWithMemoryStoreTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\DeletePurchaseOrderReceivingRecordCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByPONumberCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsBySpecficDateCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByDatePeriodCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\ReceivedPurchaseOrderEditorViewModelTestingBase.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\UpdatePurchaseOrderHeaderCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\UpdatePurchaseOrderReceivingRecordCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\DeletePurchaseOrderReceivingRecordCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\ListReceivingRecordsByDatePeriodCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\ListReceivingRecordsByPONumberCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\ListReceivingRecordsBySpecificDateCommandTest.cs" />
@@ -103,6 +108,7 @@
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingHistorySessionViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingManagementSessionViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\UndoImplementedBatchCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\UpdatePurchaseOrderHeaderCommandTest.cs" />
     <Compile Include="ViewModels\WithMemoryStore\BatchOperatorViewModelTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\AddReceivedBatchToReceivingSessionLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\BatchOperatorListBoxChangedCommandBehaviorTest.cs" />

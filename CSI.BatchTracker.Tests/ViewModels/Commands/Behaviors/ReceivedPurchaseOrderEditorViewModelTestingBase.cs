@@ -1,35 +1,34 @@
-﻿using CSI.BatchTracker.Domain;
-using CSI.BatchTracker.Domain.DataSource.Contracts;
+﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
-using CSI.BatchTracker.Exceptions;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.ViewModels;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
-namespace CSI.BatchTracker.Tests.Domain
+namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    abstract class ModifiedPurchaseOrderValidatorBehaviorTest
+    abstract class ReceivedPurchaseOrderEditorViewModelTestingBase
     {
         protected IBatchOperatorSource operatorSource;
         protected IReceivedBatchSource receivedBatchSource;
         protected IActiveInventorySource inventorySource;
         protected IImplementedBatchSource implementedBatchSource;
+        protected ICommand command;
+        protected ReceivedPurchaseOrderEditorViewModel viewModel;
 
-        ModifiedPurchaseOrderValidator modified;
         BatchOperatorTestHelper operatorHelper;
-        int originalPONumber;
-        int originalBatchOperatorId;
-        DateTime activityDate;
-        string whiteBatch;
-        string blackBatch;
-        string yellowBatch;
+        protected int originalPONumber;
+        protected int originalBatchOperatorId;
+        protected DateTime activityDate;
+        protected string whiteBatch;
+        protected string blackBatch;
+        protected string yellowBatch;
 
         [SetUp]
         public virtual void SetUp()
@@ -47,7 +46,6 @@ namespace CSI.BatchTracker.Tests.Domain
         {
             InsertTwoUniqueBatchOperatorsIntoDataSource();
             InsertThreeUniqueBatchesIntoDataSource();
-            ImportReceivingRecordsIntoValidator();
         }
 
         void InsertTwoUniqueBatchOperatorsIntoDataSource()
@@ -68,15 +66,6 @@ namespace CSI.BatchTracker.Tests.Domain
             receivedBatchSource.SaveReceivedBatch(batch1);
             receivedBatchSource.SaveReceivedBatch(batch2);
             receivedBatchSource.SaveReceivedBatch(batch3);
-        }
-
-        void ImportReceivingRecordsIntoValidator()
-        {
-            modified = new ModifiedPurchaseOrderValidator(
-                receivedBatchSource.GetReceivedBatchesByPONumber(11111),
-                inventorySource,
-                implementedBatchSource
-            );
         }
     }
 }

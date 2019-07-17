@@ -133,12 +133,12 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             return ExecuteFinderAndBuildObservableCollectionFromTransactionResults(finder);
         }
 
-        ObservableCollection<ReceivedBatch> ExecuteFinderAndBuildObservableCollectionFromTransactionResults(ITransaction transaction)
+        ObservableCollection<ReceivedBatch> ExecuteFinderAndBuildObservableCollectionFromTransactionResults(ITransaction finder)
         {
             ObservableCollection<ReceivedBatch> batches = new ObservableCollection<ReceivedBatch>();
-            transaction.Execute();
+            finder.Execute();
 
-            foreach (IEntity entity in transaction.Results)
+            foreach (IEntity entity in finder.Results)
             {
                 Entity<ReceivedBatch> batch = entity as Entity<ReceivedBatch>;
                 batches.Add(batch.NativeModel);
@@ -167,7 +167,16 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
         public EditablePurchaseOrder GetPurchaseOrderForEditing(int poNumber)
         {
-            return new EditablePurchaseOrder(GetReceivedBatchesByPONumber(poNumber).ToList());
+            ITransaction finder = new FindBatchesInReceivingLedgerByPONumberTransaction(poNumber, memoryStore);
+            ObservableCollection<ReceivedBatch> batches = ExecuteFinderAndBuildObservableCollectionFromTransactionResults(finder);
+            Dictionary<int, int> systemIdsForMappedBatches = new Dictionary<int, int>();
+
+            for (int i = 0; i < finder.Results.Count; i++)
+            {
+                systemIdsForMappedBatches.Add(i, finder.Results[i].SystemId);
+            }
+
+            return new EditablePurchaseOrder(batches, systemIdsForMappedBatches); 
         }
     }
 }
