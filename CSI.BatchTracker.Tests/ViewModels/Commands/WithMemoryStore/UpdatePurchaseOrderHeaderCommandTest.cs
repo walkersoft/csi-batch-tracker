@@ -29,6 +29,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
             viewModel = new ReceivedPurchaseOrderEditorViewModel(
                 receivedBatchSource.GetPurchaseOrderForEditing(originalPONumber),
                 new DuracolorIntermixColorList(),
+                new DuracolorIntermixBatchNumberValidator(),
                 operatorSource,
                 inventorySource,
                 receivedBatchSource,

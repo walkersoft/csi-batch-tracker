@@ -109,6 +109,7 @@
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenReceivingManagementSessionViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\UndoImplementedBatchCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\UpdatePurchaseOrderHeaderCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\UpdatePurchaseOrderReceivingRecordCommandTest.cs" />
     <Compile Include="ViewModels\WithMemoryStore\BatchOperatorViewModelTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\AddReceivedBatchToReceivingSessionLedgerCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\BatchOperatorListBoxChangedCommandBehaviorTest.cs" />

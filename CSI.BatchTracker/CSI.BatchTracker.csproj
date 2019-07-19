@@ -103,6 +103,7 @@
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByPONumberCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsBySpecificDateCommand.cs" />
     <Compile Include="ViewModels\Commands\UpdatePurchaseOrderHeaderCommand.cs" />
+    <Compile Include="ViewModels\Commands\UpdatePurchaseOrderReceivingRecordCommand.cs" />
     <Compile Include="ViewModels\ReceivedPurchaseOrderEditorViewModel.cs" />
     <Compile Include="ViewModels\SearchCriteriaVisibilityManager.cs" />
     <Compile Include="Storage\MemoryStore\Transactions\InventoryManagement\DeleteDepletedInventoryBatchAtId.cs" />

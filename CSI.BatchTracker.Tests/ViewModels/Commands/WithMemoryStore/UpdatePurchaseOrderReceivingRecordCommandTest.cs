@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
 {
     [TestFixture]
-    class DeletePurchaseOrderReceivingRecordCommandTest : DeletePurchaseOrderReceivingRecordCommandBehaviorTest
+    class UpdatePurchaseOrderReceivingRecordCommandTest : UpdatePurchaseOrderReceivingRecordCommandBehaviorTest
     {
         [SetUp]
         public override void SetUp()
@@ -36,7 +36,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
                 implementedBatchSource
             );
 
-            command = new DeletePurchaseOrderReceivingRecordCommand(viewModel);
+            command = new UpdatePurchaseOrderReceivingRecordCommand(viewModel);
         }
     }
 }

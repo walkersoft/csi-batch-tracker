@@ -20,6 +20,7 @@ namespace CSI.BatchTracker.ViewModels
         IReceivedBatchSource receivedBatchSource;
         IImplementedBatchSource implementedBatchSource;
         IColorList colorList;
+        IBatchNumberValidator batchNumberValidator;
         EditablePurchaseOrder purchaseOrder;
 
         public ObservableCollection<ReceivedBatch> ReceivedBatches { get; private set; }
@@ -105,6 +106,7 @@ namespace CSI.BatchTracker.ViewModels
         public ReceivedPurchaseOrderEditorViewModel(
             EditablePurchaseOrder purchaseOrder,
             IColorList colorList,
+            IBatchNumberValidator batchNumberValidator,
             IBatchOperatorSource operatorSource,
             IActiveInventorySource inventorySource,
             IReceivedBatchSource receivedBatchSource,
@@ -120,6 +122,8 @@ namespace CSI.BatchTracker.ViewModels
             UpdatePurchaseOrderCommand = new UpdatePurchaseOrderHeaderCommand(this);
             UpdateText = "Save Item";
             this.colorList = colorList;
+            this.batchNumberValidator = batchNumberValidator;
+            ReceivedBatch = new ReceivedBatch();
         }
 
         void ImportPurchaseOrderInformation()
@@ -185,6 +189,14 @@ namespace CSI.BatchTracker.ViewModels
         {
             receivedBatchSource.DeleteReceivedBatch(purchaseOrder.GetReceivedBatchMappedSystemId(ReceivedBatchesSelectedIndex));
             ReloadPurchaseOrder();
+        }
+
+        public bool SelectedReceivingRecordIsReadyForUpdate()
+        {
+            return ReceivedBatchesSelectedIndex > -1
+                && SelectedColorIndex > -1
+                && batchNumberValidator.Validate(ReceivedBatch.BatchNumber)
+                && ReceivedBatch.Quantity > 0;
         }
     }
 }
