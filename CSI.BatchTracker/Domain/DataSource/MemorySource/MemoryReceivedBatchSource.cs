@@ -98,9 +98,56 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
         public void UpdateReceivedBatch(int id, ReceivedBatch batch)
         {
-            Entity<ReceivedBatch> entity = new Entity<ReceivedBatch>(id, batch);
-            ITransaction updater = new EditBatchInReceivingLedgerTransaction(entity, memoryStore);
+            Entity<ReceivedBatch> originalEntity = GetOriginalReceivedBatchEntity(id);
+            Entity<ReceivedBatch> updatedEntity = CreateUpdatedEntityFromOriginal(originalEntity, batch);
+            ITransaction updater = new EditBatchInReceivingLedgerTransaction(updatedEntity, memoryStore);
+            UpdateInventoryBatches(originalEntity, updatedEntity);
+            UpdateImplementedBatches(originalEntity, updatedEntity);
             updater.Execute();
+        }
+
+        Entity<ReceivedBatch> CreateUpdatedEntityFromOriginal(Entity<ReceivedBatch> original, ReceivedBatch updated)
+        {
+            ReceivedBatch updatedBatch = new ReceivedBatch(
+                updated.ColorName,
+                updated.BatchNumber,
+                updated.ActivityDate,
+                updated.Quantity,
+                updated.PONumber,
+                updated.ReceivingOperator
+            );
+
+            return new Entity<ReceivedBatch>(original.SystemId, updatedBatch);
+        }
+
+        Entity<ReceivedBatch> GetOriginalReceivedBatchEntity(int systemId)
+        {
+            ITransaction finder = new FindBatchInReceivingLedgerByIdTransaction(systemId, memoryStore);
+            finder.Execute();
+
+            return finder.Results[0] as Entity<ReceivedBatch>;
+        }
+
+        void UpdateImplementedBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
+        {
+            foreach (KeyValuePair<int, Entity<LoggedBatch>> implementedEntity in memoryStore.ImplementedBatchLedger)
+            {
+                if (implementedEntity.Value.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
+                {
+                    implementedEntity.Value.NativeModel.BatchNumber = updated.NativeModel.BatchNumber;
+                }
+            }
+        }
+
+        void UpdateInventoryBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
+        {
+            foreach (KeyValuePair<int, Entity<InventoryBatch>> inventoryBatch in memoryStore.CurrentInventory)
+            {
+                if (inventoryBatch.Value.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
+                {
+                    inventoryBatch.Value.NativeModel.BatchNumber = updated.NativeModel.BatchNumber;
+                }
+            }
         }
 
         public void DeleteReceivedBatch(int id)
@@ -168,7 +215,10 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         public EditablePurchaseOrder GetPurchaseOrderForEditing(int poNumber)
         {
             ITransaction finder = new FindBatchesInReceivingLedgerByPONumberTransaction(poNumber, memoryStore);
-            ObservableCollection<ReceivedBatch> batches = ExecuteFinderAndBuildObservableCollectionFromTransactionResults(finder);
+            ObservableCollection<ReceivedBatch> batches = RebuildObservableCollectionWithNewReceivedBatchInstances(
+                ExecuteFinderAndBuildObservableCollectionFromTransactionResults(finder)
+            );
+            
             Dictionary<int, int> systemIdsForMappedBatches = new Dictionary<int, int>();
 
             for (int i = 0; i < finder.Results.Count; i++)
@@ -177,6 +227,18 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             }
 
             return new EditablePurchaseOrder(batches, systemIdsForMappedBatches); 
+        }
+
+        ObservableCollection<ReceivedBatch> RebuildObservableCollectionWithNewReceivedBatchInstances(ObservableCollection<ReceivedBatch> receivedBatches)
+        {
+            ObservableCollection<ReceivedBatch> rebuilt = new ObservableCollection<ReceivedBatch>();
+            
+            foreach (ReceivedBatch batch in receivedBatches)
+            {
+                rebuilt.Add(RecreateReceivedBatch(batch));
+            }
+
+            return rebuilt;
         }
     }
 }

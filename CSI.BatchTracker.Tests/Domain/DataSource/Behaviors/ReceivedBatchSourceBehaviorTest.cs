@@ -84,21 +84,6 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         }
 
         [Test]
-        public void UpdatingReceivedBatchAtIdThatDoesNotExistResultsInNoChanges()
-        {
-            int targetCollectionId = 0;
-            ReceivedBatch batch = helper.GetUniqueBatch1();
-            receivedBatchSource.SaveReceivedBatch(batch);
-            int originalSize = receivedBatchSource.ReceivedBatchRepository.Count;
-
-            int targetId = receivedBatchSource.ReceivedBatchIdMappings[targetCollectionId];
-            ReceivedBatch updated = helper.GetUniqueBatch2();
-            receivedBatchSource.UpdateReceivedBatch(targetId + 1, updated);
-
-            Assert.AreEqual(originalSize, receivedBatchSource.ReceivedBatchRepository.Count);
-        }
-
-        [Test]
         public void DeletingReceivedBatchAtIdResultsInRepositoryThatIsOneLess()
         {
             int targetCollectionId = 0;

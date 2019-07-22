@@ -29,7 +29,6 @@ namespace CSI.BatchTracker.ViewModels
         public int SelectedColorIndex { get; set; }
         public ObservableCollection<ReceivedBatch> PurchaseOrderLedger { get; set; }
         public int ReceivedBatchesSelectedIndex { get; set; }
-        public ReceivedBatch ReceivedBatch { get; private set; }
         public ICommand UpdatePurchaseOrderCommand { get; private set; }
         public ICommand UpdateReceivedBatchCommand { get; private set; }
         public ICommand DeleteReceivingRecordCommand { get; private set; }
@@ -37,6 +36,17 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<string> Colors
         {
             get { return colorList.Colors; }
+        }
+
+        ReceivedBatch receivedBatch;
+        public ReceivedBatch ReceivedBatch
+        {
+            get { return receivedBatch; }
+            set
+            {
+                receivedBatch = value;
+                NotifyPropertyChanged("ReceivedBatch");
+            }
         }
 
         int poNumberAsInt;
@@ -57,10 +67,10 @@ namespace CSI.BatchTracker.ViewModels
         DateTime receivingDate;
         public DateTime ReceivingDate
         {
-            get { return receivingDate; }
+            get { return ReceivedBatch.ActivityDate; }
             set
             {
-                receivingDate = value;
+                ReceivedBatch.ActivityDate = value;
                 NotifyPropertyChanged("ReceivingDate");
             }
         }
@@ -79,7 +89,7 @@ namespace CSI.BatchTracker.ViewModels
         string quantityAsString;
         public string Quantity
         {
-            get { return quantityAsString; }
+            get { return ReceivedBatch.Quantity.ToString(); }
             set
             {
                 if (int.TryParse(value, out quantity))
@@ -118,12 +128,12 @@ namespace CSI.BatchTracker.ViewModels
             this.inventorySource = inventorySource;
             this.receivedBatchSource = receivedBatchSource;
             this.implementedBatchSource = implementedBatchSource;
+            ReceivedBatch = new ReceivedBatch();
             ImportPurchaseOrderInformation();
             UpdatePurchaseOrderCommand = new UpdatePurchaseOrderHeaderCommand(this);
             UpdateText = "Save Item";
             this.colorList = colorList;
             this.batchNumberValidator = batchNumberValidator;
-            ReceivedBatch = new ReceivedBatch();
         }
 
         void ImportPurchaseOrderInformation()
@@ -196,7 +206,15 @@ namespace CSI.BatchTracker.ViewModels
             return ReceivedBatchesSelectedIndex > -1
                 && SelectedColorIndex > -1
                 && batchNumberValidator.Validate(ReceivedBatch.BatchNumber)
-                && ReceivedBatch.Quantity > 0;
+                && ReceivedBatch.Quantity > 0
+                && ReceivedBatch.Quantity >= implementedBatchSource.GetImplementedBatchesByBatchNumber(ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber).Count;
+        }
+
+        public void UpdateSelectedReceivingRecord()
+        {
+            int systemId = purchaseOrder.GetReceivedBatchMappedSystemId(ReceivedBatchesSelectedIndex);
+            receivedBatchSource.UpdateReceivedBatch(systemId, ReceivedBatch);
+            ReloadPurchaseOrder();
         }
     }
 }
