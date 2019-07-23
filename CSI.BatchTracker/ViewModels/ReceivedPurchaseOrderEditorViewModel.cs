@@ -26,7 +26,6 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<ReceivedBatch> ReceivedBatches { get; private set; }
         public ObservableCollection<BatchOperator> BatchOperatorsList { get; private set; }
         public string UpdateText { get; set; }
-        public int SelectedColorIndex { get; set; }
         public ObservableCollection<ReceivedBatch> PurchaseOrderLedger { get; set; }
         public int ReceivedBatchesSelectedIndex { get; set; }
         public ICommand UpdatePurchaseOrderCommand { get; private set; }
@@ -36,6 +35,17 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<string> Colors
         {
             get { return colorList.Colors; }
+        }
+
+        int selectedColorIndex;
+        public int SelectedColorIndex
+        {
+            get { return selectedColorIndex; }
+            set
+            {
+                selectedColorIndex = value;
+                ReceivedBatch.ColorName = Colors[selectedColorIndex];
+            }
         }
 
         ReceivedBatch receivedBatch;
@@ -64,7 +74,6 @@ namespace CSI.BatchTracker.ViewModels
             }
         }
 
-        DateTime receivingDate;
         public DateTime ReceivingDate
         {
             get { return ReceivedBatch.ActivityDate; }
@@ -134,6 +143,7 @@ namespace CSI.BatchTracker.ViewModels
             UpdateText = "Save Item";
             this.colorList = colorList;
             this.batchNumberValidator = batchNumberValidator;
+            SelectedColorIndex = 0;
         }
 
         void ImportPurchaseOrderInformation()
@@ -152,7 +162,7 @@ namespace CSI.BatchTracker.ViewModels
 
             for (int i = 0; i < BatchOperatorsList.Count; i++)
             {
-                if (BatchOperatorsList[i].FullName == ReceivedBatches[0].ReceivingOperator.FullName)
+                if (ReceivedBatches.Count > 0 && BatchOperatorsList[i].FullName == ReceivedBatches[0].ReceivingOperator.FullName)
                 {
                     selected = i;
                 }
@@ -197,7 +207,8 @@ namespace CSI.BatchTracker.ViewModels
 
         public void DeleteSelectedReceivingRecordFromLedger()
         {
-            receivedBatchSource.DeleteReceivedBatch(purchaseOrder.GetReceivedBatchMappedSystemId(ReceivedBatchesSelectedIndex));
+            int targetSystemId = purchaseOrder.GetReceivedBatchMappedSystemId(ReceivedBatchesSelectedIndex);
+            receivedBatchSource.DeleteReceivedBatch(targetSystemId);
             ReloadPurchaseOrder();
         }
 
@@ -214,6 +225,7 @@ namespace CSI.BatchTracker.ViewModels
         {
             int systemId = purchaseOrder.GetReceivedBatchMappedSystemId(ReceivedBatchesSelectedIndex);
             receivedBatchSource.UpdateReceivedBatch(systemId, ReceivedBatch);
+            inventorySource.UpdateActiveInventory();
             ReloadPurchaseOrder();
         }
     }

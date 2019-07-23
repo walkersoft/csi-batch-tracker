@@ -22,9 +22,13 @@ namespace CSI.BatchTracker.Domain
             Dictionary<int, int> batchSystemIdMappings
         )
         {
-            ReceivingDate = receivedBatches[0].ActivityDate;
-            PONumber = receivedBatches[0].PONumber;
-            ReceivingOperator = receivedBatches[0].ReceivingOperator;
+            if (receivedBatches.Count > 0)
+            {
+                ReceivingDate = receivedBatches[0].ActivityDate;
+                PONumber = receivedBatches[0].PONumber;
+                ReceivingOperator = receivedBatches[0].ReceivingOperator;
+            }
+
             ReceivedBatches = receivedBatches;
             this.batchSystemIdMappings = batchSystemIdMappings;
         }

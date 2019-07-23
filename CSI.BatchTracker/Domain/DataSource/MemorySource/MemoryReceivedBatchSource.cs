@@ -138,19 +138,44 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 if (implementedEntity.Value.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
                 {
                     implementedEntity.Value.NativeModel.BatchNumber = updated.NativeModel.BatchNumber;
+                    implementedEntity.Value.NativeModel.ColorName = updated.NativeModel.ColorName;
                 }
             }
         }
 
         void UpdateInventoryBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
         {
+            ITransaction deleter = null;
+
             foreach (KeyValuePair<int, Entity<InventoryBatch>> inventoryBatch in memoryStore.CurrentInventory)
             {
                 if (inventoryBatch.Value.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
                 {
-                    inventoryBatch.Value.NativeModel.BatchNumber = updated.NativeModel.BatchNumber;
+                    InventoryBatch current = inventoryBatch.Value.NativeModel;
+                    current.BatchNumber = updated.NativeModel.BatchNumber;
+                    current.ColorName = updated.NativeModel.ColorName;
+                    current.Quantity = GetAdjustedInventoryQuantity(current.BatchNumber, current.Quantity, updated.NativeModel.Quantity);
+
+                    if (current.Quantity == 0)
+                    {
+                        deleter = new DeleteDepletedInventoryBatchAtId(inventoryBatch.Value, memoryStore);
+                    }
                 }
             }
+
+            if (deleter != null)
+            {
+                deleter.Execute();
+            }
+        }
+
+        int GetAdjustedInventoryQuantity(string batchNumber, int currentQuantity, int newQuantity)
+        {
+            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(batchNumber, memoryStore);
+            finder.Execute();
+            int implementedQuantity = finder.Results.Count;
+
+            return currentQuantity + (newQuantity - currentQuantity) - implementedQuantity;
         }
 
         public void DeleteReceivedBatch(int id)

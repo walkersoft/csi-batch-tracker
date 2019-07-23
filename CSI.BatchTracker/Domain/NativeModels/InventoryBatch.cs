@@ -4,7 +4,7 @@ namespace CSI.BatchTracker.Domain.NativeModels
 {
     public class InventoryBatch : AbstractBatch
     {
-        public int Quantity { get; private set; }
+        public int Quantity { get; set; }
 
         public string DisplayName
         {

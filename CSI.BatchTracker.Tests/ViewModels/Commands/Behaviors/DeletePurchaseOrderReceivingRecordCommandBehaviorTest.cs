@@ -49,5 +49,20 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 
             Assert.AreEqual(expectedCount, viewModel.ReceivedBatches.Count);
         }
+
+        [Test]
+        public void ExecutedCommandThatDeletesAllRecordsEffectivelyDeletesAllReceivingRecordsForTheGivenPurchaseOrder()
+        {
+            int expectedCount = 0;
+            int loop = 0;
+            while (viewModel.ReceivedBatches.Count > 0)
+            {
+                loop++;
+                command.Execute(null);
+            }
+
+            Assert.AreEqual(expectedCount, viewModel.ReceivedBatches.Count);
+            Assert.AreEqual(expectedCount, receivedBatchSource.GetReceivedBatchesByPONumber(int.Parse(viewModel.PONumber)).Count);
+        }
     }
 }
