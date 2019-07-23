@@ -98,12 +98,15 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
 
         public void UpdateReceivedBatch(int id, ReceivedBatch batch)
         {
-            Entity<ReceivedBatch> originalEntity = GetOriginalReceivedBatchEntity(id);
-            Entity<ReceivedBatch> updatedEntity = CreateUpdatedEntityFromOriginal(originalEntity, batch);
-            ITransaction updater = new EditBatchInReceivingLedgerTransaction(updatedEntity, memoryStore);
-            UpdateInventoryBatches(originalEntity, updatedEntity);
-            UpdateImplementedBatches(originalEntity, updatedEntity);
-            updater.Execute();
+            if (memoryStore.ReceivingLedger.ContainsKey(id))
+            {
+                Entity<ReceivedBatch> originalEntity = GetOriginalReceivedBatchEntity(id);
+                Entity<ReceivedBatch> updatedEntity = CreateUpdatedEntityFromOriginal(originalEntity, batch);
+                ITransaction updater = new EditBatchInReceivingLedgerTransaction(updatedEntity, memoryStore);
+                UpdateInventoryBatches(originalEntity, updatedEntity);
+                UpdateImplementedBatches(originalEntity, updatedEntity);
+                updater.Execute();
+            }
         }
 
         Entity<ReceivedBatch> CreateUpdatedEntityFromOriginal(Entity<ReceivedBatch> original, ReceivedBatch updated)
