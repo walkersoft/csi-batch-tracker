@@ -17,8 +17,7 @@
                 <Label Content="PO Number"/>
                 <TextBox Width="100"
                          Margin="0,0,5,0"
-                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding EditModeEnabled}">
+                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>
@@ -30,8 +29,7 @@
                 <DatePicker Width="110" 
                             VerticalContentAlignment="Center"
                             Margin="0,0,5,0"
-                            SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}"
-                            IsEnabled="{Binding EditModeEnabled}">
+                            SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}">
                     <DatePicker.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </DatePicker.InputBindings>
@@ -44,8 +42,7 @@
                           VerticalContentAlignment="Center"
                           ItemsSource="{Binding BatchOperatorRepository, UpdateSourceTrigger=PropertyChanged}"
                           DisplayMemberPath="FullName"
-                          SelectedIndex="{Binding ReceivingOperatorComboBoxIndex}"
-                          IsEnabled="{Binding EditModeEnabled}">
+                          SelectedIndex="{Binding ReceivingOperatorComboBoxIndex}">
                     <ComboBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </ComboBox.InputBindings>
@@ -66,8 +63,7 @@
                           VerticalContentAlignment="Center"
                           Margin="0,0,5,0"                          
                           ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedIndex="{Binding ColorSelectionComboBoxIndex}"
-                          IsEnabled="{Binding EditModeEnabled}">
+                          SelectedIndex="{Binding ColorSelectionComboBoxIndex}">
                     <ComboBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </ComboBox.InputBindings>
@@ -78,8 +74,7 @@
                 <Label Content="Batch Number"/>
                 <TextBox Width="120"
                          VerticalContentAlignment="Center"
-                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding EditModeEnabled}">
+                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>
@@ -90,8 +85,7 @@
                 <Label Content="Quantity"/>
                 <TextBox Width="40"
                          VerticalContentAlignment="Center"
-                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding EditModeEnabled}">
+                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>

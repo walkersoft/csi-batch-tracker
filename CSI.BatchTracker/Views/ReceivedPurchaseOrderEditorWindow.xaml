@@ -62,7 +62,7 @@
                           VerticalContentAlignment="Center"
                           Margin="0,0,5,0"                          
                           ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedIndex="{Binding ColorSelectionComboBoxIndex}">
+                          SelectedIndex="{Binding SelectedColorIndex}">
                     <ComboBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
                     </ComboBox.InputBindings>
@@ -108,7 +108,7 @@
                       HeadersVisibility="Column"
                       IsReadOnly="True"
                       ItemsSource="{Binding PurchaseOrderLedger}"
-                      SelectedIndex="{Binding PurchaseOrderLedgerSelectedIndex}">
+                      SelectedIndex="{Binding ReceivedBatchesSelectedIndex}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>

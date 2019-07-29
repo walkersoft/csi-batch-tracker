@@ -76,7 +76,7 @@ namespace CSI.BatchTracker
 
         ReceivingHistoryViewModel GetReceivingHistoryViewModel(ReceivingManagementViewModel receivingManagementViewModel)
         {
-            return new ReceivingHistoryViewModel(receivedBatchSource, inventorySource, receivingManagementViewModel);
+            return new ReceivingHistoryViewModel(receivedBatchSource, inventorySource, operatorSource, implementedBatchSource, receivingManagementViewModel);
         }
 
         public void ShutdownBatchTRAX(object sender, ExitEventArgs e)

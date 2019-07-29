@@ -18,7 +18,14 @@ namespace CSI.BatchTracker.Tests.Domain
             operatorSource = new MemoryBatchOperatorSource(context);
             inventorySource = new MemoryActiveInventorySource(context);
             receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
-            viewModel = new ReceivingHistoryViewModel(receivedBatchSource, inventorySource, GetReceivingManagementViewModel());
+            implementedBatchSource = new MemoryImplementedBatchSource(context, inventorySource);
+            viewModel = new ReceivingHistoryViewModel(
+                receivedBatchSource,
+                inventorySource,
+                operatorSource,
+                implementedBatchSource,
+                GetReceivingManagementViewModel()
+            );
             command = new ChangeSearchCriteriaPanelVisibilityCommand(viewModel);
         }
 

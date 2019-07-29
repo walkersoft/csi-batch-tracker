@@ -35,9 +35,18 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
-        public void CommandWillExecuteIfViewIsSetAndCanShowItself()
+        public void CommandWillExecuteIfViewIsSetAndCanShowItselfAndARetrievedRecordIsSet()
         {
+            int targetPO = 11111;
+            ReceivedBatch receivedBatch = helper.GetBatchWithSpecificPO(targetPO);
+            BatchOperator batchOperator = receivedBatch.ReceivingOperator;
+
+            operatorSource.SaveOperator(batchOperator);
+            receivedBatchSource.SaveReceivedBatch(receivedBatch);
             viewModel.PurchaseOrderEditorViewer = new PassableIViewTestStub();
+            viewModel.SpecificPONumber = targetPO.ToString();
+            viewModel.FetchReceivingRecordsByPONumber();
+
             Assert.True(command.CanExecute(null));
         }
 

@@ -12,6 +12,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         protected IReceivedBatchSource receivedBatchSource;
         protected IActiveInventorySource inventorySource;
         protected IBatchOperatorSource operatorSource;
+        protected IImplementedBatchSource implementedBatchSource;
         protected ICommand command;
         protected ReceivingHistoryViewModel viewModel;
 

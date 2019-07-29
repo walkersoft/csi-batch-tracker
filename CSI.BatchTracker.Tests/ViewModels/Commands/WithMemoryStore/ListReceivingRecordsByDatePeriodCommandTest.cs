@@ -17,7 +17,13 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
             operatorSource = new MemoryBatchOperatorSource(context);
             inventorySource = new MemoryActiveInventorySource(context);
             receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
-            viewModel = new ReceivingHistoryViewModel(receivedBatchSource, inventorySource, GetReceivingManagementViewModel());
+            viewModel = new ReceivingHistoryViewModel(
+                receivedBatchSource,
+                inventorySource,
+                operatorSource,
+                implementedBatchSource,
+                GetReceivingManagementViewModel()
+            );
             command = new ListReceivingRecordsByDatePeriodCommand(viewModel);
             base.SetUp();
         }

@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
+﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using CSI.BatchTracker.Views;
@@ -15,6 +16,8 @@ namespace CSI.BatchTracker.ViewModels
     {
         IReceivedBatchSource receivedBatchSource;
         IActiveInventorySource inventorySource;
+        IBatchOperatorSource operatorSource;
+        IImplementedBatchSource implementedBatchSource;
         ReceivingManagementViewModel receivingManagementViewModel;
 
         public SearchCriteriaVisibilityManager VisibilityManager { get; set; }
@@ -30,7 +33,17 @@ namespace CSI.BatchTracker.ViewModels
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
         public ICommand ChangeSearchCriteriaPanelVisibility { get; private set;}
         public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
-        public ICommand OpenPurchaseOrderEditorCommand { get; private set; }
+
+        ICommand purchaseOrderEditorCommand;
+        public ICommand OpenPurchaseOrderEditorCommand
+        {
+            get { return purchaseOrderEditorCommand; }
+            private set
+            {
+                purchaseOrderEditorCommand = value;
+                NotifyPropertyChanged("OpenPurchaseOrderEditorCommand");
+            }
+        }
 
         int poNumber;
         string poNumberAsString;
@@ -75,10 +88,14 @@ namespace CSI.BatchTracker.ViewModels
         public ReceivingHistoryViewModel(
             IReceivedBatchSource receivedBatchSource,
             IActiveInventorySource inventorySource,
+            IBatchOperatorSource operatorSource,
+            IImplementedBatchSource implementedBatchSource,
             ReceivingManagementViewModel viewModel)
         {
             this.receivedBatchSource = receivedBatchSource;
             this.inventorySource = inventorySource;
+            this.operatorSource = operatorSource;
+            this.implementedBatchSource = implementedBatchSource;
             receivingManagementViewModel = viewModel;
             VisibilityManager = new SearchCriteriaVisibilityManager();
             SelectedPurchaseOrderReceivedBatches = new ObservableCollection<ReceivedBatch>();
@@ -91,6 +108,7 @@ namespace CSI.BatchTracker.ViewModels
             PopulateRetreivedRecordsLedgerFromSearchCriteria = new ListReceivingRecordsByDateRangeCommand(this);
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
+            OpenPurchaseOrderEditorCommand = new OpenPurchaseOrderEditorCommand(this);
             ReceivingSessionViewer = new BatchReceivingManagementViewer(receivingManagementViewModel);
         }
 
@@ -110,9 +128,11 @@ namespace CSI.BatchTracker.ViewModels
         {
             if (RetreivedRecordsLedger.Count > 0 && RetreivedRecordsLedgerSelectedIndex > -1)
             {
+                PreparePurchaseOrderEditor();
                 return true;
             }
 
+            PurchaseOrderEditorViewer = null;
             SelectedPurchaseOrderReceivedBatches.Clear();
             NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
 
@@ -265,12 +285,29 @@ namespace CSI.BatchTracker.ViewModels
         public bool PurchaseOrderEditorViewIsSet()
         {
             return PurchaseOrderEditorViewer != null
-                && PurchaseOrderEditorViewer.CanShowView();
+                && PurchaseOrderEditorViewer.CanShowView()
+                && ReceivedPurchaseOrderIsSelected();
         }
 
         public void ShowPurchaseOrderEditorView()
         {
-            
+            PurchaseOrderEditorViewer.ShowView();
+        }
+
+        void PreparePurchaseOrderEditor()
+        {
+            EditablePurchaseOrder purchaseOrder = receivedBatchSource.GetPurchaseOrderForEditing(poNumber);
+            ReceivedPurchaseOrderEditorViewModel poViewModel = new ReceivedPurchaseOrderEditorViewModel(
+                purchaseOrder,
+                new DuracolorIntermixColorList(),
+                new DuracolorIntermixBatchNumberValidator(),
+                operatorSource,
+                inventorySource,
+                receivedBatchSource,
+                implementedBatchSource
+            );
+
+            PurchaseOrderEditorViewer = new ReceivedPurchaseOrderEditorViewer(poViewModel);
         }
     }
 }
