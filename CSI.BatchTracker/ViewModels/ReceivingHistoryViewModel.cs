@@ -25,11 +25,12 @@ namespace CSI.BatchTracker.ViewModels
         public int DatePeriodSelectedIndex { get; set; }
         public DateTime SpecificDate { get; set; }
         public IView ReceivingSessionViewer { get; set; }
+        public IView PurchaseOrderEditorViewer { get; set; }
 
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
         public ICommand ChangeSearchCriteriaPanelVisibility { get; private set;}
         public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
-        public ICommand OpenReceivedBatchSetForViewing { get; private set; }
+        public ICommand OpenPurchaseOrderEditorCommand { get; private set; }
 
         int poNumber;
         string poNumberAsString;
@@ -259,6 +260,17 @@ namespace CSI.BatchTracker.ViewModels
             }
 
             return receivedPurchaseOrders;
+        }
+
+        public bool PurchaseOrderEditorViewIsSet()
+        {
+            return PurchaseOrderEditorViewer != null
+                && PurchaseOrderEditorViewer.CanShowView();
+        }
+
+        public void ShowPurchaseOrderEditorView()
+        {
+            
         }
     }
 }

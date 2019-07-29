@@ -96,7 +96,8 @@
                 </DataGrid>
 
                 <WrapPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Button Content="Modify Selected Record" Width="165"/>
+                    <Button Content="Modify Selected Record" Width="165"
+                            Command="{Binding OpenPurchaseOrderEditorCommand}"/>
                 </WrapPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical">

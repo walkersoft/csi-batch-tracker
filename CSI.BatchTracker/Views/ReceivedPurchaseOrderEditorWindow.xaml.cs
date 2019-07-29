@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSI.BatchTracker.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,10 @@ namespace CSI.BatchTracker.Views
     /// </summary>
     public partial class ReceivedPurchaseOrderEditorWindow : Window
     {
-        public ReceivedPurchaseOrderEditorWindow()
+        public ReceivedPurchaseOrderEditorWindow(ReceivedPurchaseOrderEditorViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

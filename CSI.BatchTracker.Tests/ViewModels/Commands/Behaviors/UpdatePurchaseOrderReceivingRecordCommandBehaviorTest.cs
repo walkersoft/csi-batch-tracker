@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Exceptions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -81,12 +82,12 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         {
             viewModel.ReceivedBatchesSelectedIndex = 0;
             string batchNumber = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].BatchNumber;
-            string expectedColorName = "Black";
+            string expectedColorName = "Red";
             BatchOperator batchOperator = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].ReceivingOperator;
             viewModel.ReceivedBatch = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex];
 
             implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
-            viewModel.SelectedColorIndex = 1;
+            viewModel.SelectedColorIndex = 3;
             command.Execute(null);
 
             Assert.AreEqual(expectedColorName, receivedBatchSource.GetReceivedBatchesByBatchNumber(batchNumber)[0].ColorName);

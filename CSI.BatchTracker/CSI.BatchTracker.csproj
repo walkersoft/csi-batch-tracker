@@ -102,6 +102,7 @@
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByDatePeriodCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByPONumberCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsBySpecificDateCommand.cs" />
+    <Compile Include="ViewModels\Commands\OpenPurchaseOrderEditorCommand.cs" />
     <Compile Include="ViewModels\Commands\UpdatePurchaseOrderHeaderCommand.cs" />
     <Compile Include="ViewModels\Commands\UpdatePurchaseOrderReceivingRecordCommand.cs" />
     <Compile Include="ViewModels\ReceivedPurchaseOrderEditorViewModel.cs" />
@@ -153,6 +154,7 @@
       <DependentUpon>BatchReceivingManagementWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Contracts\IBatchHistoryView.cs" />
+    <Compile Include="Views\ReceivedPurchaseOrderEditorViewer.cs" />
     <Compile Include="Views\ReceivedPurchaseOrderEditorWindow.xaml.cs">
       <DependentUpon>ReceivedPurchaseOrderEditorWindow.xaml</DependentUpon>
     </Compile>

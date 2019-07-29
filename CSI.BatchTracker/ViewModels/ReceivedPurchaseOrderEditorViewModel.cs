@@ -2,7 +2,9 @@
 using CSI.BatchTracker.Domain.Contracts;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Exceptions;
 using CSI.BatchTracker.ViewModels.Commands;
+using CSI.BatchTracker.Views.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,7 +29,6 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<BatchOperator> BatchOperatorsList { get; private set; }
         public string UpdateText { get; set; }
         public ObservableCollection<ReceivedBatch> PurchaseOrderLedger { get; set; }
-        public int ReceivedBatchesSelectedIndex { get; set; }
         public ICommand UpdatePurchaseOrderCommand { get; private set; }
         public ICommand UpdateReceivedBatchCommand { get; private set; }
         public ICommand DeleteReceivingRecordCommand { get; private set; }
@@ -35,6 +36,21 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<string> Colors
         {
             get { return colorList.Colors; }
+        }
+
+        int receivedBatchesSelectedIndex;
+        public int ReceivedBatchesSelectedIndex
+        {
+            get { return receivedBatchesSelectedIndex; }
+            set
+            {
+                receivedBatchesSelectedIndex = value;
+
+                if (receivedBatchesSelectedIndex > -1)
+                {
+                    ReceivedBatch = ReceivedBatches[receivedBatchesSelectedIndex];
+                }
+            }
         }
 
         int selectedColorIndex;
@@ -45,6 +61,7 @@ namespace CSI.BatchTracker.ViewModels
             {
                 selectedColorIndex = value;
                 ReceivedBatch.ColorName = Colors[selectedColorIndex];
+                NotifyPropertyChanged("SelectedColorIndex");
             }
         }
 
