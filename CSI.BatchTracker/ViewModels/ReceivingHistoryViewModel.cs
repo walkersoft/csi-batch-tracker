@@ -128,7 +128,6 @@ namespace CSI.BatchTracker.ViewModels
         {
             if (RetreivedRecordsLedger.Count > 0 && RetreivedRecordsLedgerSelectedIndex > -1)
             {
-                PreparePurchaseOrderEditor();
                 return true;
             }
 
@@ -291,6 +290,7 @@ namespace CSI.BatchTracker.ViewModels
 
         public void ShowPurchaseOrderEditorView()
         {
+            PreparePurchaseOrderEditor();
             PurchaseOrderEditorViewer.ShowView();
         }
 

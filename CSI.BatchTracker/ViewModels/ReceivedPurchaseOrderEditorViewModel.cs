@@ -25,56 +25,10 @@ namespace CSI.BatchTracker.ViewModels
         IBatchNumberValidator batchNumberValidator;
         EditablePurchaseOrder purchaseOrder;
 
-        public ObservableCollection<ReceivedBatch> ReceivedBatches { get; private set; }
         public ObservableCollection<BatchOperator> BatchOperatorsList { get; private set; }
-        public string UpdateText { get; set; }
-        public ObservableCollection<ReceivedBatch> PurchaseOrderLedger { get; set; }
         public ICommand UpdatePurchaseOrderCommand { get; private set; }
         public ICommand UpdateReceivedBatchCommand { get; private set; }
         public ICommand DeleteReceivingRecordCommand { get; private set; }
-
-        public ObservableCollection<string> Colors
-        {
-            get { return colorList.Colors; }
-        }
-
-        int receivedBatchesSelectedIndex;
-        public int ReceivedBatchesSelectedIndex
-        {
-            get { return receivedBatchesSelectedIndex; }
-            set
-            {
-                receivedBatchesSelectedIndex = value;
-
-                if (receivedBatchesSelectedIndex > -1)
-                {
-                    ReceivedBatch = ReceivedBatches[receivedBatchesSelectedIndex];
-                }
-            }
-        }
-
-        int selectedColorIndex;
-        public int SelectedColorIndex
-        {
-            get { return selectedColorIndex; }
-            set
-            {
-                selectedColorIndex = value;
-                ReceivedBatch.ColorName = Colors[selectedColorIndex];
-                NotifyPropertyChanged("SelectedColorIndex");
-            }
-        }
-
-        ReceivedBatch receivedBatch;
-        public ReceivedBatch ReceivedBatch
-        {
-            get { return receivedBatch; }
-            set
-            {
-                receivedBatch = value;
-                NotifyPropertyChanged("ReceivedBatch");
-            }
-        }
 
         int poNumberAsInt;
         string poNumberAsString;
@@ -98,6 +52,34 @@ namespace CSI.BatchTracker.ViewModels
             {
                 ReceivedBatch.ActivityDate = value;
                 NotifyPropertyChanged("ReceivingDate");
+            }
+        }
+
+        int selectedOperatorIndex;
+        public int SelectedOperatorIndex
+        {
+            get { return selectedOperatorIndex; }
+            set
+            {
+                selectedOperatorIndex = value;
+                NotifyPropertyChanged("SelectedOperatorIndex");
+            }
+        }
+
+        public ObservableCollection<string> Colors
+        {
+            get { return colorList.Colors; }
+        }
+
+        int selectedColorIndex;
+        public int SelectedColorIndex
+        {
+            get { return selectedColorIndex; }
+            set
+            {
+                selectedColorIndex = value;
+                ReceivedBatch.ColorName = Colors[selectedColorIndex];
+                NotifyPropertyChanged("SelectedColorIndex");
             }
         }
 
@@ -128,14 +110,52 @@ namespace CSI.BatchTracker.ViewModels
             }
         }
 
-        int selectedOperatorIndex;
-        public int SelectedOperatorIndex
+        string updateText;
+        public string UpdateText
         {
-            get { return selectedOperatorIndex; }
+            get { return updateText; }
             set
             {
-                selectedOperatorIndex = value;
-                NotifyPropertyChanged("SelectedOperatorIndex");
+                updateText = value;
+                NotifyPropertyChanged("UpdateText");
+            }
+        }
+
+        ObservableCollection<ReceivedBatch> receivedBatches;
+        public ObservableCollection<ReceivedBatch> ReceivedBatches
+        {
+            get { return receivedBatches; }
+            private set
+            {
+                receivedBatches = value;
+                NotifyPropertyChanged("ReceivedBatches");
+            }
+        }
+
+
+        int receivedBatchesSelectedIndex;
+        public int ReceivedBatchesSelectedIndex
+        {
+            get { return receivedBatchesSelectedIndex; }
+            set
+            {
+                receivedBatchesSelectedIndex = value;
+
+                if (receivedBatchesSelectedIndex > -1)
+                {
+                    ReceivedBatch = ReceivedBatches[receivedBatchesSelectedIndex];
+                }
+            }
+        }
+
+        ReceivedBatch receivedBatch;
+        public ReceivedBatch ReceivedBatch
+        {
+            get { return receivedBatch; }
+            set
+            {
+                receivedBatch = value;
+                NotifyPropertyChanged("ReceivedBatch");
             }
         }
 
@@ -154,6 +174,7 @@ namespace CSI.BatchTracker.ViewModels
             this.inventorySource = inventorySource;
             this.receivedBatchSource = receivedBatchSource;
             this.implementedBatchSource = implementedBatchSource;
+            receivedBatches = new ObservableCollection<ReceivedBatch>();
             ReceivedBatch = new ReceivedBatch();
             ImportPurchaseOrderInformation();
             UpdatePurchaseOrderCommand = new UpdatePurchaseOrderHeaderCommand(this);

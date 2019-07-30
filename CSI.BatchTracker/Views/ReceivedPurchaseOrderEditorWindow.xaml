@@ -107,7 +107,7 @@
                       CanUserSortColumns="False"
                       HeadersVisibility="Column"
                       IsReadOnly="True"
-                      ItemsSource="{Binding PurchaseOrderLedger}"
+                      ItemsSource="{Binding ReceivedBatches}"
                       SelectedIndex="{Binding ReceivedBatchesSelectedIndex}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
@@ -122,7 +122,7 @@
                         Command="{Binding DeleteReceivingRecordCommand}"/>
                 <Button Width="120" 
                         Content="Save Changes"
-                        Command="{Binding UpdatePurchaseOrderCommand}"/>
+                        Command="{Binding UpdateReceivedBatchCommand}"/>
             </WrapPanel>
         </StackPanel>
     </StackPanel>
