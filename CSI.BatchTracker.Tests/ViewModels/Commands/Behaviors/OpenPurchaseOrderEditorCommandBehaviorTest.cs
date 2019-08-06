@@ -24,6 +24,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void CommandWillNotExecuteIfViewIsNotSet()
         {
+            viewModel.PurchaseOrderEditorViewer = null;
             Assert.False(command.CanExecute(null));
         }
 

@@ -109,6 +109,7 @@ namespace CSI.BatchTracker.ViewModels
             ListBatchesFromReceivedPurchaseOrder = new ListBatchesFromReceivedPurchaseOrderCommand(this);
             ChangeSearchCriteriaPanelVisibility = new ChangeSearchCriteriaPanelVisibilityCommand(this);
             OpenPurchaseOrderEditorCommand = new OpenPurchaseOrderEditorCommand(this);
+            PurchaseOrderEditorViewer = new ReceivedPurchaseOrderEditorViewer(this);
             ReceivingSessionViewer = new BatchReceivingManagementViewer(receivingManagementViewModel);
         }
 
@@ -290,11 +291,10 @@ namespace CSI.BatchTracker.ViewModels
 
         public void ShowPurchaseOrderEditorView()
         {
-            PreparePurchaseOrderEditor();
             PurchaseOrderEditorViewer.ShowView();
         }
 
-        void PreparePurchaseOrderEditor()
+        public ReceivedPurchaseOrderEditorViewModel GetReceivedPurchaseOrderEditorViewModel()
         {
             EditablePurchaseOrder purchaseOrder = receivedBatchSource.GetPurchaseOrderForEditing(poNumber);
             ReceivedPurchaseOrderEditorViewModel poViewModel = new ReceivedPurchaseOrderEditorViewModel(
@@ -307,7 +307,7 @@ namespace CSI.BatchTracker.ViewModels
                 implementedBatchSource
             );
 
-            PurchaseOrderEditorViewer = new ReceivedPurchaseOrderEditorViewer(poViewModel);
+            return poViewModel;
         }
     }
 }

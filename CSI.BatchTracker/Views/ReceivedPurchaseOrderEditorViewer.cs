@@ -10,9 +10,10 @@ namespace CSI.BatchTracker.Views
 {
     public sealed class ReceivedPurchaseOrderEditorViewer : ViewBase
     {
-        ReceivedPurchaseOrderEditorViewModel viewModel;
+        ReceivedPurchaseOrderEditorViewModel viewModel1;
+        ReceivingHistoryViewModel viewModel;
 
-        public ReceivedPurchaseOrderEditorViewer(ReceivedPurchaseOrderEditorViewModel viewModel)
+        public ReceivedPurchaseOrderEditorViewer(ReceivingHistoryViewModel viewModel)
         {
             this.viewModel = viewModel;
         }

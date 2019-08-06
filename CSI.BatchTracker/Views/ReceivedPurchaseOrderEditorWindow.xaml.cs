@@ -20,10 +20,10 @@ namespace CSI.BatchTracker.Views
     /// </summary>
     public partial class ReceivedPurchaseOrderEditorWindow : Window
     {
-        public ReceivedPurchaseOrderEditorWindow(ReceivedPurchaseOrderEditorViewModel viewModel)
+        public ReceivedPurchaseOrderEditorWindow(ReceivingHistoryViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = viewModel;
+            DataContext = viewModel.GetReceivedPurchaseOrderEditorViewModel();
         }
     }
 }
