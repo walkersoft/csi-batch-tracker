@@ -67,6 +67,23 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
+        public void ExecutedCommandWillResetTheCurrentlySelectedBatch()
+        {
+            string expectedQuantity = "0";
+            string expectedBatchNumber = string.Empty;
+            int expectedColorIndex = 0;
+            int expectedSelectedIndex = -1;
+
+            viewModel.ReceivedBatchesSelectedIndex = 1;
+            command.Execute(null);
+
+            Assert.AreEqual(expectedQuantity, viewModel.Quantity);
+            Assert.AreEqual(expectedBatchNumber, viewModel.BatchNumber);
+            Assert.AreEqual(expectedColorIndex, viewModel.SelectedColorIndex);
+            Assert.AreEqual(expectedSelectedIndex, viewModel.ReceivedBatchesSelectedIndex);
+        }
+
+        [Test]
         public void ExecutedCommandWillRemoveOnlyReceivingQuantityFromActiveInventory()
         {
             int expectedCount = 3;
@@ -88,10 +105,9 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             int expectedCount = 0;
             int loop = 0;
 
-            viewModel.ReceivedBatchesSelectedIndex = 0;
-
             while (viewModel.ReceivedBatches.Count > 0)
             {
+                viewModel.ReceivedBatchesSelectedIndex = 0;
                 loop++;
                 command.Execute(null);
             }

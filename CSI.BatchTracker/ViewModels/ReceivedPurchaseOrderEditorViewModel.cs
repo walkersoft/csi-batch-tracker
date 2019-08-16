@@ -29,6 +29,7 @@ namespace CSI.BatchTracker.ViewModels
         public ICommand UpdatePurchaseOrderCommand { get; private set; }
         public ICommand UpdateReceivedBatchCommand { get; private set; }
         public ICommand DeleteReceivingRecordCommand { get; private set; }
+        public ICommand ReceivedBatchSelectionChanged { get; private set; }
 
         int poNumberAsInt;
         string poNumberAsString;
@@ -179,6 +180,7 @@ namespace CSI.BatchTracker.ViewModels
             ImportPurchaseOrderInformation();
             UpdatePurchaseOrderCommand = new UpdatePurchaseOrderHeaderCommand(this);
             DeleteReceivingRecordCommand = new DeletePurchaseOrderReceivingRecordCommand(this);
+            ReceivedBatchSelectionChanged = new ReceivedBatchForEditingSelectionChangedCommand(this);
             UpdateText = "Save Item";
             this.colorList = colorList;
             this.batchNumberValidator = batchNumberValidator;
@@ -251,6 +253,15 @@ namespace CSI.BatchTracker.ViewModels
             int targetSystemId = purchaseOrder.GetReceivedBatchMappedSystemId(ReceivedBatchesSelectedIndex);
             receivedBatchSource.DeleteReceivedBatch(targetSystemId);
             ReloadPurchaseOrder();
+            ResetSelectedPurchaseOrder();
+        }
+
+        void ResetSelectedPurchaseOrder()
+        {
+            ReceivedBatchesSelectedIndex = -1;
+            SelectedColorIndex = 0;
+            BatchNumber = string.Empty;
+            Quantity = "0";
         }
 
         public bool SelectedReceivingRecordIsReadyForUpdate()
@@ -268,6 +279,32 @@ namespace CSI.BatchTracker.ViewModels
             receivedBatchSource.UpdateReceivedBatch(systemId, ReceivedBatch);
             inventorySource.UpdateActiveInventory();
             ReloadPurchaseOrder();
+        }
+
+        public bool ReceivedRecordIsSelected()
+        {
+            return ReceivedBatchesSelectedIndex > -1;
+        }
+
+        public void PopulateSelectedReceivedRecord()
+        {
+            ReceivedBatch.ColorName = ReceivedBatches[ReceivedBatchesSelectedIndex].ColorName;
+            BatchNumber = ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber;
+            Quantity = ReceivedBatches[ReceivedBatchesSelectedIndex].Quantity.ToString();
+            SetSelectedColorIndex(ReceivedBatch.ColorName);
+            UpdateText = "Update Item";
+        }
+
+        void SetSelectedColorIndex(string colorName)
+        {
+            for (int i = 0; i < Colors.Count; i++)
+            {
+                if (Colors[i].ToString() == colorName)
+                {
+                    SelectedColorIndex = i;
+                    break;
+                }
+            }
         }
     }
 }

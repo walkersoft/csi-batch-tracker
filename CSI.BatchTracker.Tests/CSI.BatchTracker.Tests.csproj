@@ -57,6 +57,7 @@
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsBySpecficDateCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByDatePeriodCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\OpenPurchaseOrderEditorCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\ReceivedBatchForEditingSelectionChangedCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ReceivedPurchaseOrderEditorViewModelTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\UpdatePurchaseOrderHeaderCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\UpdatePurchaseOrderReceivingRecordCommandBehaviorTest.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="ViewModels\Commands\WithMemoryStore\ListReceivingRecordsByPONumberCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\ListReceivingRecordsBySpecificDateCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\OpenPurchaseOrderEditorCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\WithMemoryStore\ReceivedBatchForEditingSelectionChangedCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithMemoryStore\ReceivingHistorySearchCriteriaVisibilityManagerTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\ActiveInventorySourceBehaviorTest.cs" />
     <Compile Include="Domain\DataSource\Behaviors\ImplementedBatchSourceBehaviorTest.cs" />

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
         Title="Purchase Order Editor"
@@ -114,6 +115,11 @@
                     <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
                     <DataGridTextColumn Header="Qty. Received" Width="90" Binding="{Binding Quantity}"/>
                 </DataGrid.Columns>
+                <input:Interaction.Triggers>
+                    <input:EventTrigger EventName="SelectionChanged">
+                        <input:InvokeCommandAction Command="{Binding ReceivedBatchSelectionChanged}"/>
+                    </input:EventTrigger>
+                </input:Interaction.Triggers>
             </DataGrid>
             <WrapPanel>
                 <Button Width="175" 
