@@ -110,6 +110,7 @@ namespace CSI.BatchTracker.ViewModels
         public void ShowReceivingManagementSessionView()
         {
             ReceivingManagementSessionViewer.ShowView();
+            AssociateCollectionsAndRepositories();
         }
 
         public bool BatchOperatorManagementSessionViewIsSet()
@@ -144,6 +145,7 @@ namespace CSI.BatchTracker.ViewModels
         public void ShowBatchHistoryViewer()
         {
             BatchHistoryViewer.ShowView();
+            AssociateCollectionsAndRepositories();
         }
 
         public bool BatchHistoryViewerIsSetAndImplementedBatchIsSelected()

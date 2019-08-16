@@ -140,7 +140,7 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ReceivingHistoryViewModel.cs" />
     <Compile Include="ViewModels\ReceivingManagementViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Contracts\ViewModelBase.cs" />
     <Compile Include="Views\BatchHistoryViewer.cs" />
     <Compile Include="Views\BatchHistoryWindow.xaml.cs">
       <DependentUpon>BatchHistoryWindow.xaml</DependentUpon>

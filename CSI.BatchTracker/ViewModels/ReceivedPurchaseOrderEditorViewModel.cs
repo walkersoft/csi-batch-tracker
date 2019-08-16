@@ -178,10 +178,12 @@ namespace CSI.BatchTracker.ViewModels
             ReceivedBatch = new ReceivedBatch();
             ImportPurchaseOrderInformation();
             UpdatePurchaseOrderCommand = new UpdatePurchaseOrderHeaderCommand(this);
+            DeleteReceivingRecordCommand = new DeletePurchaseOrderReceivingRecordCommand(this);
             UpdateText = "Save Item";
             this.colorList = colorList;
             this.batchNumberValidator = batchNumberValidator;
             SelectedColorIndex = 0;
+            ReceivedBatchesSelectedIndex = -1;
         }
 
         void ImportPurchaseOrderInformation()
@@ -192,6 +194,7 @@ namespace CSI.BatchTracker.ViewModels
             ReceivingDate = purchaseOrder.ReceivingDate;
             ReceivedBatches = purchaseOrder.ReceivedBatches;
             SelectedOperatorIndex = FindSelectedOperatorIndexFromRepository();
+            inventorySource.UpdateActiveInventory();
         }
 
         int FindSelectedOperatorIndexFromRepository()

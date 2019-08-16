@@ -54,7 +54,16 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void ExecutedCommandWillCallIViewShowViewMethod()
         {
+            int targetPO = 11111;
+            ReceivedBatch receivedBatch = helper.GetBatchWithSpecificPO(targetPO);
+            BatchOperator batchOperator = receivedBatch.ReceivingOperator;
+
+            operatorSource.SaveOperator(batchOperator);
+            receivedBatchSource.SaveReceivedBatch(receivedBatch);
             viewModel.PurchaseOrderEditorViewer = new IViewTestStub();
+            viewModel.SpecificPONumber = targetPO.ToString();
+            viewModel.FetchReceivingRecordsByPONumber();
+
             Assert.DoesNotThrow(() => command.Execute(null));
         }
     }

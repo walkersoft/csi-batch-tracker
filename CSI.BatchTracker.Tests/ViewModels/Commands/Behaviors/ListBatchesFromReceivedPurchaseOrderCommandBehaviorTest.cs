@@ -49,6 +49,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             ReceivedPurchaseOrder receivedPO = CreatePurchaseOrderWithSingleEntry();
 
             viewModel.RetreivedRecordsLedger.Add(receivedPO);
+            viewModel.RetreivedRecordsLedgerSelectedIndex = 0;
 
             command.Execute(null);
             

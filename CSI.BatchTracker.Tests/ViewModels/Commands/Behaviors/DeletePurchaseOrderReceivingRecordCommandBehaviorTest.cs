@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using CSI.BatchTracker.Domain.NativeModels;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,9 +46,40 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         {
             int expectedCount = 2;
 
+            viewModel.ReceivedBatchesSelectedIndex = 0;
             command.Execute(null);
 
             Assert.AreEqual(expectedCount, viewModel.ReceivedBatches.Count);
+        }
+
+        [Test]
+        public void ExecutedCommandWillRemoveTheBatchFromActiveInventory()
+        {
+            int expectedBeforeCount = 3;
+            int expectedAfterCount = 2;
+
+            Assert.AreEqual(expectedBeforeCount, inventorySource.CurrentInventory.Count);
+
+            viewModel.ReceivedBatchesSelectedIndex = 1;
+            command.Execute(null);
+
+            Assert.AreEqual(expectedAfterCount, inventorySource.CurrentInventory.Count);
+        }
+
+        [Test]
+        public void ExecutedCommandWillRemoveOnlyReceivingQuantityFromActiveInventory()
+        {
+            int expectedCount = 3;
+            int expectedQty = 3;
+            BatchOperator batchOperator = operatorSource.FindBatchOperator(originalBatchOperatorId);
+            ReceivedBatch newBatchWithSameBatchNumber = new ReceivedBatch("White", whiteBatch, DateTime.Now, expectedQty, 22222, batchOperator);
+
+            receivedBatchSource.SaveReceivedBatch(newBatchWithSameBatchNumber);
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            command.Execute(null);
+
+            Assert.AreEqual(expectedCount, inventorySource.CurrentInventory.Count);
+            Assert.AreEqual(expectedQty, inventorySource.FindInventoryBatchByBatchNumber(whiteBatch).Quantity);
         }
 
         [Test]
@@ -55,6 +87,9 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         {
             int expectedCount = 0;
             int loop = 0;
+
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+
             while (viewModel.ReceivedBatches.Count > 0)
             {
                 loop++;

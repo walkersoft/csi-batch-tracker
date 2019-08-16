@@ -85,7 +85,7 @@
                           SelectedIndex="{Binding RetreivedRecordsLedgerSelectedIndex, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="PO Number" Width="80" Binding="{Binding PONumber}"/>
-                        <DataGridTextColumn Header="Receiving Date" Width="100" Binding="{Binding DisplayDate}"/>
+                        <DataGridTextColumn Header="Receiving Date" Width="120" Binding="{Binding DisplayDate}"/>
                         <DataGridTextColumn Header="Receiving Operator" Width="120" Binding="{Binding ReceivingOperator.FullName}"/>
                     </DataGrid.Columns>
                     <input:Interaction.Triggers>

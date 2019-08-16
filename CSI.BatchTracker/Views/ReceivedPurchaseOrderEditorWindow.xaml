@@ -108,7 +108,7 @@
                       HeadersVisibility="Column"
                       IsReadOnly="True"
                       ItemsSource="{Binding ReceivedBatches}"
-                      SelectedIndex="{Binding ReceivedBatchesSelectedIndex}">
+                      SelectedIndex="{Binding ReceivedBatchesSelectedIndex, UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
@@ -122,7 +122,7 @@
                         Command="{Binding DeleteReceivingRecordCommand}"/>
                 <Button Width="120" 
                         Content="Save Changes"
-                        Command="{Binding UpdateReceivedBatchCommand}"/>
+                        Command="{Binding UpdatePurchaseOrderCommand}"/>
             </WrapPanel>
         </StackPanel>
     </StackPanel>

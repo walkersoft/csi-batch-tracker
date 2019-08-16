@@ -24,7 +24,6 @@ namespace CSI.BatchTracker.ViewModels
         public DateTime DateRangeStartingDate { get; set; }
         public DateTime DateRangeEndingDate { get; set; }
         public ObservableCollection<ReceivedBatch> SelectedPurchaseOrderReceivedBatches { get; set; }
-        public int RetreivedRecordsLedgerSelectedIndex { get; set; }
         public int DatePeriodSelectedIndex { get; set; }
         public DateTime SpecificDate { get; set; }
         public IView ReceivingSessionViewer { get; set; }
@@ -33,15 +32,16 @@ namespace CSI.BatchTracker.ViewModels
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
         public ICommand ChangeSearchCriteriaPanelVisibility { get; private set;}
         public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
+        public ICommand OpenPurchaseOrderEditorCommand { get; private set; }
 
-        ICommand purchaseOrderEditorCommand;
-        public ICommand OpenPurchaseOrderEditorCommand
+        int retreivedRecordsLedgerSelectedIndex;
+        public int RetreivedRecordsLedgerSelectedIndex
         {
-            get { return purchaseOrderEditorCommand; }
-            private set
+            get { return retreivedRecordsLedgerSelectedIndex; }
+            set
             {
-                purchaseOrderEditorCommand = value;
-                NotifyPropertyChanged("OpenPurchaseOrderEditorCommand");
+                retreivedRecordsLedgerSelectedIndex = value;
+                NotifyPropertyChanged("RetreivedRecordsLedgerSelectedIndex");
             }
         }
 
@@ -97,6 +97,7 @@ namespace CSI.BatchTracker.ViewModels
             this.operatorSource = operatorSource;
             this.implementedBatchSource = implementedBatchSource;
             receivingManagementViewModel = viewModel;
+            RetreivedRecordsLedgerSelectedIndex = -1;
             VisibilityManager = new SearchCriteriaVisibilityManager();
             SelectedPurchaseOrderReceivedBatches = new ObservableCollection<ReceivedBatch>();
             RetreivedRecordsLedger = new ObservableCollection<ReceivedPurchaseOrder>();
@@ -132,7 +133,6 @@ namespace CSI.BatchTracker.ViewModels
                 return true;
             }
 
-            PurchaseOrderEditorViewer = null;
             SelectedPurchaseOrderReceivedBatches.Clear();
             NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
 
@@ -291,7 +291,9 @@ namespace CSI.BatchTracker.ViewModels
 
         public void ShowPurchaseOrderEditorView()
         {
+            poNumber = RetreivedRecordsLedger[RetreivedRecordsLedgerSelectedIndex].PONumber;
             PurchaseOrderEditorViewer.ShowView();
+            inventorySource.UpdateActiveInventory();
         }
 
         public ReceivedPurchaseOrderEditorViewModel GetReceivedPurchaseOrderEditorViewModel()
