@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
         {
             this.entity = entity;
             this.store = store;
-            LastSystemId = store.CurrentInventory.Count;
+            //LastSystemId = store.CurrentInventory.Count;
         }
         
         public override void Execute()

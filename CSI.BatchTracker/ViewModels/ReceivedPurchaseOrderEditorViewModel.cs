@@ -150,7 +150,7 @@ namespace CSI.BatchTracker.ViewModels
         }
 
         ReceivedBatch receivedBatch;
-        public ReceivedBatch ReceivedBatch
+        ReceivedBatch ReceivedBatch
         {
             get { return receivedBatch; }
             set
@@ -178,6 +178,7 @@ namespace CSI.BatchTracker.ViewModels
             receivedBatches = new ObservableCollection<ReceivedBatch>();
             ReceivedBatch = new ReceivedBatch();
             ImportPurchaseOrderInformation();
+            UpdateReceivedBatchCommand = new UpdatePurchaseOrderReceivingRecordCommand(this);
             UpdatePurchaseOrderCommand = new UpdatePurchaseOrderHeaderCommand(this);
             DeleteReceivingRecordCommand = new DeletePurchaseOrderReceivingRecordCommand(this);
             ReceivedBatchSelectionChanged = new ReceivedBatchForEditingSelectionChangedCommand(this);
@@ -288,11 +289,24 @@ namespace CSI.BatchTracker.ViewModels
 
         public void PopulateSelectedReceivedRecord()
         {
-            ReceivedBatch.ColorName = ReceivedBatches[ReceivedBatchesSelectedIndex].ColorName;
-            BatchNumber = ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber;
-            Quantity = ReceivedBatches[ReceivedBatchesSelectedIndex].Quantity.ToString();
+            ReceivedBatch selectedBatch = GetReceivedBatchFromSelectedRecordAtIndex(ReceivedBatchesSelectedIndex);
+            ReceivedBatch.ColorName = selectedBatch.ColorName;
+            BatchNumber = selectedBatch.BatchNumber;
+            Quantity = selectedBatch.Quantity.ToString();
             SetSelectedColorIndex(ReceivedBatch.ColorName);
             UpdateText = "Update Item";
+        }
+
+        ReceivedBatch GetReceivedBatchFromSelectedRecordAtIndex(int index)
+        {
+            return new ReceivedBatch(
+                ReceivedBatches[index].ColorName,
+                ReceivedBatches[index].BatchNumber,
+                ReceivedBatches[index].ActivityDate,
+                ReceivedBatches[index].Quantity,
+                ReceivedBatches[index].PONumber,
+                ReceivedBatches[index].ReceivingOperator
+            );
         }
 
         void SetSelectedColorIndex(string colorName)

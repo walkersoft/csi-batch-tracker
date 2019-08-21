@@ -47,14 +47,14 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void CommandWillNotExecuteIfQuantityIsNotGreaterThanOrEqualToAmountAlreadyImplemented()
         {
-            viewModel.ReceivedBatchesSelectedIndex = 0;
-            viewModel.ReceivedBatch.Quantity = 2;
-            string batchNumber = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].BatchNumber;
-            BatchOperator batchOperator = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].ReceivingOperator;
+            BatchOperator batchOperator = operatorSource.FindBatchOperator(originalBatchOperatorId);
 
-            implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
-            implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
-            implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            viewModel.Quantity = "2";
 
             Assert.False(command.CanExecute(null));            
         }
@@ -66,10 +66,10 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             string batchNumber = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].BatchNumber;
             string expectedBatchNumber = "872894502301";
             BatchOperator batchOperator = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].ReceivingOperator;
-            viewModel.ReceivedBatch = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex];
 
             implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
-            viewModel.ReceivedBatch.BatchNumber = expectedBatchNumber;
+            viewModel.PopulateSelectedReceivedRecord();
+            viewModel.BatchNumber = expectedBatchNumber;
             command.Execute(null);
 
             Assert.AreEqual(expectedBatchNumber, receivedBatchSource.GetReceivedBatchesByBatchNumber(expectedBatchNumber)[0].BatchNumber);
@@ -84,9 +84,9 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             string batchNumber = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].BatchNumber;
             string expectedColorName = "Red";
             BatchOperator batchOperator = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].ReceivingOperator;
-            viewModel.ReceivedBatch = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex];
 
             implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
+            viewModel.PopulateSelectedReceivedRecord();
             viewModel.SelectedColorIndex = 3;
             command.Execute(null);
 
@@ -102,10 +102,10 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             string batchNumber = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].BatchNumber;
             int expectedQuantity = 5;
             BatchOperator batchOperator = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].ReceivingOperator;
-            viewModel.ReceivedBatch = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex];
 
             implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
-            viewModel.ReceivedBatch.Quantity = 6;
+            viewModel.PopulateSelectedReceivedRecord();
+            viewModel.Quantity = "6";
             command.Execute(null);
 
             Assert.AreEqual(expectedQuantity, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
@@ -118,10 +118,10 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             string batchNumber = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].BatchNumber;
             int expectedQuantity = 3;
             BatchOperator batchOperator = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].ReceivingOperator;
-            viewModel.ReceivedBatch = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex];
 
             implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
-            viewModel.ReceivedBatch.Quantity = 4;
+            viewModel.PopulateSelectedReceivedRecord();
+            viewModel.Quantity = "4";
             command.Execute(null);
 
             Assert.AreEqual(expectedQuantity, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
@@ -135,16 +135,41 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             int expectedBeforeCount = 3;
             int expectedAfterCount = 2;
             BatchOperator batchOperator = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].ReceivingOperator;
-            viewModel.ReceivedBatch = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex];
 
             implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
-            viewModel.ReceivedBatch.Quantity = 1;
+            viewModel.PopulateSelectedReceivedRecord();
+            viewModel.Quantity = "1";
 
             Assert.AreEqual(expectedBeforeCount, inventorySource.CurrentInventory.Count);
 
             command.Execute(null);
 
             Assert.AreEqual(expectedAfterCount, inventorySource.CurrentInventory.Count);
+        }
+
+        [Test]
+        public void ExecutedCommandWithIncreaseInQuantityButNothingInInventoryResultsInInventoryRecordBeingCreated()
+        {
+            int expectedBeforeCount = 2;
+            int expectedAfterCount = 3;
+            int expectedInventoryQuantity = 2;
+            BatchOperator batchOperator = operatorSource.FindBatchOperator(originalBatchOperatorId);
+
+            while (inventorySource.CurrentInventory.Count > expectedBeforeCount)
+            {
+                implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+            }
+
+            Assert.AreEqual(expectedBeforeCount, inventorySource.CurrentInventory.Count);
+
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            viewModel.PopulateSelectedReceivedRecord();
+            viewModel.Quantity = "7";
+
+            command.Execute(null);
+
+            Assert.AreEqual(expectedAfterCount, inventorySource.CurrentInventory.Count);
+            Assert.AreEqual(expectedInventoryQuantity, inventorySource.FindInventoryBatchByBatchNumber(whiteBatch).Quantity);
         }
     }
 }

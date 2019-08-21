@@ -146,14 +146,26 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         void UpdateInventoryBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
         {
             ITransaction deleter = null;
+            ProcessColorAndBatchNumberUpdates(original, updated);
+
+            if (BatchDoesNotExistInInventory(updated.NativeModel.BatchNumber))
+            {
+                InventoryBatch inventoryBatch = new InventoryBatch(
+                    updated.NativeModel.ColorName,
+                    updated.NativeModel.BatchNumber,
+                    updated.NativeModel.ActivityDate,
+                    updated.NativeModel.Quantity
+                );
+
+                ITransaction adder = new AddReceivedBatchToInventoryTransaction(new Entity<InventoryBatch>(inventoryBatch), memoryStore);
+                adder.Execute();
+            }
 
             foreach (KeyValuePair<int, Entity<InventoryBatch>> inventoryBatch in memoryStore.CurrentInventory)
             {
                 if (inventoryBatch.Value.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
                 {
                     InventoryBatch current = inventoryBatch.Value.NativeModel;
-                    current.BatchNumber = updated.NativeModel.BatchNumber;
-                    current.ColorName = updated.NativeModel.ColorName;
                     current.Quantity = GetAdjustedInventoryQuantity(current.BatchNumber, current.Quantity, updated.NativeModel.Quantity);
 
                     if (current.Quantity == 0)
@@ -167,6 +179,32 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             {
                 deleter.Execute();
             }
+        }
+
+        void ProcessColorAndBatchNumberUpdates(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
+        {
+            foreach (KeyValuePair<int, Entity<InventoryBatch>> inventoryBatch in memoryStore.CurrentInventory)
+            {
+                if (inventoryBatch.Value.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
+                {
+                    InventoryBatch current = inventoryBatch.Value.NativeModel;
+                    current.BatchNumber = updated.NativeModel.BatchNumber;
+                    current.ColorName = updated.NativeModel.ColorName;
+                }
+            }
+        }
+
+        bool BatchDoesNotExistInInventory(string batchNumber)
+        {
+            foreach (KeyValuePair<int, Entity<InventoryBatch>> inventoryBatch in memoryStore.CurrentInventory)
+            {
+                if (inventoryBatch.Value.NativeModel.BatchNumber == batchNumber)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         int GetAdjustedInventoryQuantity(string batchNumber, int currentQuantity, int newQuantity)

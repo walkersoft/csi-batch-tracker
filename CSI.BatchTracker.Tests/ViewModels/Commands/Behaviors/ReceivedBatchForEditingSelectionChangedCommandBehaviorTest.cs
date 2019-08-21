@@ -26,16 +26,16 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [Test]
         public void ExecutedCommandWillPopulateCurrentReceivedBatch()
         {
-            int expectedQuantity = 5;
+            string expectedQuantity = "5";
             int expectedColorIndex = 1;
             string expectedUpdateText = "Update Item";
 
             viewModel.ReceivedBatchesSelectedIndex = 1;
             command.Execute(null);
 
-            Assert.AreEqual("Black", viewModel.ReceivedBatch.ColorName);
-            Assert.AreEqual(blackBatch, viewModel.ReceivedBatch.BatchNumber);
-            Assert.AreEqual(expectedQuantity, viewModel.ReceivedBatch.Quantity);
+            Assert.AreEqual("Black", viewModel.Colors[viewModel.SelectedColorIndex].ToString());
+            Assert.AreEqual(blackBatch, viewModel.BatchNumber);
+            Assert.AreEqual(expectedQuantity, viewModel.Quantity);
             Assert.AreEqual(expectedColorIndex, viewModel.SelectedColorIndex);
             Assert.AreEqual(expectedUpdateText, viewModel.UpdateText);
         }
