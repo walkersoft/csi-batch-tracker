@@ -171,5 +171,25 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             Assert.AreEqual(expectedAfterCount, inventorySource.CurrentInventory.Count);
             Assert.AreEqual(expectedInventoryQuantity, inventorySource.FindInventoryBatchByBatchNumber(whiteBatch).Quantity);
         }
+
+        [Test]
+        public void ExecutedCommandThatChangesColorAndBatchNumberOfExistingInventoryItemsWillMergeLikeBatches()
+        {
+            int expectedInventoryCountBefore = 3;
+            int expectedInventoryCountAfter = 2;
+            int expectedBatchQuantity = 10;
+
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            viewModel.PopulateSelectedReceivedRecord();
+
+            Assert.AreEqual(expectedInventoryCountBefore, inventorySource.CurrentInventory.Count);
+
+            viewModel.BatchNumber = blackBatch;
+            viewModel.SelectedColorIndex = 1;
+            command.Execute(null);
+
+            Assert.AreEqual(expectedInventoryCountAfter, inventorySource.CurrentInventory.Count);
+            Assert.AreEqual(expectedBatchQuantity, inventorySource.FindInventoryBatchByBatchNumber(blackBatch).Quantity);
+        }
     }
 }
