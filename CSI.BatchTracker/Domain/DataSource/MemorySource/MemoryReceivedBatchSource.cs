@@ -179,6 +179,43 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             {
                 deleter.Execute();
             }
+
+            MergeCommonBatches();
+        }
+
+        void MergeCommonBatches()
+        {
+            List<InventoryBatch> merged = new List<InventoryBatch>();
+
+            foreach (KeyValuePair<int, Entity<InventoryBatch>> currentEntity in memoryStore.CurrentInventory)
+            {
+                InventoryBatch currentBatch = currentEntity.Value.NativeModel;
+                bool batchNotFound = true;
+
+                for (int i = 0; i < merged.Count; i++)
+                {
+                    if (merged[i].BatchNumber == currentBatch.BatchNumber)
+                    {
+                        merged[i].AddQuantity(currentBatch.Quantity);
+                        batchNotFound = false;
+                        continue;
+                    }
+                }
+
+                if (batchNotFound)
+                {
+                    merged.Add(currentBatch);
+                }
+            }
+
+            int systemId = 0;
+            memoryStore.CurrentInventory.Clear();
+
+            for (int i = 0; i < merged.Count; i++)
+            {
+                systemId++;
+                memoryStore.CurrentInventory.Add(systemId, new Entity<InventoryBatch>(systemId, merged[i]));
+            }
         }
 
         void ProcessColorAndBatchNumberUpdates(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
