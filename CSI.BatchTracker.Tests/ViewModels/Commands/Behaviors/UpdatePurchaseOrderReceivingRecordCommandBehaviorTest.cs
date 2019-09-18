@@ -60,6 +60,15 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
+        public void CommandWillNotExecuteIfEditedRecordExistsInReceivingAndTheColorIsDifferent()
+        {
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            viewModel.SelectedColorIndex = 1;
+
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
         public void ExecutedCommandWithChangedBatchNumberUpdatesAllLedgers()
         {
             viewModel.ReceivedBatchesSelectedIndex = 0;

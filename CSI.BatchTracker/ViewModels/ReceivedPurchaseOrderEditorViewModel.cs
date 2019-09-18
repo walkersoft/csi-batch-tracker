@@ -271,7 +271,21 @@ namespace CSI.BatchTracker.ViewModels
                 && SelectedColorIndex > -1
                 && batchNumberValidator.Validate(ReceivedBatch.BatchNumber)
                 && ReceivedBatch.Quantity > 0
-                && ReceivedBatch.Quantity >= implementedBatchSource.GetImplementedBatchesByBatchNumber(ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber).Count;
+                && ReceivedBatch.Quantity >= implementedBatchSource.GetImplementedBatchesByBatchNumber(ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber).Count
+                && SelectedRecordIsConsistentWithBatchAndColorName();
+        }
+
+        bool SelectedRecordIsConsistentWithBatchAndColorName()
+        {
+            ObservableCollection<ReceivedBatch> found = receivedBatchSource.GetReceivedBatchesByBatchNumber(BatchNumber);
+            string colorName = Colors[SelectedColorIndex].ToString();
+
+            if (found.Count > 0 && colorName != found[0].ColorName)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public void UpdateSelectedReceivingRecord()
