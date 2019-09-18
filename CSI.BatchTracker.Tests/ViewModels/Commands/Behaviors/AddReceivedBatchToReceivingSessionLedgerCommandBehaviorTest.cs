@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.ViewModels;
+﻿using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System;
@@ -82,6 +83,33 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         {
             SetupValidReceivedBatchInViewModel();
             viewModel.Quantity = "0";
+
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
+        public void UnableToAddReceivedBatchToSessionLedgerIfBatchNumberMatchesExistingReceivingRecordAndColorsAreNotTheSame()
+        {
+            InjectTwoOperatorsIntoRepository();
+            SetupValidReceivedBatchInViewModel();
+
+            ReceivedBatch receivedBatch = new ReceivedBatch(
+                "White",
+                viewModel.BatchNumber,
+                DateTime.Now,
+                1,
+                55555,
+                operatorSource.FindBatchOperator(1)
+            );
+
+            receivingSource.SaveReceivedBatch(receivedBatch);
+
+            viewModel.PONumber = "11111";
+            viewModel.ReceivingDate = DateTime.Now;
+            viewModel.ReceivingOperatorComboBoxIndex = 0;
+            viewModel.ColorSelectionComboBoxIndex = 1;
+            viewModel.BatchNumber = "872880501302";
+            viewModel.Quantity = "1";
 
             Assert.False(command.CanExecute(null));
         }

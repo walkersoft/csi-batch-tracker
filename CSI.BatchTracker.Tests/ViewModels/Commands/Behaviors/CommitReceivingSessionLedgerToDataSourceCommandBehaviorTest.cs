@@ -103,5 +103,32 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
                 Assert.AreSame(expectedOperator, batch.ReceivingOperator);
             }
         }
+
+        [Test]
+        public void AddingRecordWithBatchNumberThatIsSimilarToAnotherBatchOfDifferentColorWillNotCommitToReceivingLedger()
+        {
+            int expectedLedgerCount = 1;
+            InjectTwoOperatorsIntoRepository();
+            SetupValidReceivedBatchInViewModel();
+
+            ReceivedBatch receivedBatch = new ReceivedBatch(
+                "White",
+                viewModel.BatchNumber,
+                DateTime.Now,
+                1,
+                55555,
+                operatorSource.FindBatchOperator(1)
+            );
+
+            receivingSource.SaveReceivedBatch(receivedBatch);
+
+            viewModel.ColorSelectionComboBoxIndex = 2;
+            viewModel.BatchNumber = "872880501302";
+            viewModel.Quantity = "1";
+            AddReceivedBatchToSessionLedger();
+            command.Execute(null);
+
+            Assert.AreEqual(expectedLedgerCount, receivingSource.ReceivedBatchRepository.Count);
+        }
     }
 }

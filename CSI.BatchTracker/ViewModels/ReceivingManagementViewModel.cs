@@ -145,7 +145,21 @@ namespace CSI.BatchTracker.ViewModels
                 && batchNumberValidator.Validate(BatchNumber)
                 && string.IsNullOrEmpty(Quantity) == false
                 && int.TryParse(Quantity, out quantity)
-                && quantity > 0;
+                && quantity > 0
+                && BatchIsConsistentWithCurrentReceiving();
+        }
+
+        bool BatchIsConsistentWithCurrentReceiving()
+        {
+            ObservableCollection<ReceivedBatch> found = receivingSource.GetReceivedBatchesByBatchNumber(BatchNumber);
+            string colorName = colorList.Colors[ColorSelectionComboBoxIndex].ToString();
+
+            if (found.Count > 0 && colorName != found[0].ColorName)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public void AddReceivedBatchToSessionLedger()
