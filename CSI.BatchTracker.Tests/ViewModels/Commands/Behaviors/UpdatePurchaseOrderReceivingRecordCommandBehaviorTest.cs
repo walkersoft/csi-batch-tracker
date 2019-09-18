@@ -35,7 +35,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
-        public void CommandWillNotExecuteIfSelectedRecordsDoesNotHaveAPositibeQuantity()
+        public void CommandWillNotExecuteIfSelectedRecordsDoesNotHaveAPositiveQuantity()
         {
             viewModel.ReceivedBatchesSelectedIndex = 0;
             viewModel.BatchNumber = whiteBatch;
