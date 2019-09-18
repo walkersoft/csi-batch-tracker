@@ -45,6 +45,16 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
+        public void CommandWillNotExecuteIfSelectedRecordQuantityIsNotANumber()
+        {
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            viewModel.BatchNumber = whiteBatch;
+            viewModel.Quantity = "foo";
+
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
         public void CommandWillNotExecuteIfQuantityIsNotGreaterThanOrEqualToAmountAlreadyImplemented()
         {
             BatchOperator batchOperator = operatorSource.FindBatchOperator(originalBatchOperatorId);
@@ -69,6 +79,16 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
+        public void CommandWillExecuteIfEditedRecordHasBatchNumberThatMatchesExistingColor()
+        {
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            viewModel.SelectedColorIndex = 0;
+            viewModel.PopulateSelectedReceivedRecord();
+
+            Assert.True(command.CanExecute(null));
+        }
+
+        [Test]
         public void ExecutedCommandWithChangedBatchNumberUpdatesAllLedgers()
         {
             viewModel.ReceivedBatchesSelectedIndex = 0;
@@ -76,6 +96,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             string expectedBatchNumber = "872894502301";
             BatchOperator batchOperator = viewModel.ReceivedBatches[viewModel.ReceivedBatchesSelectedIndex].ReceivingOperator;
 
+            implementedBatchSource.AddBatchToImplementationLedger(yellowBatch, DateTime.Now, batchOperator);
             implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, batchOperator);
             viewModel.PopulateSelectedReceivedRecord();
             viewModel.BatchNumber = expectedBatchNumber;

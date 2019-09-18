@@ -72,6 +72,8 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         {
             int targetCollectionId = 0;
             ReceivedBatch original = helper.GetUniqueBatch1();
+
+            receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch2());
             receivedBatchSource.SaveReceivedBatch(original);
 
             int targetId = receivedBatchSource.ReceivedBatchIdMappings[targetCollectionId];

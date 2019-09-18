@@ -296,6 +296,7 @@ namespace CSI.BatchTracker.ViewModels
             inventorySource.UpdateActiveInventory();
         }
 
+        [ExcludeFromCodeCoverage]  //This is a smell :-(
         public ReceivedPurchaseOrderEditorViewModel GetReceivedPurchaseOrderEditorViewModel()
         {
             EditablePurchaseOrder purchaseOrder = receivedBatchSource.GetPurchaseOrderForEditing(poNumber);

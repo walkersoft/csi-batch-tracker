@@ -101,11 +101,12 @@ namespace CSI.BatchTracker.ViewModels
             get { return ReceivedBatch.Quantity.ToString(); }
             set
             {
-                if (int.TryParse(value, out quantity))
+                if (int.TryParse(value, out quantity) == false)
                 {
-                    ReceivedBatch.Quantity = quantity;
+                    quantity = 0;
                 }
 
+                ReceivedBatch.Quantity = quantity;
                 quantityAsString = value;
                 NotifyPropertyChanged("Quantity");
             }
@@ -330,7 +331,6 @@ namespace CSI.BatchTracker.ViewModels
                 if (Colors[i].ToString() == colorName)
                 {
                     SelectedColorIndex = i;
-                    break;
                 }
             }
         }

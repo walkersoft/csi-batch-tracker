@@ -16,10 +16,7 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 
         public override void Execute()
         {
-            if (store.ReceivingLedger.ContainsKey(entity.SystemId))
-            {
-                store.ReceivingLedger[entity.SystemId] = entity;
-            }
+            store.ReceivingLedger[entity.SystemId] = entity;
         }
     }
 }
