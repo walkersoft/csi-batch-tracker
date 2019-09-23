@@ -2,6 +2,7 @@
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {
+    [Serializable]
     public class LoggedBatch : AbstractBatch
     {
         public BatchOperator ImplementingOperator { get; private set; }

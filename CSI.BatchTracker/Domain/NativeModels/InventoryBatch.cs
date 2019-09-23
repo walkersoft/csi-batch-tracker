@@ -2,6 +2,7 @@
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {
+    [Serializable]
     public class InventoryBatch : AbstractBatch
     {
         public int Quantity { get; set; }

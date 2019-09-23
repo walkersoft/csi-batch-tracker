@@ -37,5 +37,10 @@ namespace CSI.BatchTracker.Storage.MemoryStore
                 Context = formatter.Deserialize(stream) as MemoryStoreContext;
             }
         }
+
+        public void ClearDataSource()
+        {
+            Context = new MemoryStoreContext();
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {
+    [Serializable]
     public class ReceivedBatch : AbstractBatch
     {
         public int Quantity { get; set; }

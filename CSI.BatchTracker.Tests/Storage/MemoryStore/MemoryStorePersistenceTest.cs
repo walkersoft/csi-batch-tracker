@@ -58,13 +58,38 @@ namespace CSI.BatchTracker.Tests.Storage.MemoryStore
 
             operatorSource.SaveOperator(new BatchOperator("Jane", "Doe"));
             persistenceManager.SaveDataSource();
-            persistenceManager.Context = new MemoryStoreContext();
+            persistenceManager.ClearDataSource();
 
             Assert.AreEqual(expectedRepoBeforeCount, persistenceManager.Context.BatchOperators.Count);
 
             persistenceManager.LoadDataSource();
 
             Assert.AreEqual(expectedRepoAfterCount, persistenceManager.Context.BatchOperators.Count);
+        }
+
+        [Test]
+        public void DataSourceWithSingleRecordInAllRepositoriesCanBeSavedAndRecalled()
+        {
+            int expectedRepoBeforeCount = 0;
+            int expectedRepoAfterCount = 1;
+
+            operatorSource.SaveOperator(new BatchOperator("Jane", "Doe"));
+            receivedBatchSource.SaveReceivedBatch(new ReceivedBatch("White", "872881111111", DateTime.Now, 5, 11111, operatorSource.FindBatchOperator(1)));
+            implementedBatchSource.AddBatchToImplementationLedger("872881111111", DateTime.Now, operatorSource.FindBatchOperator(1));
+            persistenceManager.SaveDataSource();
+            persistenceManager.ClearDataSource();
+
+            Assert.AreEqual(expectedRepoBeforeCount, persistenceManager.Context.BatchOperators.Count);
+            Assert.AreEqual(expectedRepoBeforeCount, persistenceManager.Context.ReceivingLedger.Count);
+            Assert.AreEqual(expectedRepoBeforeCount, persistenceManager.Context.ImplementedBatchLedger.Count);
+            Assert.AreEqual(expectedRepoBeforeCount, persistenceManager.Context.CurrentInventory.Count);
+
+            persistenceManager.LoadDataSource();
+
+            Assert.AreEqual(expectedRepoAfterCount, persistenceManager.Context.BatchOperators.Count);
+            Assert.AreEqual(expectedRepoAfterCount, persistenceManager.Context.ReceivingLedger.Count);
+            Assert.AreEqual(expectedRepoAfterCount, persistenceManager.Context.ImplementedBatchLedger.Count);
+            Assert.AreEqual(expectedRepoAfterCount, persistenceManager.Context.CurrentInventory.Count);
         }
     }
 }

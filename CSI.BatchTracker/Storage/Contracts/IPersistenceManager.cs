@@ -12,5 +12,6 @@ namespace CSI.BatchTracker.Storage.Contracts
         string StoredContextLocation { get; set; }
         void SaveDataSource();
         void LoadDataSource();
+        void ClearDataSource();
     }
 }
