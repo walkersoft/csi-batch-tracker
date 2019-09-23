@@ -1,7 +1,9 @@
 ﻿using CSI.BatchTracker.Storage.Contracts;
+using System;
 
 namespace CSI.BatchTracker.Domain.DataSource
 {
+    [Serializable]
     public class Entity<T> : IEntity where T : class
     {
         public int SystemId { get; private set; }

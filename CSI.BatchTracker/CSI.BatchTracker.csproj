@@ -94,6 +94,8 @@
     <Compile Include="Domain\DuracolorIntermixColorList.cs" />
     <Compile Include="Domain\EditablePurchaseOrder.cs" />
     <Compile Include="Domain\NativeModels\ReceivedPurchaseOrder.cs" />
+    <Compile Include="Storage\Contracts\IPersistenceManager.cs" />
+    <Compile Include="Storage\MemoryStore\MemoryStorePersistenceManager.cs" />
     <Compile Include="ViewModels\Commands\ChangeSearchCriteriaPanelVisibilityCommand.cs" />
     <Compile Include="ViewModels\Commands\DeletePurchaseOrderReceivingRecordCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByDatePeriodCommand.cs" />

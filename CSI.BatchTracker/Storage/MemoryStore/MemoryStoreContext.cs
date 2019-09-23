@@ -1,9 +1,11 @@
 ﻿using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.NativeModels;
+using System;
 using System.Collections.Generic;
 
 namespace CSI.BatchTracker.Storage.MemoryStore
 {
+    [Serializable]
     public sealed class MemoryStoreContext
     {
         public Dictionary<int, Entity<BatchOperator>> BatchOperators { get; private set; }

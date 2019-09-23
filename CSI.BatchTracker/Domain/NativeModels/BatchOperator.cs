@@ -1,5 +1,8 @@
-﻿namespace CSI.BatchTracker.Domain.NativeModels
+﻿using System;
+
+namespace CSI.BatchTracker.Domain.NativeModels
 {
+    [Serializable]
     public class BatchOperator
     {
         public string FirstName { get; set; }
