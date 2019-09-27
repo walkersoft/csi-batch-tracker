@@ -53,7 +53,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, 0);
         }
 
-        void UpdateImplementationLedger()
+        public void UpdateImplementationLedger()
         {
             ImplementedBatchLedger.Clear();
             ITransaction finder = new ListImplementedBatchTransaction(memoryStore);

@@ -23,6 +23,11 @@
             <MenuItem Header="_People">
                 <MenuItem Header="Batch _Operator Management" InputGestureText="Ctrl+O" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
+            <MenuItem Header="Data Source">
+                <MenuItem Header="Save Data Source" Click="SaveDataSource_Click"/>
+                <MenuItem Header="Load Data Source" Click="LoadDataSource_Click"/>
+                <MenuItem Header="Clear Data Source" Click="ClearDataSource_Click"/>
+            </MenuItem>
             <MenuItem Header="_Demo Tools">
                 <MenuItem Header="Populate Data Sources" Command="{Binding LaunchDataSourcePopulatorCommand}"/>
             </MenuItem>

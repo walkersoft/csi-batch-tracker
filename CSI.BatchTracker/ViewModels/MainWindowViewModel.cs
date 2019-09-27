@@ -62,11 +62,16 @@ namespace CSI.BatchTracker.ViewModels
             LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
         }
 
-        void AssociateCollectionsAndRepositories()
+        public void AssociateCollectionsAndRepositories()
         {
+            inventorySource.UpdateActiveInventory();
             CurrentInventory = inventorySource.CurrentInventory;
+            implementedBatchSource.UpdateImplementationLedger();
             ImplementedBatchLedger = implementedBatchSource.ImplementedBatchLedger;
             OperatorRepository = operatorSource.OperatorRepository;
+            NotifyPropertyChanged("CurrentInventory");
+            NotifyPropertyChanged("ImplementedBatchLedger");
+            NotifyPropertyChanged("OperatorRepository");
         }
 
         void InitializeBatchImplementationSettings()

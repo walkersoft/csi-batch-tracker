@@ -17,7 +17,6 @@ namespace CSI.BatchTracker.Tests.Storage.MemoryStore
     class MemoryStorePersistenceTest
     {
         IPersistenceManager<MemoryStoreContext> persistenceManager;
-        MemoryStoreContext context;
         string contextLocation;
         IBatchOperatorSource operatorSource;
         IActiveInventorySource inventorySource;
@@ -28,12 +27,11 @@ namespace CSI.BatchTracker.Tests.Storage.MemoryStore
         public void SetUp()
         {
             contextLocation = Path.GetTempPath() + "MemoryStoreTest.store";
-            context = new MemoryStoreContext();
-            operatorSource = new MemoryBatchOperatorSource(context);
-            inventorySource = new MemoryActiveInventorySource(context);
-            receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
-            implementedBatchSource = new MemoryImplementedBatchSource(context, inventorySource);
-            persistenceManager = new MemoryStorePersistenceManager(context, contextLocation);
+            persistenceManager = new MemoryStorePersistenceManager(contextLocation);
+            operatorSource = new MemoryBatchOperatorSource(persistenceManager.Context);
+            inventorySource = new MemoryActiveInventorySource(persistenceManager.Context);
+            receivedBatchSource = new MemoryReceivedBatchSource(persistenceManager.Context, inventorySource);
+            implementedBatchSource = new MemoryImplementedBatchSource(persistenceManager.Context, inventorySource);
         }
 
         [TearDown]

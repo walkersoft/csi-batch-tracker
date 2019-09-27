@@ -1,4 +1,6 @@
-﻿using CSI.BatchTracker.Storage.Contracts;
+﻿using CSI.BatchTracker.Domain.DataSource;
+using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Storage.Contracts;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,11 +14,12 @@ namespace CSI.BatchTracker.Storage.MemoryStore
     public class MemoryStorePersistenceManager : IPersistenceManager<MemoryStoreContext>
     {
         public MemoryStoreContext Context { get; set; }
+
         public string StoredContextLocation { get; set; }
 
-        public MemoryStorePersistenceManager(MemoryStoreContext context, string storedContextLocation)
+        public MemoryStorePersistenceManager(string storedContextLocation)
         {
-            Context = context;
+            Context = new MemoryStoreContext();
             StoredContextLocation = storedContextLocation;
         }
 
@@ -34,7 +37,11 @@ namespace CSI.BatchTracker.Storage.MemoryStore
             using (FileStream stream = new FileStream(StoredContextLocation, FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                Context = formatter.Deserialize(stream) as MemoryStoreContext;
+                MemoryStoreContext loaded = formatter.Deserialize(stream) as MemoryStoreContext;
+                Context.BatchOperators = new Dictionary<int, Entity<BatchOperator>>(loaded.BatchOperators);
+                Context.CurrentInventory = new Dictionary<int, Entity<InventoryBatch>>(loaded.CurrentInventory);
+                Context.ReceivingLedger = new Dictionary<int, Entity<ReceivedBatch>>(loaded.ReceivingLedger);
+                Context.ImplementedBatchLedger = new Dictionary<int, Entity<LoggedBatch>>(loaded.ImplementedBatchLedger);
             }
         }
 

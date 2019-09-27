@@ -1,6 +1,7 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.DataSource.MemorySource;
+using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.Views;
@@ -16,9 +17,11 @@ namespace CSI.BatchTracker
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
         IImplementedBatchSource implementedBatchSource;
+        IPersistenceManager<MemoryStoreContext> memoryStorePersistence;
 
         public void StartupBatchTRAX(object sender, StartupEventArgs e)
         {
+            SetupMemoryStorePeristenceManager();
             PrepareMainWindowViewModel();
             SetupMainWindowViewModelViewers();
             ShowMainWindow();
@@ -26,13 +29,17 @@ namespace CSI.BatchTracker
 
         void PrepareMainWindowViewModel()
         {
-            MemoryStoreContext context = new MemoryStoreContext();
-            operatorSource = new MemoryBatchOperatorSource(context);
-            inventorySource = new MemoryActiveInventorySource(context);
-            receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
-            implementedBatchSource = new MemoryImplementedBatchSource(context, inventorySource);
-
+            operatorSource = new MemoryBatchOperatorSource(memoryStorePersistence.Context);
+            inventorySource = new MemoryActiveInventorySource(memoryStorePersistence.Context);
+            receivedBatchSource = new MemoryReceivedBatchSource(memoryStorePersistence.Context, inventorySource);
+            implementedBatchSource = new MemoryImplementedBatchSource(memoryStorePersistence.Context, inventorySource);
             mainWindowViewModel =  new MainWindowViewModel(inventorySource, receivedBatchSource, implementedBatchSource, operatorSource);
+        }
+
+        void SetupMemoryStorePeristenceManager()
+        {
+            string fileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\BatchTRAX_MemoryStore.dat";
+            memoryStorePersistence = new MemoryStorePersistenceManager(fileLocation);
         }
 
         void SetupMainWindowViewModelViewers()
@@ -46,7 +53,7 @@ namespace CSI.BatchTracker
 
         void ShowMainWindow()
         {
-            mainWindow = new MainWindow(mainWindowViewModel);
+            mainWindow = new MainWindow(mainWindowViewModel, memoryStorePersistence);
             mainWindow.Show();
         }
 
@@ -81,6 +88,11 @@ namespace CSI.BatchTracker
 
         public void ShutdownBatchTRAX(object sender, ExitEventArgs e)
         {
+            if (memoryStorePersistence != null)
+            {
+                memoryStorePersistence.SaveDataSource();
+            }
+
             Current.Shutdown();
         }
     }

@@ -12,5 +12,6 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
         void AddBatchToImplementationLedger(string batchNumber, DateTime date, BatchOperator batchOperator);
         ObservableCollection<LoggedBatch> GetImplementedBatchesByBatchNumber(string batchNumber);
         void UndoImplementedBatch(int targetId);
+        void UpdateImplementationLedger();
     }
 }
