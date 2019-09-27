@@ -1,6 +1,7 @@
 ﻿using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.ViewModels;
+using Microsoft.Win32;
 using System.Windows;
 
 namespace CSI.BatchTracker.Views
@@ -20,11 +21,31 @@ namespace CSI.BatchTracker.Views
 
         private void SaveDataSource_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(persistenceManager.StoredContextLocation))
+            {
+                SaveFileDialog dialog = new SaveFileDialog
+                {
+                    Title = "Save Data Source As...",
+                    Filter = "Data Source Files (*.dat)|*.dat"
+                };
+
+                dialog.ShowDialog();
+                persistenceManager.StoredContextLocation = dialog.FileName;
+            }
+
             persistenceManager.SaveDataSource();
         }
 
         private void LoadDataSource_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Title = "Load Data Source",
+                Filter = "Data Source Files (*.dat)|*.dat"
+            };
+
+            dialog.ShowDialog();
+            persistenceManager.StoredContextLocation = dialog.FileName;
             persistenceManager.LoadDataSource();
             viewModel.AssociateCollectionsAndRepositories();
         }

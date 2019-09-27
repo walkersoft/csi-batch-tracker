@@ -23,6 +23,12 @@ namespace CSI.BatchTracker.Storage.MemoryStore
             StoredContextLocation = storedContextLocation;
         }
 
+        public MemoryStorePersistenceManager()
+        {
+            Context = new MemoryStoreContext();
+            StoredContextLocation = string.Empty;
+        }
+
         public void SaveDataSource()
         {
             using (FileStream stream = new FileStream(StoredContextLocation, FileMode.Create))

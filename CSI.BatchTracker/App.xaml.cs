@@ -38,8 +38,8 @@ namespace CSI.BatchTracker
 
         void SetupMemoryStorePeristenceManager()
         {
-            string fileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\BatchTRAX_MemoryStore.dat";
-            memoryStorePersistence = new MemoryStorePersistenceManager(fileLocation);
+            //string fileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\BatchTRAX_MemoryStore.dat";
+            memoryStorePersistence = new MemoryStorePersistenceManager();
         }
 
         void SetupMainWindowViewModelViewers()
