@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:local="clr-namespace:CSI.BatchTracker"
+        xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
