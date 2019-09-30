@@ -4,11 +4,10 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.10</ProductVersion>
-    <ProjectGuid>e333a88f-533f-4f08-bc82-00425a38ff20</ProjectGuid>
+    <ProjectGuid>d23657c9-a15e-46aa-9b7e-cde4441ebf5f</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>SetupProject1</OutputName>
+    <OutputName>CSI.BatchTracker.Installer</OutputName>
     <OutputType>Package</OutputType>
-    <Name>CSI.BatchTracker.WiX</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>

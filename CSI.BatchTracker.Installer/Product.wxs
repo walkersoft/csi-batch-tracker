@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="SetupProject1" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="ac12534c-5a84-48ab-957d-175cefb693e9">
+	<Product Id="*" Name="CSI.BatchTracker.Installer" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="b37cf5d5-0a90-40ef-a9c3-9e0f578ba3a2">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate />
 
-		<Feature Id="ProductFeature" Title="SetupProject1" Level="1">
+		<Feature Id="ProductFeature" Title="CSI.BatchTracker.Installer" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
 	</Product>
@@ -14,7 +14,7 @@
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="SetupProject1" />
+				<Directory Id="INSTALLFOLDER" Name="CSI.BatchTracker.Installer" />
 			</Directory>
 		</Directory>
 	</Fragment>
