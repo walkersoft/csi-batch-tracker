@@ -93,12 +93,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FAD5481C5BA64B2D8FC95A77781F89E5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_359CB4A54C29F9688F503CFFB5C3B472"
         "MsmSig" = "8:_UNDEFINED"
@@ -482,26 +476,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FAD5481C5BA64B2D8FC95A77781F89E5"
-            {
-            "SourcePath" = "8:C:\\Windows\\System32\\msiexec.exe"
-            "TargetName" = "8:msiexec.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_AD167510B407422A99A7CDF8DBA9DA37"
-            "Condition" = "8:"
-            "Transitive" = "11:TRUE"
-            "Vital" = "11:FALSE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:TRUE"
-            "Permanent" = "11:TRUE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -515,17 +489,6 @@
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:DesktopFolder"
-                "Folders"
-                {
-                }
-            }
-            "{1525181F-901A-416C-8A58-119130FE478E}:_AD167510B407422A99A7CDF8DBA9DA37"
-            {
-            "Name" = "8:#1914"
-            "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:SystemFolder"
                 "Folders"
                 {
                 }
@@ -570,7 +533,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BatchTRAX"
         "ProductCode" = "8:{D07D32B4-F10B-4EB2-BF5B-989205CBBB40}"
-        "PackageCode" = "8:{6053F76F-616D-44DD-93F1-0E8095C95FC8}"
+        "PackageCode" = "8:{B561BF0F-61B3-4E55-A4F3-8E093F097B54}"
         "UpgradeCode" = "8:{1294D808-ABB4-4DBD-AA07-6925D77EA5A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -692,7 +655,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_97D041C377EA46D3841A4D78F86899D9"
             {
-            "Name" = "8:Shortcut to Primary output from CSI.BatchTracker (Release Any CPU)"
+            "Name" = "8:BatchTRAX"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -701,20 +664,6 @@
             "Target" = "8:_A32CCC47E68E46E4AD7E31FE85437F2A"
             "Folder" = "8:_B3B090B71E62463C9BB2F671B05A869D"
             "WorkingFolder" = "8:_E894F45AFE284C2B9469E2937F21816D"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AF43F19E6AC842B88B8481E3BAFD5BAC"
-            {
-            "Name" = "8:Shortcut to msiexec.exe"
-            "Arguments" = "8:/x {01F5FD63-7D2D-423A-A676-ACD799347088} /qr"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_FAD5481C5BA64B2D8FC95A77781F89E5"
-            "Folder" = "8:_B3B090B71E62463C9BB2F671B05A869D"
-            "WorkingFolder" = "8:_AD167510B407422A99A7CDF8DBA9DA37"
             "Icon" = "8:"
             "Feature" = "8:"
             }
