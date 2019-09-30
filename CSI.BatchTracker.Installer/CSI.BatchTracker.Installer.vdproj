@@ -569,15 +569,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BatchTRAX"
-        "ProductCode" = "8:{01F5FD63-7D2D-423A-A676-ACD799347088}"
-        "PackageCode" = "8:{9B23A639-46D2-454A-8C6F-B19BB626A611}"
+        "ProductCode" = "8:{D07D32B4-F10B-4EB2-BF5B-989205CBBB40}"
+        "PackageCode" = "8:{6053F76F-616D-44DD-93F1-0E8095C95FC8}"
         "UpgradeCode" = "8:{1294D808-ABB4-4DBD-AA07-6925D77EA5A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.1-alpha"
+        "ProductVersion" = "8:0.1"
         "Manufacturer" = "8:Cedar Siding Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1133,7 +1133,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A32CCC47E68E46E4AD7E31FE85437F2A"
             {
-            "SourcePath" = "8:..\\CSI.BatchTracker\\obj\\Debug\\CSI.BatchTracker.exe"
+            "SourcePath" = "8:..\\CSI.BatchTracker\\obj\\Release\\CSI.BatchTracker.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_E894F45AFE284C2B9469E2937F21816D"
