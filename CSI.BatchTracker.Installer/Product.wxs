@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="CSI.BatchTracker.Installer" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="b37cf5d5-0a90-40ef-a9c3-9e0f578ba3a2">
+	<Product Id="95cece1d-5f13-4b82-8d7a-c6b26d534717" Name="BatchTRAX Installer" Language="1033" Version="0.1" Manufacturer="Cedar Siding Inc." UpgradeCode="b37cf5d5-0a90-40ef-a9c3-9e0f578ba3a2">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -23,7 +23,6 @@
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
 			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
 			<!-- </Component> -->
 		</ComponentGroup>
 	</Fragment>
