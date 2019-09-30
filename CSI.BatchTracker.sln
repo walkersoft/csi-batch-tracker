@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSI.BatchTracker", "CSI.Bat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSI.BatchTracker.Tests", "CSI.BatchTracker.Tests\CSI.BatchTracker.Tests.csproj", "{904CBE4C-7A07-4DEF-97DB-D632D8D3F2DA}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CSI.BatchTracker.Installer", "CSI.BatchTracker.Installer\CSI.BatchTracker.Installer.vdproj", "{86689901-BC5E-48E8-8F3F-4CE1574AC85F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,8 +21,6 @@ Global
 		{904CBE4C-7A07-4DEF-97DB-D632D8D3F2DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{904CBE4C-7A07-4DEF-97DB-D632D8D3F2DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{904CBE4C-7A07-4DEF-97DB-D632D8D3F2DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86689901-BC5E-48E8-8F3F-4CE1574AC85F}.Debug|Any CPU.ActiveCfg = Debug
-		{86689901-BC5E-48E8-8F3F-4CE1574AC85F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
