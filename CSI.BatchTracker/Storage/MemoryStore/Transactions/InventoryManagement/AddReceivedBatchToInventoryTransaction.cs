@@ -14,7 +14,6 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
         {
             this.entity = entity;
             this.store = store;
-            //LastSystemId = store.CurrentInventory.Count;
         }
         
         public override void Execute()
@@ -55,9 +54,27 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
 
         void CreateNewBatchEntry()
         {
-            LastSystemId++;
-            Entity<InventoryBatch> newEntity = new Entity<InventoryBatch>(LastSystemId, entity.NativeModel);
-            store.CurrentInventory.Add(LastSystemId, newEntity);
+            int systemId = GetNextSystemId();
+            Entity<InventoryBatch> newEntity = new Entity<InventoryBatch>(systemId, entity.NativeModel);
+            store.CurrentInventory.Add(systemId, newEntity);
+        }
+
+        int GetNextSystemId()
+        {
+            int systemId = 0;
+
+            foreach (KeyValuePair<int, Entity<InventoryBatch>> batch in store.CurrentInventory)
+            {
+                if (batch.Value.SystemId >= systemId)
+                {
+                    systemId = batch.Value.SystemId;
+                }
+            }
+
+            systemId++;
+            LastSystemId = systemId;
+
+            return systemId;
         }
 
         void MergeWithCurrentBatchEntry(Entity<InventoryBatch> batch)
