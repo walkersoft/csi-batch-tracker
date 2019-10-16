@@ -293,5 +293,28 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             Assert.AreEqual(originalBatch.Quantity, editablePo.ReceivedBatches[0].Quantity);
             Assert.AreEqual(originalBatch.BatchNumber, editablePo.ReceivedBatches[0].BatchNumber);
         }
+
+        [Test]
+        public void SavingReceivedBatchWithSameBatchNumberAcrossMultipleDateWillMergeRecordsIfTheyExistInInventory()
+        {
+            int expectedQuantityAfterFirst = 1;
+            int expectedQuantityAfterSecond = 4;
+            string batchNumber = "872890302902";
+            BatchOperator batchOperator = new BatchOperator("Jane", "Doe");
+
+            ReceivedBatch firstBatch = new ReceivedBatch(
+                "White", batchNumber, new DateTime(2019, 9, 16), 1, 44614, batchOperator
+            );
+
+            ReceivedBatch secondBatch = new ReceivedBatch(
+                "White", batchNumber, new DateTime(2019, 9, 23), 3, 44663, batchOperator
+            );
+
+            receivedBatchSource.SaveReceivedBatch(firstBatch);
+            Assert.AreEqual(expectedQuantityAfterFirst, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
+
+            receivedBatchSource.SaveReceivedBatch(secondBatch);
+            Assert.AreEqual(expectedQuantityAfterSecond, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
+        }
     }
 }
