@@ -94,12 +94,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_17F3D21C479DA59117B593C233B3DAAA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_52EFAB09D9EC46D1AD1C3F2371A42D43"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -143,6 +137,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B5F4D4E0BFC43AAEF0997AE202ACAE9D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_17F3D21C479DA59117B593C233B3DAAA"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -564,15 +564,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CSI.BatchTracker.Installer"
-        "ProductCode" = "8:{530A8409-489B-4893-94AC-E19CB0DD3861}"
-        "PackageCode" = "8:{8FD1C89B-7975-4F60-B45A-5DC45463EF3A}"
+        "ProductCode" = "8:{9576CFAC-7985-4A07-93F5-D0E0DA68917E}"
+        "PackageCode" = "8:{C28CF7F5-1812-438A-BE79-B427C21C54DC}"
         "UpgradeCode" = "8:{86FE28B7-0379-4DB1-A686-2B1CF6E3A6BB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.1.5"
+        "ProductVersion" = "8:0.1.6"
         "Manufacturer" = "8:Cedar Siding Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
