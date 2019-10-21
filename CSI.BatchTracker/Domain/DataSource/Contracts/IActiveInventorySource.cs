@@ -12,5 +12,6 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
         void UpdateActiveInventory();
         ObservableCollection<InventoryBatch> CurrentInventory { get; }
         Dictionary<string, int> CurrentInventoryBatchNumberToIdMappings { get; }
+        int TotalInventoryCount { get; }
     }
 }

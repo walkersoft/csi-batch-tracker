@@ -13,7 +13,6 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
     {
         public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
         public Dictionary<string, int> CurrentInventoryBatchNumberToIdMappings { get; private set; }
-
         MemoryStoreContext memoryStore;
 
         public MemoryActiveInventorySource(MemoryStoreContext memoryStore)
@@ -21,6 +20,25 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
             this.memoryStore = memoryStore;
             CurrentInventory = new ObservableCollection<InventoryBatch>();
             CurrentInventoryBatchNumberToIdMappings = new Dictionary<string, int>();
+        }
+
+        public int TotalInventoryCount
+        {
+            get
+            {
+                int totalInventory = 0;
+
+                ITransaction finder = new ListCurrentInventoryTransaction(memoryStore);
+                finder.Execute();
+
+                foreach (IEntity entity in finder.Results)
+                {
+                    Entity<InventoryBatch> inventoryEntity = entity as Entity<InventoryBatch>;
+                    totalInventory += inventoryEntity.NativeModel.Quantity;
+                }
+
+                return totalInventory;
+            }
         }
 
         public void AddReceivedBatchToInventory(ReceivedBatch batch)

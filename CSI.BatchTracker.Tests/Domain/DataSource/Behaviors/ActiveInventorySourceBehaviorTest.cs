@@ -122,5 +122,38 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 
             Assert.AreEqual(targetBatch.BatchNumber, found.BatchNumber);
         }
+
+        [Test]
+        public void GetInventoryTotalWithBatchesAcrossMultiplePurchaseOrders()
+        {
+            int expectedQuantity = 5;
+            ReceivedBatch batch = SetupReceivedBatch();
+            batch.Quantity = 1;
+
+            batch.PONumber = 11111;
+            batch.ColorName = "White";
+            batch.BatchNumber = "872891111111";
+            inventorySource.AddReceivedBatchToInventory(batch);
+
+            batch.PONumber = 22222;
+            batch.ColorName = "White";
+            batch.BatchNumber = "872891111111";
+            inventorySource.AddReceivedBatchToInventory(batch);
+
+            batch.ColorName = "Yellow";
+            batch.BatchNumber = "872892222222";
+            inventorySource.AddReceivedBatchToInventory(batch);
+
+            batch.ColorName = "Black";
+            batch.BatchNumber = "872893333333";
+            inventorySource.AddReceivedBatchToInventory(batch);
+
+            batch.PONumber = 33333;
+            batch.ColorName = "Black";
+            batch.BatchNumber = "87289333333";
+            inventorySource.AddReceivedBatchToInventory(batch);
+
+            Assert.AreEqual(expectedQuantity, inventorySource.TotalInventoryCount);
+        }
     }
 }

@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
-        Title="BatchTRAX - Cedar Siding, Inc. (v0.1.8)">
+        Title="BatchTRAX - Cedar Siding, Inc. (v0.1.9)">
     <StackPanel Orientation="Vertical">
         <Menu Margin="0,0,0,5" Background="#FFE0EFFF">
             <MenuItem Header="_File">
@@ -35,7 +35,12 @@
 
         <WrapPanel Orientation="Horizontal" Margin="5">
             <StackPanel Orientation="Vertical">
-                <Label Content="Current Inventory" FontWeight="Bold"/>
+                <WrapPanel Orientation="Horizontal">
+                    <Label Content="Current Inventory" FontWeight="Bold"/>
+                    <Label Content="(Total Inventory Items: " Padding="0,5,0,5"/>
+                    <Label Content="{Binding TotalInventoryCount}" Padding="0,5,0,5"/>
+                    <Label Content=")" Padding="0,5,0,5"/>
+                </WrapPanel>
                 <DataGrid AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           CanUserDeleteRows="False"

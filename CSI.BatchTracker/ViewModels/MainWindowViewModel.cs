@@ -36,7 +36,15 @@ namespace CSI.BatchTracker.ViewModels
         public DateTime? ImplementationDateTime { get; set; }
         public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
         public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
-        public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }        
+        public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
+
+        public int TotalInventoryCount
+        {
+            get
+            {
+                return inventorySource.TotalInventoryCount;
+            }
+        }
 
         public MainWindowViewModel(
             IActiveInventorySource inventorySource,
@@ -72,6 +80,7 @@ namespace CSI.BatchTracker.ViewModels
             NotifyPropertyChanged("CurrentInventory");
             NotifyPropertyChanged("ImplementedBatchLedger");
             NotifyPropertyChanged("OperatorRepository");
+            NotifyPropertyChanged("TotalInventoryCount");
         }
 
         void InitializeBatchImplementationSettings()

@@ -39,7 +39,8 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             ReceivedBatch receivedBatch = SetupReceivedBatchWithQuantityOfTwo();
             BatchOperator implementingOperator = operatorHelper.GetJohnDoeOperator();
             int expectedQuantity = 1;
-            int expectedCount = 1;
+            int expectedLedgerCount = 1;
+            int expectedInventoryCount = 1;
             SetupInventoryStateToImplementBatch();
             SetupViewModelStateToImplementBatch();
 
@@ -48,7 +49,8 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             InventoryBatch inventoryBatch = viewModel.CurrentInventory[0];
 
             Assert.AreEqual(expectedQuantity, inventoryBatch.Quantity);
-            Assert.AreEqual(expectedCount, viewModel.ImplementedBatchLedger.Count);
+            Assert.AreEqual(expectedLedgerCount, viewModel.ImplementedBatchLedger.Count);
+            Assert.AreEqual(expectedInventoryCount, viewModel.TotalInventoryCount);
         }
     }
 }
