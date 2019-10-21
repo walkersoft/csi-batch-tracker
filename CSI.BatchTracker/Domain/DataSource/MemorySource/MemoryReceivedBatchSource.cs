@@ -166,7 +166,7 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
                 if (inventoryBatch.Value.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
                 {
                     InventoryBatch current = inventoryBatch.Value.NativeModel;
-                    current.Quantity = GetAdjustedInventoryQuantity(current.BatchNumber, current.Quantity, updated.NativeModel.Quantity);
+                    current.Quantity = GetAdjustedInventoryQuantity(current.BatchNumber, original.NativeModel.Quantity, updated.NativeModel.Quantity);
 
                     if (current.Quantity == 0)
                     {
@@ -248,9 +248,23 @@ namespace CSI.BatchTracker.Domain.DataSource.MemorySource
         {
             ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(batchNumber, memoryStore);
             finder.Execute();
-            int implementedQuantity = finder.Results.Count;
+            ITransaction received = new FindBatchesInReceivingLedgerByBatchNumberTransaction(batchNumber, memoryStore);
+            received.Execute();
 
-            return currentQuantity + (newQuantity - currentQuantity) - implementedQuantity;
+            int implementedQuantity = finder.Results.Count;
+            int receivedQuantity = 0;
+
+            for (int i = 0; i < received.Results.Count; i++)
+            {
+                Entity<ReceivedBatch> entity = received.Results[i] as Entity<ReceivedBatch>;
+                receivedQuantity += entity.NativeModel.Quantity;
+            }
+
+            int updatedQuantity = currentQuantity >= newQuantity
+                ? receivedQuantity - (currentQuantity - newQuantity)
+                : receivedQuantity + (newQuantity - currentQuantity);
+
+            return updatedQuantity - implementedQuantity;
         }
 
         public void DeleteReceivedBatch(int id)

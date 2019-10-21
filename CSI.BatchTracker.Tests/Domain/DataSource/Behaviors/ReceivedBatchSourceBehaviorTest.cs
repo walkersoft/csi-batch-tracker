@@ -101,6 +101,60 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         }
 
         [Test]
+        public void UpdatingReceivedBatchAtIdWithDecreaseInQuanityWillUpdateInventoryCorrectly()
+        {
+            int expectedQuantityBefore = 5;
+            int expectedQuantityAfter = 3;
+            string batchNumber = "872890302902";
+            BatchOperator batchOperator = new BatchOperator("Jane", "Doe");
+
+            ReceivedBatch firstBatch = new ReceivedBatch(
+                "White", batchNumber, new DateTime(2019, 9, 16), 1, 44614, batchOperator
+            );
+
+            ReceivedBatch secondBatch = new ReceivedBatch(
+                "White", batchNumber, new DateTime(2019, 9, 23), 4, 44663, batchOperator
+            );
+
+            receivedBatchSource.SaveReceivedBatch(firstBatch);
+            receivedBatchSource.SaveReceivedBatch(secondBatch);
+            Assert.AreEqual(expectedQuantityBefore, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
+
+            EditablePurchaseOrder edited = receivedBatchSource.GetPurchaseOrderForEditing(44663);
+            edited.ReceivedBatches[0].Quantity = 2;
+            receivedBatchSource.UpdateReceivedBatch(edited.GetReceivedBatchMappedSystemId(0), edited.ReceivedBatches[0]);
+
+            Assert.AreEqual(expectedQuantityAfter, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
+        }
+
+        [Test]
+        public void UpdatingReceivedBatchAtIdWithIncreaseInQuanityWillUpdateInventoryCorrectly()
+        {
+            int expectedQuantityBefore = 3;
+            int expectedQuantityAfter = 5;
+            string batchNumber = "872890302902";
+            BatchOperator batchOperator = new BatchOperator("Jane", "Doe");
+
+            ReceivedBatch firstBatch = new ReceivedBatch(
+                "White", batchNumber, new DateTime(2019, 9, 16), 1, 44614, batchOperator
+            );
+
+            ReceivedBatch secondBatch = new ReceivedBatch(
+                "White", batchNumber, new DateTime(2019, 9, 23), 2, 44663, batchOperator
+            );
+
+            receivedBatchSource.SaveReceivedBatch(firstBatch);
+            receivedBatchSource.SaveReceivedBatch(secondBatch);
+            Assert.AreEqual(expectedQuantityBefore, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
+
+            EditablePurchaseOrder edited = receivedBatchSource.GetPurchaseOrderForEditing(44663);
+            edited.ReceivedBatches[0].Quantity = 4;
+            receivedBatchSource.UpdateReceivedBatch(edited.GetReceivedBatchMappedSystemId(0), edited.ReceivedBatches[0]);
+
+            Assert.AreEqual(expectedQuantityAfter, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
+        }
+
+        [Test]
         public void DeletingReceivedBatchAtIdResultsInRepositoryThatIsOneLess()
         {
             int targetCollectionId = 0;
