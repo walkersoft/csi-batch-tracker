@@ -35,6 +35,7 @@
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       Height="120"
+                      HeadersVisibility="Column"
                       VerticalScrollBarVisibility="Visible"
                       ItemsSource="{Binding ReceivingHistoryGrid}">
                 <DataGrid.Columns>
@@ -56,6 +57,7 @@
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       MinHeight="180"
+                      HeadersVisibility="Column"
                       VerticalAlignment="Stretch"
                       VerticalScrollBarVisibility="Visible"
                       ItemsSource="{Binding ImplementationHistoryGrid}">

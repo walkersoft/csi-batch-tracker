@@ -294,6 +294,7 @@ namespace CSI.BatchTracker.ViewModels
             poNumber = RetreivedRecordsLedger[RetreivedRecordsLedgerSelectedIndex].PONumber;
             PurchaseOrderEditorViewer.ShowView();
             inventorySource.UpdateActiveInventory();
+            PopulateRetreivedRecordsLedgerFromSearchCriteria.Execute(null);
         }
 
         [ExcludeFromCodeCoverage]  //This is a smell :-(

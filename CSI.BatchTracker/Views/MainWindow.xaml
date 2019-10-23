@@ -49,6 +49,7 @@
                           IsReadOnly="True"
                           MinHeight="200"
                           MaxHeight="200"
+                          HeadersVisibility="Column"
                           HorizontalContentAlignment="Stretch"
                           VerticalScrollBarVisibility="Visible"
                           ItemsSource="{Binding CurrentInventory}">
@@ -68,6 +69,7 @@
                           IsReadOnly="True"                          
                           MinHeight="200"
                           MaxHeight="200"
+                          HeadersVisibility="Column"
                           HorizontalContentAlignment="Stretch">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Color Name" Width="120"/>
@@ -130,6 +132,7 @@
                           MinHeight="320"
                           MaxHeight="320"
                           Margin="0,0,0,5"
+                          HeadersVisibility="Column"
                           VerticalScrollBarVisibility="Visible"
                           VerticalContentAlignment="Stretch"
                           ItemsSource="{Binding ImplementedBatchLedger}"
