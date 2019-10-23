@@ -370,5 +370,22 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             receivedBatchSource.SaveReceivedBatch(secondBatch);
             Assert.AreEqual(expectedQuantityAfterSecond, inventorySource.FindInventoryBatchByBatchNumber(batchNumber).Quantity);
         }
+
+        [Test]
+        public void MultipleReceivedBatchThatAreTheSameGetMergedInInventory()
+        {
+            int expectedQuantity = 5;
+            int expectedCount = 1;
+            ReceivedBatch firstBatch = helper.GetUniqueBatch1();
+            ReceivedBatch secondBatch = helper.GetUniqueBatch1();
+
+            firstBatch.Quantity = 3;
+            secondBatch.Quantity = 2;
+            receivedBatchSource.SaveReceivedBatch(firstBatch);
+            receivedBatchSource.SaveReceivedBatch(secondBatch);
+
+            Assert.AreEqual(expectedQuantity, inventorySource.FindInventoryBatchByBatchNumber(firstBatch.BatchNumber).Quantity);
+            Assert.AreEqual(expectedCount, inventorySource.CurrentInventory.Count);
+        }
     }
 }

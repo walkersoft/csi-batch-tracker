@@ -88,7 +88,7 @@ namespace CSI.BatchTracker
 
         public void ShutdownBatchTRAX(object sender, ExitEventArgs e)
         {
-            if (memoryStorePersistence != null)
+            if (memoryStorePersistence != null && memoryStorePersistence.StoredContextLocation != string.Empty)
             {
                 memoryStorePersistence.SaveDataSource();
             }

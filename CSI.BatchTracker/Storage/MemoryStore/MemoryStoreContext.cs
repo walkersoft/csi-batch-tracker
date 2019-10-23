@@ -12,7 +12,6 @@ namespace CSI.BatchTracker.Storage.MemoryStore
         public Dictionary<int, Entity<InventoryBatch>> CurrentInventory { get; set; }
         public Dictionary<int, Entity<LoggedBatch>> ImplementedBatchLedger { get; set; }
         public Dictionary<int, Entity<ReceivedBatch>> ReceivingLedger { get; set; }
-        public int HashCode { get { return GetHashCode(); } }
 
         public MemoryStoreContext()
         {

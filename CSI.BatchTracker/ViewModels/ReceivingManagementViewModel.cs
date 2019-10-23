@@ -146,7 +146,8 @@ namespace CSI.BatchTracker.ViewModels
                 && string.IsNullOrEmpty(Quantity) == false
                 && int.TryParse(Quantity, out quantity)
                 && quantity > 0
-                && BatchIsConsistentWithCurrentReceiving();
+                && BatchIsConsistentWithCurrentReceiving()
+                && BatchIsConsistentWithCurrentSession();
         }
 
         bool BatchIsConsistentWithCurrentReceiving()
@@ -157,6 +158,21 @@ namespace CSI.BatchTracker.ViewModels
             if (found.Count > 0 && colorName != found[0].ColorName)
             {
                 return false;
+            }
+
+            return true;
+        }
+
+        bool BatchIsConsistentWithCurrentSession()
+        {
+            foreach (ReceivedBatch received in SessionLedger)
+            {
+                string colorName = colorList.Colors[ColorSelectionComboBoxIndex].ToString();
+
+                if (received.BatchNumber == BatchNumber && received.ColorName != colorName)
+                {
+                    return false;
+                }
             }
 
             return true;

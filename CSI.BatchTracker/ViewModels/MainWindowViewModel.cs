@@ -96,6 +96,7 @@ namespace CSI.BatchTracker.ViewModels
             string selectedBatchNumber = GetBatchNumberOfSelectedInventoryItem();
             BatchOperator selectedBatchOperator = GetBatchOperatorFromSelectedItem();
             implementedBatchSource.AddBatchToImplementationLedger(selectedBatchNumber, (DateTime)ImplementationDateTime, selectedBatchOperator);
+            NotifyPropertyChanged("TotalInventoryCount");
         }
 
         BatchOperator GetBatchOperatorFromSelectedItem()

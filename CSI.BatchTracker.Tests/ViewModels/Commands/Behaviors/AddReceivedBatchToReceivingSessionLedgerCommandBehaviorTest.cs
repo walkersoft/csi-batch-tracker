@@ -93,20 +93,16 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             InjectTwoOperatorsIntoRepository();
             SetupValidReceivedBatchInViewModel();
 
-            ReceivedBatch receivedBatch = new ReceivedBatch(
-                "White",
-                viewModel.BatchNumber,
-                DateTime.Now,
-                1,
-                55555,
-                operatorSource.FindBatchOperator(1)
-            );
-
-            receivingSource.SaveReceivedBatch(receivedBatch);
-
             viewModel.PONumber = "11111";
             viewModel.ReceivingDate = DateTime.Now;
             viewModel.ReceivingOperatorComboBoxIndex = 0;
+            viewModel.ColorSelectionComboBoxIndex = 0;
+            viewModel.BatchNumber = "872880501302";
+            viewModel.Quantity = "1";
+
+            Assert.True(command.CanExecute(null));
+            command.Execute(null);
+
             viewModel.ColorSelectionComboBoxIndex = 1;
             viewModel.BatchNumber = "872880501302";
             viewModel.Quantity = "1";

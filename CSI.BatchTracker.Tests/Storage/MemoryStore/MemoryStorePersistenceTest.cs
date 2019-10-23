@@ -37,6 +37,15 @@ namespace CSI.BatchTracker.Tests.Storage.MemoryStore
         }
 
         [Test]
+        public void PersistenceManagerCanBeSetupEmpty()
+        {
+            persistenceManager = new MemoryStorePersistenceManager();
+
+            Assert.IsEmpty(persistenceManager.StoredContextLocation);
+            Assert.IsNotNull(persistenceManager.Context);
+        }
+
+        [Test]
         public void DataSourceCanBeSavedToDisk()
         {
             Assert.False(File.Exists(persistenceManager.StoredContextLocation));
