@@ -30,6 +30,7 @@ namespace CSI.BatchTracker.ViewModels
         public ICommand CommitInventoryBatchToImplementationLedgerCommand { get; private set; }
         public ICommand UndoSelectedImplementedBatchCommand { get; private set; }
 
+        public string WindowTitle { get; set; }
         public int ImplementableBatchSelectedIndex { get; set; }
         public int ImplementedBatchSelectedIndex { get; set; }
         public int ImplementingBatchOperatorSelectedIndex { get; set; }
@@ -68,6 +69,7 @@ namespace CSI.BatchTracker.ViewModels
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
             LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
+            WindowTitle = "BatchTRAX - Cedar Siding, Inc. (v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + ")";
         }
 
         public void AssociateCollectionsAndRepositories()
