@@ -14,13 +14,29 @@ namespace CSI.BatchTracker.Storage.MemoryStore.Transactions.InventoryManagement
         {
             this.entity = entity;
             this.store = store;
-            LastSystemId = store.ImplementedBatchLedger.Count;
+        }
+
+        int GetNextSystemId()
+        {
+            int systemId = 0;
+
+            foreach (KeyValuePair<int, Entity<LoggedBatch>> entity in store.ImplementedBatchLedger)
+            {
+                if (entity.Key > systemId)
+                {
+                    systemId = entity.Key;
+                }
+            }
+
+            systemId++;
+
+            return systemId;
         }
 
         public override void Execute()
         {
             Entity<InventoryBatch> inventoryBatch = GetExistingInventoryBatch(entity);
-            LastSystemId++;
+            LastSystemId = GetNextSystemId();
             entity = new Entity<LoggedBatch>(LastSystemId, entity.NativeModel);
             store.ImplementedBatchLedger.Add(LastSystemId, entity);
             EditInventoryRecordAndDeleteIfDepleted(inventoryBatch);

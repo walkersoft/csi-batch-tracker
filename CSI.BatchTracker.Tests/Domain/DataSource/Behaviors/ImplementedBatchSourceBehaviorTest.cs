@@ -168,5 +168,19 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 
             Assert.AreEqual(expectedSeconds, implementedBatchSource.ImplementedBatchLedger[0].ActivityDate.Second);
         }
+
+        [Test]
+        public void RemovingAndReimplementingBatchFromImplementationLedgerWillNotTryToAddAtUsedKeyInLedger()
+        {
+            receivedBatch.Quantity = 5;
+            inventorySource.AddReceivedBatchToInventory(receivedBatch);
+            implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, DateTime.Now, receivedBatch.ReceivingOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, DateTime.Now, receivedBatch.ReceivingOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, DateTime.Now, receivedBatch.ReceivingOperator);
+
+            implementedBatchSource.UndoImplementedBatch(1);
+
+            Assert.DoesNotThrow(() => implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, DateTime.Now, receivedBatch.ReceivingOperator));
+        }
     }
 }
