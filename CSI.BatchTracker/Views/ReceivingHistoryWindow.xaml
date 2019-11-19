@@ -92,6 +92,9 @@
                         <input:EventTrigger EventName="SelectionChanged">
                             <input:InvokeCommandAction Command="{Binding ListBatchesFromReceivedPurchaseOrder}"/>
                         </input:EventTrigger>
+                        <input:EventTrigger EventName="MouseDoubleClick">
+                            <input:InvokeCommandAction Command="{Binding OpenPurchaseOrderEditorCommand}"/>
+                        </input:EventTrigger>
                     </input:Interaction.Triggers>
                 </DataGrid>
 
