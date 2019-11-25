@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Domain\NativeModels\AverageBatchTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryStorePersistenceTest.cs" />
+    <Compile Include="Storage\SQLiteStore\SQLiteDatabaseInstallerTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\DeletePurchaseOrderReceivingRecordCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByPONumberCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsBySpecficDateCommandBehaviorTest.cs" />
