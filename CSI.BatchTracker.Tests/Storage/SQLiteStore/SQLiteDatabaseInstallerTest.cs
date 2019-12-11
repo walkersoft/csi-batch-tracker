@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.Storage;
+using CSI.BatchTracker.Storage.SQLiteStore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -158,7 +159,7 @@ namespace CSI.BatchTracker.Tests.Storage.SQLiteStore
             using (SQLiteConnection connection = new SQLiteConnection(installer.ConnectionString))
             {
                 connection.Open();
-                string query = "PRAGMA table_info(ImplementedBatches)";
+                string query = "PRAGMA table_info(InventoryBatches)";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {

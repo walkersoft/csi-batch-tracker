@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Storage
+namespace CSI.BatchTracker.Storage.SQLiteStore
 {
     public class SQLiteDatabaseInstaller
     {
@@ -19,7 +19,6 @@ namespace CSI.BatchTracker.Storage
             if (string.IsNullOrEmpty(DatabaseFile) == false)
             {
                 SQLiteConnection.CreateFile(DatabaseFile);
-                CreateTableSchemas();
                 ExecuteTableSchemaQueries();
             }
         }
@@ -71,6 +70,8 @@ namespace CSI.BatchTracker.Storage
 
         void ExecuteTableSchemaQueries()
         {
+            CreateTableSchemas();
+
             using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
                 connection.Open();
