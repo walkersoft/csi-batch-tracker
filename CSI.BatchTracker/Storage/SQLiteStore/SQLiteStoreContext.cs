@@ -83,6 +83,10 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
                 case "BatchOperator":
                     entities = ProcessBatchOperators(reader);
                     break;
+
+                case "InventoryBatch":
+                    entities = ProcessInventoryBatches(reader);
+                    break;
             }
 
             return entities;
@@ -104,6 +108,31 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
                     );
 
                     Entity<BatchOperator> entity = new Entity<BatchOperator>(reader.GetInt32(0), batchOperator);
+                    entities.Add(entity);
+                }
+            }
+
+            return entities;
+        }
+
+        List<IEntity> ProcessInventoryBatches(SQLiteDataReader reader)
+        {
+            List<IEntity> entities = new List<IEntity>();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    InventoryBatch inventoryBatch;
+
+                    inventoryBatch = new InventoryBatch(
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        DateTime.Parse(reader.GetString(3)),
+                        reader.GetInt32(4)
+                    );
+
+                    Entity<InventoryBatch> entity = new Entity<InventoryBatch>(reader.GetInt32(0), inventoryBatch);
                     entities.Add(entity);
                 }
             }
