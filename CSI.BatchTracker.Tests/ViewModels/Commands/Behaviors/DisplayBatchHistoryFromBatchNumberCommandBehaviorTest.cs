@@ -15,6 +15,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         protected BatchHistoryViewModel viewModel;
         protected ICommand command;
         protected IBatchNumberValidator validator;
+        protected IBatchOperatorSource operatorSource;
         protected IActiveInventorySource inventorySource;
         protected IReceivedBatchSource receivedBatchSource;
         protected IImplementedBatchSource implementedBatchSource;
@@ -28,8 +29,8 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         {
             validBatchNumber = "872890105803";
             invalidBatchNumber = "foobar";
-            receivedBatchHelper = new ReceivedBatchTestHelper();
-            batchOperatorHelper = new BatchOperatorTestHelper();
+            receivedBatchHelper = new ReceivedBatchTestHelper(operatorSource);
+            batchOperatorHelper = new BatchOperatorTestHelper(operatorSource);
         }
 
         [Test]

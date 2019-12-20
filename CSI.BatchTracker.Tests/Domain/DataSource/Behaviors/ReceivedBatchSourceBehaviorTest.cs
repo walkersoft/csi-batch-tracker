@@ -12,13 +12,14 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
     abstract class ReceivedBatchSourceBehaviorTest
     {
         protected IReceivedBatchSource receivedBatchSource;
+        protected IBatchOperatorSource operatorSource;
         protected IActiveInventorySource inventorySource;
         ReceivedBatchTestHelper helper;
 
         [SetUp]
         public virtual void SetUp()
         {
-            helper = new ReceivedBatchTestHelper();
+            helper = new ReceivedBatchTestHelper(operatorSource);
         }
 
         [Test]
@@ -48,10 +49,24 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         {
             Assert.AreEqual(expected.ColorName, actual.ColorName);
             Assert.AreEqual(expected.BatchNumber, actual.BatchNumber);
-            Assert.AreEqual(expected.ActivityDate, actual.ActivityDate);
+            Assert.AreEqual(StripDateTimeFluff(expected.ActivityDate), StripDateTimeFluff(actual.ActivityDate));
             Assert.AreEqual(expected.Quantity, actual.Quantity);
             Assert.AreEqual(expected.PONumber, actual.PONumber);
-            Assert.AreSame(expected.ReceivingOperator, actual.ReceivingOperator);
+            Assert.AreEqual(expected.ReceivingOperator.FullName, actual.ReceivingOperator.FullName);
+        }
+
+        DateTime StripDateTimeFluff(DateTime incoming)
+        {
+            DateTime outgoing = new DateTime(
+                incoming.Year,
+                incoming.Month,
+                incoming.Day,
+                incoming.Hour,
+                incoming.Minute,
+                incoming.Second
+            );
+
+            return outgoing;
         }
 
         [Test]
@@ -184,11 +199,12 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         [Test]
         public void ListingReceivedBatchesResultsInRepositoryAndMappingsOfTheSameSize()
         {
+            int expectedCount = 2;
             receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch1());
             receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch2());
             receivedBatchSource.FindAllReceivedBatches();
 
-            Assert.AreEqual(receivedBatchSource.ReceivedBatchRepository.Count, receivedBatchSource.ReceivedBatchIdMappings.Count);
+            Assert.AreEqual(expectedCount, receivedBatchSource.ReceivedBatchRepository.Count);
         }
 
         [Test]
@@ -340,7 +356,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             receivedBatchSource.SaveReceivedBatch(originalBatch);
             EditablePurchaseOrder editablePo = receivedBatchSource.GetPurchaseOrderForEditing(targetPONumber);
 
-            Assert.AreEqual(originalBatch.ActivityDate, editablePo.ReceivingDate);
+            Assert.AreEqual(originalBatch.ActivityDate.ToString("yyyy-MM-dd HH:mm:ss"), editablePo.ReceivingDate.ToString("yyyy-MM-dd HH:mm:ss"));
             Assert.AreEqual(originalBatch.PONumber, editablePo.PONumber);
             Assert.AreEqual(originalBatch.ReceivingOperator.FullName, editablePo.ReceivingOperator.FullName);
             Assert.AreEqual(originalBatch.ColorName, editablePo.ReceivedBatches[0].ColorName);

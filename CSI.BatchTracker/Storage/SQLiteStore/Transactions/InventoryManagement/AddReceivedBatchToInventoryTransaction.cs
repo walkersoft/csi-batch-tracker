@@ -27,7 +27,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
                 Entity<InventoryBatch> entity = store.Results[0] as Entity<InventoryBatch>;
                 entity.NativeModel.Quantity += receivedBatch.Quantity;
 
-                ITransaction updater = new EditBatchInInventoryTransaction(entity, store);
+                ITransaction updater = new EditBatchInCurrentInventoryTransaction(entity, store);
                 updater.Execute();
                 return;
             }
@@ -38,7 +38,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
             {
                 receivedBatch.ColorName,
                 receivedBatch.BatchNumber,
-                receivedBatch.ActivityDate.ToString(),
+                receivedBatch.ActivityDate.FormatForDatabase(),
                 receivedBatch.Quantity
             };
 

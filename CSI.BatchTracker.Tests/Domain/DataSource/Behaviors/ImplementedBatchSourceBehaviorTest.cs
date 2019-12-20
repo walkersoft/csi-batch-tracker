@@ -10,6 +10,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
     [TestFixture]
     abstract class ImplementedBatchSourceBehaviorTest
     {
+        protected IBatchOperatorSource operatorSource;
         protected IImplementedBatchSource implementedBatchSource;
         protected IActiveInventorySource inventorySource;
         ReceivedBatchTestHelper receivedBatchHelper;
@@ -21,8 +22,8 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         [SetUp]
         public virtual void SetUp()
         {
-            receivedBatchHelper = new ReceivedBatchTestHelper();
-            batchOperatorHelper = new BatchOperatorTestHelper();
+            receivedBatchHelper = new ReceivedBatchTestHelper(operatorSource);
+            batchOperatorHelper = new BatchOperatorTestHelper(operatorSource);
             SetupBatchForReceiving();
         }
 

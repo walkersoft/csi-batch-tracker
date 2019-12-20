@@ -13,6 +13,7 @@ namespace CSI.BatchTracker.Tests.Storage.MemoryStore
         {
             MemoryStoreContext context = new MemoryStoreContext();
             inventorySource = new MemoryActiveInventorySource(context);
+            operatorSource = new MemoryBatchOperatorSource(context);
             receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
             base.SetUp();
         }

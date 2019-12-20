@@ -11,7 +11,9 @@ namespace CSI.BatchTracker.Tests.Storage.MemoryStore
         [SetUp]
         public override void SetUp()
         {
-            inventorySource = new MemoryActiveInventorySource(new MemoryStoreContext());
+            MemoryStoreContext context = new MemoryStoreContext();
+            inventorySource = new MemoryActiveInventorySource(context);
+            operatorSource = new MemoryBatchOperatorSource(context);
             base.SetUp();
         }
     }

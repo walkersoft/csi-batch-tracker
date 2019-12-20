@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Domain.NativeModels;
+﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
+using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using NUnit.Framework;
 using System;
@@ -7,14 +8,15 @@ using System.Collections.ObjectModel;
 namespace CSI.BatchTracker.Tests.Domain.NativeModels
 {
     [TestFixture]
-    class ReceivedPurchaseOrderTest
+    abstract class ReceivedPurchaseOrderTest
     {
+        protected IBatchOperatorSource operatorSource;
         ReceivedBatchTestHelper helper;
 
         [SetUp]
-        public void SetUp()
+        public virtual void SetUp()
         {
-            helper = new ReceivedBatchTestHelper();
+            helper = new ReceivedBatchTestHelper(operatorSource);
         }
 
         [Test]

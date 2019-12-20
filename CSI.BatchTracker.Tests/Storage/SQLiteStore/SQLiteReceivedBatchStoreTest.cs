@@ -12,7 +12,27 @@ using System.Threading.Tasks;
 namespace CSI.BatchTracker.Tests.Storage.SQLiteStore
 {
     [TestFixture]
-    class SQLiteReceivedBatchStoreTest
+    class SQLiteReceivedBatchStoreTest : ReceivedBatchSourceBehaviorTest
     {
+        SQLiteDatabaseHelper databaseHelper;
+        SQLiteStoreContext context;
+
+        [SetUp]
+        public override void SetUp()
+        {
+            databaseHelper = new SQLiteDatabaseHelper();
+            databaseHelper.CreateTestDatabase();
+            context = new SQLiteStoreContext(databaseHelper.DatabaseFile);
+            inventorySource = new SQLiteActiveInventorySource(context);
+            operatorSource = new SQLiteBatchOperatorSource(context);
+            receivedBatchSource = new SQLiteReceivedBatchSource(context, inventorySource);
+            base.SetUp();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            databaseHelper.DestroyTestDatabase();
+        }
     }
 }

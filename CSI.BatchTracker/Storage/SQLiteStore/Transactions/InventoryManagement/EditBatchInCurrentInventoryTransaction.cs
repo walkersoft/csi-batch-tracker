@@ -22,24 +22,35 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
 
         public override void Execute()
         {
+            if (BatchWasDepletedAndDeleted())
+            {
+                return;
+            }
+
             string query = "UPDATE InventoryBatches SET ColorName = ?, BatchNumber = ?, ActivityDate = ?, QtyOnHand = ? WHERE SystemId = ?";
-            List<object> parameters = new List<object>
+
+            List<object> parameters = new List<object>()
             {
                 entity.NativeModel.ColorName,
                 entity.NativeModel.BatchNumber,
-                entity.NativeModel.ActivityDate.ToString(),
+                entity.NativeModel.ActivityDate.FormatForDatabase(),
                 entity.NativeModel.Quantity,
                 entity.SystemId
             };
 
             store.ExecuteNonQuery(query, parameters);
-            DeleteIfDepleted();
         }
 
-        void DeleteIfDepleted()
+        bool BatchWasDepletedAndDeleted()
         {
-            ITransaction deleter = new DeleteDepletedInventoryBatchAtId(entity, store);
-            deleter.Execute();
+            if (entity.NativeModel.Quantity == 0)
+            {
+                ITransaction deleter = new DeleteDepletedInventoryBatchAtId(entity, store);
+                deleter.Execute();
+                return true;
+            }
+
+            return false;
         }
     }
 }

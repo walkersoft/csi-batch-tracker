@@ -37,7 +37,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         public void ExecutedCommandWillAddBatchToImplementationLedgerAndRemoveFromInventory()
         {
             ReceivedBatch receivedBatch = SetupReceivedBatchWithQuantityOfTwo();
-            BatchOperator implementingOperator = operatorHelper.GetJohnDoeOperator();
+            BatchOperator implementingOperator = operatorHelper.GetJaneDoeOperator();
             int expectedQuantity = 1;
             int expectedLedgerCount = 1;
             int expectedInventoryCount = 1;

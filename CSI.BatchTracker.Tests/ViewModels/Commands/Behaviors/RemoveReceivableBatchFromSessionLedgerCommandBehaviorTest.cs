@@ -1,4 +1,5 @@
-﻿using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
+﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
+using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
@@ -9,14 +10,14 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands
 {
     [TestFixture]
     abstract class RemoveReceivableBatchFromSessionLedgerCommandBehaviorTest : ReceivingManagementViewModelCommandTestingBase
-    {        
+    {
         ReceivedBatchTestHelper helper;
 
         [SetUp]
         public override void SetUp()
         {
             base.SetUp();
-            helper = new ReceivedBatchTestHelper();
+            helper = new ReceivedBatchTestHelper(operatorSource);
             viewModel = new ReceivingManagementViewModel(validator, colorList, receivingSource, operatorSource, inventorySource);
             command = new RemoveReceivableBatchFromSessionLedgerCommand(viewModel);
         }

@@ -14,14 +14,15 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithMemoryStore
         [SetUp]
         public override void SetUp()
         {
-            base.SetUp();
             validator = new DuracolorIntermixBatchNumberValidator();
             MemoryStoreContext context = new MemoryStoreContext();
             inventorySource = new MemoryActiveInventorySource(context);
             receivedBatchSource = new MemoryReceivedBatchSource(context, inventorySource);
             implementedBatchSource = new MemoryImplementedBatchSource(context, inventorySource);
+            operatorSource = new MemoryBatchOperatorSource(context);
             viewModel = new BatchHistoryViewModel(validator, inventorySource, receivedBatchSource, implementedBatchSource);
             command = new DisplayBatchHistoryFromBatchNumberCommand(viewModel);
+            base.SetUp();
         }
     }
 }

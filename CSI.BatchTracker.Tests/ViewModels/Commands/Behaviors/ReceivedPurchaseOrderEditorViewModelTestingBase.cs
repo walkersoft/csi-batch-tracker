@@ -34,7 +34,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             whiteBatch = "872890501205";
             blackBatch = "872891602302";
             yellowBatch = "872891105303";
-            operatorHelper = new BatchOperatorTestHelper();
+            operatorHelper = new BatchOperatorTestHelper(operatorSource);
             SetupPurchaseOrderState();
         }
 
@@ -46,8 +46,8 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 
         void InsertTwoUniqueBatchOperatorsIntoDataSource()
         {
-            operatorSource.SaveOperator(operatorHelper.GetJaneDoeOperator());
-            operatorSource.SaveOperator(operatorHelper.GetJohnDoeOperator());
+            operatorSource.SaveOperator(operatorHelper.GetUnsavedJaneDoeOperator());
+            operatorSource.SaveOperator(operatorHelper.GetUnsavedJohnDoeOperator());
         }
 
         void InsertThreeUniqueBatchesIntoDataSource()

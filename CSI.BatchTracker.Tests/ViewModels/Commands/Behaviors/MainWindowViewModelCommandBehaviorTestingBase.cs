@@ -23,7 +23,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [SetUp]
         public virtual void SetUp()
         {
-            operatorHelper = new BatchOperatorTestHelper();
+            operatorHelper = new BatchOperatorTestHelper(operatorSource);
         }
 
         protected ReceivedBatch SetupReceivedBatchWithQuantityOfTwo()

@@ -13,7 +13,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         [SetUp]
         public virtual void SetUp()
         {
-            helper = new BatchOperatorTestHelper();
+            helper = new BatchOperatorTestHelper(operatorSource);
         }
 
         [Test]
@@ -47,11 +47,11 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             int targetCollectionId = 0;
             string expectedFirstName = "John";
             string expectedLastName = "Doe";
-            BatchOperator batchOperator = helper.GetJaneDoeOperator();
+            BatchOperator batchOperator = helper.GetUnsavedJaneDoeOperator();
             operatorSource.SaveOperator(batchOperator);
 
             int targetId = operatorSource.BatchOperatorIdMappings[targetCollectionId];
-            operatorSource.UpdateOperator(targetId, helper.GetJohnDoeOperator());
+            operatorSource.UpdateOperator(targetId, helper.GetUnsavedJohnDoeOperator());
             BatchOperator found = operatorSource.FindBatchOperator(targetId);
 
             Assert.AreEqual(expectedFirstName, found.FirstName);
@@ -62,12 +62,12 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         public void UpdatingBatchOperatorAtIdThatDoesNotExistResultsInNoChanges()
         {
             int targetCollectionId = 0;
-            BatchOperator batchOperator = helper.GetJaneDoeOperator();
+            BatchOperator batchOperator = helper.GetUnsavedJaneDoeOperator();
             operatorSource.SaveOperator(batchOperator);
             int originalSize = operatorSource.OperatorRepository.Count;
 
             int validId = operatorSource.BatchOperatorIdMappings[targetCollectionId];
-            operatorSource.UpdateOperator(validId + 1, helper.GetJohnDoeOperator());
+            operatorSource.UpdateOperator(validId + 1, helper.GetUnsavedJohnDoeOperator());
 
             Assert.AreEqual(originalSize, operatorSource.OperatorRepository.Count);
         }
@@ -78,7 +78,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
             int targetCollectionId = 0;
             int beforeDeleteCount = 1;
             int afterDeleteCount = beforeDeleteCount - 1;
-            operatorSource.SaveOperator(helper.GetJaneDoeOperator());
+            operatorSource.SaveOperator(helper.GetUnsavedJaneDoeOperator());
             Assert.AreEqual(beforeDeleteCount, operatorSource.OperatorRepository.Count);
 
             int targetId = operatorSource.BatchOperatorIdMappings[targetCollectionId];
@@ -92,7 +92,7 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
         {
             int expectedCount = 1;
             int invalidId = 100;
-            operatorSource.SaveOperator(helper.GetJaneDoeOperator());
+            operatorSource.SaveOperator(helper.GetUnsavedJaneDoeOperator());
             Assert.AreEqual(expectedCount, operatorSource.OperatorRepository.Count);
 
             operatorSource.DeleteBatchOperator(invalidId);

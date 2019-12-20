@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\NativeModels\AverageBatchTest.cs" />
+    <Compile Include="Domain\NativeModels\WithMemoryStore\MemoryReceivedPurchaseOrderTest.cs" />
+    <Compile Include="Domain\NativeModels\WithSQLiteStore\SQLiteReceivedPurchaseOrderTest.cs" />
     <Compile Include="Storage\MemoryStore\MemoryStorePersistenceTest.cs" />
     <Compile Include="Storage\SQLiteStore\SQLiteActiveInventorySourceTest.cs" />
     <Compile Include="Storage\SQLiteStore\SQLiteBatchOperatorStoreTest.cs" />

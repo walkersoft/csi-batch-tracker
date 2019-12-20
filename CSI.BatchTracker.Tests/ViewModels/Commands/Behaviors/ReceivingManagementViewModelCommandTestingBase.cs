@@ -27,7 +27,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         {
             validator = new DuracolorIntermixBatchNumberValidator();
             colorList = new DuracolorIntermixColorList();
-            operatorHelper = new BatchOperatorTestHelper();
+            operatorHelper = new BatchOperatorTestHelper(operatorSource);
         }
 
         protected void SetupValidReceivedBatchInViewModel()

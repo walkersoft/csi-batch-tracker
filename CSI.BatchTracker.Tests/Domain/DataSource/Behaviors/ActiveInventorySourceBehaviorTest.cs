@@ -10,12 +10,13 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
     abstract class ActiveInventorySourceBehaviorTest
     {
         protected IActiveInventorySource inventorySource;
+        protected IBatchOperatorSource operatorSource;
         BatchOperatorTestHelper operatorHelper;
 
         [SetUp]
         public virtual void SetUp()
         {
-            operatorHelper = new BatchOperatorTestHelper();
+            operatorHelper = new BatchOperatorTestHelper(operatorSource);
         }
 
         ReceivedBatch SetupReceivedBatch()

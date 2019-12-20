@@ -1,8 +1,10 @@
 ﻿using CSI.BatchTracker.Domain.DataSource;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Storage.Contracts;
+using CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -27,10 +29,15 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
+                    command.Parameters.Clear();
+
                     for (int i = 0; i < parameters.Count; i++)
                     {
                         string paramId = string.Format("@param{0}", i + 1);
@@ -48,10 +55,15 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
+                    command.Parameters.Clear();
+
                     for (int i = 0; i < parameters.Count; i++)
                     {
                         string paramId = string.Format("@param{0}", i + 1);
@@ -86,6 +98,10 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
 
                 case "InventoryBatch":
                     entities = ProcessInventoryBatches(reader);
+                    break;
+
+                case "ReceivedBatch":
+                    entities = ProcessReceivedBatches(reader);
                     break;
             }
 
@@ -124,11 +140,10 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
                 while (reader.Read())
                 {
                     InventoryBatch inventoryBatch;
-
                     inventoryBatch = new InventoryBatch(
                         reader.GetString(1),
                         reader.GetString(2),
-                        DateTime.Parse(reader.GetString(3)),
+                        DateTime.ParseExact(reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null),
                         reader.GetInt32(4)
                     );
 
@@ -138,6 +153,51 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
             }
 
             return entities;
+        }
+
+        List<IEntity> ProcessReceivedBatches(SQLiteDataReader reader)
+        {
+            Dictionary<int, Entity<BatchOperator>> batchOperatorEntities = GetBatchOperatorEntities();
+            List<IEntity> entities = new List<IEntity>();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    ReceivedBatch receivedBatch;
+                    int batchOperatorId = reader.GetInt32(6);
+
+                    string date = reader.GetString(3);
+                    receivedBatch = new ReceivedBatch(
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        DateTime.ParseExact(reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null),
+                        reader.GetInt32(4),
+                        reader.GetInt32(5),
+                        batchOperatorEntities[batchOperatorId].NativeModel
+                    );
+
+                    Entity<ReceivedBatch> entity = new Entity<ReceivedBatch>(reader.GetInt32(0), receivedBatch);
+                    entities.Add(entity);
+                }
+            }
+
+            return entities;
+        }
+
+        Dictionary<int, Entity<BatchOperator>> GetBatchOperatorEntities()
+        {
+            Dictionary<int, Entity<BatchOperator>> batchOperatorEntities = new Dictionary<int, Entity<BatchOperator>>();
+            ITransaction finder = new ListBatchOperatorsTransaction(this);
+            finder.Execute();
+
+            foreach (IEntity operatorEntity in finder.Results)
+            {
+                Entity<BatchOperator> currentOperatorEntity = operatorEntity as Entity<BatchOperator>;
+                batchOperatorEntities.Add(currentOperatorEntity.SystemId, currentOperatorEntity);
+            }
+
+            return batchOperatorEntities;
         }
     }
 }

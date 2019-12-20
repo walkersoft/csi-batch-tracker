@@ -21,7 +21,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         [SetUp]
         public virtual void SetUp()
         {
-            helper = new ReceivedBatchTestHelper();
+            helper = new ReceivedBatchTestHelper(operatorSource);
         }
 
         protected ReceivingManagementViewModel GetReceivingManagementViewModel()
