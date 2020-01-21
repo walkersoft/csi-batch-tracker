@@ -47,7 +47,14 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
 
         public void AddReceivedBatchToInventory(ReceivedBatch batch)
         {
-            ITransaction adder = new AddReceivedBatchToInventoryTransaction(batch, sqliteStore);
+            InventoryBatch inventoryBatch = new InventoryBatch(
+                batch.ColorName,
+                batch.BatchNumber,
+                batch.ActivityDate,
+                batch.Quantity
+            );
+
+            ITransaction adder = new AddReceivedBatchToInventoryTransaction(new Entity<InventoryBatch>(inventoryBatch), sqliteStore);
             adder.Execute();
             UpdateActiveInventory();
         }

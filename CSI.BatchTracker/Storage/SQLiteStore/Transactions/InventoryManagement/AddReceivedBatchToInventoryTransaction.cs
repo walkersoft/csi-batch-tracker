@@ -12,12 +12,12 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
     public sealed class AddReceivedBatchToInventoryTransaction : SQLiteDataSourceTransaction
     {
         SQLiteStoreContext store;
-        ReceivedBatch receivedBatch;
+        Entity<InventoryBatch> entity;
 
-        public AddReceivedBatchToInventoryTransaction(ReceivedBatch receivedBatch, SQLiteStoreContext store)
+        public AddReceivedBatchToInventoryTransaction(Entity<InventoryBatch> entity, SQLiteStoreContext store)
         {
             this.store = store;
-            this.receivedBatch = receivedBatch;
+            this.entity = entity;
         }
 
         public override void Execute()
@@ -25,7 +25,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
             if (BatchExistsInInventory())
             {
                 Entity<InventoryBatch> entity = store.Results[0] as Entity<InventoryBatch>;
-                entity.NativeModel.Quantity += receivedBatch.Quantity;
+                entity.NativeModel.Quantity += this.entity.NativeModel.Quantity;
 
                 ITransaction updater = new EditBatchInCurrentInventoryTransaction(entity, store);
                 updater.Execute();
@@ -36,10 +36,10 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
 
             List<object> parameters = new List<object>
             {
-                receivedBatch.ColorName,
-                receivedBatch.BatchNumber,
-                receivedBatch.ActivityDate.FormatForDatabase(),
-                receivedBatch.Quantity
+                entity.NativeModel.ColorName,
+                entity.NativeModel.BatchNumber,
+                entity.NativeModel.ActivityDate.FormatForDatabase(),
+                entity.NativeModel.Quantity
             };
 
             store.ExecuteNonQuery(query, parameters);
@@ -48,7 +48,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
         bool BatchExistsInInventory()
         {
             string query = "SELECT * FROM InventoryBatches WHERE BatchNumber = ?";
-            List<object> parameters = new List<object> { receivedBatch.BatchNumber };
+            List<object> parameters = new List<object> { entity.NativeModel.BatchNumber };
             store.ExecuteReader(typeof(InventoryBatch), query, parameters);
 
             return store.Results.Count > 0;

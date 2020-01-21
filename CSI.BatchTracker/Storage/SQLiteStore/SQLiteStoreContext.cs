@@ -29,10 +29,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                if (connection.State != ConnectionState.Open)
-                {
-                    connection.Open();
-                }
+                connection.Open();
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -55,10 +52,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                if (connection.State != ConnectionState.Open)
-                {
-                    connection.Open();
-                }
+                connection.Open();
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -92,6 +86,9 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
 
             switch (type)
             {
+                default:
+                    break;
+
                 case "BatchOperator":
                     entities = ProcessBatchOperators(reader);
                     break;
@@ -102,6 +99,10 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
 
                 case "ReceivedBatch":
                     entities = ProcessReceivedBatches(reader);
+                    break;
+
+                case "LoggedBatch":
+                    entities = ProcessLoggedBatches(reader);
                     break;
             }
 
@@ -167,7 +168,6 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
                     ReceivedBatch receivedBatch;
                     int batchOperatorId = reader.GetInt32(6);
 
-                    string date = reader.GetString(3);
                     receivedBatch = new ReceivedBatch(
                         reader.GetString(1),
                         reader.GetString(2),
@@ -178,6 +178,34 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
                     );
 
                     Entity<ReceivedBatch> entity = new Entity<ReceivedBatch>(reader.GetInt32(0), receivedBatch);
+                    entities.Add(entity);
+                }
+            }
+
+            return entities;
+        }
+
+        List<IEntity> ProcessLoggedBatches(SQLiteDataReader reader)
+        {
+            Dictionary<int, Entity<BatchOperator>> batchOperatorEntities = GetBatchOperatorEntities();
+            List<IEntity> entities = new List<IEntity>();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    LoggedBatch loggedBatch;
+                    int batchOperatorId = reader.GetInt32(4);
+                    string date = reader.GetString(3);
+
+                    loggedBatch = new LoggedBatch(
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        DateTime.ParseExact(reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null),
+                        batchOperatorEntities[batchOperatorId].NativeModel
+                    );
+
+                    Entity<LoggedBatch> entity = new Entity<LoggedBatch>(reader.GetInt32(0), loggedBatch);
                     entities.Add(entity);
                 }
             }

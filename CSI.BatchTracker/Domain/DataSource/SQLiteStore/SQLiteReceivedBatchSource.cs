@@ -149,7 +149,190 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
 
         public void UpdateReceivedBatch(int id, ReceivedBatch batch)
         {
-            throw new NotImplementedException();
+            ITransaction finder = new FindBatchInReceivingLedgerByIdTransaction(id, sqliteStore);
+            finder.Execute();
+
+            if (finder.Results.Count > 0)
+            {
+                Entity<ReceivedBatch> originalEntity = finder.Results[0] as Entity<ReceivedBatch>;
+                Entity<ReceivedBatch> updatedEntity = CreateUpdatedEntityFromOriginal(originalEntity, batch);
+                ITransaction updater = new EditBatchInReceivingLedgerTransaction(updatedEntity, sqliteStore);
+                UpdateInventoryBatches(originalEntity, updatedEntity);
+                UpdateImplementedBatches(originalEntity, updatedEntity);
+                updater.Execute();
+            }
+        }
+
+        Entity<ReceivedBatch> CreateUpdatedEntityFromOriginal(Entity<ReceivedBatch> original, ReceivedBatch updated)
+        {
+            ReceivedBatch updatedBatch = new ReceivedBatch(
+                updated.ColorName,
+                updated.BatchNumber,
+                updated.ActivityDate,
+                updated.Quantity,
+                updated.PONumber,
+                updated.ReceivingOperator
+            );
+
+            return new Entity<ReceivedBatch>(original.SystemId, updatedBatch);
+        }
+
+        void UpdateInventoryBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
+        {
+            ITransaction deleter = null;
+            ProcessColorAndBatchNumberUpdates(original, updated);
+
+            if (BatchDoesNotExistInInventory(updated.NativeModel.BatchNumber))
+            {
+                InventoryBatch inventoryBatch = new InventoryBatch(
+                    updated.NativeModel.ColorName,
+                    updated.NativeModel.BatchNumber,
+                    updated.NativeModel.ActivityDate,
+                    updated.NativeModel.Quantity
+                );
+
+                ITransaction adder = new AddReceivedBatchToInventoryTransaction(new Entity<InventoryBatch>(inventoryBatch), sqliteStore);
+                adder.Execute();
+            }
+
+            ITransaction finder = new ListCurrentInventoryTransaction(sqliteStore);
+            finder.Execute();
+
+            foreach (IEntity entity in finder.Results)
+            {
+                Entity<InventoryBatch> inventoryEntity = entity as Entity<InventoryBatch>;
+
+                if (inventoryEntity.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
+                {
+                    inventoryEntity.NativeModel.Quantity = GetAdjustedInventoryQuantity(
+                        inventoryEntity.NativeModel.BatchNumber,
+                        original.NativeModel.Quantity,
+                        updated.NativeModel.Quantity
+                    );
+
+                    if (inventoryEntity.NativeModel.Quantity == 0)
+                    {
+                        deleter = new DeleteDepletedInventoryBatchAtId(inventoryEntity, sqliteStore);
+                    }
+                }
+            }
+
+            if (deleter != null)
+            {
+                deleter.Execute();
+            }
+
+            MergeCommonBatches(finder);
+        }
+
+        void MergeCommonBatches(ITransaction finder)
+        {
+            List<InventoryBatch> merged = new List<InventoryBatch>();
+
+            foreach (IEntity result in finder.Results)
+            {
+                Entity<InventoryBatch> currentEntity = result as Entity<InventoryBatch>;
+                InventoryBatch currentBatch = currentEntity.NativeModel;
+                bool batchNotFound = true;
+
+                for (int i = 0; i < merged.Count; i++)
+                {
+                    if (merged[i].BatchNumber == currentBatch.BatchNumber)
+                    {
+                        merged[i].AddQuantity(currentBatch.Quantity);
+                        batchNotFound = false;
+                        continue;
+                    }
+                }
+
+                if (batchNotFound)
+                {
+                    merged.Add(currentBatch);
+                }
+            }
+
+            foreach (InventoryBatch batch in merged)
+            {
+                ITransaction deleter = new DeleteFromActiveInventoryAtBatchNumberTransaction(batch.BatchNumber, sqliteStore);
+                deleter.Execute();
+                ITransaction adder = new AddReceivedBatchToInventoryTransaction(new Entity<InventoryBatch>(batch), sqliteStore);
+                adder.Execute();
+            }
+        }
+
+        void ProcessColorAndBatchNumberUpdates(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
+        {
+            ITransaction finder = new ListCurrentInventoryTransaction(sqliteStore);
+            finder.Execute();
+
+            foreach (IEntity entity in finder.Results)
+            {
+                Entity<InventoryBatch> inventoryEntity = entity as Entity<InventoryBatch>;
+
+                if (inventoryEntity.NativeModel.BatchNumber == original.NativeModel.BatchNumber)
+                {
+                    inventoryEntity.NativeModel.BatchNumber = updated.NativeModel.BatchNumber;
+                    inventoryEntity.NativeModel.ColorName = updated.NativeModel.ColorName;
+                    ITransaction updater = new EditBatchInCurrentInventoryTransaction(inventoryEntity, sqliteStore);
+                    updater.Execute();
+                }
+            }
+        }
+
+        bool BatchDoesNotExistInInventory(string batchNumber)
+        {
+            ITransaction finder = new ListCurrentInventoryTransaction(sqliteStore);
+            finder.Execute();
+
+            foreach (IEntity result in finder.Results)
+            {
+                Entity<InventoryBatch> entity = result as Entity<InventoryBatch>;
+                
+                if (entity.NativeModel.BatchNumber == batchNumber)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        int GetAdjustedInventoryQuantity(string batchNumber, int currentQuantity, int newQuantity)
+        {
+            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(batchNumber, sqliteStore);
+            finder.Execute();
+            ITransaction received = new FindBatchesInReceivingLedgerByBatchNumberTransaction(batchNumber, sqliteStore);
+            received.Execute();
+
+            int implementedQuantity = finder.Results.Count;
+            int receivedQuantity = 0;
+
+            for (int i = 0; i < received.Results.Count; i++)
+            {
+                Entity<ReceivedBatch> entity = received.Results[i] as Entity<ReceivedBatch>;
+                receivedQuantity += entity.NativeModel.Quantity;
+            }
+
+            int updatedQuantity = currentQuantity >= newQuantity
+                ? receivedQuantity - (currentQuantity - newQuantity)
+                : receivedQuantity + (newQuantity - currentQuantity);
+
+            return updatedQuantity - implementedQuantity;
+        }
+
+        void UpdateImplementedBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
+        {
+            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(original.NativeModel.ColorName, sqliteStore);
+            finder.Execute();
+
+            foreach (IEntity result in finder.Results)
+            {
+                Entity<LoggedBatch> entity = result as Entity<LoggedBatch>;
+                entity.NativeModel.BatchNumber = updated.NativeModel.BatchNumber;
+                entity.NativeModel.ColorName = updated.NativeModel.ColorName;
+                ITransaction updater = new UpdateBatchInImplementationLedgerAtIdTransaction(entity, sqliteStore);
+                updater.Execute();
+            }
         }
     }
 }
