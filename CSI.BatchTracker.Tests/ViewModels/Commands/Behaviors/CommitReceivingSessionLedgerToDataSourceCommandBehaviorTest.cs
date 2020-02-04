@@ -87,7 +87,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 
             foreach (ReceivedBatch batch in viewModel.SessionLedger)
             {
-                Assert.AreSame(originalOperator, batch.ReceivingOperator);
+                Assert.AreEqual(originalOperator.FullName, batch.ReceivingOperator.FullName);
             }
 
             SetupValidReceivedBatchInViewModel();
@@ -100,7 +100,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 
             foreach (ReceivedBatch batch in receivingSource.ReceivedBatchRepository)
             {
-                Assert.AreSame(expectedOperator, batch.ReceivingOperator);
+                Assert.AreEqual(expectedOperator.FullName, batch.ReceivingOperator.FullName);
             }
         }
 

@@ -1,34 +1,49 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
-using CSI.BatchTracker.Domain.DataSource.MemorySource;
-using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Domain.DataSource.SQLiteStore;
+using CSI.BatchTracker.Storage.SQLiteStore;
+using CSI.BatchTracker.Tests.TestHelpers.Storage.SQLiteStore;
 using CSI.BatchTracker.ViewModels;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CSI.BatchTracker.Tests.ViewModels.WithMemoryStore
+namespace CSI.BatchTracker.Tests.ViewModels.WithSQLiteStore
 {
     [TestFixture]
     class ReceivingManagementViewModelTest
     {
         ReceivingManagementViewModel viewModel;
+        SQLiteDatabaseHelper helper;
 
         [SetUp]
         public void SetUp()
         {
-            MemoryStoreContext context = new MemoryStoreContext();
-            IActiveInventorySource inventorySource = new MemoryActiveInventorySource(context);
+            helper = new SQLiteDatabaseHelper();
+            helper.CreateTestDatabase();
+            SQLiteStoreContext context = new SQLiteStoreContext(helper.DatabaseFile);
+            IActiveInventorySource inventorySource = new SQLiteActiveInventorySource(context);
             viewModel = new ReceivingManagementViewModel(
                 new DuracolorIntermixBatchNumberValidator(),
                 new DuracolorIntermixColorList(),
-                new MemoryReceivedBatchSource(context, inventorySource),
-                new MemoryBatchOperatorSource(context),
+                new SQLiteReceivedBatchSource(context, inventorySource),
+                new SQLiteBatchOperatorSource(context),
                 inventorySource
             );
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            helper.DestroyTestDatabase();
+        }
+
         [Test]
         public void AttemptingToAddInvalidReceivedBatchToSessionLedgerResultsInNoChanges()
-        {       
+        {
             int expectedLedgerCount = 0;
             viewModel.AddReceivedBatchToSessionLedger();
 

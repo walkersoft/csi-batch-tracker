@@ -21,9 +21,28 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
 
         public override void Execute()
         {
-            string query = "DELETE FROM InventoryBatches WHERE SystemId = ?";
+            if (BatchExistsInInventoryAndIsDepleted())
+            {
+                string query = "DELETE FROM InventoryBatches WHERE SystemId = ?";
+                List<object> parameters = new List<object> { entity.SystemId };
+                store.ExecuteNonQuery(query, parameters);
+            }
+            
+        }
+
+        bool BatchExistsInInventoryAndIsDepleted()
+        {
+            string query = "SELECT * FROM InventoryBatches WHERE SystemId = ?";
             List<object> parameters = new List<object> { entity.SystemId };
-            store.ExecuteNonQuery(query, parameters);
+            store.ExecuteReader(typeof(InventoryBatch), query, parameters);
+
+            if (store.Results.Count > 0)
+            {
+                Entity<InventoryBatch> inventoryEntity = store.Results[0] as Entity<InventoryBatch>;
+                return inventoryEntity.NativeModel.Quantity > 0;
+            }
+
+            return false;
         }
     }
 }

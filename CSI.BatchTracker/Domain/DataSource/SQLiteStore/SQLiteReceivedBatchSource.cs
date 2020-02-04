@@ -210,6 +210,9 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
                         updated.NativeModel.Quantity
                     );
 
+                    ITransaction updater = new EditBatchInCurrentInventoryTransaction(inventoryEntity, sqliteStore);
+                    updater.Execute();
+
                     if (inventoryEntity.NativeModel.Quantity == 0)
                     {
                         deleter = new DeleteDepletedInventoryBatchAtId(inventoryEntity, sqliteStore);
@@ -222,6 +225,7 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
                 deleter.Execute();
             }
 
+            finder.Execute();
             MergeCommonBatches(finder);
         }
 
@@ -250,6 +254,10 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
                     merged.Add(currentBatch);
                 }
             }
+
+            // DO NOT DELETE AND THEN RE-ADD - THAT IS WHAT IS MESSING UP THE AUTO-IDS
+            // ALSO CHECK THAT THE MERGED LIST IS BEING BUILD PROPERLY
+            // ALSO MAKE SURE THE DEPLETED RECORD IS BEING DEPLETED PROPERLY
 
             foreach (InventoryBatch batch in merged)
             {
@@ -322,7 +330,7 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
 
         void UpdateImplementedBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
         {
-            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(original.NativeModel.ColorName, sqliteStore);
+            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(original.NativeModel.BatchNumber, sqliteStore);
             finder.Execute();
 
             foreach (IEntity result in finder.Results)

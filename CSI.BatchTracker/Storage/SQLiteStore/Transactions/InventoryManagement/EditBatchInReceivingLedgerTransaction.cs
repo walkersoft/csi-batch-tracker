@@ -37,6 +37,8 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
                 GetBatchOperatorId(),
                 entity.SystemId
             };
+
+            store.ExecuteNonQuery(query, parameters);
         }
 
         int GetBatchOperatorId()

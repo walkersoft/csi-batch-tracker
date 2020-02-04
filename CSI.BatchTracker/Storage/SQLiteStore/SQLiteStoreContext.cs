@@ -82,28 +82,25 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
         List<IEntity> ProcessReaderResults(SQLiteDataReader reader, Type nativeModelType)
         {
             List<IEntity> entities = new List<IEntity>();
-            string type = nativeModelType.ToString().Split('.').Last();
 
-            switch (type)
+            if (nativeModelType == typeof(BatchOperator))
             {
-                default:
-                    break;
+                entities = ProcessBatchOperators(reader);
+            }
 
-                case "BatchOperator":
-                    entities = ProcessBatchOperators(reader);
-                    break;
+            if (nativeModelType == typeof(InventoryBatch))
+            {
+                entities = ProcessInventoryBatches(reader);
+            }
 
-                case "InventoryBatch":
-                    entities = ProcessInventoryBatches(reader);
-                    break;
+            if (nativeModelType == typeof(ReceivedBatch))
+            {
+                entities = ProcessReceivedBatches(reader);
+            }
 
-                case "ReceivedBatch":
-                    entities = ProcessReceivedBatches(reader);
-                    break;
-
-                case "LoggedBatch":
-                    entities = ProcessLoggedBatches(reader);
-                    break;
+            if (nativeModelType == typeof(LoggedBatch))
+            {
+                entities = ProcessLoggedBatches(reader);
             }
 
             return entities;
