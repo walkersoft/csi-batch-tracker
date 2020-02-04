@@ -1,11 +1,5 @@
-﻿using CSI.BatchTracker.Domain.DataSource;
-using CSI.BatchTracker.Domain.NativeModels;
-using System;
+﻿using CSI.BatchTracker.Domain.NativeModels;
 using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition
 {

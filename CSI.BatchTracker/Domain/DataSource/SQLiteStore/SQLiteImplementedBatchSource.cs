@@ -1,15 +1,12 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement;
 using CSI.BatchTracker.Storage.SQLiteStore;
+using CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement;
+using CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition;
 
 namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
 {

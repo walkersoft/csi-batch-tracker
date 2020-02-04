@@ -1,13 +1,7 @@
-﻿using CSI.BatchTracker.Storage;
-using CSI.BatchTracker.Storage.SQLiteStore;
+﻿using CSI.BatchTracker.Storage.SQLiteStore;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Tests.Storage.SQLiteStore
 {

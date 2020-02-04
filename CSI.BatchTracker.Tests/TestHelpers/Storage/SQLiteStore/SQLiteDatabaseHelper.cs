@@ -1,10 +1,5 @@
 ﻿using CSI.BatchTracker.Storage.SQLiteStore;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Tests.TestHelpers.Storage.SQLiteStore
 {

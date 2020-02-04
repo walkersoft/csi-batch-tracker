@@ -3,11 +3,6 @@ using CSI.BatchTracker.Storage.SQLiteStore;
 using CSI.BatchTracker.Tests.TestHelpers.Storage.SQLiteStore;
 using CSI.BatchTracker.ViewModels;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Tests.ViewModels.WithSQLiteStore
 {

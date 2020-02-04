@@ -4,11 +4,7 @@ using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Storage.SQLiteStore
 {

@@ -1,5 +1,4 @@
-﻿using CSI.BatchTracker.Domain.NativeModels;
-using CSI.BatchTracker.ViewModels;
+﻿using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System;

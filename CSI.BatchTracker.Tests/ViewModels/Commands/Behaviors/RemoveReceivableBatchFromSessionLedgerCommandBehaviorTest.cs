@@ -1,5 +1,4 @@
-﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
-using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
+﻿using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
 using CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
