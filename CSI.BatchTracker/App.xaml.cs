@@ -1,8 +1,10 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.DataSource.MemorySource;
+using CSI.BatchTracker.Domain.DataSource.SQLiteStore;
 using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage.MemoryStore;
+using CSI.BatchTracker.Storage.SQLiteStore;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.Views;
 using System.Windows;
@@ -18,10 +20,11 @@ namespace CSI.BatchTracker
         IReceivedBatchSource receivedBatchSource;
         IImplementedBatchSource implementedBatchSource;
         IPersistenceManager<MemoryStoreContext> memoryStorePersistence;
+        IPersistenceManager<SQLiteStoreContext> dbManager;
 
         public void StartupBatchTRAX(object sender, StartupEventArgs e)
         {
-            SetupMemoryStorePeristenceManager();
+            //SetupMemoryStorePeristenceManager();
             PrepareMainWindowViewModel();
             SetupMainWindowViewModelViewers();
             ShowMainWindow();
@@ -29,11 +32,24 @@ namespace CSI.BatchTracker
 
         void PrepareMainWindowViewModel()
         {
+            /*
             operatorSource = new MemoryBatchOperatorSource(memoryStorePersistence.Context);
             inventorySource = new MemoryActiveInventorySource(memoryStorePersistence.Context);
             receivedBatchSource = new MemoryReceivedBatchSource(memoryStorePersistence.Context, inventorySource);
             implementedBatchSource = new MemoryImplementedBatchSource(memoryStorePersistence.Context, inventorySource);
+            */
+            SQLiteStoreContext sqliteStore = new SQLiteStoreContext("C:\\Users\\jwalker\\Documents\\BatchTRAX\\test_sqlitestore.sqlite3");
+            operatorSource = new SQLiteBatchOperatorSource(sqliteStore);
+            inventorySource = new SQLiteActiveInventorySource(sqliteStore);
+            receivedBatchSource = new SQLiteReceivedBatchSource(sqliteStore, inventorySource);
+            implementedBatchSource = new SQLiteImplementedBatchSource(sqliteStore, inventorySource);
+
             mainWindowViewModel =  new MainWindowViewModel(inventorySource, receivedBatchSource, implementedBatchSource, operatorSource);
+        }
+
+        public void AttachSQLiteDatabase(string contextLocation)
+        {
+
         }
 
         void SetupMemoryStorePeristenceManager()

@@ -31,10 +31,7 @@ namespace CSI.BatchTracker.Tests.TestHelpers.Storage.SQLiteStore
 
         public void DestroyTestDatabase()
         {
-            if (File.Exists(installer.DatabaseFile))
-            {
-                File.Delete(installer.DatabaseFile);
-            }
+            File.Delete(installer.DatabaseFile);
         }
     }
 }

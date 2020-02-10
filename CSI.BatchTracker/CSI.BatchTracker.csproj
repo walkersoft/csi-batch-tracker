@@ -108,6 +108,7 @@
     <Compile Include="Storage\SQLiteStore\DateTimeExtensions.cs" />
     <Compile Include="Storage\SQLiteStore\SQLiteDatabaseInstaller.cs" />
     <Compile Include="Storage\SQLiteStore\SQLiteStoreContext.cs" />
+    <Compile Include="Storage\SQLiteStore\SQLiteStorePersistenceManager.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\BatchOperators\AddBatchOperatorTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\BatchOperators\DeleteBatchOperatorAtIdTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\BatchOperators\UpdateBatchOperatorTransaction.cs" />

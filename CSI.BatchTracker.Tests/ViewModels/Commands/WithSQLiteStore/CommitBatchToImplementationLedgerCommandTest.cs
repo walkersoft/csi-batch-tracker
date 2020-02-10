@@ -29,11 +29,6 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithSQLiteStore
             base.SetUp();
         }
 
-        private void LedgerCommand(MainWindowViewModel viewModel)
-        {
-            throw new NotImplementedException();
-        }
-
         [TearDown]
         public void TearDown()
         {
