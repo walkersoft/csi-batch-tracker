@@ -24,10 +24,6 @@
                 <MenuItem Header="Batch _Operator Management" InputGestureText="Ctrl+O" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
             <MenuItem Header="Data Source">
-                <MenuItem Header="Save Memory Data Source"/>
-                <MenuItem Header="Load Memory Data Source"/>
-                <MenuItem Header="Clear Memory Data Source"/>
-                <Separator/>
                 <MenuItem Header="Attach Database"/>
                 <MenuItem Header="Create Database Backup"/>
             </MenuItem>

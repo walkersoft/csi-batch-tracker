@@ -1,9 +1,7 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
-using CSI.BatchTracker.Domain.DataSource.MemorySource;
 using CSI.BatchTracker.Domain.DataSource.SQLiteStore;
 using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Storage.MemoryStore;
 using CSI.BatchTracker.Storage.SQLiteStore;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.Views;
@@ -19,7 +17,6 @@ namespace CSI.BatchTracker
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
         IImplementedBatchSource implementedBatchSource;
-        IPersistenceManager<MemoryStoreContext> memoryStorePersistence;
         IPersistenceManager<SQLiteStoreContext> dbManager;
 
         public void StartupBatchTRAX(object sender, StartupEventArgs e)
@@ -55,7 +52,7 @@ namespace CSI.BatchTracker
         void SetupMemoryStorePeristenceManager()
         {
             //string fileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\BatchTRAX_MemoryStore.dat";
-            memoryStorePersistence = new MemoryStorePersistenceManager();
+            //memoryStorePersistence = new MemoryStorePersistenceManager();
         }
 
         void SetupMainWindowViewModelViewers()
@@ -69,7 +66,7 @@ namespace CSI.BatchTracker
 
         void ShowMainWindow()
         {
-            mainWindow = new MainWindow(mainWindowViewModel, memoryStorePersistence);
+            mainWindow = new MainWindow(mainWindowViewModel);
             mainWindow.Show();
         }
 
@@ -104,11 +101,6 @@ namespace CSI.BatchTracker
 
         public void ShutdownBatchTRAX(object sender, ExitEventArgs e)
         {
-            if (memoryStorePersistence != null && memoryStorePersistence.StoredContextLocation != string.Empty)
-            {
-                memoryStorePersistence.SaveDataSource();
-            }
-
             Current.Shutdown();
         }
     }
