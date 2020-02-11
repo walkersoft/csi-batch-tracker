@@ -115,6 +115,7 @@
     <Compile Include="Storage\SQLiteStore\Transactions\InventoryManagement\EditBatchInReceivingLedgerTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\InventoryManagement\TransferInventoryBatchToImplementedBatchLedgerTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\InventoryManagement\UndoImplementedBatchCommittedToLedgerTransaction.cs" />
+    <Compile Include="Storage\SQLiteStore\Transactions\InventoryManagement\UpdateBatchInImplementationLedgerAtIdTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\FindBatchesInImplementationLedgerByBatchNumberTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByBatchNumberTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\FindBatchesInReceivingLedgerByDateRangeTransaction.cs" />
