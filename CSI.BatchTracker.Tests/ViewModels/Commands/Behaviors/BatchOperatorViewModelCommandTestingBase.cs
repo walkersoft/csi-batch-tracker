@@ -9,6 +9,9 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
     abstract public class BatchOperatorViewModelCommandTestingBase
     {
         protected IBatchOperatorSource operatorSource;
+        protected IReceivedBatchSource receivedBatchSource;
+        protected IImplementedBatchSource implementedBatchSource;
+        protected IActiveInventorySource inventorySource;
         protected ICommand command;
         protected BatchOperatorViewModel viewModel;
 

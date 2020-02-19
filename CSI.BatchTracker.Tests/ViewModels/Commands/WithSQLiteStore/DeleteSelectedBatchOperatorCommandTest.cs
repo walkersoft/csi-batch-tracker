@@ -18,6 +18,9 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithSQLiteStore
             sqliteHelper.CreateTestDatabase();
             SQLiteStoreContext context = new SQLiteStoreContext(sqliteHelper.DatabaseFile);
             operatorSource = new SQLiteBatchOperatorSource(context);
+            inventorySource = new SQLiteActiveInventorySource(context);
+            implementedBatchSource = new SQLiteImplementedBatchSource(context, inventorySource);
+            receivedBatchSource = new SQLiteReceivedBatchSource(context, inventorySource);
             base.SetUp();
         }
 

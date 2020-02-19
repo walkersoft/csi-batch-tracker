@@ -154,11 +154,13 @@ namespace CSI.BatchTracker.ViewModels
 
         public bool BatchOperatorIsRemoveable()
         {
-            return SelectedBatchOperatorFromListBoxIndex >= 0;
-            /* TODO: In the future, this needs to be updated to actually query the data source to ensure
-             * the batch operator isn't assigned to other entries, otherwise they'll become orphaned.
-             * Not enough of the persistence is fleshed out enough to actually do it as of this writing.
-             */ 
+
+            if (SelectedBatchOperatorFromListBoxIndex > -1)
+            {
+                return operatorSource.OperatorAtIdNotRelatedToOtherEntities(operatorSource.BatchOperatorIdMappings[SelectedBatchOperatorFromListBoxIndex]);
+            }
+
+            return false;
         }
 
         public void RemoveSelectedBatchOperator()

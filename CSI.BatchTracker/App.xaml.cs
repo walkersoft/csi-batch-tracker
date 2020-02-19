@@ -21,7 +21,6 @@ namespace CSI.BatchTracker
 
         public void StartupBatchTRAX(object sender, StartupEventArgs e)
         {
-            //SetupMemoryStorePeristenceManager();
             PrepareMainWindowViewModel();
             SetupMainWindowViewModelViewers();
             ShowMainWindow();
@@ -29,12 +28,6 @@ namespace CSI.BatchTracker
 
         void PrepareMainWindowViewModel()
         {
-            /*
-            operatorSource = new MemoryBatchOperatorSource(memoryStorePersistence.Context);
-            inventorySource = new MemoryActiveInventorySource(memoryStorePersistence.Context);
-            receivedBatchSource = new MemoryReceivedBatchSource(memoryStorePersistence.Context, inventorySource);
-            implementedBatchSource = new MemoryImplementedBatchSource(memoryStorePersistence.Context, inventorySource);
-            */
             SQLiteStoreContext sqliteStore = new SQLiteStoreContext("C:\\Users\\jwalker\\Documents\\BatchTRAX\\test_sqlitestore.sqlite3");
             operatorSource = new SQLiteBatchOperatorSource(sqliteStore);
             inventorySource = new SQLiteActiveInventorySource(sqliteStore);
@@ -42,17 +35,6 @@ namespace CSI.BatchTracker
             implementedBatchSource = new SQLiteImplementedBatchSource(sqliteStore, inventorySource);
 
             mainWindowViewModel =  new MainWindowViewModel(inventorySource, receivedBatchSource, implementedBatchSource, operatorSource);
-        }
-
-        public void AttachSQLiteDatabase(string contextLocation)
-        {
-
-        }
-
-        void SetupMemoryStorePeristenceManager()
-        {
-            //string fileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\BatchTRAX_MemoryStore.dat";
-            //memoryStorePersistence = new MemoryStorePersistenceManager();
         }
 
         void SetupMainWindowViewModelViewers()

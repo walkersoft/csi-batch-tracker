@@ -86,5 +86,12 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             updater.Execute();
             UpdateOperatorRepository();
         }
+
+        public bool OperatorAtIdNotRelatedToOtherEntities(int id)
+        {
+            ITransaction finder = new CheckIfOperatorBelongsToRelatedEntitiesCommand(id, sqliteStore);
+            finder.Execute();
+            return finder.Results.Count == 0;
+        }
     }
 }

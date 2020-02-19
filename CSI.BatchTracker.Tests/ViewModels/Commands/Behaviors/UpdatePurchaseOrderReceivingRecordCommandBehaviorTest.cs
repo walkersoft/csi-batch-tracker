@@ -65,6 +65,36 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
+        public void CommandWillExecuteIfOverallQuantityIsEqualToAmountAlreadyImplemented()
+        {
+            BatchOperator batchOperator = operatorSource.FindBatchOperator(originalBatchOperatorId);
+
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            viewModel.Quantity = "3";
+
+            Assert.True(command.CanExecute(null));            
+        }
+
+        [Test]
+        public void CommandWillExecuteIfOverallQuantityIsGreaterThanAmountAlreadyImplemented()
+        {
+            BatchOperator batchOperator = operatorSource.FindBatchOperator(originalBatchOperatorId);
+
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(whiteBatch, DateTime.Now, batchOperator);
+
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+            viewModel.Quantity = "6";
+
+            Assert.True(command.CanExecute(null));            
+        }
+
+        [Test]
         public void CommandWillNotExecuteIfEditedRecordExistsInReceivingAndTheColorIsDifferent()
         {
             viewModel.ReceivedBatchesSelectedIndex = 0;

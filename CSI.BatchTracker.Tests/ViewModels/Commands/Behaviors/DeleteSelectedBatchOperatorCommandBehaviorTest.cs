@@ -1,11 +1,15 @@
-﻿using CSI.BatchTracker.ViewModels.Commands;
+﻿using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.Tests.TestHelpers.NativeModels;
+using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
+using System;
 
 namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
     abstract class DeleteSelectedBatchOperatorCommandBehaviorTest : BatchOperatorViewModelCommandTestingBase
     {
+
         [SetUp]
         public override void SetUp()
         {
@@ -21,16 +25,30 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             Assert.True(command.CanExecute(null));
         }
 
-        //[Test]
-        public void CommandCanNotExecute()
+        [Test]
+        public void CommandCanNotExecuteIfOperatorBelongsToReceivedBatch()
         {
-            //Assert.False(command.CanExecute(null));
-            /* TODO: once more of the persistence layer is completed and wired
-             * up this test needs to be re-activated so the command can be properly
-             * tested. Specifically, a BatchOperator cannot be deleted if it is
-             * referenced elsewhere in the data source as the record will then
-             * become orphaned to the parent.
-             */
+            ReceivedBatchTestHelper helper = new ReceivedBatchTestHelper(operatorSource);
+
+            receivedBatchSource.SaveReceivedBatch(helper.GetUniqueBatch1());
+            viewModel.SelectedBatchOperatorFromListBoxIndex = 0;
+
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
+        public void CommandCanNotExecuteIfOperatorBelongsToImplementedBatch()
+        {
+            ReceivedBatchTestHelper helper = new ReceivedBatchTestHelper(operatorSource);
+            BatchOperatorTestHelper operatorHelper = new BatchOperatorTestHelper(operatorSource);
+            ReceivedBatch receivedBatch = helper.GetUniqueBatch1();
+            BatchOperator implementingOperator = operatorHelper.GetJohnDoeOperator();
+
+            receivedBatchSource.SaveReceivedBatch(receivedBatch);
+            implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, DateTime.Now, operatorSource.FindBatchOperator(2));
+            viewModel.SelectedBatchOperatorFromListBoxIndex = 1;
+
+            Assert.False(command.CanExecute(null));
         }
 
         [Test]

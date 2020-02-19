@@ -14,5 +14,6 @@ namespace CSI.BatchTracker.Domain.DataSource.Contracts
         void DeleteBatchOperator(int id);
         BatchOperator FindBatchOperator(int id);
         void FindAllBatchOperators();
+        bool OperatorAtIdNotRelatedToOtherEntities(int id);
     }
 }

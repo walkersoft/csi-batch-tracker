@@ -88,7 +88,7 @@ namespace CSI.BatchTracker.ViewModels
             }
         }
 
-        int quantity;
+        int quantity, originalQuantity;
         string quantityAsString;
         public string Quantity
         {
@@ -139,7 +139,17 @@ namespace CSI.BatchTracker.ViewModels
 
                 if (receivedBatchesSelectedIndex > -1)
                 {
-                    ReceivedBatch = ReceivedBatches[receivedBatchesSelectedIndex];
+                    ReceivedBatch selectedBatch = new ReceivedBatch(
+                        ReceivedBatches[receivedBatchesSelectedIndex].ColorName,
+                        ReceivedBatches[receivedBatchesSelectedIndex].BatchNumber,
+                        ReceivedBatches[receivedBatchesSelectedIndex].ActivityDate,
+                        ReceivedBatches[receivedBatchesSelectedIndex].Quantity,
+                        ReceivedBatches[receivedBatchesSelectedIndex].PONumber,
+                        ReceivedBatches[receivedBatchesSelectedIndex].ReceivingOperator
+                    );
+
+                    ReceivedBatch = selectedBatch;
+                    originalQuantity = ReceivedBatch.Quantity;
                 }
             }
         }
@@ -152,6 +162,9 @@ namespace CSI.BatchTracker.ViewModels
             {
                 receivedBatch = value;
                 NotifyPropertyChanged("ReceivedBatch");
+                NotifyPropertyChanged("SelectedColorIndex");
+                NotifyPropertyChanged("BatchNumber");
+                NotifyPropertyChanged("Quantity");
             }
         }
 
@@ -266,8 +279,24 @@ namespace CSI.BatchTracker.ViewModels
                 && SelectedColorIndex > -1
                 && batchNumberValidator.Validate(ReceivedBatch.BatchNumber)
                 && ReceivedBatch.Quantity > 0
-                && ReceivedBatch.Quantity >= implementedBatchSource.GetImplementedBatchesByBatchNumber(ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber).Count
+                && QuantityAvailableForReduction(ReceivedBatches[ReceivedBatchesSelectedIndex], ReceivedBatch.Quantity)
                 && SelectedRecordIsConsistentWithBatchAndColorName();
+        }
+
+        bool QuantityAvailableForReduction(ReceivedBatch originalBatch, int editedQuantity)
+        {
+            ObservableCollection<ReceivedBatch> received = receivedBatchSource.GetReceivedBatchesByBatchNumber(originalBatch.BatchNumber);
+            int receivedSum = 0;
+
+            foreach (ReceivedBatch batch in received)
+            {
+                receivedSum += batch.Quantity;
+            }
+
+            ObservableCollection<LoggedBatch> logged = implementedBatchSource.GetImplementedBatchesByBatchNumber(originalBatch.BatchNumber);
+            int difference = editedQuantity - originalQuantity;
+
+            return logged.Count <= receivedSum + difference;
         }
 
         bool SelectedRecordIsConsistentWithBatchAndColorName()
