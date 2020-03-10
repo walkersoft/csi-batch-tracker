@@ -69,7 +69,18 @@ namespace CSI.BatchTracker.ViewModels
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
             LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
-            WindowTitle = "BatchTRAX - Cedar Siding, Inc. (v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + ")";
+            SetWindowTitle();
+        }
+        
+        [ExcludeFromCodeCoverage]
+        void SetWindowTitle()
+        {
+            bool dataSourceSet = !string.IsNullOrEmpty(Properties.Settings.Default.AttachedDatabase);
+            WindowTitle = string.Format(
+                "BatchTRAX - Cedar Siding, Inc. (v{0}){1}",
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                (dataSourceSet) ? " | Data Source: " + Properties.Settings.Default.AttachedDatabase : ""
+            );
         }
 
         public void AssociateCollectionsAndRepositories()

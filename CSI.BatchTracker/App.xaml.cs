@@ -5,7 +5,12 @@ using CSI.BatchTracker.Storage.Contracts;
 using CSI.BatchTracker.Storage.SQLiteStore;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.Views;
+using CSI.BatchTracker.Properties;
+using System;
+using System.Text;
 using System.Windows;
+using System.IO;
+using Microsoft.Win32;
 
 namespace CSI.BatchTracker
 {
@@ -17,18 +22,88 @@ namespace CSI.BatchTracker
         IActiveInventorySource inventorySource;
         IReceivedBatchSource receivedBatchSource;
         IImplementedBatchSource implementedBatchSource;
-        IPersistenceManager<SQLiteStoreContext> dbManager;
 
         public void StartupBatchTRAX(object sender, StartupEventArgs e)
         {
+            EstablishDatabase();
             PrepareMainWindowViewModel();
             SetupMainWindowViewModelViewers();
             ShowMainWindow();
         }
 
+        void EstablishDatabase()
+        {
+            if (AttachedDatabaseIsSet())
+            {
+                if (FileIsSQLiteDatabase())
+                {
+                    return;
+                }
+                else
+                {
+                    CreateNewDatabaseFromDialogOrExit();
+                }
+            }
+
+            CreateNewDatabaseFromDialogOrExit();
+        }
+
+        void CreateNewDatabaseFromDialogOrExit()
+        {
+            MessageBoxResult messageResult = MessageBox.Show("SQLite database not attached. Click OK to create a fresh database or Cancel to exit the program.", "Create Database", MessageBoxButton.OKCancel);
+
+            if (messageResult == MessageBoxResult.OK)
+            {
+                SaveFileDialog databaseDialog = new SaveFileDialog
+                {
+                    Title = "Create New SQLite Database",
+                    Filter = "SQLite Database|*.sqlite3",
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                };
+
+                databaseDialog.ShowDialog();
+
+                if (!string.IsNullOrEmpty(databaseDialog.FileName))
+                {
+                    SQLiteDatabaseInstaller installer = new SQLiteDatabaseInstaller();
+                    installer.DatabaseFile = databaseDialog.FileName;
+                    installer.ConnectionString = string.Format("Data Source={0};Version=3;", databaseDialog.FileName);
+                    installer.CreateNewDatabase();
+                    Settings.Default.AttachedDatabase = databaseDialog.FileName;
+                    Settings.Default.Save();
+
+                    return;
+                }
+            }
+
+            Current.Shutdown(1);
+            Environment.Exit(1);
+        }
+
+        bool FileIsSQLiteDatabase()
+        {
+            if (File.Exists(Settings.Default.AttachedDatabase))
+            {
+                byte[] bytes = new byte[17];
+
+                using (FileStream stream = new FileStream(Settings.Default.AttachedDatabase, FileMode.Open, FileAccess.Read))
+                {
+                    stream.Read(bytes, 0, 16);
+                    return ASCIIEncoding.ASCII.GetString(bytes).Contains("SQLite format");
+                }
+            }
+
+            return false;
+        }
+
+        bool AttachedDatabaseIsSet()
+        {
+            return string.IsNullOrEmpty(Settings.Default.AttachedDatabase) == false;
+        }
+
         void PrepareMainWindowViewModel()
         {
-            SQLiteStoreContext sqliteStore = new SQLiteStoreContext("C:\\Users\\jwalker\\Documents\\BatchTRAX\\test_sqlitestore.sqlite3");
+            SQLiteStoreContext sqliteStore = new SQLiteStoreContext(Settings.Default.AttachedDatabase);
             operatorSource = new SQLiteBatchOperatorSource(sqliteStore);
             inventorySource = new SQLiteActiveInventorySource(sqliteStore);
             receivedBatchSource = new SQLiteReceivedBatchSource(sqliteStore, inventorySource);

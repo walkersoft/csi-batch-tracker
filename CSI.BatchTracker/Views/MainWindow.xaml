@@ -24,7 +24,7 @@
                 <MenuItem Header="Batch _Operator Management" InputGestureText="Ctrl+O" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
             <MenuItem Header="Data Source">
-                <MenuItem Header="Attach Database"/>
+                <MenuItem Header="Attach Database" Click="AttachDatabase"/>
                 <MenuItem Header="Create Database Backup"/>
             </MenuItem>
             <MenuItem Header="_Demo Tools">

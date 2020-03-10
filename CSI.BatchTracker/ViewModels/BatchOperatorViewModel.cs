@@ -24,7 +24,7 @@ namespace CSI.BatchTracker.ViewModels
         {
             this.operatorSource = operatorSource;
             OperatorRepository = operatorSource.OperatorRepository;
-            SelectedBatchOperatorFromListBoxIndex = 0;
+            SelectedBatchOperatorFromListBoxIndex = -1;
             validator = new BatchOperatorValidator();
             BatchOperator = new BatchOperator("", "");
             SaveBatchOperator = new SaveBatchOperatorCommand(this);
