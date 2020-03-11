@@ -16,16 +16,16 @@
                 <MenuItem Header="_Close" InputGestureText="Alt+F4"/>
             </MenuItem>
             <MenuItem Header="_Batch Management">
-                <MenuItem Header="_Receiving Session" InputGestureText="Ctrl+R" Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
-                <MenuItem Header="Receiving _History" InputGestureText="Ctrl+H" Command="{Binding LaunchReceivingHistorySessionViewerCommand}"/>
-                <MenuItem Header="Individual _Batch History" InputGestureText="Ctrl+B" Command="{Binding LaunchBatchHistoryViewerCommand}"/>
+                <MenuItem Header="_Receiving Session" Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
+                <MenuItem Header="Receiving _History" Command="{Binding LaunchReceivingHistorySessionViewerCommand}"/>
+                <MenuItem Header="Individual _Batch History" Command="{Binding LaunchBatchHistoryViewerCommand}"/>
             </MenuItem>
             <MenuItem Header="_People">
-                <MenuItem Header="Batch _Operator Management" InputGestureText="Ctrl+O" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
+                <MenuItem Header="Batch _Operator Management" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
             <MenuItem Header="Data Source">
                 <MenuItem Header="Attach Database" Click="AttachDatabase"/>
-                <MenuItem Header="Create Database Backup"/>
+                <MenuItem Header="Create Database Backup" Click="CreateDatabaseBackup"/>
             </MenuItem>
             <MenuItem Header="_Demo Tools">
                 <MenuItem Header="Populate Data Sources" Command="{Binding LaunchDataSourcePopulatorCommand}"/>
