@@ -5,7 +5,6 @@ using CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
-using System;
 
 namespace CSI.BatchTracker.Tests.ViewModels.Commands.WithSQLiteStore
 {

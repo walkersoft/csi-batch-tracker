@@ -1,16 +1,15 @@
 ﻿using CSI.BatchTracker.Domain;
 using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.DataSource.SQLiteStore;
-using CSI.BatchTracker.Storage.Contracts;
+using CSI.BatchTracker.Properties;
 using CSI.BatchTracker.Storage.SQLiteStore;
 using CSI.BatchTracker.ViewModels;
 using CSI.BatchTracker.Views;
-using CSI.BatchTracker.Properties;
+using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Text;
 using System.Windows;
-using System.IO;
-using Microsoft.Win32;
 
 namespace CSI.BatchTracker
 {

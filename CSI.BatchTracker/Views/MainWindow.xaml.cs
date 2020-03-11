@@ -1,6 +1,4 @@
-﻿using CSI.BatchTracker.Storage.Contracts;
-using CSI.BatchTracker.Storage.SQLiteStore;
-using CSI.BatchTracker.ViewModels;
+﻿using CSI.BatchTracker.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.IO;
