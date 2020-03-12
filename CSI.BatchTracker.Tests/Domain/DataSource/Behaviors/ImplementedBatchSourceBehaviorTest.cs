@@ -183,5 +183,22 @@ namespace CSI.BatchTracker.Tests.Domain.DataSource.Behaviors
 
             Assert.DoesNotThrow(() => implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, DateTime.Now, receivedBatch.ReceivingOperator));
         }
+
+        [Test]
+        public void GettingImplementationLedgerReturnsThirtyDaysWorthOfRecordsDescendingByLatestDate()
+        {
+            int expectedCount = 2;
+            DateTime latest = new DateTime(2020, 2, 14);
+            DateTime thirtyDaysBefore = latest.AddDays(-30);
+            DateTime thirtyOneDaysBefore = latest.AddDays(-31);
+            inventorySource.AddReceivedBatchToInventory(receivedBatch);
+            implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, latest, receivedBatch.ReceivingOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, thirtyDaysBefore, receivedBatch.ReceivingOperator);
+            implementedBatchSource.AddBatchToImplementationLedger(receivedBatch.BatchNumber, thirtyOneDaysBefore, receivedBatch.ReceivingOperator);
+
+            implementedBatchSource.UpdateImplementationLedger();
+
+            Assert.AreEqual(expectedCount, implementedBatchSource.ImplementedBatchLedger.Count);
+        }
     }
 }
