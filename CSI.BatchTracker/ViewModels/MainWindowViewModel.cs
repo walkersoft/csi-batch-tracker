@@ -4,6 +4,7 @@ using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using CSI.BatchTracker.Views.Contracts;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
@@ -38,6 +39,7 @@ namespace CSI.BatchTracker.ViewModels
         public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
         public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
         public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
+        public ObservableCollection<AverageBatch> AverageBatchList { get; private set; }
 
         public int TotalInventoryCount
         {
@@ -90,10 +92,64 @@ namespace CSI.BatchTracker.ViewModels
             implementedBatchSource.UpdateImplementationLedger();
             ImplementedBatchLedger = implementedBatchSource.ImplementedBatchLedger;
             OperatorRepository = operatorSource.OperatorRepository;
+            UpdateAverageBatchList();
             NotifyPropertyChanged("CurrentInventory");
             NotifyPropertyChanged("ImplementedBatchLedger");
             NotifyPropertyChanged("OperatorRepository");
             NotifyPropertyChanged("TotalInventoryCount");
+        }
+
+        void UpdateAverageBatchList()
+        {
+            List<AverageBatch> sortedAverage = SortMergedListOfAverageBatches(GetMergedListOfAverageBatchesInImplementationLedger());
+            AverageBatchList = new ObservableCollection<AverageBatch>(sortedAverage);
+            NotifyPropertyChanged("AverageBatchList");
+        }
+
+        List<AverageBatch> SortMergedListOfAverageBatches(List<AverageBatch> mergedAverages)
+        {
+            for (int i = 0; i < mergedAverages.Count; i++)
+            {
+                for (int j = 0; j < mergedAverages.Count - 1; j++)
+                {
+                    if (mergedAverages[j].AverageUsage < mergedAverages[j + 1].AverageUsage)
+                    {
+                        AverageBatch swap = mergedAverages[j + 1];
+                        mergedAverages[j + 1] = mergedAverages[j];
+                        mergedAverages[j] = swap;
+                    }
+                }
+            }
+
+            return mergedAverages;
+        }
+
+        List<AverageBatch> GetMergedListOfAverageBatchesInImplementationLedger()
+        {
+            List<string> colors = new List<string>() { "White", "Black", "Yellow", "Red", "Blue Red", "Deep Green", "Deep Blue", "Bright Red", "Bright Yellow" };
+            List<AverageBatch> averages = new List<AverageBatch>();
+
+            if (ImplementedBatchLedger.Count > 0)
+            {                
+                TimeSpan timeSpan = ImplementedBatchLedger[ImplementedBatchLedger.Count - 1].ActivityDate.Subtract(ImplementedBatchLedger[0].ActivityDate);
+
+                foreach (string color in colors)
+                {
+                    int total = 0;
+
+                    foreach (LoggedBatch loggedBatch in ImplementedBatchLedger)
+                    {
+                        if (loggedBatch.ColorName == color)
+                        {
+                            total++;
+                        }
+                    }
+
+                    averages.Add(new AverageBatch(color, Math.Abs(timeSpan.Days), total));
+                }
+            }
+
+            return averages;
         }
 
         void InitializeBatchImplementationSettings()
@@ -109,6 +165,7 @@ namespace CSI.BatchTracker.ViewModels
             string selectedBatchNumber = GetBatchNumberOfSelectedInventoryItem();
             BatchOperator selectedBatchOperator = GetBatchOperatorFromSelectedItem();
             implementedBatchSource.AddBatchToImplementationLedger(selectedBatchNumber, (DateTime)ImplementationDateTime, selectedBatchOperator);
+            UpdateAverageBatchList();
             NotifyPropertyChanged("TotalInventoryCount");
         }
 

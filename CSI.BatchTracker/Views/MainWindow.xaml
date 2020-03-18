@@ -69,11 +69,12 @@
                           MinHeight="200"
                           MaxHeight="200"
                           HeadersVisibility="Column"
-                          HorizontalContentAlignment="Stretch">
+                          HorizontalContentAlignment="Stretch"
+                          ItemsSource="{Binding AverageBatchList}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="120"/>
-                        <DataGridTextColumn Header="Qty. Used" Width="80"/>
-                        <DataGridTextColumn Header="Avg. Daily Usage" Width="130"/>
+                        <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
+                        <DataGridTextColumn Header="Qty. Used" Width="80" Binding="{Binding QuantityUsed}"/>
+                        <DataGridTextColumn Header="Avg. Daily Usage" Width="130" Binding="{Binding DisplayUsage}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

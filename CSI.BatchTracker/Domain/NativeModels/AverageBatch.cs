@@ -5,6 +5,7 @@
         public string ColorName { get; private set; }
         public int ProductionDays { get; private set; }
         public int QuantityUsed { get; set; }
+
         public float AverageUsage
         {
             get

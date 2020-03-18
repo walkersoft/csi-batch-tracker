@@ -145,6 +145,7 @@
     <Compile Include="ViewModels\Commands\Behaviors\CommitReceivingSessionLedgerToDataSourceCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ReceivingManagementViewModelCommandTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\RemoveReceivableBatchFromSessionLedgerCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\WithSQLiteStore\AverageBatchBehaviorTest.cs" />
     <Compile Include="ViewModels\WithSQLiteStore\BatchOperatorViewModelTest.cs" />
     <Compile Include="ViewModels\WithSQLiteStore\ReceivingManagementViewModelTest.cs" />
     <Compile Include="Views\IBatchHistoryViewerTestStub.cs" />
