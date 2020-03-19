@@ -102,12 +102,32 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             finder.Execute();
             CurrentInventory.Clear();
             CurrentInventoryBatchNumberToIdMappings.Clear();
+            BubbleSortEntitiesByBatchDisplayName(finder);
 
             for (int i = 0; i < finder.Results.Count; i++)
             {
                 Entity<InventoryBatch> entity = finder.Results[i] as Entity<InventoryBatch>;
                 CurrentInventory.Add(entity.NativeModel);
                 CurrentInventoryBatchNumberToIdMappings.Add(entity.NativeModel.BatchNumber, entity.SystemId);
+            }
+        }
+
+        void BubbleSortEntitiesByBatchDisplayName(ITransaction transaction)
+        {
+            for (int i = 0; i < transaction.Results.Count; i++)
+            {
+                for (int j = 0; j < transaction.Results.Count - 1; j++)
+                {
+                    Entity<InventoryBatch> current = transaction.Results[j] as Entity<InventoryBatch>;
+                    Entity<InventoryBatch> next = transaction.Results[j + 1] as Entity<InventoryBatch>;
+
+                    if (string.Compare(current.NativeModel.DisplayName, next.NativeModel.DisplayName) > 0)
+                    {
+                        IEntity swap = transaction.Results[j + 1];
+                        transaction.Results[j + 1] = transaction.Results[j];
+                        transaction.Results[j] = swap;
+                    }
+                }
             }
         }
     }
