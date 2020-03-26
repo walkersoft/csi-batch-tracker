@@ -1,18 +1,21 @@
 ﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CSI.BatchTracker.ViewModels
 {
-    public class ImplementationInquiryViewModel
+    public class ImplementationInquiryViewModel : ViewModelBase
     {
         public DateTime SelectedDate { get; set; }
         public ObservableCollection<LoggedBatch> ImplementedBatches { get; private set; }
+        public ICommand ShowConnectedBatchesCommand { get; private set; }
 
         IImplementedBatchSource implementedBatchSource;
 
@@ -20,6 +23,8 @@ namespace CSI.BatchTracker.ViewModels
         {
             this.implementedBatchSource = implementedBatchSource;
             ImplementedBatches = new ObservableCollection<LoggedBatch>();
+            ShowConnectedBatchesCommand = new ListLatestImplementedBatchesByDateCommand(this);
+            SelectedDate = DateTime.Today;
         }
 
         public bool InquiryReadyForSelectionByDate()
@@ -30,6 +35,7 @@ namespace CSI.BatchTracker.ViewModels
         public void GetConnectedBatchesAtSpecifiedDate()
         {
             ImplementedBatches = implementedBatchSource.GetConnectedBatchesAtDate(SelectedDate);
+            NotifyPropertyChanged("ImplementedBatches");
         }
     }
 }

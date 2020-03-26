@@ -1,0 +1,43 @@
+﻿<Window x:Class="CSI.BatchTracker.Views.ConnectedBatchInquiryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CSI.BatchTracker.Views"
+        mc:Ignorable="d"
+        Title="Connected Batch Inquiry" 
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical" Margin="10">
+        <Label Content="Inquiry Date Criteria" FontWeight="Bold"/>
+        <WrapPanel Orientation="Horizontal">
+            <Label Content="Select Starting Date:" Margin="0,0,5,0"/>
+            <DatePicker SelectedDate="{Binding SelectedDate}" Width="130" Margin="0,0,5,0" VerticalContentAlignment="Center"/>
+            <Button Content="Show Connected Batches" Width="160" Command="{Binding ShowConnectedBatchesCommand}"/>
+        </WrapPanel>
+
+        <Separator Margin="0,10,0,0"/>
+
+        <WrapPanel Orientation="Vertical">
+            <Label Content="Connected Batches" FontWeight="Bold"/>
+            <DataGrid AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserSortColumns="False"
+                          IsReadOnly="True"
+                          MinHeight="250"
+                          Margin="0,0,0,5"
+                          HeadersVisibility="Column"
+                          VerticalScrollBarVisibility="Visible"
+                          VerticalContentAlignment="Stretch"
+                          ItemsSource="{Binding ImplementedBatches}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
+                    <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
+                    <DataGridTextColumn Header="Date Implemented" Width="170" Binding="{Binding ActivityDate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </WrapPanel>
+    </StackPanel>
+</Window>

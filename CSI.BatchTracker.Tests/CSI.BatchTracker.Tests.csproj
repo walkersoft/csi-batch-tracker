@@ -127,6 +127,8 @@
     <Compile Include="ViewModels\Commands\WithSQLiteStore\OpenBatchHistoryViewerCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithSQLiteStore\OpenBatchHistoryViewerWithBatchNumberCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithSQLiteStore\OpenBatchOperatorManagementViewCommandTest.cs" />
+    <Compile Include="ViewModels\Commands\Behaviors\OpenConnectedBatchInquiryViewCommandBehaviorTest.cs" />
+    <Compile Include="ViewModels\Commands\WithSQLiteStore\OpenConnectedBatchInquiryViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithSQLiteStore\OpenPurchaseOrderEditorCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithSQLiteStore\OpenReceivingHistorySessionViewCommandTest.cs" />
     <Compile Include="ViewModels\Commands\WithSQLiteStore\OpenReceivingManagementSessionViewCommandTest.cs" />

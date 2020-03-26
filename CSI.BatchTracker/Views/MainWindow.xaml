@@ -19,6 +19,7 @@
                 <MenuItem Header="_Receiving Session" Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
                 <MenuItem Header="Receiving _History" Command="{Binding LaunchReceivingHistorySessionViewerCommand}"/>
                 <MenuItem Header="Individual _Batch History" Command="{Binding LaunchBatchHistoryViewerCommand}"/>
+                <MenuItem Header="_Connected Batch Inquiry" Command="{Binding LaunchConnectedBatchInquiryViewerCommand}"/>
             </MenuItem>
             <MenuItem Header="_People">
                 <MenuItem Header="Batch _Operator Management" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>

@@ -118,6 +118,7 @@ namespace CSI.BatchTracker
             mainWindowViewModel.BatchOperatorManagementSessionViewer = new BatchOperatorManagementViewer(GetBatchOperatorViewModel());
             mainWindowViewModel.BatchHistoryViewer = new BatchHistoryViewer(GetBatchHistoryViewModel());
             mainWindowViewModel.ReceivingHistorySessionViewer = new ReceivingHistoryViewer(GetReceivingHistoryViewModel(receivingManagementViewModel));
+            mainWindowViewModel.ConnectedBatchInquiryViewer = new ConnectedBatchInquiryViewer(GetImplementationInquiryViewModel());
         }
 
         void ShowMainWindow()
@@ -153,6 +154,11 @@ namespace CSI.BatchTracker
         ReceivingHistoryViewModel GetReceivingHistoryViewModel(ReceivingManagementViewModel receivingManagementViewModel)
         {
             return new ReceivingHistoryViewModel(receivedBatchSource, inventorySource, operatorSource, implementedBatchSource, receivingManagementViewModel);
+        }
+
+        ImplementationInquiryViewModel GetImplementationInquiryViewModel()
+        {
+            return new ImplementationInquiryViewModel(implementedBatchSource);
         }
 
         public void ShutdownBatchTRAX(object sender, ExitEventArgs e)

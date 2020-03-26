@@ -146,6 +146,7 @@
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByDatePeriodCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByPONumberCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsBySpecificDateCommand.cs" />
+    <Compile Include="ViewModels\Commands\OpenConnectedBatchInquiryViewCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenPurchaseOrderEditorCommand.cs" />
     <Compile Include="ViewModels\Commands\ReceivedBatchForEditingSelectionChangedCommand.cs" />
     <Compile Include="ViewModels\Commands\UpdatePurchaseOrderHeaderCommand.cs" />
@@ -177,6 +178,10 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ReceivingHistoryViewModel.cs" />
     <Compile Include="ViewModels\ReceivingManagementViewModel.cs" />
+    <Compile Include="Views\ConnectedBatchInquiryViewer.cs" />
+    <Compile Include="Views\ConnectedBatchInquiryWindow.xaml.cs">
+      <DependentUpon>ConnectedBatchInquiryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Contracts\ViewModelBase.cs" />
     <Compile Include="Views\BatchHistoryViewer.cs" />
     <Compile Include="Views\BatchHistoryWindow.xaml.cs">
@@ -200,6 +205,10 @@
       <DependentUpon>ReceivingHistoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewBase.cs" />
+    <Page Include="Views\ConnectedBatchInquiryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
