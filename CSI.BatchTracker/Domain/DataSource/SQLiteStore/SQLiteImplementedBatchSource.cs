@@ -104,5 +104,20 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
                 i++;
             }
         }
+
+        public ObservableCollection<LoggedBatch> GetConnectedBatchesAtDate(DateTime date)
+        {
+            ObservableCollection<LoggedBatch> connectedBatches = new ObservableCollection<LoggedBatch>();
+            ITransaction finder = new ListConnectedBatchesAtDateTransaction(date, sqliteStore);
+            finder.Execute();
+
+            foreach (IEntity entity in finder.Results)
+            {
+                Entity<LoggedBatch> connected = entity as Entity<LoggedBatch>;
+                connectedBatches.Add(connected.NativeModel);
+            }
+
+            return connectedBatches;
+        }
     }
 }

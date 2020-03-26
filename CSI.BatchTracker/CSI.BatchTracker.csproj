@@ -135,12 +135,14 @@
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\FindBatchInReceivingLedgerByIdTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\FindBatchOperatorByIdTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\ListBatchOperatorsTransaction.cs" />
+    <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\ListConnectedBatchesAtDateTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\ListCurrentInventoryTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\ListImplementedBatchTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\ListReceivingLedgerTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\SQLiteDataSourceTransaction.cs" />
     <Compile Include="ViewModels\Commands\ChangeSearchCriteriaPanelVisibilityCommand.cs" />
     <Compile Include="ViewModels\Commands\DeletePurchaseOrderReceivingRecordCommand.cs" />
+    <Compile Include="ViewModels\Commands\ListLatestImplementedBatchesByDateCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByDatePeriodCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsByPONumberCommand.cs" />
     <Compile Include="ViewModels\Commands\ListReceivingRecordsBySpecificDateCommand.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="ViewModels\Commands\ReceivedBatchForEditingSelectionChangedCommand.cs" />
     <Compile Include="ViewModels\Commands\UpdatePurchaseOrderHeaderCommand.cs" />
     <Compile Include="ViewModels\Commands\UpdatePurchaseOrderReceivingRecordCommand.cs" />
+    <Compile Include="ViewModels\ImplementationInquiryViewModel.cs" />
     <Compile Include="ViewModels\ReceivedPurchaseOrderEditorViewModel.cs" />
     <Compile Include="ViewModels\SearchCriteriaVisibilityManager.cs" />
     <Compile Include="ViewModels\BatchHistoryViewModel.cs" />
