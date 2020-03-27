@@ -1,11 +1,6 @@
 ﻿using CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors;
 using CSI.BatchTracker.Tests.Views;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSI.BatchTracker.Tests.ViewModels.Commands
 {
