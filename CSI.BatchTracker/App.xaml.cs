@@ -25,6 +25,7 @@ namespace CSI.BatchTracker
         public void StartupBatchTRAX(object sender, StartupEventArgs e)
         {
             EstablishDatabase();
+            RunAutoBackupProcedure();
             PrepareMainWindowViewModel();
             SetupMainWindowViewModelViewers();
             ShowMainWindow();
@@ -49,9 +50,25 @@ namespace CSI.BatchTracker
 
         void CreateNewDatabaseFromDialogOrExit()
         {
-            MessageBoxResult messageResult = MessageBox.Show("SQLite database not attached. Click OK to create a fresh database or Cancel to exit the program.", "Create Database", MessageBoxButton.OKCancel);
+            MessageBoxResult messageResult = MessageBox.Show("SQLite database not attached. Would you like to attach an existing database?", "Attach Database", MessageBoxButton.YesNo);
 
-            if (messageResult == MessageBoxResult.OK)
+            if (messageResult == MessageBoxResult.Yes)
+            {
+                OpenFileDialog dialog = new OpenFileDialog
+                {
+                    Title = "Open SQLite Database",
+                    Filter = "SQLite Database|*.sqlite3",
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                };
+
+                if (dialog.ShowDialog() == true)
+                {
+                    Settings.Default.AttachedDatabase = dialog.FileName;
+                    Settings.Default.Save();
+                }
+            }
+
+            if (messageResult == MessageBoxResult.No)
             {
                 SaveFileDialog databaseDialog = new SaveFileDialog
                 {
@@ -64,19 +81,34 @@ namespace CSI.BatchTracker
 
                 if (!string.IsNullOrEmpty(databaseDialog.FileName))
                 {
-                    SQLiteDatabaseInstaller installer = new SQLiteDatabaseInstaller();
-                    installer.DatabaseFile = databaseDialog.FileName;
-                    installer.ConnectionString = string.Format("Data Source={0};Version=3;", databaseDialog.FileName);
+                    SQLiteDatabaseInstaller installer = new SQLiteDatabaseInstaller
+                    {
+                        DatabaseFile = databaseDialog.FileName,
+                        ConnectionString = string.Format("Data Source={0};Version=3;", databaseDialog.FileName)
+                    };
+
                     installer.CreateNewDatabase();
                     Settings.Default.AttachedDatabase = databaseDialog.FileName;
                     Settings.Default.Save();
 
                     return;
                 }
-            }
 
-            Current.Shutdown(1);
-            Environment.Exit(1);
+                MessageBox.Show("No database filename was given. A database is require for program operation.", "Failed to Create Database", MessageBoxButton.OK, MessageBoxImage.Error);
+                Current.Shutdown(1);
+                Environment.Exit(1);
+            }
+        }
+
+        void RunAutoBackupProcedure()
+        {
+            if (Settings.Default.AutoDatabaseBackup && AttachedDatabaseIsSet())
+            {
+                DateTime date = DateTime.Now;
+                string filename = string.Format(@"\SQLiteBackup_{0}.sqlite3", date.ToString("yyyy-MM-dd_HH-mm-ss"));
+                string path = Path.GetDirectoryName(Settings.Default.AttachedDatabase);
+                File.Copy(Settings.Default.AttachedDatabase, path + filename, true);
+            }
         }
 
         bool FileIsSQLiteDatabase()

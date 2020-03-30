@@ -45,7 +45,7 @@ namespace CSI.BatchTracker.Views
                 Title = "Backup BatchTRAX Database",
                 Filter = "SQLite Database|*.sqlite3",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-            };
+            };            
 
             if (dialog.ShowDialog() == true)
             {
