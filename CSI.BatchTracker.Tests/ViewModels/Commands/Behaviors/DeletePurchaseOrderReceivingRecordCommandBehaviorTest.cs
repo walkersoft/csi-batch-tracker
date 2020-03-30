@@ -1,4 +1,7 @@
-﻿using CSI.BatchTracker.Domain.NativeModels;
+﻿using CSI.BatchTracker.Domain;
+using CSI.BatchTracker.Domain.NativeModels;
+using CSI.BatchTracker.ViewModels;
+using CSI.BatchTracker.ViewModels.Commands;
 using NUnit.Framework;
 using System;
 
@@ -28,6 +31,29 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             viewModel.ReceivedBatchesSelectedIndex = 0;
 
             Assert.False(command.CanExecute(null));
+        }
+        
+        [Test]
+        public void CommandWillExecuteIfSelectedBatchForDeletionHasBeenImplementedButHasAvailableQuantityInInventory()
+        {
+            string batchNumber = viewModel.ReceivedBatches[0].BatchNumber;
+            implementedBatchSource.AddBatchToImplementationLedger(batchNumber, DateTime.Now, operatorSource.FindBatchOperator(1));
+            receivedBatchSource.SaveReceivedBatch(new ReceivedBatch("White", whiteBatch, activityDate, 5, 22222, operatorSource.FindBatchOperator(1)));
+
+            viewModel = new ReceivedPurchaseOrderEditorViewModel(
+                receivedBatchSource.GetPurchaseOrderForEditing(22222),
+                new DuracolorIntermixColorList(),
+                new DuracolorIntermixBatchNumberValidator(),
+                operatorSource,
+                inventorySource,
+                receivedBatchSource,
+                implementedBatchSource
+            );
+
+            command = new DeletePurchaseOrderReceivingRecordCommand(viewModel);
+            viewModel.ReceivedBatchesSelectedIndex = 0;
+
+            Assert.True(command.CanExecute(null));
         }
 
         [Test]

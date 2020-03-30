@@ -251,10 +251,19 @@ namespace CSI.BatchTracker.ViewModels
             ImportPurchaseOrderInformation();
         }
 
-        public bool SelectedReceivedBatchHasNotBeenImplemented()
+        public bool SelectedReceivedBatchCanBeDeleted()
         {
             return ReceivedBatchesSelectedIndex > -1
-                && implementedBatchSource.GetImplementedBatchesByBatchNumber(ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber).Count == 0;
+                && QuantityIsAvialableToDeleteFromInInventory();
+                //&& implementedBatchSource.GetImplementedBatchesByBatchNumber(ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber).Count == 0;
+        }
+
+        bool QuantityIsAvialableToDeleteFromInInventory()
+        {
+            string batchNumber = ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber;
+            InventoryBatch inventoryBatch = inventorySource.FindInventoryBatchByBatchNumber(batchNumber);
+
+            return inventoryBatch.Quantity >= originalQuantity;
         }
 
         public void DeleteSelectedReceivingRecordFromLedger()

@@ -8,10 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSI.BatchTracker.Properties
-{
-
-
+namespace CSI.BatchTracker.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
@@ -33,6 +32,18 @@ namespace CSI.BatchTracker.Properties
             }
             set {
                 this["AttachedDatabase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoDatabaseBackup {
+            get {
+                return ((bool)(this["AutoDatabaseBackup"]));
+            }
+            set {
+                this["AutoDatabaseBackup"] = value;
             }
         }
     }

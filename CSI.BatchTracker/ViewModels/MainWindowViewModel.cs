@@ -32,11 +32,13 @@ namespace CSI.BatchTracker.ViewModels
         public ICommand LaunchConnectedBatchInquiryViewerCommand { get; private set; }
         public ICommand CommitInventoryBatchToImplementationLedgerCommand { get; private set; }
         public ICommand UndoSelectedImplementedBatchCommand { get; private set; }
+        public ICommand AutoBackupToggleCommand { get; private set; }
 
         public string WindowTitle { get; set; }
         public int ImplementableBatchSelectedIndex { get; set; }
         public int ImplementedBatchSelectedIndex { get; set; }
         public int ImplementingBatchOperatorSelectedIndex { get; set; }
+        public bool AutoBackupToggleState { get; set; }
         public DateTime? ImplementationDateTime { get; set; }
         public ObservableCollection<LoggedBatch> ImplementedBatchLedger { get; private set; }
         public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
@@ -74,6 +76,8 @@ namespace CSI.BatchTracker.ViewModels
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
             LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
+            AutoBackupToggleCommand = new AutoBackupToggleCommand();
+            AutoBackupToggleState = Properties.Settings.Default.AutoDatabaseBackup;
             SetWindowTitle();
         }
         

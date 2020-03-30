@@ -59,5 +59,10 @@ namespace CSI.BatchTracker.Views
                 File.Copy(currentFile, dialog.FileName, true);
             }
         }
+
+        void CreateNewDatabase(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

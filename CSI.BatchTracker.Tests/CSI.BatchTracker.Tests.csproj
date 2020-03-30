@@ -69,6 +69,7 @@
     <Compile Include="Storage\SQLiteStore\SQLiteImplementedBatchSourceTest.cs" />
     <Compile Include="Storage\SQLiteStore\SQLiteReceivedBatchStoreTest.cs" />
     <Compile Include="TestHelpers\Storage\SQLiteStore\SQLiteDatabaseHelper.cs" />
+    <Compile Include="ViewModels\Commands\AutoBackupToggleCommandTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\DeletePurchaseOrderReceivingRecordCommandBehaviorTest.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ImplementationInquiryViewModelTestingBase.cs" />
     <Compile Include="ViewModels\Commands\Behaviors\ListReceivingRecordsByPONumberCommandBehaviorTest.cs" />

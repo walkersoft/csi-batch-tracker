@@ -11,7 +11,7 @@
 
         public override bool CanExecute(object parameter)
         {
-            return viewModel.SelectedReceivedBatchHasNotBeenImplemented();
+            return viewModel.SelectedReceivedBatchCanBeDeleted();
         }
 
         public override void Execute(object parameter)

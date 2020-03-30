@@ -140,6 +140,7 @@
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\ListImplementedBatchTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\RecordAquisition\ListReceivingLedgerTransaction.cs" />
     <Compile Include="Storage\SQLiteStore\Transactions\SQLiteDataSourceTransaction.cs" />
+    <Compile Include="ViewModels\Commands\AutoBackupToggleCommand.cs" />
     <Compile Include="ViewModels\Commands\ChangeSearchCriteriaPanelVisibilityCommand.cs" />
     <Compile Include="ViewModels\Commands\DeletePurchaseOrderReceivingRecordCommand.cs" />
     <Compile Include="ViewModels\Commands\ListLatestImplementedBatchesByDateCommand.cs" />
