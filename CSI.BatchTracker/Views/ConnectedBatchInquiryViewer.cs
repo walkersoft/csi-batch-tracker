@@ -2,7 +2,7 @@
 
 namespace CSI.BatchTracker.Views
 {
-    public class ConnectedBatchInquiryViewer : ViewBase
+    public sealed class ConnectedBatchInquiryViewer : ViewBase
     {
         ImplementationInquiryViewModel viewModel;
 

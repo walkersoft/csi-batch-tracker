@@ -2,7 +2,7 @@
 
 namespace CSI.BatchTracker.Views
 {
-    public class BatchReceivingManagementViewer : ViewBase
+    public sealed class BatchReceivingManagementViewer : ViewBase
     {
         ReceivingManagementViewModel viewModel;
 
