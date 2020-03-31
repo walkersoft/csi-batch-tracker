@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CSI.BatchTracker.Domain.NativeModels
+﻿namespace CSI.BatchTracker.Domain.NativeModels
 {
     public sealed class BatchOperator
     {

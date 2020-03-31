@@ -1,5 +1,4 @@
 ﻿using CSI.BatchTracker.Storage.Contracts;
-using System;
 
 namespace CSI.BatchTracker.Domain.DataSource
 {

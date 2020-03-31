@@ -1,5 +1,4 @@
-﻿using CSI.BatchTracker.Domain.NativeModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
