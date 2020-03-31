@@ -12,9 +12,6 @@
         Title="{Binding WindowTitle}">
     <StackPanel Orientation="Vertical">
         <Menu Margin="0,0,0,5" Background="#FFE0EFFF">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Close" InputGestureText="Alt+F4"/>
-            </MenuItem>
             <MenuItem Header="_Batch Management">
                 <MenuItem Header="_Receiving Session" Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
                 <MenuItem Header="Receiving _History" Command="{Binding LaunchReceivingHistorySessionViewerCommand}"/>
