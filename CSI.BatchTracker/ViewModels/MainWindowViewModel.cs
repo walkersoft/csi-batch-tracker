@@ -1,5 +1,4 @@
-﻿using CSI.BatchTracker.DemoTools;
-using CSI.BatchTracker.Domain.DataSource.Contracts;
+﻿using CSI.BatchTracker.Domain.DataSource.Contracts;
 using CSI.BatchTracker.Domain.NativeModels;
 using CSI.BatchTracker.ViewModels.Commands;
 using CSI.BatchTracker.Views.Contracts;
@@ -75,7 +74,6 @@ namespace CSI.BatchTracker.ViewModels
             LaunchConnectedBatchInquiryViewerCommand = new OpenConnectedBatchInquiryViewCommand(this);
             CommitInventoryBatchToImplementationLedgerCommand = new CommitBatchToImplementationLedgerCommand(this);
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
-            LaunchDataSourcePopulatorCommand = new LaunchDataSourcePopulatorCommand(this);
             AutoBackupToggleCommand = new AutoBackupToggleCommand();
             AutoBackupToggleState = Properties.Settings.Default.AutoDatabaseBackup;
             SetWindowTitle();
@@ -270,24 +268,5 @@ namespace CSI.BatchTracker.ViewModels
             return ConnectedBatchInquiryViewer != null
                 && ConnectedBatchInquiryViewer.CanShowView();
         }
-
-        #region DemoToolsCode
-
-        public ICommand LaunchDataSourcePopulatorCommand { get; private set; }
-
-        [ExcludeFromCodeCoverage]
-        public void RunPopulatorTool()
-        {
-            DataSourcePopulator populator = new DataSourcePopulator(
-                operatorSource,
-                inventorySource,
-                receivedBatchSource,
-                implementedBatchSource
-            );
-
-            populator.Run();
-        }
-
-        #endregion
     }
 }
