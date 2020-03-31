@@ -9,16 +9,14 @@ namespace CSI.BatchTracker.ViewModels
 {
     public sealed class BatchOperatorViewModel : ViewModelBase
     {
+        BatchOperatorValidator validator;
+        IBatchOperatorSource operatorSource;
         public ICommand SaveBatchOperator { get; private set; }
         public ICommand DeleteSelectedBatchOperator { get; private set; }
         public ICommand BatchOperatorComboBoxChanged { get; private set; }
         public ICommand BatchOperatorListBoxChanged { get; private set; }
-        IBatchOperatorSource operatorSource;
-
         public BatchOperator BatchOperator { get; set; }
         public ObservableCollection<BatchOperator> OperatorRepository { get; private set; }
-
-        BatchOperatorValidator validator;
 
         public BatchOperatorViewModel(IBatchOperatorSource operatorSource)
         {
@@ -31,16 +29,6 @@ namespace CSI.BatchTracker.ViewModels
             DeleteSelectedBatchOperator = new DeleteSelectedBatchOperatorCommand(this);
             BatchOperatorComboBoxChanged = new BatchOperatorComboBoxChangedCommand(this);
             BatchOperatorListBoxChanged = new BatchOperatorListBoxChangedCommand(this);
-        }
-
-        ObservableCollection<string> operatorNames;
-        public ObservableCollection<string> OperatorNames
-        {
-            get
-            {
-                GenerateOperatorSelectionItemsSource();
-                return operatorNames;
-            }
         }
 
         int batchOperatorComboBoxIndex;
@@ -85,10 +73,14 @@ namespace CSI.BatchTracker.ViewModels
             }
         }
 
-        void UpdateActiveBatchOperator(BatchOperator batchOperator)
+        ObservableCollection<string> operatorNames;
+        public ObservableCollection<string> OperatorNames
         {
-            FirstName = batchOperator.FirstName;
-            LastName = batchOperator.LastName;
+            get
+            {
+                GenerateOperatorSelectionItemsSource();
+                return operatorNames;
+            }
         }
 
         void GenerateOperatorSelectionItemsSource()
@@ -133,6 +125,12 @@ namespace CSI.BatchTracker.ViewModels
             UpdateActiveBatchOperator(new BatchOperator("", ""));
         }
 
+        void UpdateActiveBatchOperator(BatchOperator batchOperator)
+        {
+            FirstName = batchOperator.FirstName;
+            LastName = batchOperator.LastName;
+        }
+
         public void PopulateBatchOperatorOrReset()
         {
             if (SelectedBatchOperatorFromComboBoxIndex > 0)
@@ -154,7 +152,6 @@ namespace CSI.BatchTracker.ViewModels
 
         public bool BatchOperatorIsRemoveable()
         {
-
             if (SelectedBatchOperatorFromListBoxIndex > -1)
             {
                 return operatorSource.OperatorAtIdNotRelatedToOtherEntities(operatorSource.BatchOperatorIdMappings[SelectedBatchOperatorFromListBoxIndex]);

@@ -27,12 +27,11 @@ namespace CSI.BatchTracker.ViewModels
             set
             {
                 amountInInventory = value;
-                NotifyPropertyChanged("BatchNumber");
+                NotifyPropertyChanged("AmountInInventory");
             }
         }
 
         public string RetrievedBatchNumber { get; private set; }
-
         public ObservableCollection<ReceivedBatch> ReceivingHistoryGrid { get; private set; }
         public ObservableCollection<LoggedBatch> ImplementationHistoryGrid { get; private set; }
         public ICommand RetrieveBatchDataHistoryCommand { get; private set; }

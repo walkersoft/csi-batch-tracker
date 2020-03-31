@@ -8,12 +8,24 @@ using System.Windows.Input;
 
 namespace CSI.BatchTracker.ViewModels
 {
-    public class ReceivingManagementViewModel : ViewModelBase
+    public sealed class ReceivingManagementViewModel : ViewModelBase
     {
+        IBatchNumberValidator batchNumberValidator;
+        IColorList colorList;
+        IBatchOperatorSource operatorSource;
+        IReceivedBatchSource receivingSource;
+        IActiveInventorySource inventorySource;
+
         public ICommand AddBatchToSessionLedgerCommand { get; private set; }
         public ICommand RemoveSelectedItemFromSessionLedgerCommand { get; private set; }
         public ICommand CommitSessionLedgerToReceivingLedgerCommand { get; private set; }
+
         public ReceivedBatch ReceivedBatch { get; private set; }
+        public bool ColorListFocusState { get; set; }
+        public int SessionLedgerSelectedIndex { get; set; }
+        public ObservableCollection<ReceivedBatch> SessionLedger { get; private set; }
+        public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
+        public ObservableCollection<BatchOperator> BatchOperatorRepository { get; private set; }
 
         public DateTime ReceivingDate
         {
@@ -96,17 +108,19 @@ namespace CSI.BatchTracker.ViewModels
             get { return colorList.Colors; }
         }
 
-        public bool ColorListFocusState { get; set; }
-        public int SessionLedgerSelectedIndex { get; set; }
-        public ObservableCollection<ReceivedBatch> SessionLedger { get; private set; }
-        public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
-        public ObservableCollection<BatchOperator> BatchOperatorRepository { get; private set; }
+        string ColorName
+        {
+            get { return colorList.Colors[ColorSelectionComboBoxIndex]; }
+        }
 
-        IBatchNumberValidator batchNumberValidator;
-        IColorList colorList;
-        IBatchOperatorSource operatorSource;
-        IReceivedBatchSource receivingSource;
-        IActiveInventorySource inventorySource;
+        BatchOperator ReceivingOperator
+        {
+            get
+            {
+                int targetId = operatorSource.BatchOperatorIdMappings[ReceivingOperatorComboBoxIndex];
+                return operatorSource.FindBatchOperator(targetId);
+            }
+        }
 
         public ReceivingManagementViewModel(
             IBatchNumberValidator validator, 
@@ -122,14 +136,12 @@ namespace CSI.BatchTracker.ViewModels
             batchNumberValidator = validator;
 
             this.operatorSource.FindAllBatchOperators();
-
             ReceivedBatchRepository = this.receivingSource.ReceivedBatchRepository;
             BatchOperatorRepository = this.operatorSource.OperatorRepository;
             SessionLedger = new ObservableCollection<ReceivedBatch>();
             SessionLedgerSelectedIndex = -1;
             ReceivedBatch = new ReceivedBatch();
             ReceivingDate = DateTime.Today;
-
             AddBatchToSessionLedgerCommand = new AddReceivedBatchToReceivingSessionLedgerCommand(this);
             RemoveSelectedItemFromSessionLedgerCommand = new RemoveReceivableBatchFromSessionLedgerCommand(this);
             CommitSessionLedgerToReceivingLedgerCommand = new CommitReceivingSessionLedgerToDataSourceCommand(this);
@@ -201,23 +213,6 @@ namespace CSI.BatchTracker.ViewModels
             ColorSelectionComboBoxIndex = 0;
             BatchNumber = string.Empty;
             Quantity = string.Empty;
-        }
-
-        string ColorName
-        {
-            get
-            {
-                return colorList.Colors[ColorSelectionComboBoxIndex];
-            }
-        }
-
-        BatchOperator ReceivingOperator
-        {
-            get
-            {
-                int targetId = operatorSource.BatchOperatorIdMappings[ReceivingOperatorComboBoxIndex];
-                return operatorSource.FindBatchOperator(targetId);
-            }
         }
 
         public bool SessionLedgerSelectedItemCanBeRemoved()

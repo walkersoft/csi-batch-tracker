@@ -255,7 +255,6 @@ namespace CSI.BatchTracker.ViewModels
         {
             return ReceivedBatchesSelectedIndex > -1
                 && QuantityIsAvialableToDeleteFromInInventory();
-                //&& implementedBatchSource.GetImplementedBatchesByBatchNumber(ReceivedBatches[ReceivedBatchesSelectedIndex].BatchNumber).Count == 0;
         }
 
         bool QuantityIsAvialableToDeleteFromInInventory()

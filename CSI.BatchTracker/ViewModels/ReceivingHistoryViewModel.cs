@@ -114,40 +114,23 @@ namespace CSI.BatchTracker.ViewModels
             ReceivingSessionViewer = new BatchReceivingManagementViewer(receivingManagementViewModel);
         }
 
-        public bool DateRangeCriteriaIsMet()
+        void SelectFirstLedgerRecordIfAvailable()
         {
-            return DateRangeStartingDate != null
-                && DateRangeEndingDate != null
-                && DateRangeStartingDateIsOnOrBeforeEndingDate();
-        }
-
-        bool DateRangeStartingDateIsOnOrBeforeEndingDate()
-        {
-            return DateRangeStartingDate.Date <= DateRangeEndingDate.Date;
-        }
-
-        public bool ReceivedPurchaseOrderIsSelected()
-        {
-            if (RetreivedRecordsLedger.Count > 0 && RetreivedRecordsLedgerSelectedIndex > -1)
+            if (RetreivedRecordsLedger.Count > 0)
             {
-                return true;
+                RetreivedRecordsLedgerSelectedIndex = 0;
+                PopulateSelectedPurchaseOrderBatchCollection();
+
+                return;
             }
 
             SelectedPurchaseOrderReceivedBatches.Clear();
-            NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
-
-            return false;
         }
 
         public void PopulateSelectedPurchaseOrderBatchCollection()
         {
             SelectedPurchaseOrderReceivedBatches = RetreivedRecordsLedger[RetreivedRecordsLedgerSelectedIndex].ReceivedBatches;
             NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
-        }
-
-        public bool SearchCriteriaVisibilityManagerIsSet()
-        {
-            return VisibilityManager != null;
         }
 
         public void SetActiveSearchCritera()
@@ -179,6 +162,23 @@ namespace CSI.BatchTracker.ViewModels
             NotifyPropertyChanged("PopulateRetreivedRecordsLedgerFromSearchCriteria");
         }
 
+        public bool DateRangeCriteriaIsMet()
+        {
+            return DateRangeStartingDate != null
+                && DateRangeEndingDate != null
+                && DateRangeStartingDateIsOnOrBeforeEndingDate();
+        }
+
+        bool DateRangeStartingDateIsOnOrBeforeEndingDate()
+        {
+            return DateRangeStartingDate.Date <= DateRangeEndingDate.Date;
+        }
+
+        public bool SearchCriteriaVisibilityManagerIsSet()
+        {
+            return VisibilityManager != null;
+        }
+
         public bool PONumberIsValid()
         {
             return string.IsNullOrEmpty(SpecificPONumber) == false
@@ -188,19 +188,6 @@ namespace CSI.BatchTracker.ViewModels
         public bool SpecifcDateCriteriaIsSet()
         {
             return SpecificDate > DateTime.MinValue;
-        }
-
-        void SelectFirstLedgerRecordIfAvailable()
-        {
-            if (RetreivedRecordsLedger.Count > 0)
-            {
-                RetreivedRecordsLedgerSelectedIndex = 0;
-                PopulateSelectedPurchaseOrderBatchCollection();
-
-                return;
-            }
-
-            SelectedPurchaseOrderReceivedBatches.Clear();
         }
 
         public void FetchReceivingRecordsByDateRange()
@@ -287,6 +274,19 @@ namespace CSI.BatchTracker.ViewModels
             return PurchaseOrderEditorViewer != null
                 && PurchaseOrderEditorViewer.CanShowView()
                 && ReceivedPurchaseOrderIsSelected();
+        }
+
+        public bool ReceivedPurchaseOrderIsSelected()
+        {
+            if (RetreivedRecordsLedger.Count > 0 && RetreivedRecordsLedgerSelectedIndex > -1)
+            {
+                return true;
+            }
+
+            SelectedPurchaseOrderReceivedBatches.Clear();
+            NotifyPropertyChanged("SelectedPurchaseOrderReceivedBatches");
+
+            return false;
         }
 
         public void ShowPurchaseOrderEditorView()

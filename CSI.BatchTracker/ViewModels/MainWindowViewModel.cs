@@ -46,17 +46,15 @@ namespace CSI.BatchTracker.ViewModels
 
         public int TotalInventoryCount
         {
-            get
-            {
-                return inventorySource.TotalInventoryCount;
-            }
+            get { return inventorySource.TotalInventoryCount; }
         }
 
         public MainWindowViewModel(
             IActiveInventorySource inventorySource,
             IReceivedBatchSource receivedBatchSource,
             IImplementedBatchSource implementedBatchSource,
-            IBatchOperatorSource operatorSource)
+            IBatchOperatorSource operatorSource
+        )
         {
             this.inventorySource = inventorySource;
             this.receivedBatchSource = receivedBatchSource;
@@ -78,16 +76,13 @@ namespace CSI.BatchTracker.ViewModels
             AutoBackupToggleState = Properties.Settings.Default.AutoDatabaseBackup;
             SetWindowTitle();
         }
-        
-        [ExcludeFromCodeCoverage]
-        void SetWindowTitle()
+
+        void InitializeBatchImplementationSettings()
         {
-            bool dataSourceSet = !string.IsNullOrEmpty(Properties.Settings.Default.AttachedDatabase);
-            WindowTitle = string.Format(
-                "BatchTRAX - Cedar Siding, Inc. (v{0}){1}",
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                (dataSourceSet) ? " | Data Source: " + Properties.Settings.Default.AttachedDatabase : ""
-            );
+            ImplementableBatchSelectedIndex = -1;
+            ImplementedBatchSelectedIndex = -1;
+            ImplementingBatchOperatorSelectedIndex = -1;
+            ImplementationDateTime = null;
         }
 
         public void AssociateCollectionsAndRepositories()
@@ -155,14 +150,6 @@ namespace CSI.BatchTracker.ViewModels
             }
 
             return averages;
-        }
-
-        void InitializeBatchImplementationSettings()
-        {
-            ImplementableBatchSelectedIndex = -1;
-            ImplementedBatchSelectedIndex = -1;
-            ImplementingBatchOperatorSelectedIndex = -1;
-            ImplementationDateTime = null;
         }
 
         public void ImplementBatchFromInventoryToImplementationLedger()
@@ -272,6 +259,17 @@ namespace CSI.BatchTracker.ViewModels
         public void ShowConnectedBatchViewer()
         {
             ConnectedBatchInquiryViewer.ShowView();
+        }
+        
+        [ExcludeFromCodeCoverage]
+        void SetWindowTitle()
+        {
+            bool dataSourceSet = !string.IsNullOrEmpty(Properties.Settings.Default.AttachedDatabase);
+            WindowTitle = string.Format(
+                "BatchTRAX - Cedar Siding, Inc. (v{0}){1}",
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                (dataSourceSet) ? " | Data Source: " + Properties.Settings.Default.AttachedDatabase : ""
+            );
         }
     }
 }
