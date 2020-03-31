@@ -25,10 +25,7 @@
                 <MenuItem Header="Batch _Operator Management" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
             <MenuItem Header="Data Source">
-                <MenuItem Header="Database Management">
-                    <MenuItem Header="Attach Database" Click="AttachDatabase"/>
-                    <MenuItem Header="Create New Database" Click="CreateNewDatabase"/>
-                </MenuItem>
+                <MenuItem Header="Attach Database" Click="AttachDatabase"/>
                 <MenuItem Header="Backup Tools">
                     <MenuItem Header="Create Database Backup" Click="CreateDatabaseBackup"/>
                     <MenuItem Header="Auto-Backup on Start" Command="{Binding AutoBackupToggleCommand}" IsCheckable="True" IsChecked="{Binding AutoBackupToggleState}"/>
