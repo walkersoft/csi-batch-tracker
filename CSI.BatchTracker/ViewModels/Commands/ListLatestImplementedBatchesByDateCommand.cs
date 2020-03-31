@@ -1,6 +1,6 @@
 ﻿namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public class ListLatestImplementedBatchesByDateCommand : CommandBase
+    public sealed class ListLatestImplementedBatchesByDateCommand : CommandBase
     {
         ImplementationInquiryViewModel viewModel;
 

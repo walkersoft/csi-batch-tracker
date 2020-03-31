@@ -6,8 +6,7 @@ namespace CSI.BatchTracker.ViewModels.Commands
 {
     [ExcludeFromCodeCoverage]
     public abstract class CommandBase : ICommand
-    {
-        
+    {        
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }

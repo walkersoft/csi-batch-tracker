@@ -268,5 +268,10 @@ namespace CSI.BatchTracker.ViewModels
             return ConnectedBatchInquiryViewer != null
                 && ConnectedBatchInquiryViewer.CanShowView();
         }
+
+        public void ShowConnectedBatchViewer()
+        {
+            ConnectedBatchInquiryViewer.ShowView();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public class OpenConnectedBatchInquiryViewCommand : CommandBase
+    public sealed class OpenConnectedBatchInquiryViewCommand : CommandBase
     {
         MainWindowViewModel viewModel;
 
@@ -16,7 +16,7 @@
 
         public override void Execute(object parameter)
         {
-            viewModel.ConnectedBatchInquiryViewer.ShowView();
+            viewModel.ShowConnectedBatchViewer();
         }
     }
 }

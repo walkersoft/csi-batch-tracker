@@ -1,6 +1,6 @@
 ﻿namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public class RemoveReceivableBatchFromSessionLedgerCommand : CommandBase
+    public sealed class RemoveReceivableBatchFromSessionLedgerCommand : CommandBase
     {
         ReceivingManagementViewModel viewModel;
 

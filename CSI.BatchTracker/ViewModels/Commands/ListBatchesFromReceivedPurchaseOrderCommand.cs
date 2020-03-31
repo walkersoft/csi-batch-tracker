@@ -1,6 +1,6 @@
 ﻿namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public class ListBatchesFromReceivedPurchaseOrderCommand : CommandBase
+    public sealed class ListBatchesFromReceivedPurchaseOrderCommand : CommandBase
     {
         ReceivingHistoryViewModel viewModel;
 

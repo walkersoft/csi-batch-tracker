@@ -8,6 +8,7 @@
         {
             this.viewModel = viewModel;
         }
+
         public override bool CanExecute(object parameter)
         {
             return viewModel.BatchNumberIsValid();

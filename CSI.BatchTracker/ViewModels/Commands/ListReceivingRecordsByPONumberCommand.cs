@@ -1,6 +1,6 @@
 ﻿namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public class ListReceivingRecordsByPONumberCommand : CommandBase
+    public sealed class ListReceivingRecordsByPONumberCommand : CommandBase
     {
         ReceivingHistoryViewModel viewModel;
 

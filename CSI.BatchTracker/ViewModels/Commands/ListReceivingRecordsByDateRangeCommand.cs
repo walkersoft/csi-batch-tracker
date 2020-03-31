@@ -1,6 +1,6 @@
 ﻿namespace CSI.BatchTracker.ViewModels.Commands
 {
-    public class ListReceivingRecordsByDateRangeCommand : CommandBase
+    public sealed class ListReceivingRecordsByDateRangeCommand : CommandBase
     {
         ReceivingHistoryViewModel viewModel;
 
