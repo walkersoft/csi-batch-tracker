@@ -50,7 +50,7 @@ namespace CSI.BatchTracker
 
         void CreateNewDatabaseFromDialogOrExit()
         {
-            MessageBoxResult messageResult = MessageBox.Show("SQLite database not attached. Would you like to attach an existing database?", "Attach Database", MessageBoxButton.YesNo);
+            MessageBoxResult messageResult = MessageBox.Show("SQLite database not attached. Would you like to attach an existing database? (Clicking \"No\" will prompt to create a new database.)", "Attach Database", MessageBoxButton.YesNo);
 
             if (messageResult == MessageBoxResult.Yes)
             {
@@ -65,6 +65,15 @@ namespace CSI.BatchTracker
                 {
                     Settings.Default.AttachedDatabase = dialog.FileName;
                     Settings.Default.Save();
+
+                    if (FileIsSQLiteDatabase() == false)
+                    {
+                        Settings.Default.AttachedDatabase = string.Empty;
+                        Settings.Default.Save();
+                        MessageBox.Show("Selected file is not an SQLite database. A database is require for program operation. Program will now exit.", "Failed to Create Database", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Current.Shutdown(1);
+                        Environment.Exit(1);
+                    }
                 }
             }
 
@@ -94,7 +103,7 @@ namespace CSI.BatchTracker
                     return;
                 }
 
-                MessageBox.Show("No database filename was given. A database is require for program operation.", "Failed to Create Database", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No database filename was given. A database is require for program operation. Program will now exit.", "Failed to Create Database", MessageBoxButton.OK, MessageBoxImage.Error);
                 Current.Shutdown(1);
                 Environment.Exit(1);
             }
