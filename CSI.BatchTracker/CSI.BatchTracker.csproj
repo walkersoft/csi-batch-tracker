@@ -106,7 +106,6 @@
     <Compile Include="Domain\NativeModels\AverageBatch.cs" />
     <Compile Include="Domain\NativeModels\ReceivedPurchaseOrder.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Storage\Contracts\IPersistenceManager.cs" />
     <Compile Include="Storage\SQLiteStore\DateTimeExtensions.cs" />
     <Compile Include="Storage\SQLiteStore\SQLiteDatabaseInstaller.cs" />
     <Compile Include="Storage\SQLiteStore\SQLiteStoreContext.cs" />

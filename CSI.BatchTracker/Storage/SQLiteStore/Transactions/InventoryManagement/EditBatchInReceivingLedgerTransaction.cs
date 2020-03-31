@@ -40,6 +40,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
         int GetBatchOperatorId()
         {
             string query = "SELECT * FROM BatchOperators WHERE FirstName = ? AND LastName = ?";
+
             List<object> parameters = new List<object>()
             {
                 entity.NativeModel.ReceivingOperator.FirstName,

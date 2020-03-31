@@ -4,10 +4,9 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
 {
     public class SQLiteDatabaseInstaller
     {
+        string[] tableSchemas = new string[4];
         public string DatabaseFile { get; set; }
         public string ConnectionString { get; set; }
-
-        string[] tableSchemas = new string[4];
 
         public void CreateNewDatabase()
         {

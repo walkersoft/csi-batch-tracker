@@ -18,6 +18,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
         public override void Execute()
         {
             string query = "UPDATE ImplementedBatches SET ColorName = ?, BatchNumber = ? WHERE SystemId = ?";
+
             List<object> parameters = new List<object>()
             {
                 entity.NativeModel.ColorName,

@@ -12,7 +12,6 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
     {
         string databaseSourceFile;
         string connectionString;
-
         public List<IEntity> Results { get; private set; }
 
         public SQLiteStoreContext(string databaseSourceFile)
@@ -110,13 +109,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
             {
                 while (reader.Read())
                 {
-                    BatchOperator batchOperator;
-
-                    batchOperator = new BatchOperator(
-                        reader.GetString(1),
-                        reader.GetString(2)
-                    );
-
+                    BatchOperator batchOperator = new BatchOperator(reader.GetString(1), reader.GetString(2));
                     Entity<BatchOperator> entity = new Entity<BatchOperator>(reader.GetInt32(0), batchOperator);
                     entities.Add(entity);
                 }
@@ -133,8 +126,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
             {
                 while (reader.Read())
                 {
-                    InventoryBatch inventoryBatch;
-                    inventoryBatch = new InventoryBatch(
+                    InventoryBatch inventoryBatch = new InventoryBatch(
                         reader.GetString(1),
                         reader.GetString(2),
                         DateTime.ParseExact(reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null),
@@ -158,10 +150,9 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
             {
                 while (reader.Read())
                 {
-                    ReceivedBatch receivedBatch;
                     int batchOperatorId = reader.GetInt32(6);
-
-                    receivedBatch = new ReceivedBatch(
+                    
+                    ReceivedBatch receivedBatch = new ReceivedBatch(
                         reader.GetString(1),
                         reader.GetString(2),
                         DateTime.ParseExact(reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null),
@@ -187,11 +178,10 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
             {
                 while (reader.Read())
                 {
-                    LoggedBatch loggedBatch;
                     int batchOperatorId = reader.GetInt32(4);
                     string date = reader.GetString(3);
 
-                    loggedBatch = new LoggedBatch(
+                    LoggedBatch loggedBatch = new LoggedBatch(
                         reader.GetString(1),
                         reader.GetString(2),
                         DateTime.ParseExact(reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null),

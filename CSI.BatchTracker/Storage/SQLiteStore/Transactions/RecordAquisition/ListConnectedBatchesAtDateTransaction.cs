@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition
 {
-    public class ListConnectedBatchesAtDateTransaction : SQLiteDataSourceTransaction
+    public sealed class ListConnectedBatchesAtDateTransaction : SQLiteDataSourceTransaction
     {
         SQLiteStoreContext store;
         DateTime calibratedDate;
