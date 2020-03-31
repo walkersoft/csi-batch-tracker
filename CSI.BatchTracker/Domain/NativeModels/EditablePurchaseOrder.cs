@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace CSI.BatchTracker.Domain
+namespace CSI.BatchTracker.Domain.NativeModels
 {
     public sealed class EditablePurchaseOrder
     {

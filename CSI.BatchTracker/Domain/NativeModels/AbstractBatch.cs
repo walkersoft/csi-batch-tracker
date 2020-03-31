@@ -3,7 +3,6 @@ using System;
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {
-    [Serializable]
     abstract public class AbstractBatch
     {
         public string ColorName { get; set; }

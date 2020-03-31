@@ -11,6 +11,7 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
 {
     public sealed class SQLiteActiveInventorySource : IActiveInventorySource
     {
+        SQLiteStoreContext sqliteStore;
         public ObservableCollection<InventoryBatch> CurrentInventory { get; private set; }
         public Dictionary<string, int> CurrentInventoryBatchNumberToIdMappings { get; private set; }
 
@@ -31,8 +32,6 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
                 return count;
             }
         }
-
-        SQLiteStoreContext sqliteStore;
 
         public SQLiteActiveInventorySource(SQLiteStoreContext sqliteStore)
         {
@@ -76,26 +75,6 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             UpdateActiveInventory();
         }
 
-        public InventoryBatch FindInventoryBatchByBatchNumber(string batchNumber)
-        {
-            InventoryBatch batch = new InventoryBatch();
-            ITransaction finder = new ListCurrentInventoryTransaction(sqliteStore);
-            finder.Execute();
-
-            foreach (IEntity result in finder.Results)
-            {
-                Entity<InventoryBatch> entity = result as Entity<InventoryBatch>;
-
-                if (entity.NativeModel.BatchNumber == batchNumber)
-                {
-                    batch = entity.NativeModel;
-                    break;
-                }
-            }
-
-            return batch;
-        }
-
         public void UpdateActiveInventory()
         {
             ITransaction finder = new ListCurrentInventoryTransaction(sqliteStore);
@@ -129,6 +108,26 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
                     }
                 }
             }
+        }
+
+        public InventoryBatch FindInventoryBatchByBatchNumber(string batchNumber)
+        {
+            InventoryBatch batch = new InventoryBatch();
+            ITransaction finder = new ListCurrentInventoryTransaction(sqliteStore);
+            finder.Execute();
+
+            foreach (IEntity result in finder.Results)
+            {
+                Entity<InventoryBatch> entity = result as Entity<InventoryBatch>;
+
+                if (entity.NativeModel.BatchNumber == batchNumber)
+                {
+                    batch = entity.NativeModel;
+                    break;
+                }
+            }
+
+            return batch;
         }
     }
 }

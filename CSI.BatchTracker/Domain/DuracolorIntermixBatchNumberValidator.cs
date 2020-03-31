@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace CSI.BatchTracker.Domain
 {
-    public class DuracolorIntermixBatchNumberValidator : AbstractBatchNumberValidator
+    public sealed class DuracolorIntermixBatchNumberValidator : AbstractBatchNumberValidator
     {
         public DuracolorIntermixBatchNumberValidator(int length)
         {
@@ -32,8 +32,7 @@ namespace CSI.BatchTracker.Domain
                 return false;
             }
 
-            Match match = Regex.Match(batchNumber, BuildRegexString());
-            return match.Success;
+            return Regex.Match(batchNumber, BuildRegexString()).Success;
         }
 
         string BuildRegexString()

@@ -9,10 +9,9 @@ using System.Collections.ObjectModel;
 
 namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
 {
-    public class SQLiteBatchOperatorSource : IBatchOperatorSource
+    public sealed class SQLiteBatchOperatorSource : IBatchOperatorSource
     {
-        SQLiteStoreContext sqliteStore;
-        
+        SQLiteStoreContext sqliteStore;        
         public Dictionary<int, int> BatchOperatorIdMappings { get; private set; }
 
         public SQLiteBatchOperatorSource(SQLiteStoreContext sqliteStore)

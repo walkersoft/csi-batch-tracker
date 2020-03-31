@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace CSI.BatchTracker.Domain
 {
-    public class DuracolorIntermixColorList : IColorList
+    public sealed class DuracolorIntermixColorList : IColorList
     {
         public int Count { get { return Colors.Count; } }
         public ObservableCollection<string> Colors

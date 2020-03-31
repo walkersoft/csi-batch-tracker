@@ -2,11 +2,8 @@
 
 namespace CSI.BatchTracker.Exceptions
 {
-    public class BatchException : Exception
+    public sealed class BatchException : Exception
     {
-        public BatchException(string message) : base(message)
-        {
-
-        }
+        public BatchException(string message) : base(message) { }
     }
 }

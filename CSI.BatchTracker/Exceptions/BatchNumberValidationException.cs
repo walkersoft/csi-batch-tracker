@@ -2,10 +2,8 @@
 
 namespace CSI.BatchTracker.Exceptions
 {
-    public class BatchNumberValidationException : Exception
+    public sealed class BatchNumberValidationException : Exception
     {
-        public BatchNumberValidationException(string message) : base(message)
-        {
-        }
+        public BatchNumberValidationException(string message) : base(message) { }
     }
 }

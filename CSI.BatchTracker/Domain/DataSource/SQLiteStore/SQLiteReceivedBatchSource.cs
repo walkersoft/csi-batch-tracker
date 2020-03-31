@@ -12,10 +12,10 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
 {
     public sealed class SQLiteReceivedBatchSource : IReceivedBatchSource
     {
-        public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
-        public Dictionary<int, int> ReceivedBatchIdMappings { get; private set; }
         SQLiteStoreContext sqliteStore;
         IActiveInventorySource inventorySource;
+        public ObservableCollection<ReceivedBatch> ReceivedBatchRepository { get; private set; }
+        public Dictionary<int, int> ReceivedBatchIdMappings { get; private set; }
 
         public SQLiteReceivedBatchSource(SQLiteStoreContext sqliteStore, IActiveInventorySource inventorySource)
         {
@@ -174,6 +174,21 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             return new Entity<ReceivedBatch>(original.SystemId, updatedBatch);
         }
 
+        void UpdateImplementedBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
+        {
+            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(original.NativeModel.BatchNumber, sqliteStore);
+            finder.Execute();
+
+            foreach (IEntity result in finder.Results)
+            {
+                Entity<LoggedBatch> entity = result as Entity<LoggedBatch>;
+                entity.NativeModel.BatchNumber = updated.NativeModel.BatchNumber;
+                entity.NativeModel.ColorName = updated.NativeModel.ColorName;
+                ITransaction updater = new UpdateBatchInImplementationLedgerAtIdTransaction(entity, sqliteStore);
+                updater.Execute();
+            }
+        }
+
         void UpdateInventoryBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
         {
             ITransaction deleter = null;
@@ -226,6 +241,29 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             MergeCommonBatches(finder);
         }
 
+        int GetAdjustedInventoryQuantity(string batchNumber, int currentQuantity, int newQuantity)
+        {
+            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(batchNumber, sqliteStore);
+            finder.Execute();
+            ITransaction received = new FindBatchesInReceivingLedgerByBatchNumberTransaction(batchNumber, sqliteStore);
+            received.Execute();
+
+            int implementedQuantity = finder.Results.Count;
+            int receivedQuantity = 0;
+
+            for (int i = 0; i < received.Results.Count; i++)
+            {
+                Entity<ReceivedBatch> entity = received.Results[i] as Entity<ReceivedBatch>;
+                receivedQuantity += entity.NativeModel.Quantity;
+            }
+
+            int updatedQuantity = currentQuantity >= newQuantity
+                ? receivedQuantity - (currentQuantity - newQuantity)
+                : receivedQuantity + (newQuantity - currentQuantity);
+
+            return updatedQuantity - implementedQuantity;
+        }
+
         void MergeCommonBatches(ITransaction finder)
         {
             List<InventoryBatch> merged = new List<InventoryBatch>();
@@ -251,10 +289,6 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
                     merged.Add(currentBatch);
                 }
             }
-
-            // DO NOT DELETE AND THEN RE-ADD - THAT IS WHAT IS MESSING UP THE AUTO-IDS
-            // ALSO CHECK THAT THE MERGED LIST IS BEING BUILD PROPERLY
-            // ALSO MAKE SURE THE DEPLETED RECORD IS BEING DEPLETED PROPERLY
 
             foreach (InventoryBatch batch in merged)
             {
@@ -300,44 +334,6 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             }
 
             return true;
-        }
-
-        int GetAdjustedInventoryQuantity(string batchNumber, int currentQuantity, int newQuantity)
-        {
-            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(batchNumber, sqliteStore);
-            finder.Execute();
-            ITransaction received = new FindBatchesInReceivingLedgerByBatchNumberTransaction(batchNumber, sqliteStore);
-            received.Execute();
-
-            int implementedQuantity = finder.Results.Count;
-            int receivedQuantity = 0;
-
-            for (int i = 0; i < received.Results.Count; i++)
-            {
-                Entity<ReceivedBatch> entity = received.Results[i] as Entity<ReceivedBatch>;
-                receivedQuantity += entity.NativeModel.Quantity;
-            }
-
-            int updatedQuantity = currentQuantity >= newQuantity
-                ? receivedQuantity - (currentQuantity - newQuantity)
-                : receivedQuantity + (newQuantity - currentQuantity);
-
-            return updatedQuantity - implementedQuantity;
-        }
-
-        void UpdateImplementedBatches(Entity<ReceivedBatch> original, Entity<ReceivedBatch> updated)
-        {
-            ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(original.NativeModel.BatchNumber, sqliteStore);
-            finder.Execute();
-
-            foreach (IEntity result in finder.Results)
-            {
-                Entity<LoggedBatch> entity = result as Entity<LoggedBatch>;
-                entity.NativeModel.BatchNumber = updated.NativeModel.BatchNumber;
-                entity.NativeModel.ColorName = updated.NativeModel.ColorName;
-                ITransaction updater = new UpdateBatchInImplementationLedgerAtIdTransaction(entity, sqliteStore);
-                updater.Execute();
-            }
         }
     }
 }

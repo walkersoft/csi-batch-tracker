@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {
-    public class ReceivedPurchaseOrder
+    public sealed class ReceivedPurchaseOrder
     {
         public int PONumber { get; private set; }
         public DateTime ActivityDate { get; private set; }
@@ -12,10 +12,7 @@ namespace CSI.BatchTracker.Domain.NativeModels
 
         public string DisplayDate
         {
-            get
-            {
-                return ActivityDate.ToString("MMMM d, yyyy");
-            }
+            get { return ActivityDate.ToString("MMMM d, yyyy"); }
         }
 
         public ReceivedPurchaseOrder(int poNumber, DateTime activityDate, BatchOperator receivingOperator, ObservableCollection<ReceivedBatch> receivedBatches)

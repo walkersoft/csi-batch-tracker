@@ -52,6 +52,14 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, 0);
         }
 
+        public void UpdateImplementationLedger()
+        {
+            ImplementedBatchLedger.Clear();
+            ITransaction finder = new ListImplementedBatchTransaction(sqliteStore);
+            finder.Execute();
+            PopulatedImplementedBatchLedgerFromTransactionResults(finder);
+        }
+
         public ObservableCollection<LoggedBatch> GetImplementedBatchesByBatchNumber(string batchNumber)
         {
             ITransaction finder = new FindBatchesInImplementationLedgerByBatchNumberTransaction(batchNumber, sqliteStore);
@@ -80,14 +88,6 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
                 UpdateImplementationLedger();
                 inventorySource.UpdateActiveInventory();
             }
-        }
-
-        public void UpdateImplementationLedger()
-        {
-            ImplementedBatchLedger.Clear();
-            ITransaction finder = new ListImplementedBatchTransaction(sqliteStore);
-            finder.Execute();
-            PopulatedImplementedBatchLedgerFromTransactionResults(finder);
         }
 
         void PopulatedImplementedBatchLedgerFromTransactionResults(ITransaction transaction)

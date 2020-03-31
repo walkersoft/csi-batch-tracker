@@ -2,18 +2,14 @@
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {
-    [Serializable]
-    public class BatchOperator
+    public sealed class BatchOperator
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
         public string FullName
         {
-            get
-            {
-                return string.Format("{0} {1}", FirstName, LastName);
-            }
+            get { return string.Format("{0} {1}", FirstName, LastName); }
         }
 
         public BatchOperator(string firstName, string lastName)

@@ -2,17 +2,13 @@
 
 namespace CSI.BatchTracker.Domain.NativeModels
 {
-    [Serializable]
-    public class InventoryBatch : AbstractBatch
+    public sealed class InventoryBatch : AbstractBatch
     {
         public int Quantity { get; set; }
 
         public string DisplayName
         {
-            get
-            {
-                return string.Format("{0} - {1}", ColorName, BatchNumber);
-            }
+            get { return string.Format("{0} - {1}", ColorName, BatchNumber); }
         }
 
         public InventoryBatch() { }

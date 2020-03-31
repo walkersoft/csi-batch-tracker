@@ -102,7 +102,7 @@
     <Compile Include="Domain\DataSource\SQLiteStore\SQLiteImplementedBatchSource.cs" />
     <Compile Include="Domain\DataSource\SQLiteStore\SQLiteReceivedBatchSource.cs" />
     <Compile Include="Domain\DuracolorIntermixColorList.cs" />
-    <Compile Include="Domain\EditablePurchaseOrder.cs" />
+    <Compile Include="Domain\NativeModels\EditablePurchaseOrder.cs" />
     <Compile Include="Domain\NativeModels\AverageBatch.cs" />
     <Compile Include="Domain\NativeModels\ReceivedPurchaseOrder.cs" />
     <Compile Include="Settings.cs" />
