@@ -17,14 +17,14 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         protected IImplementedBatchSource implementedBatchSource;
         protected ICommand command;
         protected ReceivedPurchaseOrderEditorViewModel viewModel;
-
-        BatchOperatorTestHelper operatorHelper;
         protected int originalPONumber;
         protected int originalBatchOperatorId;
         protected DateTime activityDate;
         protected string whiteBatch;
         protected string blackBatch;
         protected string yellowBatch;
+
+        BatchOperatorTestHelper operatorHelper;
 
         [SetUp]
         public virtual void SetUp()

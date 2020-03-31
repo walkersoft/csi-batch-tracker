@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CSI.BatchTracker.Tests.TestHelpers.Storage.SQLiteStore
 {
-    public class SQLiteDatabaseHelper
+    internal class SQLiteDatabaseHelper
     {
         SQLiteDatabaseInstaller installer;
 

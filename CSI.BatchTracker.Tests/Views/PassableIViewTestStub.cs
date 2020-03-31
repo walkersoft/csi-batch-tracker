@@ -1,6 +1,6 @@
 ﻿namespace CSI.BatchTracker.Tests.Views
 {
-    class PassableIViewTestStub : IViewTestStub
+    internal class PassableIViewTestStub : IViewTestStub
     {
         public override bool CanShowView()
         {

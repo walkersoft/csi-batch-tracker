@@ -19,6 +19,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         protected IActiveInventorySource inventorySource;
         protected IReceivedBatchSource receivedBatchSource;
         protected IImplementedBatchSource implementedBatchSource;
+
         ReceivedBatchTestHelper receivedBatchHelper;
         BatchOperatorTestHelper batchOperatorHelper;
         string validBatchNumber;

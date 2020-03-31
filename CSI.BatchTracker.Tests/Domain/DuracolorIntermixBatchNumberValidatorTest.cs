@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace CSI.BatchTracker.Tests.Domain
 {
     [TestFixture]
-    public class DuracolorIntermixBatchNumberValidatorTest
+    class DuracolorIntermixBatchNumberValidatorTest
     {
         readonly int standardLength = 12;
         IBatchNumberValidator validator;

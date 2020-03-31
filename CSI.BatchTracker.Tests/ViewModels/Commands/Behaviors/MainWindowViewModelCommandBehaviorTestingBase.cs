@@ -17,7 +17,6 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         protected IReceivedBatchSource receivedBatchSource;
         protected IImplementedBatchSource implementedBatchSource;
         protected MainWindowViewModel viewModel;
-
         protected BatchOperatorTestHelper operatorHelper;
 
         [SetUp]

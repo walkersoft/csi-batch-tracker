@@ -2,7 +2,7 @@
 
 namespace CSI.BatchTracker.Tests.Views
 {
-    public class IViewTestStub : IView
+    internal class IViewTestStub : IView
     {
         public virtual bool CanShowView()
         {

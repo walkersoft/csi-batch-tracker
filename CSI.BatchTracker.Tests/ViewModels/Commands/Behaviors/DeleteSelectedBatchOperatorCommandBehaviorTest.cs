@@ -9,7 +9,6 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
     [TestFixture]
     abstract class DeleteSelectedBatchOperatorCommandBehaviorTest : BatchOperatorViewModelCommandTestingBase
     {
-
         [SetUp]
         public override void SetUp()
         {

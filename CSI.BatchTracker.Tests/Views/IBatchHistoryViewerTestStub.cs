@@ -2,7 +2,7 @@
 
 namespace CSI.BatchTracker.Tests.Views
 {
-    public class IBatchHistoryViewerTestStub : IBatchHistoryView
+    internal class IBatchHistoryViewerTestStub : IBatchHistoryView
     {
         public string IncomingBatchNumber { get; set; }
 

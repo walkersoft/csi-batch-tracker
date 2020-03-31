@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace CSI.BatchTracker.Tests.Domain.NativeModels
 {
     [TestFixture]
-    public class BatchOperatorTest
+    class BatchOperatorTest
     {
         BatchOperator dispenseOperator;
         readonly string firstName = "Jane";

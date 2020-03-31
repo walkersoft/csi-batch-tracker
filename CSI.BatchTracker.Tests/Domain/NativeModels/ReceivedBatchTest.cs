@@ -6,7 +6,7 @@ using System;
 namespace CSI.BatchTracker.Tests.Domain.NativeModels
 {
     [TestFixture]
-    public class ReceivedBatchTest
+    class ReceivedBatchTest
     {
         readonly string colorName = "Yellow";
         readonly string batchNumber = "872880703201";

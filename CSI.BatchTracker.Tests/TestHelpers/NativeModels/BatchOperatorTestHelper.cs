@@ -3,7 +3,7 @@ using CSI.BatchTracker.Domain.NativeModels;
 
 namespace CSI.BatchTracker.Tests.TestHelpers.NativeModels
 {
-    public class BatchOperatorTestHelper
+    internal class BatchOperatorTestHelper
     {
         IBatchOperatorSource operatorSource;
 
