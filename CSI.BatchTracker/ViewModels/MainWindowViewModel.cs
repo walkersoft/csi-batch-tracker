@@ -262,6 +262,7 @@ namespace CSI.BatchTracker.ViewModels
         public void ShowReceivingHistoryViewer()
         {
             ReceivingHistorySessionViewer.ShowView();
+            AssociateCollectionsAndRepositories();
         }
 
         public bool ConnectedBatchViewerIsSet()
