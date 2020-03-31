@@ -6,71 +6,138 @@
         xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Operator Management" 
-        SizeToContent="WidthAndHeight">
-    
-    <StackPanel Orientation="Vertical" Margin="10" Width="Auto">
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Select Operator:"/>
-            <ComboBox Width="175" 
-                      VerticalContentAlignment="Center"
-                      ItemsSource="{Binding OperatorNames}"
-                      SelectedIndex="{Binding SelectedBatchOperatorFromComboBoxIndex}">
-                <input:Interaction.Triggers>
-                    <input:EventTrigger EventName="SelectionChanged">
-                        <input:InvokeCommandAction Command="{Binding BatchOperatorComboBoxChanged}" />
-                    </input:EventTrigger>
-                </input:Interaction.Triggers>
-            </ComboBox>
-        </StackPanel>
+        ResizeMode="CanResize"
+        Width="500"
+        Height="700">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>           
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="120"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                  Header="Batch Operators"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
         
-        <Separator Width="Auto" Margin="0,10,0,5"/>
-
-        <StackPanel Orientation="Horizontal" Width="Auto">
-            <StackPanel Orientation="Vertical" Margin="0,0,10,0">
-                <Label Content="First Name"/>
-                <TextBox Width="100" 
-                         Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding SaveBatchOperator}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,25,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}">
+                    Select an Operator:
+                </TextBlock>
+                <ComboBox Width="250" 
+                          VerticalContentAlignment="Center"
+                          ItemsSource="{Binding OperatorNames}"
+                          SelectedIndex="{Binding SelectedBatchOperatorFromComboBoxIndex}">
+                    <input:Interaction.Triggers>
+                        <input:EventTrigger EventName="SelectionChanged">
+                            <input:InvokeCommandAction Command="{Binding BatchOperatorComboBoxChanged}" />
+                        </input:EventTrigger>
+                    </input:Interaction.Triggers>
+                </ComboBox>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Margin="0,0,10,0">
-                <Label Content="Last Name"/>
-                <TextBox Width="100" 
-                         Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding SaveBatchOperator}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
-                <Button Content="Save" Width="60" Command="{Binding SaveBatchOperator}"/>
-            </StackPanel>
-        </StackPanel>
+            
+        </GroupBox>
 
-        <Label Content="Current Batch Operators" />
-        <ListBox SelectedIndex="{Binding SelectedBatchOperatorFromListBoxIndex}" 
-                 ItemsSource="{Binding OperatorRepository}" 
-                 DisplayMemberPath="FullName"
-                 Width="280" 
-                 Height="150" 
-                 HorizontalAlignment="Left" 
-                 Margin="0,0,0,10">
-            <input:Interaction.Triggers>
-                <input:EventTrigger EventName="SelectionChanged">
-                    <input:InvokeCommandAction Command="{Binding BatchOperatorListBoxChanged}"/>
-                </input:EventTrigger>
-                <input:EventTrigger EventName="GotFocus">
-                    <input:InvokeCommandAction Command="{Binding BatchOperatorListBoxChanged}"/>
-                </input:EventTrigger>
-            </input:Interaction.Triggers>
-        </ListBox>
+        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
+                  Header="Edit Operator"
+                  Margin="0 20 0 0"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-        <Button Content="Delete Selected" 
-                Width="120" 
-                HorizontalAlignment="Left"
-                Command="{Binding DeleteSelectedBatchOperator}"/>        
-    </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0">
+                    <TextBox VerticalAlignment="Bottom"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                materialDesign:HintAssist.Hint="First Name"
+                                MinWidth="120"
+                                Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Return" Command="{Binding SaveBatchOperator}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="0,0,10,0">
+                    <TextBox VerticalAlignment="Bottom"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                materialDesign:HintAssist.Hint="Last Name"
+                                MinWidth="120"
+                                Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Return" Command="{Binding SaveBatchOperator}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                </StackPanel>
+
+                <Button Grid.Row="0" Grid.Column="2" 
+                        Content="Save" 
+                        MinWidth="100"
+                        VerticalAlignment="Bottom" 
+                        Command="{Binding SaveBatchOperator}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
+                  Header="Current Operators"
+                  Margin="0 20 0 0"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                
+                <ListBox Grid.Row="0" Grid.Column="0"
+                         SelectedIndex="{Binding SelectedBatchOperatorFromListBoxIndex}" 
+                         ItemsSource="{Binding OperatorRepository}" 
+                         DisplayMemberPath="FullName"
+                         Width="Auto"
+                         Height="Auto">
+                    <input:Interaction.Triggers>
+                        <input:EventTrigger EventName="SelectionChanged">
+                            <input:InvokeCommandAction Command="{Binding BatchOperatorListBoxChanged}"/>
+                        </input:EventTrigger>
+                        <input:EventTrigger EventName="GotFocus">
+                            <input:InvokeCommandAction Command="{Binding BatchOperatorListBoxChanged}"/>
+                        </input:EventTrigger>
+                    </input:Interaction.Triggers>
+                </ListBox>
+
+                <Button Grid.Row="1" Grid.Column="0" 
+                        Content="Delete Selected Operator"
+                        Margin="0 10 0 0"
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        Command="{Binding DeleteSelectedBatchOperator}"/>
+                
+            </Grid>
+        </GroupBox>
+    </Grid>
 </Window>
