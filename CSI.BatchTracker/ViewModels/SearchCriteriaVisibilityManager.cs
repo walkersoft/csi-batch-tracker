@@ -2,7 +2,7 @@
 
 namespace CSI.BatchTracker.ViewModels
 {
-    public class SearchCriteriaVisibilityManager : ViewModelBase
+    public sealed class SearchCriteriaVisibilityManager : ViewModelBase
     {
         public enum ActiveCriteriaPanel
         {
