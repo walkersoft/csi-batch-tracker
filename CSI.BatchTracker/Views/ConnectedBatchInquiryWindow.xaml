@@ -5,39 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
-        Title="Connected Batch Inquiry" 
-        SizeToContent="WidthAndHeight"
-        ResizeMode="NoResize">
-    <StackPanel Orientation="Vertical" Margin="10">
-        <Label Content="Inquiry Date Criteria" FontWeight="Bold"/>
-        <WrapPanel Orientation="Horizontal">
-            <Label Content="Select Starting Date:" Margin="0,0,5,0"/>
-            <DatePicker SelectedDate="{Binding SelectedDate}" Width="130" Margin="0,0,5,0" VerticalContentAlignment="Center"/>
-            <Button Content="Show Connected Batches" Width="160" Command="{Binding ShowConnectedBatchesCommand}"/>
-        </WrapPanel>
+        Title="Connected Batch Inquiry"
+        Width="550"
+        MinWidth="550"
+        Height="600"
+        MinHeight="600"
+        ResizeMode="CanResize">
 
-        <Separator Margin="0,10,0,0"/>
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
 
-        <WrapPanel Orientation="Vertical">
-            <Label Content="Connected Batches" FontWeight="Bold"/>
+        <GroupBox Grid.Row="0" Grid.Column="0"
+                  Margin="0 0 0 20"
+                  Header="Inquiry Date Criteria"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*" MinWidth="160"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                            
+                <TextBlock Grid.Row="0" Grid.Column="0" 
+                           Margin="0,0,10,0"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}">
+                           Select Starting Date:
+                </TextBlock>
+
+                <DatePicker Grid.Row="0" Grid.Column="1"                             
+                            Margin="0,0,10,0"
+                            SelectedDate="{Binding SelectedDate}"
+                            VerticalContentAlignment="Bottom"/>
+
+                <Button Grid.Row="0" Grid.Column="2" 
+                        Content="Show Connected Batches" 
+                        Command="{Binding ShowConnectedBatchesCommand}"/>
+            </Grid>
+
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0"
+                  Header="Connected Batches"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
             <DataGrid AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           CanUserDeleteRows="False"
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
                           IsReadOnly="True"
-                          MinHeight="250"
-                          Margin="0,0,0,5"
+                          Height="Auto"
                           HeadersVisibility="Column"
                           VerticalScrollBarVisibility="Visible"
                           VerticalContentAlignment="Stretch"
                           ItemsSource="{Binding ImplementedBatches}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
+                    <DataGridTextColumn Header="Color Name" Width="130" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
-                    <DataGridTextColumn Header="Date Implemented" Width="170" Binding="{Binding ActivityDate}"/>
+                    <DataGridTextColumn Header="Date Implemented" Width="1*" Binding="{Binding ActivityDate}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </WrapPanel>
-    </StackPanel>
+        </GroupBox>
+    </Grid>
 </Window>
