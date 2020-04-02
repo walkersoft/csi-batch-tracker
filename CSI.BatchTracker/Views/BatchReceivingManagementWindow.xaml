@@ -6,40 +6,71 @@
         xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Receiving Management"
-        SizeToContent="WidthAndHeight">
-    <StackPanel Orientation="Vertical" Margin="10">
+        Width="550" MinWidth="550"
+        Height="600" MinHeight="600"
+        ResizeMode="CanResize">
 
-        <Label Content="Receiving Header Data" FontWeight="Bold"/>
-        
-        <WrapPanel Margin="0,0,0,5">
-            <StackPanel Orientation="Vertical">                
-                <Label Content="PO Number"/>
-                <TextBox Width="100"
-                         Margin="0,0,5,0"
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Row="0" Grid.Column="0"
+                  Header="Receiving Header Data"
+                  Margin="0 0 0 20"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Row="0" Grid.Column="0" 
+                         Width="100"
+                         Margin="0 0 10 0"
+                         materialDesign:HintAssist.Hint="PO Number"
+                         VerticalAlignment="Bottom"
+                         VerticalContentAlignment="Bottom"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
-            </StackPanel>
 
-            <StackPanel Orientation="Vertical">
-                <Label Content="Receiving Date"/>
-                <DatePicker Width="110" 
-                            VerticalContentAlignment="Center"
-                            Margin="0,0,5,0"
+                <DatePicker Grid.Row="0" Grid.Column="1" Width="120" 
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Bottom"
+                            materialDesign:HintAssist.Hint="Receiving Date"
+                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}">
                     <DatePicker.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </DatePicker.InputBindings>
                 </DatePicker>
-            </StackPanel>
 
-            <StackPanel>
-                <Label Content="Receiving Operator"/>
-                <ComboBox Width="150" 
-                          VerticalContentAlignment="Center"
+                <ComboBox Grid.Row="0" Grid.Column="2" 
+                          Width="170" 
+                          materialDesign:HintAssist.Hint="Receiving Operator"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           ItemsSource="{Binding BatchOperatorRepository, UpdateSourceTrigger=PropertyChanged}"
                           DisplayMemberPath="FullName"
                           SelectedIndex="{Binding ReceivingOperatorComboBoxIndex}">
@@ -47,84 +78,112 @@
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </ComboBox.InputBindings>
                 </ComboBox>
-            </StackPanel>
-            
-        </WrapPanel>
 
-        <Separator Width="Auto"/>
+            </Grid>
+        </GroupBox>
 
-        <Label Content="Line Item Detail Data" FontWeight="Bold"/>
+        <GroupBox Grid.Row="1" Grid.Column="0"
+                  Header="Line Item Detail"
+                  Margin="0 0 0 20"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-        <WrapPanel>
-
-            <StackPanel Orientation="Vertical">
-                <Label Content="Color"/>
-                <ComboBox Width="110" 
+                <ComboBox Grid.Row="0" Grid.Column="0" 
+                          Width="140" 
+                          materialDesign:HintAssist.Hint="Select Color"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          VerticalAlignment="Bottom"
                           VerticalContentAlignment="Center"
-                          Margin="0,0,5,0"                          
+                          Margin="0,0,10,0"                          
                           ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
                           SelectedIndex="{Binding ColorSelectionComboBoxIndex}">
                     <ComboBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </ComboBox.InputBindings>
                 </ComboBox>
-            </StackPanel>
 
-            <StackPanel Orientation="Vertical">
-                <Label Content="Batch Number"/>
-                <TextBox Width="120"
-                         VerticalContentAlignment="Center"
+                <TextBox Grid.Row="0" Grid.Column="1" 
+                         Width="140"
+                         Margin="0 0 10 0"
+                         materialDesign:HintAssist.Hint="Batch Number"
+                         VerticalContentAlignment="Bottom"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
-            </StackPanel>
 
-            <StackPanel>
-                <Label Content="Quantity"/>
-                <TextBox Width="40"
-                         VerticalContentAlignment="Center"
+                <TextBox Grid.Row="0" Grid.Column="2" 
+                         Width="40"
+                         Margin="0 0 10 0"
+                         materialDesign:HintAssist.Hint="Qty"
+                         VerticalContentAlignment="Bottom"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
-            </StackPanel>            
 
-            <Button Width="75" Height="Auto" VerticalAlignment="Bottom" Content="Add Batch"
-                    Command="{Binding AddBatchToSessionLedgerCommand}"/>
-        </WrapPanel>
+                <Button Grid.Row="0" Grid.Column="3"
+                        VerticalAlignment="Bottom" Content="Add Batch"
+                        Command="{Binding AddBatchToSessionLedgerCommand}"/>
 
-        <StackPanel Orientation="Vertical">
-            <Label Content="Session Ledger" FontWeight="Bold"/>
-            <DataGrid Width="365"
-                      Height="200"
-                      Margin="0,0,0,5"
-                      HorizontalAlignment="Left" 
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      CanUserReorderColumns="False"
-                      CanUserSortColumns="False"
-                      HeadersVisibility="Column"
-                      IsReadOnly="True"
-                      ItemsSource="{Binding SessionLedger}"
-                      SelectedIndex="{Binding SessionLedgerSelectedIndex}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
-                    <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
-                    <DataGridTextColumn Header="Qty. Received" Width="90" Binding="{Binding Quantity}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <WrapPanel>
-                <Button Width="120" 
-                        Margin="0,0,5,0" 
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Grid.Column="0"
+                  Header="Session Ledger"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                    
+                    <DataGrid
+                        Grid.Row="0" Grid.Column="0"
+                        Margin="0 0 0 10"
+                        HorizontalAlignment="Left" 
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserSortColumns="False"
+                        HeadersVisibility="Column"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding SessionLedger}"
+                        SelectedIndex="{Binding SessionLedgerSelectedIndex}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
+                        <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
+                        <DataGridTextColumn Header="Qty. Received" Width="1*" Binding="{Binding Quantity}"/>
+                    </DataGrid.Columns>                    
+                </DataGrid>
+
+                <WrapPanel Grid.Row="1" Grid.Column="0">
+                    <Button 
+                        Margin="0,0,10,0" 
                         Content="Remove Selected"
                         Command="{Binding RemoveSelectedItemFromSessionLedgerCommand}"/>
-                <Button Width="120" 
+                    <Button
                         Content="Commit Changes"
                         Command="{Binding CommitSessionLedgerToReceivingLedgerCommand}"/>
-            </WrapPanel>
-        </StackPanel>
-    </StackPanel>
+                </WrapPanel>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
 </Window>
