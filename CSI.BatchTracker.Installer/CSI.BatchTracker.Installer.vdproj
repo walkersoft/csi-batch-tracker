@@ -51,6 +51,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_46EF0097D26D709F81C1F0064770556F"
+        "OwnerKey" = "8:_5D1437850698459C9C5C43E9F39B302A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_46EF0097D26D709F81C1F0064770556F"
+        "OwnerKey" = "8:_F4BFAFDE4DD2177A50709FFDC0E33C8B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_569073328131EACDF2421227B86C1150"
         "OwnerKey" = "8:_5D1437850698459C9C5C43E9F39B302A"
         "MsmSig" = "8:_UNDEFINED"
@@ -99,6 +111,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F4BFAFDE4DD2177A50709FFDC0E33C8B"
+        "OwnerKey" = "8:_5D1437850698459C9C5C43E9F39B302A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_FD35B83B955BF87B73930A8F52C06725"
         "OwnerKey" = "8:_5D1437850698459C9C5C43E9F39B302A"
         "MsmSig" = "8:_UNDEFINED"
@@ -131,6 +149,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C0C6FF2D6EAFB1058DD83F5FE3BAD7AA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F4BFAFDE4DD2177A50709FFDC0E33C8B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_46EF0097D26D709F81C1F0064770556F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -432,6 +462,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_46EF0097D26D709F81C1F0064770556F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MaterialDesignColors, Version=1.2.2.920, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_46EF0097D26D709F81C1F0064770556F"
+                    {
+                    "Name" = "8:MaterialDesignColors.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MaterialDesignColors.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_66F548679E2B4539876D6DE0000A0987"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_569073328131EACDF2421227B86C1150"
             {
             "AssemblyRegister" = "3:1"
@@ -638,6 +699,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F4BFAFDE4DD2177A50709FFDC0E33C8B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MaterialDesignThemes.Wpf, Version=3.0.1.920, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_F4BFAFDE4DD2177A50709FFDC0E33C8B"
+                    {
+                    "Name" = "8:MaterialDesignThemes.Wpf.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MaterialDesignThemes.Wpf.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_66F548679E2B4539876D6DE0000A0987"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FD35B83B955BF87B73930A8F52C06725"
             {
             "AssemblyRegister" = "3:1"
@@ -725,15 +817,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BatchTRAX"
-        "ProductCode" = "8:{DD047C48-59E6-468D-B888-36187D710C85}"
-        "PackageCode" = "8:{85D654EB-34A4-4F9D-BCD6-DDC1C0BAF886}"
+        "ProductCode" = "8:{68916A87-BF3E-43B6-9BE7-D281FFB7A17A}"
+        "PackageCode" = "8:{CEA118A7-3C09-4076-A0D0-3E195C3C6028}"
         "UpgradeCode" = "8:{86FE28B7-0379-4DB1-A686-2B1CF6E3A6BB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.7"
+        "ProductVersion" = "8:0.8"
         "Manufacturer" = "8:Cedar Siding Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
