@@ -175,6 +175,7 @@ namespace CSI.BatchTracker.ViewModels
         {
             return ImplementableBatchSelectedIndex > -1
                 && ImplementationDateTime != null
+                && ImplementationDateTime.Value <= DateTime.Now
                 && ImplementingBatchOperatorSelectedIndex > -1;
         }
 

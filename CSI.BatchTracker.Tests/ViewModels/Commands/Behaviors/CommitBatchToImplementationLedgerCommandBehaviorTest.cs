@@ -20,6 +20,14 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
         }
 
         [Test]
+        public void CommandWillNotExecuteIfImplementDateIsInTheFuture()
+        {
+            SetupViewModelStateToImplementBatch();
+            viewModel.ImplementationDateTime = viewModel.ImplementationDateTime.Value.AddHours(1);
+            Assert.False(command.CanExecute(null));
+        }
+
+        [Test]
         public void CommandExecuteStateWillBeTrueIfBatchAndDateAndOperatorAreSelected()
         {
             SetupViewModelStateToImplementBatch();
