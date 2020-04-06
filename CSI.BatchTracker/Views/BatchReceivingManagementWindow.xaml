@@ -60,7 +60,7 @@
                             Margin="0,0,10,0"
                             VerticalAlignment="Bottom"
                             materialDesign:HintAssist.Hint="Receiving Date"
-                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}">
                     <DatePicker.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding AddBatchToSessionLedgerCommand}"/>
