@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.ViewModels;
+using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Windows;
 
 namespace CSI.BatchTracker.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         MainWindowViewModel viewModel;
 

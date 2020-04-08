@@ -1,24 +1,15 @@
-﻿<Window x:Class="CSI.BatchTracker.Views.MainWindow"
+﻿<Controls:MetroWindow x:Class="CSI.BatchTracker.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="14"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         Width="1300" MinWidth="1300"
         Height="900" MinHeight="900"
         ResizeMode="CanResize"
-        WindowState="Maximized"
         Title="{Binding WindowTitle}">
     <Grid>
         <Grid.RowDefinitions>
@@ -31,78 +22,108 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Menu Margin="0,0,0,5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <Menu.Background>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientActiveCaptionColorKey}}"/>
-            </Menu.Background>
+        <Menu Grid.Row="0" 
+              Grid.Column="0" 
+              Grid.ColumnSpan="2" 
+              Margin="0,0,0,5" >
+            
             <MenuItem Header="_Batch Management">
-                <MenuItem Header="_Receiving Session" Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
-                <MenuItem Header="Receiving _History" Command="{Binding LaunchReceivingHistorySessionViewerCommand}"/>
-                <MenuItem Header="Individual _Batch History" Command="{Binding LaunchBatchHistoryViewerCommand}"/>
-                <MenuItem Header="_Connected Batch Inquiry" Command="{Binding LaunchConnectedBatchInquiryViewerCommand}"/>
+                <MenuItem Header="_Receiving Session" 
+                          Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
+                <MenuItem Header="Receiving _History" 
+                          Command="{Binding LaunchReceivingHistorySessionViewerCommand}"/>
+                <MenuItem Header="Individual _Batch History" 
+                          Command="{Binding LaunchBatchHistoryViewerCommand}"/>
+                <MenuItem Header="_Connected Batch Inquiry" 
+                          Command="{Binding LaunchConnectedBatchInquiryViewerCommand}"/>
             </MenuItem>
+            
             <MenuItem Header="_People">
-                <MenuItem Header="Batch _Operator Management" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
+                <MenuItem Header="Batch _Operator Management" 
+                          Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
+            
             <MenuItem Header="Data Source">
-                <MenuItem Header="Attach Database" Click="AttachDatabase"/>
+                <MenuItem Header="Attach Database" 
+                          Click="AttachDatabase"/>
                 <MenuItem Header="Backup Tools">
-                    <MenuItem Header="Create Database Backup" Click="CreateDatabaseBackup"/>
-                    <MenuItem Header="Auto-Backup on Start" Command="{Binding AutoBackupToggleCommand}" IsCheckable="True" IsChecked="{Binding AutoBackupToggleState}"/>
+                    <MenuItem Header="Create Database Backup" 
+                              Click="CreateDatabaseBackup"/>
+                    <MenuItem Header="Auto-Backup on Start" 
+                              Command="{Binding AutoBackupToggleCommand}" 
+                              IsCheckable="True" 
+                              IsChecked="{Binding AutoBackupToggleState}"/>
                 </MenuItem>
             </MenuItem>
+            
         </Menu>
 
-        <GroupBox Grid.Row="1" Grid.Column="0"
+        <GroupBox Grid.Row="1" 
+                  Grid.Column="0"
                   Header="Current Inventory"
-                  Margin="20 0 0 20"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+                  Margin="20 0 0 20">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                
-                <WrapPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                    <Label Content="(Total Inventory Items: " FontWeight="Bold" Padding="0,5,0,5"/>
-                    <Label Content="{Binding TotalInventoryCount}" FontWeight="Bold" Padding="0,5,0,5"/>
-                    <Label Content=")" FontWeight="Bold" Padding="0,5,0,5"/>
-                </WrapPanel>
 
-                <DataGrid Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              CanUserReorderColumns="False"
-                              CanUserSortColumns="False"
-                              IsReadOnly="True"
-                              HeadersVisibility="Column"
-                              VerticalScrollBarVisibility="Visible"
-                              ItemsSource="{Binding CurrentInventory}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
-                        <DataGridTextColumn Header="Batch Number" Width="140" Binding="{Binding BatchNumber}"/>
-                        <DataGridTextColumn Header="Quantity" Width="Auto" Binding="{Binding Quantity}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-        </GroupBox>
-
-        <GroupBox Grid.Row="2" Grid.Column="0"
-                  Header="Average Usage (30 Day Average)"
-                  Margin="20 0 0 20"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
-            <DataGrid AutoGenerateColumns="False"
+                <DataGrid Grid.Row="0" 
+                          Grid.Column="0" 
+                          AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           CanUserDeleteRows="False"
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
                           IsReadOnly="True"
                           HeadersVisibility="Column"
-                          HorizontalContentAlignment="Stretch"
-                          ItemsSource="{Binding AverageBatchList}">
+                          VerticalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding CurrentInventory}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Color Name" 
+                                            Width="120" 
+                                            Binding="{Binding ColorName}"/>
+                        <DataGridTextColumn Header="Batch Number" 
+                                            Width="140" 
+                                            Binding="{Binding BatchNumber}"/>
+                        <DataGridTextColumn Header="Quantity" 
+                                            Width="Auto" 
+                                            Binding="{Binding Quantity}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                
+                <WrapPanel Grid.Row="1" 
+                           Grid.Column="0" 
+                           Orientation="Horizontal">
+                    <Label Content="(Total Inventory Items: " 
+                           FontWeight="Bold" 
+                           Padding="0,5,0,5"/>
+                    <Label Content="{Binding TotalInventoryCount}" 
+                           FontWeight="Bold" 
+                           Padding="0,5,0,5"/>
+                    <Label Content=")" 
+                           FontWeight="Bold" 
+                           Padding="0,5,0,5"/>
+                </WrapPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" 
+                  Grid.Column="0"
+                  Header="Average Usage (30 Day Average)"
+                  Margin="20 0 0 20">
+            <DataGrid AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserSortColumns="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      HorizontalContentAlignment="Stretch"
+                      ItemsSource="{Binding AverageBatchList}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Qty. Used" Width="100" Binding="{Binding QuantityUsed}"/>
@@ -111,7 +132,10 @@
             </DataGrid>
         </GroupBox>
 
-        <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="20 0 20 0">
+        <Grid Grid.Row="1" 
+              Grid.Column="1" 
+              Grid.RowSpan="2" 
+              Margin="20 0 20 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="1*"/>
@@ -120,74 +144,54 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <GroupBox Grid.Row="0" Grid.Column="0"
-                  Header="Batch Implement"
-                  Margin="0 0 0 20"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <GroupBox Grid.Row="0" 
+                      Grid.Column="0"
+                      Header="Batch Implement"
+                      Margin="0 0 0 20">
                 <StackPanel Orientation="Horizontal">
-                        <ComboBox Width="200" 
-                                  Margin="0 0 10 0"
-                                  VerticalAlignment="Bottom" 
-                                  materialDesign:HintAssist.Hint="Select Batch"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  SelectedIndex="{Binding ImplementableBatchSelectedIndex}"
-                                  ItemsSource="{Binding CurrentInventory}"
-                                  DisplayMemberPath="DisplayName">
-                            <ComboBox.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                            </ComboBox.InputBindings>
-                        </ComboBox>
-                    <DatePicker Width="130"
-                                  Margin="0 0 10 0"
-                                    VerticalAlignment="Bottom"
-                                    materialDesign:HintAssist.Hint="Implement Date"
-                                SelectedDate="{Binding ImplementationDateTime}"
-                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
-                        <DatePicker.InputBindings>
+                    <ComboBox Width="200" 
+                                Margin="0 0 10 0"
+                                VerticalAlignment="Bottom" 
+                                Controls:TextBoxHelper.Watermark="Select Batch"
+                                SelectedIndex="{Binding ImplementableBatchSelectedIndex}"
+                                ItemsSource="{Binding CurrentInventory}"
+                                DisplayMemberPath="DisplayName">
+                        <ComboBox.InputBindings>
                             <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                        </DatePicker.InputBindings>
-                    </DatePicker>
-                    <materialDesign:TimePicker
-                                    Width="130"
-                                    Margin="0 0 10 0"
-                                    VerticalAlignment="Bottom"
-                                    SelectedTime="{Binding ImplementationDateTime}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                                    materialDesign:HintAssist.Hint="Implement Time">
-                        <materialDesign:TimePicker.InputBindings>
+                        </ComboBox.InputBindings>
+                    </ComboBox>
+                    
+                    <Controls:DateTimePicker Width="200"
+                                             Margin="0 0 10 0"
+                                             Controls:TextBoxHelper.Watermark="Implement Date &amp; Time"
+                                             SelectedDate="{Binding ImplementationDateTime}">
+                        <Controls:DateTimePicker.InputBindings>
                             <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                        </materialDesign:TimePicker.InputBindings>
-                    </materialDesign:TimePicker>
-                    <!--
-                        <xceed:DateTimePicker Width="270" Height="22" Value="{Binding ImplementationDateTime}">
-                            <xceed:DateTimePicker.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                            </xceed:DateTimePicker.InputBindings>
-                        </xceed:DateTimePicker>
-                        -->
+                        </Controls:DateTimePicker.InputBindings>
+                    </Controls:DateTimePicker>
+                    
                     <ComboBox Width="200"
-                                  Margin="0 0 10 0"
+                              Margin="0 0 10 0"
                               VerticalAlignment="Bottom"
-                                  materialDesign:HintAssist.Hint="Select Operator"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  SelectedIndex="{Binding ImplementingBatchOperatorSelectedIndex}"
-                                  ItemsSource="{Binding OperatorRepository}"
-                                  DisplayMemberPath="FullName">
-                            <ComboBox.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                            </ComboBox.InputBindings>
-                        </ComboBox>
+                              Controls:TextBoxHelper.Watermark="Select Operator"
+                              SelectedIndex="{Binding ImplementingBatchOperatorSelectedIndex}"
+                              ItemsSource="{Binding OperatorRepository}"
+                              DisplayMemberPath="FullName">
+                        <ComboBox.InputBindings>
+                            <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
+                        </ComboBox.InputBindings>
+                    </ComboBox>
+                    
                     <Button VerticalAlignment="Bottom" 
                             Content="Commit Batch"
                             Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Grid.Row="1" Grid.Column="0"
-                  Header="Implementation Ledger (30 Days from Latest Batch)"
-                  Margin="0 0 0 20"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
-
+            <GroupBox Grid.Row="1" 
+                      Grid.Column="0"
+                      Header="Implementation Ledger (30 Days from Latest Batch)"
+                      Margin="0 0 0 20">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -196,19 +200,21 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid Grid.Row="0" Grid.Column="0" 
+
+                    <DataGrid Grid.Row="0" 
+                              Grid.Column="0" 
                               AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"
-                          Margin="0,0,0,10"
-                          HeadersVisibility="Column"
-                          VerticalScrollBarVisibility="Visible"
-                          VerticalContentAlignment="Stretch"
-                          ItemsSource="{Binding ImplementedBatchLedger}"
-                          SelectedIndex="{Binding ImplementedBatchSelectedIndex}">
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              CanUserReorderColumns="False"
+                              CanUserSortColumns="False"
+                              IsReadOnly="True"
+                              Margin="0,0,0,10"
+                              HeadersVisibility="Column"
+                              VerticalScrollBarVisibility="Visible"
+                              VerticalContentAlignment="Stretch"
+                              ItemsSource="{Binding ImplementedBatchLedger}"
+                              SelectedIndex="{Binding ImplementedBatchSelectedIndex}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Color Name" Width="150" Binding="{Binding ColorName}"/>
                             <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
@@ -216,177 +222,28 @@
                             <DataGridTextColumn Header="Implementing Operator" Width="Auto" Binding="{Binding ImplementingOperator.FullName}"/>
                         </DataGrid.Columns>
                         <DataGrid.InputBindings>
-                            <MouseBinding 
-                            MouseAction="LeftDoubleClick"
-                            Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
                         </DataGrid.InputBindings>
                     </DataGrid>
-                    <WrapPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                    
+                    <WrapPanel Grid.Row="1" 
+                               Grid.Column="0" 
+                               Orientation="Horizontal">
+                        
                         <Button Content="Return Selected Batch to Inventory" 
-                            HorizontalAlignment="Left" 
-                            Margin="0,0,10,0"
-                            Command="{Binding UndoSelectedImplementedBatchCommand}"/>
+                                HorizontalAlignment="Left" 
+                                Margin="0,0,10,0"
+                                Command="{Binding UndoSelectedImplementedBatchCommand}"/>
+                        
                         <Button Content="View History of Selected Batch" 
-                            HorizontalAlignment="Left" 
-                            Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
+                                HorizontalAlignment="Left" 
+                                Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
                     </WrapPanel>
+                    
                 </Grid>
             </GroupBox>
 
         </Grid>
-    </Grid>
-    <!--
-    <StackPanel Orientation="Vertical">
-        <Menu Margin="0,0,0,5" Background="#FFE0EFFF">
-            <MenuItem Header="_Batch Management">
-                <MenuItem Header="_Receiving Session" Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
-                <MenuItem Header="Receiving _History" Command="{Binding LaunchReceivingHistorySessionViewerCommand}"/>
-                <MenuItem Header="Individual _Batch History" Command="{Binding LaunchBatchHistoryViewerCommand}"/>
-                <MenuItem Header="_Connected Batch Inquiry" Command="{Binding LaunchConnectedBatchInquiryViewerCommand}"/>
-            </MenuItem>
-            <MenuItem Header="_People">
-                <MenuItem Header="Batch _Operator Management" Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
-            </MenuItem>
-            <MenuItem Header="Data Source">
-                <MenuItem Header="Attach Database" Click="AttachDatabase"/>
-                <MenuItem Header="Backup Tools">
-                    <MenuItem Header="Create Database Backup" Click="CreateDatabaseBackup"/>
-                    <MenuItem Header="Auto-Backup on Start" Command="{Binding AutoBackupToggleCommand}" IsCheckable="True" IsChecked="{Binding AutoBackupToggleState}"/>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
-
-        <WrapPanel Orientation="Horizontal" Margin="5">
-            <StackPanel Orientation="Vertical">
-                <WrapPanel Orientation="Horizontal">
-                    <Label Content="Current Inventory" FontWeight="Bold"/>
-                    <Label Content="(Total Inventory Items: " Padding="0,5,0,5"/>
-                    <Label Content="{Binding TotalInventoryCount}" Padding="0,5,0,5"/>
-                    <Label Content=")" Padding="0,5,0,5"/>
-                </WrapPanel>
-                <DataGrid AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"
-                          MinHeight="200"
-                          MaxHeight="200"
-                          HeadersVisibility="Column"
-                          HorizontalContentAlignment="Stretch"
-                          VerticalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding CurrentInventory}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
-                        <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
-                        <DataGridTextColumn Header="Quantity" Width="80" Binding="{Binding Quantity}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-
-                <Label Content="Average Usage (Last 30 days)" FontWeight="Bold"/>
-                <DataGrid AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"                          
-                          MinHeight="200"
-                          MaxHeight="200"
-                          HeadersVisibility="Column"
-                          HorizontalContentAlignment="Stretch"
-                          ItemsSource="{Binding AverageBatchList}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
-                        <DataGridTextColumn Header="Qty. Used" Width="80" Binding="{Binding QuantityUsed}"/>
-                        <DataGridTextColumn Header="Avg. Daily Usage" Width="130" Binding="{Binding DisplayUsage}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="Gray" Margin="5,0,5,0"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Vertical">
-                <Label Content="Implement Batch" FontWeight="Bold"/>
-                <WrapPanel Orientation="Horizontal">
-                    <StackPanel Orientation="Vertical" Margin="0,0,5,0">
-                        <Label Content="Batch"/>
-                        <ComboBox Width="160" 
-                                  SelectedIndex="{Binding ImplementableBatchSelectedIndex}"
-                                  ItemsSource="{Binding CurrentInventory}"
-                                  DisplayMemberPath="DisplayName">
-                            <ComboBox.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                            </ComboBox.InputBindings>
-                        </ComboBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="0,0,5,0">
-                        <Label Content="Implementation Date &amp; Time"/>
-                        <xceed:DateTimePicker Width="270" Height="22" Value="{Binding ImplementationDateTime}">
-                            <xceed:DateTimePicker.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                            </xceed:DateTimePicker.InputBindings>
-                        </xceed:DateTimePicker>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="0,0,5,0">
-                        <Label Content="Implementing Operator"/>
-                        <ComboBox Width="130"
-                                  SelectedIndex="{Binding ImplementingBatchOperatorSelectedIndex}"
-                                  ItemsSource="{Binding OperatorRepository}"
-                                  DisplayMemberPath="FullName">
-                            <ComboBox.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                            </ComboBox.InputBindings>
-                        </ComboBox>
-                    </StackPanel>
-                    <Button VerticalAlignment="Bottom" 
-                            Width="100" 
-                            Content="Commit Batch"
-                            Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
-                </WrapPanel>
-
-                <Label Content="Implementation Ledger (Last 30 days)" FontWeight="Bold"/>
-                <DataGrid AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"
-                          MinHeight="320"
-                          MaxHeight="320"
-                          Margin="0,0,0,5"
-                          HeadersVisibility="Column"
-                          VerticalScrollBarVisibility="Visible"
-                          VerticalContentAlignment="Stretch"
-                          ItemsSource="{Binding ImplementedBatchLedger}"
-                          SelectedIndex="{Binding ImplementedBatchSelectedIndex}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
-                        <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
-                        <DataGridTextColumn Header="Date Implemented" Width="170" Binding="{Binding ActivityDate}"/>
-                        <DataGridTextColumn Header="Implementing Operator" Width="170" Binding="{Binding ImplementingOperator.FullName}"/>
-                    </DataGrid.Columns>
-                    <DataGrid.InputBindings>
-                        <MouseBinding 
-                            MouseAction="LeftDoubleClick"
-                            Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
-                    </DataGrid.InputBindings>
-                </DataGrid>
-                <WrapPanel Orientation="Horizontal">
-                    <Button Content="Return Selected Batch to Inventory" 
-                            Width="230" 
-                            HorizontalAlignment="Left" 
-                            Margin="0,0,5,0"
-                            Command="{Binding UndoSelectedImplementedBatchCommand}"/>
-                    <Button Content="View History of Selected Batch" 
-                            Width="230" 
-                            HorizontalAlignment="Left" 
-                            Margin="0,0,5,0"
-                            Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
-                </WrapPanel>
-            </StackPanel>
-        </WrapPanel>
-    </StackPanel>
-    -->
-</Window>
+    </Grid>    
+</Controls:MetroWindow>
