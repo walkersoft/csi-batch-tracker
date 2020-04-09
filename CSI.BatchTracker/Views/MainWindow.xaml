@@ -1,16 +1,16 @@
 ﻿<Controls:MetroWindow x:Class="CSI.BatchTracker.Views.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:local="clr-namespace:CSI.BatchTracker.Views"
-        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d"
-        Width="1300" MinWidth="1300"
-        Height="900" MinHeight="900"
-        ResizeMode="CanResize"
-        Title="{Binding WindowTitle}">
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:local="clr-namespace:CSI.BatchTracker.Views"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      mc:Ignorable="d"
+                      Width="1300" MinWidth="1300"
+                      Height="900" MinHeight="900"
+                      ResizeMode="CanResize"
+                      Title="{Binding WindowTitle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
