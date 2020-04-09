@@ -1,17 +1,17 @@
 ﻿<Controls:MetroWindow x:Class="CSI.BatchTracker.Views.ConnectedBatchInquiryWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:local="clr-namespace:CSI.BatchTracker.Views"
-        mc:Ignorable="d"
-        Title="Connected Batch Inquiry"
-        Width="550"
-        MinWidth="550"
-        Height="600"
-        MinHeight="600"
-        ResizeMode="CanResize">
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:local="clr-namespace:CSI.BatchTracker.Views"
+                      mc:Ignorable="d"
+                      Title="Connected Batch Inquiry"
+                      Width="550"
+                      MinWidth="550"
+                      Height="600"
+                      MinHeight="600"
+                      ResizeMode="CanResize">
 
     <Grid Margin="15">
         <Grid.RowDefinitions>
