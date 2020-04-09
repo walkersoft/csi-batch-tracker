@@ -1,25 +1,18 @@
-﻿<Window x:Class="CSI.BatchTracker.Views.BatchHistoryWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:local="clr-namespace:CSI.BatchTracker.Views"
-        mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="14"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        Width="800"
-        MinWidth="870"
-        Height="700"
-        MinHeight="700"
-        Title="Batch History"  
-        ResizeMode="CanResize">
+﻿<Controls:MetroWindow x:Class="CSI.BatchTracker.Views.BatchHistoryWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:local="clr-namespace:CSI.BatchTracker.Views"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      mc:Ignorable="d"
+                      Width="800"
+                      MinWidth="870"
+                      Height="700"
+                      MinHeight="700"
+                      Title="Batch History"  
+                      ResizeMode="CanResize"> 
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -31,10 +24,10 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="0" Grid.Column="0"
+        <GroupBox Grid.Row="0" 
+                  Grid.Column="0"
                   Margin="0 0 0 20"
-                  Header="Batch Lookup"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+                  Header="Batch Lookup">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -46,59 +39,63 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" 
+                <TextBlock Grid.Row="0" 
+                           Grid.Column="0" 
                            Margin="0,0,10,0"
                            Padding="0 8 0 0"
-                           VerticalAlignment="Center"
-                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}">
+                           VerticalAlignment="Center">
                            Enter a Batch Number:
                 </TextBlock>
 
-                <TextBox Grid.Row="0" Grid.Column="1" 
+                <TextBox Grid.Row="0" 
+                         Grid.Column="1" 
                          MinWidth="200" 
                          Margin="0,0,10,0"
-                         materialDesign:HintAssist.Hint="Batch Number"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Controls:TextBoxHelper.Watermark="Batch Number"
                          Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding RetrieveBatchDataHistoryCommand}"/>
+                        <KeyBinding Key="Return" 
+                                    Command="{Binding RetrieveBatchDataHistoryCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
                 
-                <Button Grid.Row="0" Grid.Column="2" 
+                <Button Grid.Row="0" 
+                        Grid.Column="2" 
                         VerticalAlignment="Bottom"
                         Content="Show History"
                         Command="{Binding RetrieveBatchDataHistoryCommand}"/>
 
-                <WrapPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                <WrapPanel Grid.Row="1" 
+                           Grid.Column="0" 
+                           Grid.ColumnSpan="3"
                            Orientation="Horizontal">
-                    <TextBlock Grid.Row="0" Grid.Column="0" 
-                           Margin="0 20 20 10"
-                           Text="Showing data for:"
-                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0" 
-                           Margin="0 20 20 10"
-                           MinWidth="150"
-                           Text="{Binding RetrievedBatchNumber}"
-                           FontWeight="Bold"
-                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0" 
-                           Margin="0 20 20 10"
-                           Text="Quantity in Inventory:"
-                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0" 
-                           Margin="0 20 20 10"
-                           Text="{Binding AmountInInventory}"
-                           FontWeight="Bold"
-                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+                    <TextBlock Grid.Row="0" 
+                               Grid.Column="0" 
+                               Margin="0 20 20 10"
+                               Text="Showing data for:"/>
+                    <TextBlock Grid.Row="0" 
+                               Grid.Column="0" 
+                               Margin="0 20 20 10"
+                               MinWidth="150"
+                               Text="{Binding RetrievedBatchNumber}"
+                               FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" 
+                               Grid.Column="0" 
+                               Margin="0 20 20 10"
+                               Text="Quantity in Inventory:"/>
+                    <TextBlock Grid.Row="0" 
+                               Grid.Column="0" 
+                               Margin="0 20 20 10"
+                               Text="{Binding AmountInInventory}"
+                               FontWeight="Bold"/>
                 </WrapPanel>
             </Grid>            
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0"
+        <GroupBox Grid.Row="1" 
+                  Grid.Column="0"
                   Margin="0 0 0 20"
-                  Header="Receiving History"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+                  Header="Receiving History">
             <DataGrid CanUserAddRows="False"
                       CanUserReorderColumns="False"
                       CanUserDeleteRows="False"
@@ -119,10 +116,10 @@
             </DataGrid>
         </GroupBox>
         
-        <GroupBox Grid.Row="2" Grid.Column="0"
+        <GroupBox Grid.Row="2" 
+                  Grid.Column="0"
                   Margin="0 0 0 20"
-                  Header="Implementation History"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+                  Header="Implementation History">
             <DataGrid CanUserAddRows="False"
                       CanUserReorderColumns="False"
                       CanUserDeleteRows="False"
@@ -142,4 +139,4 @@
             </DataGrid>
         </GroupBox>
     </Grid>
-</Window>
+</Controls:MetroWindow>
