@@ -1,23 +1,16 @@
-﻿<Window x:Class="CSI.BatchTracker.Views.ReceivingHistoryWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:local="clr-namespace:CSI.BatchTracker.Views"
-        mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="14"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Receiving History"
-        Width="850" MinWidth="850"
-        Height="600" MinHeight="600"
-        ResizeMode="CanResize">
+﻿<Controls:MetroWindow x:Class="CSI.BatchTracker.Views.ReceivingHistoryWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:local="clr-namespace:CSI.BatchTracker.Views"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      mc:Ignorable="d"
+                      Title="Receiving History"
+                      Width="850" MinWidth="850"
+                      Height="600" MinHeight="600"
+                      ResizeMode="CanResize">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,17 +20,20 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+        
+        <GroupBox Grid.Row="0" 
+                  Grid.Column="0" 
+                  Grid.ColumnSpan="2"
                   Header="Receiving Session Lookup"
-                  Margin="0 0 0 20"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+                  Margin="0 0 0 20">
+            
             <StackPanel Orientation="Horizontal">
+                
                 <ComboBox Width="140" 
-                      Margin="0,0,5,0"
-                      VerticalContentAlignment="Center"
-                      materialDesign:HintAssist.Hint="Search Criteria"
-                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"    
-                      SelectedIndex="{Binding SearchCriteriaSelectedIndex, UpdateSourceTrigger=PropertyChanged}">
+                          Margin="0,0,5,0"
+                          VerticalContentAlignment="Center"
+                          Controls:TextBoxHelper.Watermark="Search Criteria"  
+                          SelectedIndex="{Binding SearchCriteriaSelectedIndex, UpdateSourceTrigger=PropertyChanged}">
                     <input:Interaction.Triggers>
                         <input:EventTrigger EventName="SelectionChanged">
                             <input:InvokeCommandAction Command="{Binding ChangeSearchCriteriaPanelVisibility}"/>
@@ -48,58 +44,71 @@
                     <ComboBoxItem Content="Specific Date"/>
                     <ComboBoxItem Content="PO Number"/>
                 </ComboBox>
-                <StackPanel Visibility="{Binding VisibilityManager.DateRangeCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
+                
+                <StackPanel Visibility="{Binding VisibilityManager.DateRangeCriteriaVisibility}" 
+                            Orientation="Horizontal" 
+                            Margin="0,0,5,0">
                     <DatePicker Width="120" 
-                            VerticalAlignment="Bottom"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                            materialDesign:HintAssist.Hint="Start Date"
-                            SelectedDate="{Binding DateRangeStartingDate, UpdateSourceTrigger=PropertyChanged}"/>
+                                VerticalAlignment="Bottom"
+                                Controls:TextBoxHelper.Watermark="Start Date"
+                                SelectedDate="{Binding DateRangeStartingDate, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Content="to" Margin="10 0 10 0" VerticalAlignment="Bottom"/>
                     <DatePicker Width="120"
-                            VerticalAlignment="Bottom"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                            materialDesign:HintAssist.Hint="End Date"
-                            SelectedDate="{Binding DateRangeEndingDate, UpdateSourceTrigger=PropertyChanged}"/>
+                                VerticalAlignment="Bottom"
+                                Controls:TextBoxHelper.Watermark="End Date"
+                                SelectedDate="{Binding DateRangeEndingDate, UpdateSourceTrigger=PropertyChanged}"/>
 
                 </StackPanel>
-                <StackPanel Visibility="{Binding VisibilityManager.DatePeriodCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
+                
+                <StackPanel Visibility="{Binding VisibilityManager.DatePeriodCriteriaVisibility}" 
+                            Orientation="Horizontal" 
+                            Margin="0,0,5,0">
                     <ComboBox Width="120"
-                          VerticalAlignment="Bottom"
-                          materialDesign:HintAssist.Hint="Select Period"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          SelectedIndex="{Binding DatePeriodSelectedIndex}">
+                              VerticalAlignment="Bottom"
+                              Controls:TextBoxHelper.Watermark="Select Period"
+                              SelectedIndex="{Binding DatePeriodSelectedIndex}">
                         <ComboBoxItem Content="Last 30 Days"/>
                         <ComboBoxItem Content="Last 90 Days"/>
                         <ComboBoxItem Content="Last Year"/>
                     </ComboBox>
                 </StackPanel>
-                <StackPanel Visibility="{Binding VisibilityManager.SpecificDateCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
+                
+                <StackPanel Visibility="{Binding VisibilityManager.SpecificDateCriteriaVisibility}" 
+                            Orientation="Horizontal" 
+                            Margin="0,0,5,0">
                     <DatePicker Width="120"
-                            VerticalAlignment="Bottom"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                            materialDesign:HintAssist.Hint="Receiving Date"
-                            SelectedDate="{Binding SpecificDate, UpdateSourceTrigger=PropertyChanged}"/>
+                                VerticalAlignment="Bottom"
+                                Controls:TextBoxHelper.Watermark="Receiving Date"
+                                SelectedDate="{Binding SpecificDate, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
-                <StackPanel Visibility="{Binding VisibilityManager.PONumberCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
+                
+                <StackPanel Visibility="{Binding VisibilityManager.PONumberCriteriaVisibility}" 
+                            Orientation="Horizontal" 
+                            Margin="0,0,5,0">
                     <TextBox Width="120"
-                         materialDesign:HintAssist.Hint="PO Number"
-                         VerticalAlignment="Bottom"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding SpecificPONumber, UpdateSourceTrigger=PropertyChanged}">
+                             Controls:TextBoxHelper.Watermark="PO Number"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding SpecificPONumber, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.InputBindings>
-                            <KeyBinding Key="Return" Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
+                            <KeyBinding Key="Return" 
+                                        Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
                         </TextBox.InputBindings>
                     </TextBox>
                 </StackPanel>
-                <Button VerticalAlignment="Bottom" Margin="5 0 0 0" Content="Search" Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
+                
+                <Button VerticalAlignment="Bottom" 
+                        Margin="5 0 0 0" 
+                        Content="Search" 
+                        Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
+            
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0"
+        <GroupBox Grid.Row="1" 
+                  Grid.Column="0"
                   Margin="0 0 20 0"
-                  Header="Retreived Records"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
-            <DataGrid     AutoGenerateColumns="False"
+                  Header="Retreived Records">
+                <DataGrid AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
@@ -124,18 +133,17 @@
             </DataGrid>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="1"
-                  Header="Content Preview"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
-            <DataGrid 
-                          AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"
-                          HeadersVisibility="Column"
-                          VerticalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding SelectedPurchaseOrderReceivedBatches}"                      >
+        <GroupBox Grid.Row="1" 
+                  Grid.Column="1"
+                  Header="Content Preview">
+            <DataGrid AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserSortColumns="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      VerticalScrollBarVisibility="Visible"
+                      ItemsSource="{Binding SelectedPurchaseOrderReceivedBatches}"                      >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
@@ -145,120 +153,4 @@
         </GroupBox>
 
     </Grid>
-    <!--
-    <StackPanel Orientation="Vertical" Margin="10">
-        
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Search Criteria:" Margin="0,0,5,0"/>
-            <ComboBox Width="140" 
-                      Margin="0,0,5,0"
-                      VerticalContentAlignment="Center"
-                      SelectedIndex="{Binding SearchCriteriaSelectedIndex, UpdateSourceTrigger=PropertyChanged}">
-                <input:Interaction.Triggers>
-                    <input:EventTrigger EventName="SelectionChanged">
-                        <input:InvokeCommandAction Command="{Binding ChangeSearchCriteriaPanelVisibility}"/>
-                    </input:EventTrigger>
-                </input:Interaction.Triggers>
-                <ComboBoxItem Content="Date Range"/>
-                <ComboBoxItem Content="Date Period"/>
-                <ComboBoxItem Content="Specific Date"/>
-                <ComboBoxItem Content="PO Number"/>                
-            </ComboBox>
-            <StackPanel Visibility="{Binding VisibilityManager.DateRangeCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
-                <DatePicker Width="120" 
-                            VerticalContentAlignment="Center"
-                            SelectedDate="{Binding DateRangeStartingDate, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Content="to"/>
-                <DatePicker Width="120"
-                            VerticalContentAlignment="Center"
-                            SelectedDate="{Binding DateRangeEndingDate, UpdateSourceTrigger=PropertyChanged}"/>
-
-            </StackPanel>
-            <StackPanel Visibility="{Binding VisibilityManager.DatePeriodCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
-                <ComboBox Width="120"
-                          VerticalContentAlignment="Center"
-                          SelectedIndex="{Binding DatePeriodSelectedIndex}">
-                    <ComboBoxItem Content="Last 30 Days"/>
-                    <ComboBoxItem Content="Last 90 Days"/>
-                    <ComboBoxItem Content="Last Year"/>
-                </ComboBox>
-            </StackPanel>
-            <WrapPanel Visibility="{Binding VisibilityManager.SpecificDateCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
-                <DatePicker Width="120"
-                            Height="26"
-                            VerticalContentAlignment="Center"
-                            SelectedDate="{Binding SpecificDate, UpdateSourceTrigger=PropertyChanged}"/>
-            </WrapPanel>
-            <WrapPanel Visibility="{Binding VisibilityManager.PONumberCriteriaVisibility}" Orientation="Horizontal" Margin="0,0,5,0">
-                <TextBox Width="120"
-                         Height="26"
-                         VerticalContentAlignment="Center"
-                         Text="{Binding SpecificPONumber, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
-            </WrapPanel>
-            <Button Content="Search" Width="80" Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
-        </StackPanel>
-        
-        <Separator Width="Auto" Margin="0,8,0,8"/>
-        
-        <WrapPanel Orientation="Horizontal" Margin="0,0,5,0">
-            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
-                <Label Content="Retreived Records" FontWeight="Bold"/>
-                <DataGrid HorizontalAlignment="Left" 
-                          AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"
-                          Height="250"
-                          HeadersVisibility="Column"
-                          VerticalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding RetreivedRecordsLedger}"
-                          SelectedIndex="{Binding RetreivedRecordsLedgerSelectedIndex, Mode=TwoWay}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="PO Number" Width="80" Binding="{Binding PONumber}"/>
-                        <DataGridTextColumn Header="Receiving Date" Width="120" Binding="{Binding DisplayDate}"/>
-                        <DataGridTextColumn Header="Receiving Operator" Width="120" Binding="{Binding ReceivingOperator.FullName}"/>
-                    </DataGrid.Columns>
-                    <input:Interaction.Triggers>
-                        <input:EventTrigger EventName="SelectionChanged">
-                            <input:InvokeCommandAction Command="{Binding ListBatchesFromReceivedPurchaseOrder}"/>
-                        </input:EventTrigger>
-                        <input:EventTrigger EventName="MouseDoubleClick">
-                            <input:InvokeCommandAction Command="{Binding OpenPurchaseOrderEditorCommand}"/>
-                        </input:EventTrigger>
-                    </input:Interaction.Triggers>
-                </DataGrid>
-
-                <WrapPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Button Content="Modify Selected Record" Width="165"
-                            Command="{Binding OpenPurchaseOrderEditorCommand}"/>
-                </WrapPanel>
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                
-                <Label Content="Content Preview" FontWeight="Bold"/>
-                <DataGrid HorizontalAlignment="Left" 
-                          AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"
-                          Height="250"
-                          HeadersVisibility="Column"
-                          VerticalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding SelectedPurchaseOrderReceivedBatches}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Color" Width="100" Binding="{Binding ColorName}"/>
-                        <DataGridTextColumn Header="Batch Number" Width="100" Binding="{Binding BatchNumber}"/>
-                        <DataGridTextColumn Header="Qty" Width="40" Binding="{Binding Quantity}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-        </WrapPanel>
-    </StackPanel>
-    -->
-</Window>
+</Controls:MetroWindow>
