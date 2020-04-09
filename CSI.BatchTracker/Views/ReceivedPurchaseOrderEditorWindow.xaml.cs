@@ -1,4 +1,5 @@
 ﻿using CSI.BatchTracker.ViewModels;
+using MahApps.Metro.Controls;
 using System.Windows;
 
 namespace CSI.BatchTracker.Views
@@ -6,7 +7,7 @@ namespace CSI.BatchTracker.Views
     /// <summary>
     /// Interaction logic for ReceivedPurchaseOrderEditorWindow.xaml
     /// </summary>
-    public partial class ReceivedPurchaseOrderEditorWindow : Window
+    public partial class ReceivedPurchaseOrderEditorWindow : MetroWindow
     {
         public ReceivedPurchaseOrderEditorWindow(ReceivingHistoryViewModel viewModel)
         {

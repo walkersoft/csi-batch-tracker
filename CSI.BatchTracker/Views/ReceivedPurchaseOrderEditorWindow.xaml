@@ -1,23 +1,16 @@
-﻿<Window x:Class="CSI.BatchTracker.Views.ReceivedPurchaseOrderEditorWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:local="clr-namespace:CSI.BatchTracker.Views"
-        mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="14"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Purchase Order Editor"
-        Width="550" MinWidth="550"
-        Height="600" MinHeight="600"
-        ResizeMode="CanResize">
+﻿<Controls:MetroWindow x:Class="CSI.BatchTracker.Views.ReceivedPurchaseOrderEditorWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:input="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:local="clr-namespace:CSI.BatchTracker.Views"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      mc:Ignorable="d"
+                      Title="Purchase Order Editor"
+                      Width="550" MinWidth="550"
+                      Height="600" MinHeight="600"
+                      ResizeMode="CanResize">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -28,10 +21,10 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="0" Grid.Column="0"
+        <GroupBox Grid.Row="0" 
+                  Grid.Column="0"
                   Header="Purchase Order Header Data"
-                  Margin="0 0 0 20"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+                  Margin="0 0 0 20">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -42,50 +35,54 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Row="0" Grid.Column="0" 
+                <TextBox Grid.Row="0" 
+                         Grid.Column="0" 
                          Width="100"
                          Margin="0 0 10 0"
-                         materialDesign:HintAssist.Hint="PO Number"
+                         Controls:TextBoxHelper.Watermark="PO Number"
                          VerticalAlignment="Bottom"
                          VerticalContentAlignment="Bottom"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
+                        <KeyBinding Key="Return" 
+                                    Command="{Binding UpdatePurchaseOrderCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
 
-                <DatePicker Grid.Row="0" Grid.Column="1" Width="120" 
+                <DatePicker Grid.Row="0" 
+                            Grid.Column="1" 
+                            Width="120" 
                             Margin="0,0,10,0"
                             VerticalAlignment="Bottom"
-                            materialDesign:HintAssist.Hint="Receiving Date"
-                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            Controls:TextBoxHelper.Watermark="Receiving Date"
                             SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}">
                     <DatePicker.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
+                        <KeyBinding Key="Return" 
+                                    Command="{Binding UpdatePurchaseOrderCommand}"/>
                     </DatePicker.InputBindings>
                 </DatePicker>
 
-                <ComboBox Grid.Row="0" Grid.Column="2" 
+                <ComboBox Grid.Row="0" 
+                          Grid.Column="2" 
                           Width="170" 
-                          materialDesign:HintAssist.Hint="Receiving Operator"
+                          Controls:TextBoxHelper.Watermark="Receiving Operator"
                           VerticalAlignment="Bottom"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           ItemsSource="{Binding BatchOperatorsList, UpdateSourceTrigger=PropertyChanged}"
                           DisplayMemberPath="FullName"
                           SelectedIndex="{Binding SelectedOperatorIndex}">
                     <ComboBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
+                        <KeyBinding Key="Return" 
+                                    Command="{Binding UpdatePurchaseOrderCommand}"/>
                     </ComboBox.InputBindings>
                 </ComboBox>
 
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0"
+        <GroupBox Grid.Row="1" 
+                  Grid.Column="0"
                   Header="Line Item Detail"
-                  Margin="0 0 0 20"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+                  Margin="0 0 0 20">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -97,54 +94,59 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Row="0" Grid.Column="0" 
+                <ComboBox Grid.Row="0" 
+                          Grid.Column="0" 
                           Width="140" 
-                          materialDesign:HintAssist.Hint="Select Color"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          Controls:TextBoxHelper.Watermark="Select Color"
                           VerticalAlignment="Bottom"
                           VerticalContentAlignment="Center"
                           Margin="0,0,10,0"                          
                           ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
                           SelectedIndex="{Binding SelectedColorIndex}">
                     <ComboBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
+                        <KeyBinding Key="Return" 
+                                    Command="{Binding UpdateReceivedBatchCommand}"/>
                     </ComboBox.InputBindings>
                 </ComboBox>
 
-                <TextBox Grid.Row="0" Grid.Column="1" 
+                <TextBox Grid.Row="0" 
+                         Grid.Column="1" 
                          Width="140"
                          Margin="0 0 10 0"
-                         materialDesign:HintAssist.Hint="Batch Number"
+                         Controls:TextBoxHelper.Watermark="Batch Number"
                          VerticalContentAlignment="Bottom"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
+                        <KeyBinding Key="Return" 
+                                    Command="{Binding UpdateReceivedBatchCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
 
-                <TextBox Grid.Row="0" Grid.Column="2" 
+                <TextBox Grid.Row="0" 
+                         Grid.Column="2" 
                          Width="40"
                          Margin="0 0 10 0"
-                         materialDesign:HintAssist.Hint="Qty"
+                         Controls:TextBoxHelper.Watermark="Qty"
                          VerticalContentAlignment="Bottom"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
+                        <KeyBinding Key="Return" 
+                                    Command="{Binding UpdateReceivedBatchCommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
 
-                <Button Grid.Row="0" Grid.Column="3"
-                        VerticalAlignment="Bottom" Content="{Binding UpdateText}"
+                <Button Grid.Row="0" 
+                        Grid.Column="3"
+                        VerticalAlignment="Bottom" 
+                        Content="{Binding UpdateText}"
                         Command="{Binding UpdateReceivedBatchCommand}"/>
 
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="2" Grid.Column="0"
-                  Header="Session Ledger"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+        <GroupBox Grid.Row="2" 
+                  Grid.Column="0"
+                  Header="Session Ledger">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -154,18 +156,18 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <DataGrid
-                        Grid.Row="0" Grid.Column="0"
-                        Margin="0 0 0 10"
-                        HorizontalAlignment="Left" 
-                        AutoGenerateColumns="False"
-                        CanUserAddRows="False"
-                        CanUserReorderColumns="False"
-                        CanUserSortColumns="False"
-                        HeadersVisibility="Column"
-                        IsReadOnly="True"
-                        ItemsSource="{Binding ReceivedBatches}"
-                        SelectedIndex="{Binding ReceivedBatchesSelectedIndex, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid Grid.Row="0" 
+                          Grid.Column="0"
+                          Margin="0 0 0 10"
+                          HorizontalAlignment="Left" 
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserSortColumns="False"
+                          HeadersVisibility="Column"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding ReceivedBatches}"
+                          SelectedIndex="{Binding ReceivedBatchesSelectedIndex, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                         <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
@@ -178,143 +180,16 @@
                     </input:Interaction.Triggers>
                 </DataGrid>
 
-                <WrapPanel Grid.Row="1" Grid.Column="0">
-                    <Button 
-                        Margin="0,0,10,0" 
-                        Content="Delete Receiving Record"
-                        Command="{Binding DeleteReceivingRecordCommand}"/>
-                    <Button
-                        Content="Save Changes"
-                        Command="{Binding UpdatePurchaseOrderCommand}"/>
+                <WrapPanel Grid.Row="1" 
+                           Grid.Column="0">
+                    <Button Margin="0,0,10,0" 
+                            Content="Delete Receiving Record"
+                            Command="{Binding DeleteReceivingRecordCommand}"/>
+                    <Button Content="Save Changes"
+                            Command="{Binding UpdatePurchaseOrderCommand}"/>
                 </WrapPanel>
             </Grid>
         </GroupBox>
 
     </Grid>
-    <!--
-    <StackPanel Orientation="Vertical" Margin="10">
-
-        <Label Content="Purchase Order Header Data" FontWeight="Bold"/>
-
-        <WrapPanel Margin="0,0,0,5">
-            <StackPanel Orientation="Vertical">
-                <Label Content="PO Number"/>
-                <TextBox Width="100"
-                         Margin="0,0,5,0"
-                         Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
-            </StackPanel>
-
-            <StackPanel Orientation="Vertical">
-                <Label Content="Receiving Date"/>
-                <DatePicker Width="110" 
-                            VerticalContentAlignment="Center"
-                            Margin="0,0,5,0"
-                            SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}">
-                    <DatePicker.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
-                    </DatePicker.InputBindings>
-                </DatePicker>
-            </StackPanel>
-
-            <StackPanel>
-                <Label Content="Receiving Operator"/>
-                <ComboBox Width="150" 
-                          VerticalContentAlignment="Center"
-                          ItemsSource="{Binding BatchOperatorsList, UpdateSourceTrigger=PropertyChanged}"
-                          DisplayMemberPath="FullName"
-                          SelectedIndex="{Binding SelectedOperatorIndex}">
-                    <ComboBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdatePurchaseOrderCommand}"/>
-                    </ComboBox.InputBindings>
-                </ComboBox>
-            </StackPanel>
-
-        </WrapPanel>
-
-        <Separator Width="Auto"/>
-
-        <Label Content="Line Item Detail Data" FontWeight="Bold"/>
-
-        <WrapPanel>
-
-            <StackPanel Orientation="Vertical">
-                <Label Content="Color"/>
-                <ComboBox Width="110" 
-                          VerticalContentAlignment="Center"
-                          Margin="0,0,5,0"                          
-                          ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedIndex="{Binding SelectedColorIndex}">
-                    <ComboBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
-                    </ComboBox.InputBindings>
-                </ComboBox>
-            </StackPanel>
-
-            <StackPanel Orientation="Vertical">
-                <Label Content="Batch Number"/>
-                <TextBox Width="120"
-                         VerticalContentAlignment="Center"
-                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
-            </StackPanel>
-
-            <StackPanel>
-                <Label Content="Quantity"/>
-                <TextBox Width="40"
-                         VerticalContentAlignment="Center"
-                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding UpdateReceivedBatchCommand}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
-            </StackPanel>
-
-            <Button Width="75" Height="Auto" VerticalAlignment="Bottom" Content="{Binding UpdateText}"
-                    Command="{Binding UpdateReceivedBatchCommand}"/>
-        </WrapPanel>
-
-        <StackPanel Orientation="Vertical">
-            <Label Content="Received Items" FontWeight="Bold"/>
-            <DataGrid Width="365"
-                      Height="200"
-                      Margin="0,0,0,5"
-                      HorizontalAlignment="Left" 
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      CanUserReorderColumns="False"
-                      CanUserSortColumns="False"
-                      HeadersVisibility="Column"
-                      IsReadOnly="True"
-                      ItemsSource="{Binding ReceivedBatches}"
-                      SelectedIndex="{Binding ReceivedBatchesSelectedIndex, UpdateSourceTrigger=PropertyChanged}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
-                    <DataGridTextColumn Header="Batch Number" Width="120" Binding="{Binding BatchNumber}"/>
-                    <DataGridTextColumn Header="Qty. Received" Width="90" Binding="{Binding Quantity}"/>
-                </DataGrid.Columns>
-                <input:Interaction.Triggers>
-                    <input:EventTrigger EventName="SelectionChanged">
-                        <input:InvokeCommandAction Command="{Binding ReceivedBatchSelectionChanged}"/>
-                    </input:EventTrigger>
-                </input:Interaction.Triggers>
-            </DataGrid>
-            <WrapPanel>
-                <Button Width="175" 
-                        Margin="0,0,5,0" 
-                        Content="Delete Receiving Record"
-                        Command="{Binding DeleteReceivingRecordCommand}"/>
-                <Button Width="120" 
-                        Content="Save Changes"
-                        Command="{Binding UpdatePurchaseOrderCommand}"/>
-            </WrapPanel>
-        </StackPanel>
-    </StackPanel>
-    -->
-</Window>
+</Controls:MetroWindow>
