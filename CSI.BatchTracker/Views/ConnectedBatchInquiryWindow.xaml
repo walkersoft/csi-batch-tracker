@@ -1,8 +1,9 @@
-﻿<Window x:Class="CSI.BatchTracker.Views.ConnectedBatchInquiryWindow"
+﻿<Controls:MetroWindow x:Class="CSI.BatchTracker.Views.ConnectedBatchInquiryWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:CSI.BatchTracker.Views"
         mc:Ignorable="d"
         Title="Connected Batch Inquiry"
@@ -21,53 +22,49 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="0" Grid.Column="0"
+        <GroupBox Grid.Row="0" 
+                  Grid.Column="0"
                   Margin="0 0 0 20"
-                  Header="Inquiry Date Criteria"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+                  Header="Inquiry Date Criteria">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="1*" MinWidth="160"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                            
-                <TextBlock Grid.Row="0" Grid.Column="0" 
-                           Margin="0,0,10,0"
-                           VerticalAlignment="Center"
-                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}">
-                           Select Starting Date:
-                </TextBlock>
 
-                <DatePicker Grid.Row="0" Grid.Column="1"                             
+                <DatePicker Grid.Row="0" 
+                            Grid.Column="0"                             
                             Margin="0,0,10,0"
+                            Width="150"
                             SelectedDate="{Binding SelectedDate}"
+                            Controls:TextBoxHelper.Watermark="Select Starting Date"
                             VerticalContentAlignment="Bottom"/>
 
-                <Button Grid.Row="0" Grid.Column="2" 
+                <Button Grid.Row="0" 
+                        Grid.Column="1" 
                         Content="Show Connected Batches" 
                         Command="{Binding ShowConnectedBatchesCommand}"/>
             </Grid>
 
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0"
-                  Header="Connected Batches"
-                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+        <GroupBox Grid.Row="1" 
+                  Grid.Column="0"
+                  Header="Connected Batches">
             <DataGrid AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"
-                          Height="Auto"
-                          HeadersVisibility="Column"
-                          VerticalScrollBarVisibility="Visible"
-                          VerticalContentAlignment="Stretch"
-                          ItemsSource="{Binding ImplementedBatches}">
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserSortColumns="False"
+                      IsReadOnly="True"
+                      Height="Auto"
+                      HeadersVisibility="Column"
+                      VerticalScrollBarVisibility="Visible"
+                      VerticalContentAlignment="Stretch"
+                      ItemsSource="{Binding ImplementedBatches}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="130" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
@@ -76,4 +73,4 @@
             </DataGrid>
         </GroupBox>
     </Grid>
-</Window>
+</Controls:MetroWindow>
