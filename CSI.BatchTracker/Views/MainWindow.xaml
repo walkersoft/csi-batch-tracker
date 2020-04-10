@@ -150,12 +150,13 @@
                       Margin="0 0 0 20">
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Width="200" 
-                                Margin="0 0 10 0"
-                                VerticalAlignment="Bottom" 
-                                Controls:TextBoxHelper.Watermark="Select Batch"
-                                SelectedIndex="{Binding ImplementableBatchSelectedIndex}"
-                                ItemsSource="{Binding CurrentInventory}"
-                                DisplayMemberPath="DisplayName">
+                              Margin="0 0 10 0"
+                              VerticalAlignment="Bottom" 
+                              Controls:TextBoxHelper.Watermark="Select Batch"
+                              Style="{StaticResource MyMetroComboBox}"
+                              SelectedIndex="{Binding ImplementableBatchSelectedIndex}"
+                              ItemsSource="{Binding CurrentInventory}"
+                              DisplayMemberPath="DisplayName">
                         <ComboBox.InputBindings>
                             <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
                         </ComboBox.InputBindings>
@@ -174,6 +175,7 @@
                               Margin="0 0 10 0"
                               VerticalAlignment="Bottom"
                               Controls:TextBoxHelper.Watermark="Select Operator"
+                              Style="{StaticResource MyMetroComboBox}"
                               SelectedIndex="{Binding ImplementingBatchOperatorSelectedIndex}"
                               ItemsSource="{Binding OperatorRepository}"
                               DisplayMemberPath="FullName">
@@ -182,8 +184,8 @@
                         </ComboBox.InputBindings>
                     </ComboBox>
                     
-                    <Button VerticalAlignment="Bottom" 
-                            Content="Commit Batch"
+                    <Button Content="Commit Batch"
+                            Style="{StaticResource MyMetroButton}"
                             Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
                 </StackPanel>
             </GroupBox>
@@ -234,10 +236,12 @@
                         <Button Content="Return Selected Batch to Inventory" 
                                 HorizontalAlignment="Left" 
                                 Margin="0,0,10,0"
+                                Style="{StaticResource MyMetroButton}"
                                 Command="{Binding UndoSelectedImplementedBatchCommand}"/>
                         
                         <Button Content="View History of Selected Batch" 
                                 HorizontalAlignment="Left" 
+                                Style="{StaticResource MyMetroButton}"
                                 Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
                     </WrapPanel>
                     
