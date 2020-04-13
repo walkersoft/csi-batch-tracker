@@ -8,7 +8,7 @@
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
                       Title="Receiving History"
-                      Width="850" MinWidth="850"
+                      Width="800" MinWidth="800"
                       Height="600" MinHeight="600"
                       ResizeMode="CanResize">
     <Grid Margin="20">
@@ -32,7 +32,8 @@
                 <ComboBox Width="140" 
                           Margin="0,0,5,0"
                           VerticalContentAlignment="Center"
-                          Controls:TextBoxHelper.Watermark="Search Criteria"  
+                          Controls:TextBoxHelper.Watermark="Search Criteria"
+                          Style="{StaticResource MyMetroComboBox}"
                           SelectedIndex="{Binding SearchCriteriaSelectedIndex, UpdateSourceTrigger=PropertyChanged}">
                     <input:Interaction.Triggers>
                         <input:EventTrigger EventName="SelectionChanged">
@@ -48,11 +49,13 @@
                 <StackPanel Visibility="{Binding VisibilityManager.DateRangeCriteriaVisibility}" 
                             Orientation="Horizontal" 
                             Margin="0,0,5,0">
-                    <DatePicker Width="120" 
+                    <DatePicker Width="120"
                                 VerticalAlignment="Bottom"
                                 Controls:TextBoxHelper.Watermark="Start Date"
                                 SelectedDate="{Binding DateRangeStartingDate, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Label Content="to" Margin="10 0 10 0" VerticalAlignment="Bottom"/>
+                    <Label Content="to"
+                           Height="35"
+                           VerticalContentAlignment="Center"/>
                     <DatePicker Width="120"
                                 VerticalAlignment="Bottom"
                                 Controls:TextBoxHelper.Watermark="End Date"
@@ -66,6 +69,7 @@
                     <ComboBox Width="120"
                               VerticalAlignment="Bottom"
                               Controls:TextBoxHelper.Watermark="Select Period"
+                              Style="{StaticResource MyMetroComboBox}"
                               SelectedIndex="{Binding DatePeriodSelectedIndex}">
                         <ComboBoxItem Content="Last 30 Days"/>
                         <ComboBoxItem Content="Last 90 Days"/>
@@ -88,6 +92,7 @@
                     <TextBox Width="120"
                              Controls:TextBoxHelper.Watermark="PO Number"
                              VerticalAlignment="Bottom"
+                             Style="{StaticResource MyMetroTextBox}"
                              Text="{Binding SpecificPONumber, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.InputBindings>
                             <KeyBinding Key="Return" 
@@ -99,6 +104,7 @@
                 <Button VerticalAlignment="Bottom" 
                         Margin="5 0 0 0" 
                         Content="Search" 
+                        Style="{StaticResource MyMetroButton}"
                         Command="{Binding PopulateRetreivedRecordsLedgerFromSearchCriteria}"/>
             
             </StackPanel>
@@ -120,7 +126,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="PO Number" Width="100" Binding="{Binding PONumber}"/>
                     <DataGridTextColumn Header="Receiving Date" Width="150" Binding="{Binding DisplayDate}"/>
-                    <DataGridTextColumn Header="Receiving Operator" Width="Auto" Binding="{Binding ReceivingOperator.FullName}"/>
+                    <DataGridTextColumn Header="Receiving Operator" Width="*" Binding="{Binding ReceivingOperator.FullName}"/>
                 </DataGrid.Columns>
                 <input:Interaction.Triggers>
                     <input:EventTrigger EventName="SelectionChanged">

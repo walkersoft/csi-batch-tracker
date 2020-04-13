@@ -9,8 +9,8 @@
                       Title="Connected Batch Inquiry"
                       Width="550"
                       MinWidth="550"
-                      Height="600"
-                      MinHeight="600"
+                      Height="500"
+                      MinHeight="500"
                       ResizeMode="CanResize">
 
     <Grid Margin="15">
@@ -40,12 +40,12 @@
                             Margin="0,0,10,0"
                             Width="150"
                             SelectedDate="{Binding SelectedDate}"
-                            Controls:TextBoxHelper.Watermark="Select Starting Date"
-                            VerticalContentAlignment="Bottom"/>
+                            Controls:TextBoxHelper.Watermark="Select Starting Date"/>
 
                 <Button Grid.Row="0" 
                         Grid.Column="1" 
                         Content="Show Connected Batches" 
+                        Style="{StaticResource MyMetroButton}"
                         Command="{Binding ShowConnectedBatchesCommand}"/>
             </Grid>
 

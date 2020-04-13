@@ -7,18 +7,18 @@
                       xmlns:local="clr-namespace:CSI.BatchTracker.Views"
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
-                      Width="800"
-                      MinWidth="870"
-                      Height="700"
-                      MinHeight="700"
+                      Width="825"
+                      MinWidth="825"
+                      Height="600"
+                      MinHeight="600"
                       Title="Batch History"  
                       ResizeMode="CanResize"> 
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -36,59 +36,45 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" 
-                           Grid.Column="0" 
-                           Margin="0,0,10,0"
-                           Padding="0 8 0 0"
-                           VerticalAlignment="Center">
-                           Enter a Batch Number:
-                </TextBlock>
-
-                <TextBox Grid.Row="0" 
-                         Grid.Column="1" 
-                         MinWidth="200" 
-                         Margin="0,0,10,0"
-                         Controls:TextBoxHelper.Watermark="Batch Number"
-                         Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" 
-                                    Command="{Binding RetrieveBatchDataHistoryCommand}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
+                <StackPanel Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan ="2"
+                            Orientation="Horizontal">                    
+                    <TextBox MinWidth="175" 
+                             Margin="0,0,10,0"
+                             Controls:TextBoxHelper.Watermark="Batch Number to Lookup"
+                             Style="{StaticResource MyMetroTextBox}"
+                             Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Return" 
+                                        Command="{Binding RetrieveBatchDataHistoryCommand}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
                 
-                <Button Grid.Row="0" 
-                        Grid.Column="2" 
-                        VerticalAlignment="Bottom"
-                        Content="Show History"
-                        Command="{Binding RetrieveBatchDataHistoryCommand}"/>
+                    <Button Grid.Row="0" 
+                            Grid.Column="1" 
+                            Content="Show History"
+                            Style="{StaticResource MyMetroButton}"
+                            Command="{Binding RetrieveBatchDataHistoryCommand}"/>
 
-                <WrapPanel Grid.Row="1" 
-                           Grid.Column="0" 
-                           Grid.ColumnSpan="3"
-                           Orientation="Horizontal">
-                    <TextBlock Grid.Row="0" 
-                               Grid.Column="0" 
-                               Margin="0 20 20 10"
-                               Text="Showing data for:"/>
-                    <TextBlock Grid.Row="0" 
-                               Grid.Column="0" 
-                               Margin="0 20 20 10"
-                               MinWidth="150"
+                    <TextBlock Text="Showing data for:"
+                               VerticalAlignment="Center"
+                               Margin="30 0 0 0"/>
+                    <TextBlock MinWidth="120"
+                               VerticalAlignment="Center"
                                Text="{Binding RetrievedBatchNumber}"
-                               FontWeight="Bold"/>
-                    <TextBlock Grid.Row="0" 
-                               Grid.Column="0" 
-                               Margin="0 20 20 10"
-                               Text="Quantity in Inventory:"/>
-                    <TextBlock Grid.Row="0" 
-                               Grid.Column="0" 
-                               Margin="0 20 20 10"
-                               Text="{Binding AmountInInventory}"
-                               FontWeight="Bold"/>
-                </WrapPanel>
+                               FontWeight="Bold"
+                               Margin="10 0 0 0"/>
+                    <TextBlock Text="Quantity in Inventory:"
+                               VerticalAlignment="Center"
+                               Margin="10 0 0 0"/>
+                    <TextBlock Text="{Binding AmountInInventory}"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Margin="10 0 0 0"/>
+                </StackPanel>
             </Grid>            
         </GroupBox>
 
@@ -111,7 +97,7 @@
                     <DataGridTextColumn Header="Receiving Date" Width="180" Binding="{Binding ActivityDate}"/>
                     <DataGridTextColumn Header="Qty." Width="60" Binding="{Binding Quantity}"/>
                     <DataGridTextColumn Header="PO Number" Width="100" Binding="{Binding PONumber}"/>
-                    <DataGridTextColumn Header="Operator" Width="150" Binding="{Binding ReceivingOperator.FullName}"/>
+                    <DataGridTextColumn Header="Operator" Width="1*" Binding="{Binding ReceivingOperator.FullName}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
@@ -134,7 +120,7 @@
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="140" Binding="{Binding BatchNumber}"/>
                     <DataGridTextColumn Header="Implementation Date" Width="180" Binding="{Binding ActivityDate}"/>
-                    <DataGridTextColumn Header="Operator" Width="150" Binding="{Binding ImplementingOperator.FullName}"/>
+                    <DataGridTextColumn Header="Operator" Width="1*" Binding="{Binding ImplementingOperator.FullName}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>

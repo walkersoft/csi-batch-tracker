@@ -7,12 +7,14 @@
         <Setter Property="Height" Value="35"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     
     <Style x:Key="MyMetroComboBox" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
         <Setter Property="Height" Value="35"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     
     <Style TargetType="Controls:DateTimePicker">
@@ -21,7 +23,14 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     
-    <Style x:Key="MyMetroButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MetroButton}">
+    <Style TargetType="DatePicker" BasedOn="{StaticResource MetroDatePicker}">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    
+    <Style x:Key="MyMetroButton" TargetType="Button" BasedOn="{StaticResource MetroButton}">
         <Setter Property="Padding">
             <Setter.Value>
                 <Thickness>15 0 15 0</Thickness>

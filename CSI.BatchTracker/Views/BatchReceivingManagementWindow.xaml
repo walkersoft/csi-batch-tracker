@@ -41,8 +41,7 @@
                          Width="100"
                          Margin="0 0 10 0"
                          Controls:TextBoxHelper.Watermark="PO Number"
-                         VerticalAlignment="Bottom"
-                         VerticalContentAlignment="Bottom"
+                         Style="{StaticResource MyMetroTextBox}"
                          Text="{Binding PONumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" 
@@ -54,7 +53,6 @@
                             Grid.Column="1" 
                             Width="120" 
                             Margin="0,0,10,0"
-                            VerticalAlignment="Bottom"
                             Controls:TextBoxHelper.Watermark="Receiving Date"
                             SelectedDate="{Binding ReceivingDate, UpdateSourceTrigger=PropertyChanged}">
                     <DatePicker.InputBindings>
@@ -66,6 +64,7 @@
                           Grid.Column="2" 
                           Width="170" 
                           Controls:TextBoxHelper.Watermark="Receiving Operator"
+                          Style="{StaticResource MyMetroComboBox}"
                           ItemsSource="{Binding BatchOperatorRepository, UpdateSourceTrigger=PropertyChanged}"
                           DisplayMemberPath="FullName"
                           SelectedIndex="{Binding ReceivingOperatorComboBoxIndex}">
@@ -96,9 +95,8 @@
                 <ComboBox Grid.Row="0" Grid.Column="0" 
                           Width="140" 
                           Controls:TextBoxHelper.Watermark="Select Color"
-                          VerticalAlignment="Bottom"
-                          VerticalContentAlignment="Center"
-                          Margin="0,0,10,0"                          
+                          Margin="0,0,10,0"
+                          Style="{StaticResource MyMetroComboBox}"
                           ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
                           SelectedIndex="{Binding ColorSelectionComboBoxIndex}">
                     <ComboBox.InputBindings>
@@ -112,7 +110,7 @@
                          Width="140"
                          Margin="0 0 10 0"
                          Controls:TextBoxHelper.Watermark="Batch Number"
-                         VerticalContentAlignment="Bottom"
+                         Style="{StaticResource MyMetroTextBox}"
                          Text="{Binding BatchNumber, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" 
@@ -125,7 +123,7 @@
                          Width="40"
                          Margin="0 0 10 0"
                          Controls:TextBoxHelper.Watermark="Qty"
-                         VerticalContentAlignment="Bottom"
+                         Style="{StaticResource MyMetroTextBox}"
                          Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" 
@@ -135,7 +133,7 @@
 
                 <Button Grid.Row="0" 
                         Grid.Column="3"
-                        VerticalAlignment="Bottom" 
+                        Style="{StaticResource MyMetroButton}"
                         Content="Add Batch"
                         Command="{Binding AddBatchToSessionLedgerCommand}"/>
 
@@ -177,8 +175,10 @@
                            Grid.Column="0">
                     <Button Margin="0,0,10,0" 
                             Content="Remove Selected"
+                            Style="{StaticResource MyMetroButton}"
                             Command="{Binding RemoveSelectedItemFromSessionLedgerCommand}"/>
                     <Button Content="Commit Changes"
+                            Style="{StaticResource MyMetroButton}"
                             Command="{Binding CommitSessionLedgerToReceivingLedgerCommand}"/>
                 </WrapPanel>
             </Grid>

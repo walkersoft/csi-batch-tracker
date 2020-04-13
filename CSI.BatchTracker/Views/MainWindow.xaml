@@ -127,7 +127,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Qty. Used" Width="100" Binding="{Binding QuantityUsed}"/>
-                    <DataGridTextColumn Header="Avg. Daily Usage" Width="130" Binding="{Binding DisplayUsage}"/>
+                    <DataGridTextColumn Header="Avg. Daily Usage" Width="Auto" Binding="{Binding DisplayUsage}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
@@ -221,7 +221,7 @@
                             <DataGridTextColumn Header="Color Name" Width="150" Binding="{Binding ColorName}"/>
                             <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
                             <DataGridTextColumn Header="Date Implemented" Width="200" Binding="{Binding ActivityDate}"/>
-                            <DataGridTextColumn Header="Implementing Operator" Width="Auto" Binding="{Binding ImplementingOperator.FullName}"/>
+                            <DataGridTextColumn Header="Implementing Operator" Width="*" Binding="{Binding ImplementingOperator.FullName}"/>
                         </DataGrid.Columns>
                         <DataGrid.InputBindings>
                             <MouseBinding MouseAction="LeftDoubleClick"
