@@ -16,7 +16,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition
 
         public override void Execute()
         {
-            string query = "SELECT * FROM ReceivedBatches WHERE BatchNumber = ?";
+            string query = "SELECT * FROM ReceivedBatches WHERE BatchNumber = ? ORDER BY ReceivingDate DESC";
             List<object> parameters = new List<object> { batchNumber };
             store.ExecuteReader(typeof(ReceivedBatch), query, parameters);
             Results = store.Results;

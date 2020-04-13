@@ -19,7 +19,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition
 
         public override void Execute()
         {
-            string query = "SELECT * FROM ReceivedBatches WHERE datetime(ReceivingDate) >= datetime(?) AND datetime(ReceivingDate) <= datetime(?)";
+            string query = "SELECT * FROM ReceivedBatches WHERE datetime(ReceivingDate) >= datetime(?) AND datetime(ReceivingDate) <= datetime(?) ORDER BY ReceivingDate DESC";
 
             List<object> parameters = new List<object>
             {

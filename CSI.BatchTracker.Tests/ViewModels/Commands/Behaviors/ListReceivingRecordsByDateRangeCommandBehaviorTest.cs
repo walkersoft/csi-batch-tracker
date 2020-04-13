@@ -53,13 +53,13 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             int expectedCount = 1;
             viewModel.DateRangeStartingDate = DateTime.Today;
             viewModel.DateRangeEndingDate = viewModel.DateRangeStartingDate.AddDays(3);
-            DateTime firstItemDate = viewModel.DateRangeStartingDate.AddDays(1);
+            DateTime firstItemDate = viewModel.DateRangeStartingDate.AddDays(2);
 
             List<ReceivedBatch> batches = new List<ReceivedBatch>()
             {
                 helper.GetBatchWithSpecificDate(viewModel.DateRangeStartingDate.AddDays(-1)),
+                helper.GetBatchWithSpecificDate(viewModel.DateRangeStartingDate.AddDays(1)),
                 helper.GetBatchWithSpecificDate(firstItemDate),
-                helper.GetBatchWithSpecificDate(viewModel.DateRangeStartingDate.AddDays(2)),
                 helper.GetBatchWithSpecificDate(viewModel.DateRangeEndingDate.AddDays(1))
             };
 

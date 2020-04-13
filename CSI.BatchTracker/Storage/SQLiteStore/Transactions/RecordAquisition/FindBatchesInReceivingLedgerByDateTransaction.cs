@@ -19,7 +19,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition
         {
             DateTime start = new DateTime(date.Year, date.Month, date.Day);
             DateTime end = start.AddDays(1).AddSeconds(-1);
-            string query = "SELECT * FROM ReceivedBatches WHERE datetime(ReceivingDate) >= datetime(?) AND datetime(ReceivingDate) < datetime(?)";
+            string query = "SELECT * FROM ReceivedBatches WHERE datetime(ReceivingDate) >= datetime(?) AND datetime(ReceivingDate) < datetime(?) ORDER BY ReceivingDate DESC";
 
             List<object> parameters = new List<object>()
             {
