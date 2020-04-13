@@ -94,7 +94,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="140" Binding="{Binding BatchNumber}"/>
-                    <DataGridTextColumn Header="Receiving Date" Width="180" Binding="{Binding ActivityDate}"/>
+                    <DataGridTextColumn Header="Receiving Date" Width="180" Binding="{Binding DisplayDate}"/>
                     <DataGridTextColumn Header="Qty." Width="60" Binding="{Binding Quantity}"/>
                     <DataGridTextColumn Header="PO Number" Width="100" Binding="{Binding PONumber}"/>
                     <DataGridTextColumn Header="Operator" Width="1*" Binding="{Binding ReceivingOperator.FullName}"/>
@@ -119,7 +119,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Color Name" Width="120" Binding="{Binding ColorName}"/>
                     <DataGridTextColumn Header="Batch Number" Width="140" Binding="{Binding BatchNumber}"/>
-                    <DataGridTextColumn Header="Implementation Date" Width="180" Binding="{Binding ActivityDate}"/>
+                    <DataGridTextColumn Header="Implementation Date" Width="180" Binding="{Binding DisplayDate}"/>
                     <DataGridTextColumn Header="Operator" Width="1*" Binding="{Binding ImplementingOperator.FullName}"/>
                 </DataGrid.Columns>
             </DataGrid>

@@ -220,7 +220,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Color Name" Width="150" Binding="{Binding ColorName}"/>
                             <DataGridTextColumn Header="Batch Number" Width="150" Binding="{Binding BatchNumber}"/>
-                            <DataGridTextColumn Header="Date Implemented" Width="200" Binding="{Binding ActivityDate}"/>
+                            <DataGridTextColumn Header="Date Implemented" Width="200" Binding="{Binding DisplayDate}"/>
                             <DataGridTextColumn Header="Implementing Operator" Width="*" Binding="{Binding ImplementingOperator.FullName}"/>
                         </DataGrid.Columns>
                         <DataGrid.InputBindings>

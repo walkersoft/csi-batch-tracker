@@ -16,5 +16,10 @@ namespace CSI.BatchTracker.Domain.NativeModels
             ActivityDate = implementationDate;
             ImplementingOperator = implementationOperator;
         }
+
+        public override string DisplayDate
+        {
+            get { return ActivityDate.ToString("MMMM d, yyyy h:mm tt"); }
+        }
     }
 }

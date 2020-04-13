@@ -9,6 +9,11 @@ namespace CSI.BatchTracker.Domain.NativeModels
         public string BatchNumber { get; set; }
         public DateTime ActivityDate { get; set; }
 
+        public virtual string DisplayDate
+        {
+            get { return ActivityDate.ToString("MMMM d, yyyy"); }
+        }
+
         protected void CheckIfQuantityIsGreaterThanZero(int amount)
         {
             if (amount < 1)

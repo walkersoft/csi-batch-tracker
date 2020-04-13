@@ -42,5 +42,15 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
         {
             Assert.Throws<BatchException>(() => new LoggedBatch(colorName, "", implementationDate, implementingOperator));
         }
+
+        [Test]
+        public void DisplayDateIsFormattedCorrectly()
+        {
+            string expectedDisplayDate = "January 1, 2020 5:23 AM";
+            DateTime inputDate = new DateTime(2020, 1, 1, 5, 23, 59);
+            batch.ActivityDate = inputDate;
+
+            Assert.AreEqual(expectedDisplayDate, batch.DisplayDate);
+        }
     }
 }

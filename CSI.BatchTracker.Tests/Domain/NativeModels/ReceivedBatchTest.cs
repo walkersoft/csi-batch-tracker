@@ -62,5 +62,15 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
         {
             batch = new ReceivedBatch(colorName, batchNumber, date, qtyAvailable, 111111, receivingOperator);
         }
+
+        [Test]
+        public void DisplayDateIsFormattedCorrectly()
+        {
+            string expectedDisplayDate = "January 1, 2020";
+            DateTime inputDate = new DateTime(2020, 1, 1, 5, 23, 59);
+            batch.ActivityDate = inputDate;
+
+            Assert.AreEqual(expectedDisplayDate, batch.DisplayDate);
+        }
     }
 }
