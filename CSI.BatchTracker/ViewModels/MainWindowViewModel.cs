@@ -74,7 +74,6 @@ namespace CSI.BatchTracker.ViewModels
             UndoSelectedImplementedBatchCommand = new UndoImplementedBatchCommand(this);
             AutoBackupToggleCommand = new AutoBackupToggleCommand();
             AutoBackupToggleState = Properties.Settings.Default.AutoDatabaseBackup;
-            SetWindowTitle();
         }
 
         void InitializeBatchImplementationSettings()
@@ -261,16 +260,11 @@ namespace CSI.BatchTracker.ViewModels
         {
             ConnectedBatchInquiryViewer.ShowView();
         }
-        
+
         [ExcludeFromCodeCoverage]
-        void SetWindowTitle()
-        {
-            bool dataSourceSet = !string.IsNullOrEmpty(Properties.Settings.Default.AttachedDatabase);
-            WindowTitle = string.Format(
-                "BatchTRAX - Cedar Siding, Inc. (v{0}){1}",
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                (dataSourceSet) ? " | Data Source: " + Properties.Settings.Default.AttachedDatabase : ""
-            );
-        }
+        public string VersionNumber => "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+        [ExcludeFromCodeCoverage]
+        public string DataSourceName => Properties.Settings.Default.AttachedDatabase;
     }
 }

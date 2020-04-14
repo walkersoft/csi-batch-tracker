@@ -10,23 +10,25 @@
                       Width="1300" MinWidth="1300"
                       Height="800" MinHeight="800"
                       ResizeMode="CanResize"
-                      Title="{Binding WindowTitle}">
+                      Title="BatchTRAX - Cedar Siding, Inc.">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="63.5"/>
+            <ColumnDefinition Width="320.5"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <Menu Grid.Row="0" 
               Grid.Column="0" 
-              Grid.ColumnSpan="2" 
+              Grid.ColumnSpan="3" 
               Margin="0,0,0,5" >
-            
+
             <MenuItem Header="_Batch Management">
                 <MenuItem Header="_Receiving Session" 
                           Command="{Binding LaunchReceivingManagementSessionViewerCommand}"/>
@@ -37,12 +39,12 @@
                 <MenuItem Header="_Connected Batch Inquiry" 
                           Command="{Binding LaunchConnectedBatchInquiryViewerCommand}"/>
             </MenuItem>
-            
+
             <MenuItem Header="_People">
                 <MenuItem Header="Batch _Operator Management" 
                           Command="{Binding LaunchBatchOperatorManagementSessionViewerCommand}"/>
             </MenuItem>
-            
+
             <MenuItem Header="Data Source">
                 <MenuItem Header="Attach Database" 
                           Click="AttachDatabase"/>
@@ -55,13 +57,13 @@
                               IsChecked="{Binding AutoBackupToggleState}"/>
                 </MenuItem>
             </MenuItem>
-            
+
         </Menu>
 
         <GroupBox Grid.Row="1" 
                   Grid.Column="0"
                   Header="Current Inventory"
-                  Margin="20 0 0 20">
+                  Margin="20 0 0 20" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -94,7 +96,7 @@
                                             Binding="{Binding Quantity}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                
+
                 <WrapPanel Grid.Row="1" 
                            Grid.Column="0" 
                            Orientation="Horizontal">
@@ -114,7 +116,7 @@
         <GroupBox Grid.Row="2" 
                   Grid.Column="0"
                   Header="Average Usage (30 Day Average)"
-                  Margin="20 0 0 20">
+                  Margin="20 0 0 20" Grid.ColumnSpan="2">
             <DataGrid AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
@@ -133,7 +135,7 @@
         </GroupBox>
 
         <Grid Grid.Row="1" 
-              Grid.Column="1" 
+              Grid.Column="2" 
               Grid.RowSpan="2" 
               Margin="20 0 20 0">
             <Grid.RowDefinitions>
@@ -161,7 +163,7 @@
                             <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
                         </ComboBox.InputBindings>
                     </ComboBox>
-                    
+
                     <Controls:DateTimePicker Width="200"
                                              Margin="0 0 10 0"
                                              Controls:TextBoxHelper.Watermark="Implement Date &amp; Time"
@@ -170,7 +172,7 @@
                             <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
                         </Controls:DateTimePicker.InputBindings>
                     </Controls:DateTimePicker>
-                    
+
                     <ComboBox Width="200"
                               Margin="0 0 10 0"
                               VerticalAlignment="Bottom"
@@ -183,7 +185,7 @@
                             <KeyBinding Key="Return" Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
                         </ComboBox.InputBindings>
                     </ComboBox>
-                    
+
                     <Button Content="Commit Batch"
                             Style="{StaticResource MyMetroButton}"
                             Command="{Binding CommitInventoryBatchToImplementationLedgerCommand}"/>
@@ -228,26 +230,35 @@
                                           Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
                         </DataGrid.InputBindings>
                     </DataGrid>
-                    
+
                     <WrapPanel Grid.Row="1" 
                                Grid.Column="0" 
                                Orientation="Horizontal">
-                        
+
                         <Button Content="Return Selected Batch to Inventory" 
                                 HorizontalAlignment="Left" 
                                 Margin="0,0,10,0"
                                 Style="{StaticResource MyMetroButton}"
                                 Command="{Binding UndoSelectedImplementedBatchCommand}"/>
-                        
+
                         <Button Content="View History of Selected Batch" 
                                 HorizontalAlignment="Left" 
                                 Style="{StaticResource MyMetroButton}"
                                 Command="{Binding LaunchBatchHistoryViewerWithBatchNumberCommand}"/>
                     </WrapPanel>
-                    
+
                 </Grid>
             </GroupBox>
 
         </Grid>
-    </Grid>    
+
+        <StatusBar Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3">
+            <StatusBarItem>BatchTrax</StatusBarItem>
+            <StatusBarItem Content="{Binding VersionNumber}"/>
+            <StatusBarItem>| DataSource:</StatusBarItem>
+            <StatusBarItem Content="{Binding DataSourceName}"/>
+        </StatusBar>
+    </Grid>
 </Controls:MetroWindow>
