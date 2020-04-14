@@ -8,7 +8,7 @@
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
                       Width="1300" MinWidth="1300"
-                      Height="900" MinHeight="900"
+                      Height="800" MinHeight="800"
                       ResizeMode="CanResize"
                       Title="{Binding WindowTitle}">
     <Grid>
