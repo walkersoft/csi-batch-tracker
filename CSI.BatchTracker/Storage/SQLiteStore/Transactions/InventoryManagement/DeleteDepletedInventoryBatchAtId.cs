@@ -22,7 +22,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
                 string query = "DELETE FROM InventoryBatches WHERE SystemId = ?";
                 List<object> parameters = new List<object> { entity.SystemId };
                 store.ExecuteNonQuery(query, parameters);
-            }            
+            }
         }
 
         bool BatchExistsInInventoryAndIsDepleted()

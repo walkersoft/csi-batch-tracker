@@ -149,7 +149,7 @@ namespace CSI.BatchTracker
             receivedBatchSource = new SQLiteReceivedBatchSource(sqliteStore, inventorySource);
             implementedBatchSource = new SQLiteImplementedBatchSource(sqliteStore, inventorySource);
 
-            mainWindowViewModel =  new MainWindowViewModel(inventorySource, receivedBatchSource, implementedBatchSource, operatorSource);
+            mainWindowViewModel = new MainWindowViewModel(inventorySource, receivedBatchSource, implementedBatchSource, operatorSource);
         }
 
         void SetupMainWindowViewModelViewers()

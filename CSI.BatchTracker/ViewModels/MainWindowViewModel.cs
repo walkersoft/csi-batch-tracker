@@ -129,7 +129,7 @@ namespace CSI.BatchTracker.ViewModels
             List<AverageBatch> averages = new List<AverageBatch>();
 
             if (ImplementedBatchLedger.Count > 0)
-            {                
+            {
                 TimeSpan timeSpan = ImplementedBatchLedger[ImplementedBatchLedger.Count - 1].ActivityDate.Subtract(ImplementedBatchLedger[0].ActivityDate);
 
                 foreach (string color in colors)

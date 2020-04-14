@@ -62,7 +62,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         Results = ProcessReaderResults(reader, nativeModelType);
-                    }                        
+                    }
                 }
 
                 connection.Close();
@@ -151,7 +151,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
                 while (reader.Read())
                 {
                     int batchOperatorId = reader.GetInt32(6);
-                    
+
                     ReceivedBatch receivedBatch = new ReceivedBatch(
                         reader.GetString(1),
                         reader.GetString(2),

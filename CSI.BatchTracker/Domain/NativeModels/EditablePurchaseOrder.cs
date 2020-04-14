@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Domain.NativeModels
         Dictionary<int, int> batchSystemIdMappings;
 
         public EditablePurchaseOrder(
-            ObservableCollection<ReceivedBatch> receivedBatches, 
+            ObservableCollection<ReceivedBatch> receivedBatches,
             Dictionary<int, int> batchSystemIdMappings
         )
         {

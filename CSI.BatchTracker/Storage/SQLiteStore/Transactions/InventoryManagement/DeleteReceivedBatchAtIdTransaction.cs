@@ -16,7 +16,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
             this.store = store;
             this.targetId = targetId;
         }
-        
+
         public override void Execute()
         {
             DeductBatchQuantityFromInventory();
@@ -49,7 +49,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.InventoryManagement
                         break;
                     }
                 }
-            }            
+            }
         }
     }
 }

@@ -52,7 +52,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             viewModel.RetreivedRecordsLedgerSelectedIndex = 0;
 
             command.Execute(null);
-            
+
             Assert.AreEqual(expectedLedgerCount, viewModel.RetreivedRecordsLedger.Count);
             Assert.AreEqual(expectedPreviewCount, viewModel.SelectedPurchaseOrderReceivedBatches.Count);
         }

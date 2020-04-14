@@ -23,7 +23,7 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
 
         [Test]
         public void LoggedBatchIsSetupCorrectly()
-        {      
+        {
 
             Assert.AreEqual(colorName, batch.ColorName);
             Assert.AreEqual(batchNumber, batch.BatchNumber);

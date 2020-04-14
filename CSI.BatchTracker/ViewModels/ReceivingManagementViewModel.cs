@@ -71,7 +71,7 @@ namespace CSI.BatchTracker.ViewModels
             get { return quantityAsString; }
             set
             {
-                if(int.TryParse(value, out quantity))
+                if (int.TryParse(value, out quantity))
                 {
                     ReceivedBatch.Quantity = quantity;
                 }
@@ -123,8 +123,8 @@ namespace CSI.BatchTracker.ViewModels
         }
 
         public ReceivingManagementViewModel(
-            IBatchNumberValidator validator, 
-            IColorList colorList, 
+            IBatchNumberValidator validator,
+            IColorList colorList,
             IReceivedBatchSource receivingSource,
             IBatchOperatorSource operatorSource,
             IActiveInventorySource inventorySource)
@@ -205,7 +205,7 @@ namespace CSI.BatchTracker.ViewModels
 
                 SessionLedger.Add(batch);
                 ResetLineItemData();
-            }            
+            }
         }
 
         void ResetLineItemData()

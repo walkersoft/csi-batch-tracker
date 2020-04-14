@@ -14,6 +14,6 @@ namespace CSI.BatchTracker.Views
         public override void ResetWindow()
         {
             window = new BatchReceivingManagementWindow(viewModel);
-        }        
+        }
     }
 }

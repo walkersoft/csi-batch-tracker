@@ -32,7 +32,7 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             ReceivedBatchRepository.Clear();
 
             for (int i = 0; i < finder.Results.Count; i++)
-            { 
+            {
                 Entity<ReceivedBatch> entity = finder.Results[i] as Entity<ReceivedBatch>;
                 ReceivedBatchRepository.Add(entity.NativeModel);
             }
@@ -326,7 +326,7 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             foreach (IEntity result in finder.Results)
             {
                 Entity<InventoryBatch> entity = result as Entity<InventoryBatch>;
-                
+
                 if (entity.NativeModel.BatchNumber == batchNumber)
                 {
                     return false;

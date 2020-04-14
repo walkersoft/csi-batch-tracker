@@ -79,7 +79,7 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
         {
             ITransaction finder = new FindBatchInImplementedLedgerTransaction(targetId, sqliteStore);
             finder.Execute();
-            
+
             if (finder.Results.Count > 0)
             {
                 Entity<LoggedBatch> entity = finder.Results[0] as Entity<LoggedBatch>;

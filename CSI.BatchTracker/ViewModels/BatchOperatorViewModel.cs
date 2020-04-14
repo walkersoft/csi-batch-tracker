@@ -139,7 +139,7 @@ namespace CSI.BatchTracker.ViewModels
                 UpdateActiveBatchOperator(operatorSource.FindBatchOperator(targetId));
             }
             else
-            { 
+            {
                 ResetBatchOperator();
             }
         }

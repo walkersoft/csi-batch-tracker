@@ -59,7 +59,7 @@ namespace CSI.BatchTracker.Domain.DataSource.SQLiteStore
             ITransaction finder = new ListCurrentInventoryTransaction(sqliteStore);
             finder.Execute();
 
-            foreach(IEntity result in finder.Results)
+            foreach (IEntity result in finder.Results)
             {
                 Entity<InventoryBatch> entity = result as Entity<InventoryBatch>;
 

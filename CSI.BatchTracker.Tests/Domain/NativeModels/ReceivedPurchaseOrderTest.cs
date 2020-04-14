@@ -35,8 +35,8 @@ namespace CSI.BatchTracker.Tests.Domain.NativeModels
             };
 
             ReceivedPurchaseOrder receivedPO = new ReceivedPurchaseOrder(
-                expectedPONumber, 
-                expectedActivityDate, 
+                expectedPONumber,
+                expectedActivityDate,
                 expectedBatchOperator,
                 receivedBatches
             );

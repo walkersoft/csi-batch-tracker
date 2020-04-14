@@ -76,7 +76,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore
                     {
                         command.ExecuteNonQuery();
                     }
-                }                    
+                }
 
                 connection.Close();
             }

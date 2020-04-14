@@ -30,7 +30,7 @@ namespace CSI.BatchTracker.ViewModels
         public IView PurchaseOrderEditorViewer { get; set; }
 
         public ICommand ListBatchesFromReceivedPurchaseOrder { get; private set; }
-        public ICommand ChangeSearchCriteriaPanelVisibility { get; private set;}
+        public ICommand ChangeSearchCriteriaPanelVisibility { get; private set; }
         public ICommand PopulateRetreivedRecordsLedgerFromSearchCriteria { get; private set; }
         public ICommand OpenPurchaseOrderEditorCommand { get; private set; }
 
@@ -249,8 +249,8 @@ namespace CSI.BatchTracker.ViewModels
                 else
                 {
                     ReceivedPurchaseOrder receivedPO = new ReceivedPurchaseOrder(
-                        batch.PONumber, 
-                        batch.ActivityDate, 
+                        batch.PONumber,
+                        batch.ActivityDate,
                         batch.ReceivingOperator
                     );
 

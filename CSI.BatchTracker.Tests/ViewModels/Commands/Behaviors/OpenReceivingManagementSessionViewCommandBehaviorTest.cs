@@ -14,7 +14,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 
         [Test]
         public void CommandWillNotExecuteIfViewIsNotSet()
-        { 
+        {
             Assert.False(command.CanExecute(null));
         }
 

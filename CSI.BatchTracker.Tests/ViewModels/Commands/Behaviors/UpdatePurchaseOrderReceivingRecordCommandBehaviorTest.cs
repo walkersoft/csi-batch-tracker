@@ -61,7 +61,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             viewModel.ReceivedBatchesSelectedIndex = 0;
             viewModel.Quantity = "2";
 
-            Assert.False(command.CanExecute(null));            
+            Assert.False(command.CanExecute(null));
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             viewModel.ReceivedBatchesSelectedIndex = 0;
             viewModel.Quantity = "3";
 
-            Assert.True(command.CanExecute(null));            
+            Assert.True(command.CanExecute(null));
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
             viewModel.ReceivedBatchesSelectedIndex = 0;
             viewModel.Quantity = "6";
 
-            Assert.True(command.CanExecute(null));            
+            Assert.True(command.CanExecute(null));
         }
 
         [Test]

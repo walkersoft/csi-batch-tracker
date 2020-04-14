@@ -21,7 +21,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition
         {
             List<string> colors = new List<string> { "White", "Black", "Yellow", "Red", "Blue Red", "Deep Green", "Deep Blue", "Bright Red", "Bright Yellow" };
             string query = "SELECT * FROM ImplementedBatches WHERE ColorName = ? AND datetime(ImplementationDate) <= datetime(?) ORDER BY ImplementationDate DESC LIMIT 3";
-            
+
             foreach (string color in colors)
             {
                 List<object> parameters = new List<object>() { color, calibratedDate.FormatForDatabase() };
@@ -31,7 +31,7 @@ namespace CSI.BatchTracker.Storage.SQLiteStore.Transactions.RecordAquisition
         }
 
         void FilterUniqueBatches(List<IEntity> results)
-        {            
+        {
             string lastBatchNumber = string.Empty;
             DateTime lastDate = calibratedDate;
 

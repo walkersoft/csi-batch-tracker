@@ -10,7 +10,7 @@ using System.Windows.Input;
 namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 {
     [TestFixture]
-    abstract class ImplementationInquiryViewModelTestingBase 
+    abstract class ImplementationInquiryViewModelTestingBase
     {
         protected ICommand command;
         protected IBatchOperatorSource operatorSource;

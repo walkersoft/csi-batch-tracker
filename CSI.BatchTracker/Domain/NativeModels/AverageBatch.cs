@@ -8,7 +8,7 @@
 
         public float AverageUsage
         {
-            get { return (float)QuantityUsed / (float)ProductionDays; }
+            get { return QuantityUsed / (float)ProductionDays; }
         }
 
         public string DisplayUsage

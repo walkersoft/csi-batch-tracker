@@ -32,7 +32,7 @@ namespace CSI.BatchTracker.Tests.ViewModels.Commands.Behaviors
 
             Assert.False(command.CanExecute(null));
         }
-        
+
         [Test]
         public void CommandWillExecuteIfSelectedBatchForDeletionHasBeenImplementedButHasAvailableQuantityInInventory()
         {
