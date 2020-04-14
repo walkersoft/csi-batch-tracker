@@ -104,7 +104,6 @@
         
         <GroupBox Grid.Row="2" 
                   Grid.Column="0"
-                  Margin="0 0 0 20"
                   Header="Implementation History">
             <DataGrid CanUserAddRows="False"
                       CanUserReorderColumns="False"

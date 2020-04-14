@@ -4,27 +4,27 @@
                     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls">
     
     <Style x:Key="MyMetroTextBox" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
-        <Setter Property="Height" Value="35"/>
+        <Setter Property="Height" Value="38"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     
     <Style x:Key="MyMetroComboBox" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
-        <Setter Property="Height" Value="35"/>
+        <Setter Property="Height" Value="38"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     
     <Style TargetType="Controls:DateTimePicker">
-        <Setter Property="Height" Value="35"/>
+        <Setter Property="Height" Value="38"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     
     <Style TargetType="DatePicker" BasedOn="{StaticResource MetroDatePicker}">
-        <Setter Property="Height" Value="35"/>
+        <Setter Property="Height" Value="38"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -42,7 +42,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Height" Value="35"/>
+        <Setter Property="Height" Value="38"/>
         <Setter Property="Background" Value="#FFFFD290"/>
     </Style>
 </ResourceDictionary>
