@@ -3,14 +3,14 @@
                     xmlns:local="clr-namespace:CSI.BatchTracker.Views"
                     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls">
     
-    <Style x:Key="MyMetroTextBox" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
+    <Style x:Key="MyMetroTextBox" TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
         <Setter Property="Height" Value="38"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     
-    <Style x:Key="MyMetroComboBox" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
+    <Style x:Key="MyMetroComboBox" TargetType="ComboBox" BasedOn="{StaticResource MahApps.Styles.ComboBox}">
         <Setter Property="Height" Value="38"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -23,14 +23,14 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     
-    <Style TargetType="DatePicker" BasedOn="{StaticResource MetroDatePicker}">
+    <Style TargetType="DatePicker" BasedOn="{StaticResource MahApps.Styles.DatePicker}">
         <Setter Property="Height" Value="38"/>
         <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     
-    <Style x:Key="MyMetroButton" TargetType="Button" BasedOn="{StaticResource MetroButton}">
+    <Style x:Key="MyMetroButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
         <Setter Property="Padding">
             <Setter.Value>
                 <Thickness>15 0 15 0</Thickness>
