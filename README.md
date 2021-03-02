@@ -38,3 +38,7 @@ most recent record in the implementation ledger
 - Local SQLite database
 - Easy backup of existing database and creation of clean database
 - Automatic and manual database backups
+
+### Other
+- Contains installer project to build a software installer (removing
+previous versions in the process) on other PC's.
