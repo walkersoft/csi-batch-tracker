@@ -18,11 +18,17 @@ in warranty claims with the coating manufacturer.
 ## Features
 
 ### Inventory & Personnel Management
+- Create personnel (operators) to assign to receiving and 
+implementation records
 - Receive PO's with paint color, quantities, and batch numbers
 - Log used batches in an implementation ledger
-- Tag operators to receiving and implementation records
-- Automated reconciliation of used batches vs. logged batches
-ensures consistency
+- Automatic merging of batches with the same batch number
+- Live updating of on-hand inventory
+- Reconciliation and error-checking process to ensure receiving
+and implementation ledgers are consistent after a PO receive/edit
+session
+- Tracking of avialable inventory to ensure a batch is not 
+implemented more than it has been received
 
 ### History & Metrics
 - Garner a variety of historical data including:
@@ -31,7 +37,6 @@ ensures consistency
   - PO's in set timeframes or specific date ranges
 - See average vessel usage in a 30-day period from
 most recent record in the implementation ledger
-- See on-hand batches and quantities
 - Show all batches connected to dispensing system on a given date
 
 ### Storage
