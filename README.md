@@ -67,13 +67,13 @@ Receiving and editing of batches are done from this window.
 
 ### Receiving History
 
-Find previous PO's for information purposes or editing.
+Find previous PO's for informational purposes or editing.
 
 ![Receiving History](../media/receiving_history.png?raw=true)
 
 ### Batch History
 
-Get all history on a specific batch.  From the date(s) it was added to the date(s) it was used.
+Get all history on a specific batch - from the date it was added to the date it was used.
 
 ![Batch History](../media/batch_history.png?raw=true)
 
