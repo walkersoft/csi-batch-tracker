@@ -47,3 +47,39 @@ most recent record in the implementation ledger
 ### Other
 - Contains installer project to build a software installer (removing
 previous versions in the process) on other PC's.
+
+## Screenshots
+
+Below are a handful of the more used windows that provide functionality to the user.
+
+### Main Window/Dashboard
+
+The primary dashboard of the application. Inventory information is at the ready and batches can
+be quickly added to the implementation ledger.  
+
+![Main Window](../media/main_window.png?raw=true)
+
+### PO Editor
+
+Receiving and editing of batches are done from this window.
+
+![PO Editor](../media/po_editor.png?raw=true)
+
+### Receiving History
+
+Find previous PO's for information purposes or editing.
+
+![Receiving History](../media/receiving_history.png?raw=true)
+
+### Batch History
+
+Get all history on a specific batch.  From the date(s) it was added to the date(s) it was used.
+
+![Batch History](../media/batch_history.png?raw=true)
+
+### Connected History
+
+Batches are used and connected as needed. The connected history window shows which batch was 
+connected to the dispensing system, for all colors, on a given date.
+
+![Connected History](../media/connected_batches.png?raw=true)
